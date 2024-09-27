@@ -14,6 +14,7 @@ This project aims to predict whether a client will subscribe to a term deposit b
 
 
 ## Git repository structure
+```plaintext
 .
 ├── LICENSE                 ## License information
 ├── README.md               ## Overview of the project, how to use, and dataset details
@@ -26,8 +27,7 @@ This project aims to predict whether a client will subscribe to a term deposit b
 │   ├── raw                 ## Raw dataset, e.g., bank-additional-full.csv
 │   ├── processed           ## Processed data, train/test splits
 ├── logs                    ## Store log files during execution
-    └── training.log        ## Log details for model training
-How to create this
+│   └── training.log        ## Log details for model training
 ├── notebooks               ## Jupyter notebooks for exploratory data analysis (EDA)
 │   ├── 01_EDA.ipynb        ## Exploratory Data Analysis notebook
 ├── pipeline                ## Pipeline scripts for orchestrating the workflow
@@ -50,24 +50,18 @@ How to create this
 ├── docker-compose.yaml     ## Docker Compose for multi-container setups
 └── requirements.txt        ## List of dependencies (Python libraries)
 
-## How to Run
+## How to Clone
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Saitej0211/bank_marketing_prediction
    ```
 2. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
-3. **Run the pipeline**:
-   Execute the entire pipeline using:
-   ```bash
-   python pipeline/main.py
-   ```
 
 ## Dataset
 The dataset includes 45,211 instances and 16 features, covering multiple direct marketing campaigns. The goal is to classify whether a client will subscribe to a term deposit after receiving a phone call.
 
----
-
-This brief README gives an overview of the project structure, how to get started, and key details about the dataset. You can expand it further as needed, for example, by adding a detailed description of the data processing steps or the evaluation metrics used.
+Dataset Link:
+https://archive.ics.uci.edu/dataset/222/bank+marketing
