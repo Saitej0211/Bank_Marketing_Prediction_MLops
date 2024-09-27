@@ -52,7 +52,7 @@ This project aims to predict whether a client will subscribe to a term deposit b
 ## How to Clone
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Saitej0211/bank_marketing_prediction
+   git clone https://github.com/Saitej0211/Bank_Marketing_Prediction_MLops
    ```
 2. **Install dependencies**:
    ```bash
