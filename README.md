@@ -43,8 +43,6 @@ This project aims to predict whether a client will subscribe to a term deposit b
 │   ├── utils               ## Utility functions used throughout the project
 │   │   ├── __init__.py
 ├── tests                   ## Unit tests for various modules
-│   ├── test_preprocessing.py
-│   ├── test_model.py
 │   └── test_utils.py
 ├── Dockerfile              ## Docker container setup
 ├── docker-compose.yaml     ## Docker Compose for multi-container setups
