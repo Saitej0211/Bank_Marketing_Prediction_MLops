@@ -49,6 +49,7 @@ This project aims to predict whether a client will subscribe to a term deposit b
 ├── Dockerfile              ## Docker container setup
 ├── docker-compose.yaml     ## Docker Compose for multi-container setups
 └── requirements.txt        ## List of dependencies (Python libraries)
+```
 
 ## How to Clone
 1. **Clone the repository**:
