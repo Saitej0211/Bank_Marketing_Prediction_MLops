@@ -18,7 +18,6 @@ from src.LoadData import load_data_from_gcp
 PROJECT_DIR = os.getcwd()
 data_dir = PROJECT_DIR
 bucket_name = "mlopsprojectdatabucketgrp6"
-KEY_PATH = os.path.join(PROJECT_DIR, "config", "key.json")
 
 # Enable xcom pickling to allow passage of tasks from one task to another.
 
@@ -51,8 +50,7 @@ download_and_pickle_task = PythonOperator(
     python_callable= load_data_from_gcp,
     op_kwargs={
         'data_dir':data_dir,
-        'bucket_name': bucket_name,
-        'KEY_PATH': KEY_PATH
+        'bucket_name': bucket_name
     },
     dag=dag,
 )

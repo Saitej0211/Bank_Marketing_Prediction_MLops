@@ -10,9 +10,6 @@ def load_data_from_gcp(**kwargs):
         logging.info("Project directory fetched succesfully")
         data_dir = kwargs['data_dir']
         bucket_name = kwargs['bucket_name']
-        KEY_PATH = kwargs['KEY_PATH']
-
-        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = KEY_PATH
 
         destination_dir = os.path.join(PROJECT_DIR, "dags", "processed", "Fetched")
 
