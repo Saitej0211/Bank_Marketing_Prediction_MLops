@@ -2,12 +2,23 @@
         AIRFLOW DAG FILE
 """
 
+#import all libraries
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow import configuration as conf
 from airflow.operators.python import PythonOperator
 from airflow.operators.email import EmailOperator
 from airflow.operators.bash import BashOperator
+import os
+
+#import all the functions that we had created in the src folder
+from src.LoadData import load_data_from_gcp
+
+#Define the paths to project directory and the path to the key
+PROJECT_DIR = os.getcwd()
+data_dir = PROJECT_DIR
+bucket_name = "mlopsprojectdatabucketgrp6"
+KEY_PATH = os.path.join(PROJECT_DIR, "config", "key.json")
 
 # Enable xcom pickling to allow passage of tasks from one task to another.
 
@@ -35,3 +46,13 @@ dag = DAG(
 )
 
 #define the tasks that depend on the dunctions created in the src folder
+download_and_pickle_task = PythonOperator(
+    task_id='download_and_pickle_latest_file',
+    python_callable= load_data_from_gcp,
+    op_kwargs={
+        'data_dir':data_dir,
+        'bucket_name': bucket_name,
+        'KEY_PATH': KEY_PATH
+    },
+    dag=dag,
+)

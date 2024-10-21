@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "iconic-vine-438222-u6",
+  "private_key_id": "5ee7e0474fa6496cc8edcc169d94a679f0a43338",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCje7eWpiQTISxp\n2s8Rt0KzQAahCdHCAHUJllBipjsTBehqt/15PmzXIJTifDLnDqLUGdEIczTY3qC5\niILaMPx0Uauz478SAPrUrtoA9JwIhamAcMUBsJV9EtRpXn5yIqvixj405kSFQDlC\nH64tB8l3eZCYHAlfeWAdnyi5D3fXLrYlRVebpR+oI0iEg2v79L9miGj5lon30HDu\nAdZc0gf8JmRLClcquzBFaVeyjWN67y0yjWg5X8SqsOeiobEFvYKRvE4WALQAzlID\nq55BTprw9q0CLKMuVAMciIKgicxI92voC+iLr9tv2DS8JU2u3C2b/5gqX71xHJhY\n6JwF10HhAgMBAAECggEAGkpHI/kJfHFiw452VfUrIElaZ45ShvNs3thR4Ai3H6Ay\nbUBeXko9gDuomw15tXJDRCmiAHe1FsUigq5Ny18s/LBflOO58oq+y5y8ySziZMpz\nOjOoXX+zYomN0s4T4TCV2gz4Vv3Kz2+cZaJTmmvnUwkfyXOvcYTtgdtPq1xYm31m\njChjrIepRHVq6ImxxyJNNI7QS1JVAIcwpG87AapAEBdhGW3R6dj1aGXgwFEeA7DZ\nGie8cbK/xIwi4H8Ax4B2ohGXE+YF3aOSVXMfCn6w0LdPsSxh2vM8iPioa7BSBsH7\ngrpMVCcvXnJr8nkcBJtsMQWWk13xmZHJivBwS7lr4wKBgQDUYzPrNDhN3nnZGX09\nIqgI+ADY/DgyMuAh9qSnBGKhMGzrJi361QkyFTDed04+XJsojecUTnFYpUd62YgQ\nUQoidmsXL1KWGx3NSwaMDJckYmcGe55g4P0MwNG8uZFBMy7PVlwgdW0SIUQBxeED\ndTzB7Nx31OHZ7/vrg+W7yikq/wKBgQDFDba6NkT78+9JDGow2lebUKPKm21B4g7j\n0YsAhCXChBTfh0ViQe0Rpf5VxVk7nbGkZ5ysjPvVyUeDbt5R+xFmati03O3eVFqT\naIc7DB0fcRsj2RSRVbatxg5zoWjcVZs26r9vctjlZ1PntHeFxYtvQIpfxO91gVhO\nLeLRr/XzHwKBgQC2PFyrH0aEgjWY84cDcv4tm+bWSCxL3l10pvYGnPuoBS4f4sWn\nKS5Xu9kPudz4I2u6s2+oe9pDzqVzor1eCrsgcO1YmnFJfQDoSszWVGNHg+uUo3N0\n+vgF/li4j500DZ/HpfksnLU2zjZVMx3sYqb8WqmdZJtZ7dIB9k2kAUWrrwKBgAWk\nAtsJuqfLr8nThSao2WEkyct+7323Tt3OncACCGKtDTvoz1+kq3iZ29HwuEEwnmkq\nXh3CW2MfQ+DLR6npGfJolJN4z4ZRu9YEY/qYuiywPCqmiCQw4+3NgZRlxm6oNK05\nwwkZrIPElW5IiDNYGEmy+0MKjCA8954lShzegJfZAoGBAJ+wfwEIUsLSsBTbgIvT\n20uUrcRKgnClCywg7ultnf0lSP1f3e7TNhEBMfG59lJzLHZEbVzHxGfCs79LUhNh\nyv+RmKOy+6HJjfqUQd0bi3AiBdjn+5Z2lEoWyvDHEEDINVhBq9tHOLvVoNKfXbzc\n2uvoyGYzlWq1ZwSCsjoq5nsb\n-----END PRIVATE KEY-----\n",
+  "client_email": "dvclab@iconic-vine-438222-u6.iam.gserviceaccount.com",
+  "client_id": "115233272817195101165",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dvclab%40iconic-vine-438222-u6.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
