@@ -39,7 +39,7 @@ def load_data(pickled_file_path = PICKLE_FILE_PATH):
             
             logging.info("Data saved as CSV to the output file path folder")
         
-        return True
+        return OUTPUT_FILE_PATH
     
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
