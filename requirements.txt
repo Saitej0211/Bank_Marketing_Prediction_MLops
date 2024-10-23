@@ -5,3 +5,11 @@ scikit-learn
 scipy
 pandas
 numpy
+os
+json
+logging
+pickle
+google.cloud
+google.auth.exceptions
+io
+pandas
