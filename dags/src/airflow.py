@@ -1,5 +1,5 @@
 """"
-        AIRFLOW DAG FILE
+        AIRFLOW DAG FILE FOR DATA PREPROCESSING
 """
 
 #import all libraries
@@ -12,15 +12,16 @@ from airflow.operators.bash import BashOperator
 import os
 
 #import all the functions that we had created in the src folder
-from src.LoadData import load_data_from_gcp
+from src.DownloadData import download_data_from_gcp
+from src.LoadData import load_data
 
 #Define the paths to project directory and the path to the key
 PROJECT_DIR = os.getcwd()
-data_dir = PROJECT_DIR
-bucket_name = "mlopsprojectdatabucketgrp6"
+
+#BUCKET NAME
+BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 
 # Enable xcom pickling to allow passage of tasks from one task to another.
-
 conf.set('core', 'enable_xcom_pickling', 'True')
 
 # Set default arguments
@@ -34,8 +35,7 @@ default_args = {
 }
 
 
-#initialize the dag
-
+#INITIALIZE THE DAG INSTANCE
 dag = DAG(
     'DataPipeline',
     default_args = default_args,
@@ -44,13 +44,29 @@ dag = DAG(
     catchup = False,
 )
 
-#define the tasks that depend on the dunctions created in the src folder
-download_and_pickle_task = PythonOperator(
-    task_id='download_and_pickle_latest_file',
-    python_callable= load_data_from_gcp,
+#DEFINE TASKS THAT FORM THE COMPONENTS OF THE DAG
+
+#DEFINE A FUNCTION TO DOWNLOAD THE DATA FROM GCP
+download_task = PythonOperator(
+    task_id='download_data_from_gcp',
+    python_callable=download_data_from_gcp,
+    op_kwargs={'bucket_name': 'mlopsprojectdatabucketgrp6'},
+    dag=dag,
+)
+
+load_task = PythonOperator(
+    task_id='load_data',
+    python_callable=load_data,
     op_kwargs={
-        'data_dir':data_dir,
-        'bucket_name': bucket_name
+        'pickled_file_path': '{{ ti.xcom_pull(task_ids="download_data_from_gcp") }}',
     },
     dag=dag,
 )
+
+
+# ADD NEW TASKS HERE
+download_task >> load_task
+
+
+if __name__ == "__main__":
+    dag.cli()

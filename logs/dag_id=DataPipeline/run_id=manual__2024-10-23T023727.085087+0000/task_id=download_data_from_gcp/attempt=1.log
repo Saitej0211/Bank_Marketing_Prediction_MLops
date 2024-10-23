@@ -1,0 +1,23 @@
+[2024-10-23T02:37:31.525+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-10-23T02:37:31.556+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: DataPipeline.download_data_from_gcp manual__2024-10-23T02:37:27.085087+00:00 [queued]>
+[2024-10-23T02:37:31.565+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: DataPipeline.download_data_from_gcp manual__2024-10-23T02:37:27.085087+00:00 [queued]>
+[2024-10-23T02:37:31.569+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2024-10-23T02:37:31.585+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): download_data_from_gcp> on 2024-10-23 02:37:27.085087+00:00
+[2024-10-23T02:37:31.592+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=70) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-10-23T02:37:31.594+0000] {standard_task_runner.py:63} INFO - Started process 72 to run task
+[2024-10-23T02:37:31.595+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'DataPipeline', 'download_data_from_gcp', 'manual__2024-10-23T02:37:27.085087+00:00', '--job-id', '3', '--raw', '--subdir', 'DAGS_FOLDER/src/***.py', '--cfg-path', '/tmp/tmpuafprewi']
+[2024-10-23T02:37:31.598+0000] {standard_task_runner.py:91} INFO - Job 3: Subtask download_data_from_gcp
+[2024-10-23T02:37:31.694+0000] {task_command.py:426} INFO - Running <TaskInstance: DataPipeline.download_data_from_gcp manual__2024-10-23T02:37:27.085087+00:00 [running]> on host dd01dc1f55c7
+[2024-10-23T02:37:31.815+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='MLopsProjectGroup6' AIRFLOW_CTX_DAG_ID='DataPipeline' AIRFLOW_CTX_TASK_ID='download_data_from_gcp' AIRFLOW_CTX_EXECUTION_DATE='2024-10-23T02:37:27.085087+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-23T02:37:27.085087+00:00'
+[2024-10-23T02:37:31.816+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-10-23T02:37:31.860+0000] {DownloadData.py:30} INFO - Project directory fetched successfully
+[2024-10-23T02:37:33.556+0000] {DownloadData.py:56} INFO - Latest file files/md5/f6/cb2c1256ffe2836b36df321f46e92c downloaded from GCS.
+[2024-10-23T02:37:33.620+0000] {DownloadData.py:63} INFO - File content pickled and saved as /opt/***/data/processed/raw_data.pkl.
+[2024-10-23T02:37:33.621+0000] {python.py:237} INFO - Done. Returned value was: True
+[2024-10-23T02:37:33.622+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-10-23T02:37:33.655+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=DataPipeline, task_id=download_data_from_gcp, run_id=manual__2024-10-23T02:37:27.085087+00:00, execution_date=20241023T023727, start_date=20241023T023731, end_date=20241023T023733
+[2024-10-23T02:37:33.698+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-10-23T02:37:33.731+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-10-23T02:37:33.734+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

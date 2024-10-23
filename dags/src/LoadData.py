@@ -1,49 +1,46 @@
 import os
-import json
-from google.cloud import storage
 import logging
+import io
+import pandas as pd
 import pickle
 
-def load_data_from_gcp(**kwargs):
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+OUTPUT_FILE_PATH = os.path.join(PROJECT_DIR, "data", "processed","raw_data.csv")
+PICKLE_FILE_PATH = os.path.join(PROJECT_DIR, "data", "processed", "raw_data.pkl")
+
+#DEFINE A FUNCTION TO LOAD AND STORE THE DATA
+def load_data(pickled_file_path = PICKLE_FILE_PATH):
     try:
-        PROJECT_DIR = os.getcwd()
-        logging.info("Project directory fetched succesfully")
-        data_dir = kwargs['data_dir']
-        bucket_name = kwargs['bucket_name']
+        # SET UP LOGGING TO A FILE
+        logs_dir = os.path.join(PROJECT_DIR, "logs")
+        if not os.path.exists(logs_dir):
+            os.makedirs(logs_dir)
+        
+        #CREATE THE LOGGING DIRECTORY IF NOT CREATED
+        log_file_path = os.path.join(logs_dir, 'load_data.log')
+        logging.basicConfig(level=logging.INFO,
+                            format='%(asctime)s - %(levelname)s - %(message)s',
+                            handlers=[logging.FileHandler(log_file_path, mode='w'),
+                                      logging.StreamHandler()])
+        
+        logging.info("Project directory fetched successfully")
 
-        destination_dir = os.path.join(PROJECT_DIR, "dags", "processed", "Fetched")
+        with open(pickled_file_path, 'rb') as f:
+            loaded_data = pickle.load(f)
 
-        if not os.path.exists(destination_dir):
-            os.makedirs(destination_dir)
-        
-        #Google cloud set up here
-        storage_client = storage.Client()
-        bucket = storage_client.bucket(bucket_name)
+        logging.info("Pickle file loaded successfully")
 
-        #Get the latest blob from the bucket
-        blobs = list(bucket.list_blobs())
-        if not blobs:
-            raise ValueError(f"No files found in bucket {bucket_name}")
-        latest_blob = max(blobs, key=lambda x: x.updated)
-        
-        
+        #Convert the loaded Data to a Dataframe and store it for future use
+        if isinstance(loaded_data,bytes):
+            csv_file = io.StringIO(loaded_data.decode('utf-8'))
+            df = pd.read_csv(csv_file,sep=';')
 
-        # Download the latest file content
-        file_content = latest_blob.download_as_string()
-        print(f"Latest file {latest_blob.name} downloaded from GCS.")
-        logging.info(f"Latest file {latest_blob.name} downloaded from GCS.")
+            df.to_csv(OUTPUT_FILE_PATH, index=False)
+            
+            logging.info("Data saved as CSV to the output file path folder")
         
-        # Pickle the file content
-        pickled_file_path = os.path.join(destination_dir, "raw_data.pkl")
-        with open(pickled_file_path, 'wb') as f:
-            pickle.dump(file_content, f)
-        
-        print(f"File content pickled and saved as {pickled_file_path}.")
-        logging.info(f"File content pickled and saved as {pickled_file_path}.")
-        
-        return pickled_file_path
-        
+        return True
+    
     except Exception as e:
-        print("An unexpected error occured: {e}")
-        logging.error("An unexpected error occured: {e}")
-
+        logging.error(f"An unexpected error occurred: {e}")
+        return False
