@@ -191,6 +191,7 @@ services:
     entrypoint: /bin/bash
     # yamllint disable rule:line-length
     command:
+
       - -c
       - |
         if [[ -z "${AIRFLOW_UID}" ]]; then
