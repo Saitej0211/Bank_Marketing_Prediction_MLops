@@ -2,77 +2,101 @@ import os
 import logging
 import pandas as pd
 import io
+from airflow.utils.log.logging_mixin import LoggingMixin
 
 # Define paths
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # Adjust if needed
-DATA_DIR = os.path.join(PROJECT_DIR, "..", "data", "processed")
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
 INPUT_FILE_PATH = os.path.join(DATA_DIR, "raw_data.csv")
 PICKLE_FILE_PATH = os.path.join(DATA_DIR, "processed_data.pkl")
 INFO_CSV_PATH = os.path.join(DATA_DIR, "dataframe_info.csv")
 DESCRIPTION_CSV_PATH = os.path.join(DATA_DIR, "dataframe_description.csv")
+LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs")
+LOG_FILE_PATH = os.path.join(LOG_DIR, 'process_data.log')
+
+# Ensure necessary directories exist
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(LOG_DIR, exist_ok=True)
+
+# Set up Airflow logger
+airflow_logger = LoggingMixin().log
+
+# Set up custom file logger
+file_logger = logging.getLogger('file_logger')
+file_logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler(LOG_FILE_PATH, mode='a')
+file_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(file_formatter)
+file_logger.addHandler(file_handler)
+
+def custom_log(message, level=logging.INFO):
+    """Log to both Airflow and custom file logger"""
+    if level == logging.INFO:
+        airflow_logger.info(message)
+        file_logger.info(message)
+    elif level == logging.ERROR:
+        airflow_logger.error(message)
+        file_logger.error(message)
+    elif level == logging.WARNING:
+        airflow_logger.warning(message)
+        file_logger.warning(message)
 
 def process_data(input_file_path=INPUT_FILE_PATH):
+    """
+    Process the input CSV data, perform data cleaning, and save results.
+    """
     try:
-        # Set up logging
-        logs_dir = os.path.join(PROJECT_DIR, "..", "logs")
-        if not os.path.exists(logs_dir):
-            os.makedirs(logs_dir)
-        
-        log_file_path = os.path.join(logs_dir, 'process_data.log')
-        logging.basicConfig(level=logging.INFO,
-                            format='%(asctime)s - %(levelname)s - %(message)s',
-                            handlers=[logging.FileHandler(log_file_path, mode='w'),
-                                      logging.StreamHandler()])
-        
-        logging.info("Loading CSV data for processing")
+        custom_log("Starting data processing")
+        custom_log(f"Input file: {input_file_path}")
 
-        # Load CSV data directly
+        # Load CSV data
         df = pd.read_csv(input_file_path, sep=';')
+        custom_log(f"Data loaded successfully. DataFrame shape: {df.shape}")
 
-        # Log and save DataFrame shape
-        logging.info(f"DataFrame shape: {df.shape}")
-
-        # Capture and save DataFrame info
+        # Save DataFrame info
         buffer = io.StringIO()
         df.info(buf=buffer)
         info_str = buffer.getvalue().strip().split('\n')
         info_df = pd.DataFrame(info_str[2:], columns=['Info'])
         info_df.to_csv(INFO_CSV_PATH, index=False)
-        logging.info(f"DataFrame info saved to {INFO_CSV_PATH}")
+        custom_log(f"DataFrame info saved to {INFO_CSV_PATH}")
 
-        # Capture and save DataFrame description
+        # Save DataFrame description
         description_df = df.describe()
         description_df.to_csv(DESCRIPTION_CSV_PATH)
-        logging.info(f"DataFrame description saved to {DESCRIPTION_CSV_PATH}")
+        custom_log(f"DataFrame description saved to {DESCRIPTION_CSV_PATH}")
 
-        # Check for duplicate rows
+        # Check for and handle duplicate rows
         duplicate_rows = df.duplicated().sum()
         if duplicate_rows > 0:
-            logging.info(f"Found {duplicate_rows} duplicate rows. Dropping duplicates.")
+            custom_log(f"Found {duplicate_rows} duplicate rows. Dropping duplicates.")
             df = df.drop_duplicates()
-            logging.info("Duplicate rows dropped.")
         else:
-            logging.info("No duplicate rows found.")
+            custom_log("No duplicate rows found.")
 
-        # Calculate percentage of null values
+        # Handle null values
         null_percentage = df.isnull().mean() * 100
-
-        # Identify features to drop
         features_to_drop = null_percentage[null_percentage > 50].index.tolist()
 
-        # Drop the features
-        df_dropped = df.drop(columns=features_to_drop)
-
-        # Log dropped features
-        log_message = f'Dropped features: {features_to_drop}' if features_to_drop else 'No features dropped'
-        logging.info(log_message)
+        if features_to_drop:
+            df_dropped = df.drop(columns=features_to_drop)
+            custom_log(f"Dropped features with >50% null values: {features_to_drop}")
+        else:
+            df_dropped = df
+            custom_log("No features dropped due to null values")
 
         # Save processed data as a pickle file
         df_dropped.to_pickle(PICKLE_FILE_PATH)
-        logging.info(f"Processed data saved as pickle at {PICKLE_FILE_PATH}")
+        custom_log(f"Processed data saved as pickle at {PICKLE_FILE_PATH}")
 
+        custom_log("Data processing completed successfully")
+
+    except FileNotFoundError:
+        custom_log(f"Input file not found: {input_file_path}", level=logging.ERROR)
+    except pd.errors.EmptyDataError:
+        custom_log("The input CSV file is empty", level=logging.ERROR)
     except Exception as e:
-        logging.error(f"An unexpected error occurred during data processing: {e}")
+        custom_log(f"An unexpected error occurred during data processing: {e}", level=logging.ERROR)
 
 if __name__ == "__main__":
-    process_data(INPUT_FILE_PATH)
+    process_data()

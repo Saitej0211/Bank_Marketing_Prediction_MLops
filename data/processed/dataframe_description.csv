@@ -1,5 +1,5 @@
-,"age,job,marital,education,default,housing,loan,contact,month,day_of_week,duration,campaign,pdays,previous,poutcome,emp.var.rate,cons.price.idx,cons.conf.idx,euribor3m,nr.employed,y"
-count,41188
-unique,41176
-top,"27,technician,single,professional.course,no,no,no,cellular,jul,mon,331,2,999,0,nonexistent,1.4,93.918,-42.7,4.962,5228.1,no"
-freq,2
+,"age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y"
+count,45211
+unique,45211
+top,"58,management,married,tertiary,no,2143,yes,no,unknown,5,may,261,1,-1,0,unknown,no"
+freq,1

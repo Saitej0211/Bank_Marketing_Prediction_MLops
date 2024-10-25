@@ -1,0 +1,51 @@
+[2024-10-25T17:48:49.354+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-10-25T17:48:49.392+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: DataPipeline.download_data_from_gcp manual__2024-10-25T17:48:43.854398+00:00 [queued]>
+[2024-10-25T17:48:49.407+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: DataPipeline.download_data_from_gcp manual__2024-10-25T17:48:43.854398+00:00 [queued]>
+[2024-10-25T17:48:49.408+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2024-10-25T17:48:49.427+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): download_data_from_gcp> on 2024-10-25 17:48:43.854398+00:00
+[2024-10-25T17:48:49.436+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=70) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-10-25T17:48:49.442+0000] {standard_task_runner.py:63} INFO - Started process 72 to run task
+[2024-10-25T17:48:49.441+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'DataPipeline', 'download_data_from_gcp', 'manual__2024-10-25T17:48:43.854398+00:00', '--job-id', '3', '--raw', '--subdir', 'DAGS_FOLDER/src/***.py', '--cfg-path', '/tmp/tmp2e28cqi5']
+[2024-10-25T17:48:49.444+0000] {standard_task_runner.py:91} INFO - Job 3: Subtask download_data_from_gcp
+[2024-10-25T17:48:49.539+0000] {task_command.py:426} INFO - Running <TaskInstance: DataPipeline.download_data_from_gcp manual__2024-10-25T17:48:43.854398+00:00 [running]> on host c1c7f89b5e3c
+[2024-10-25T17:48:49.669+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='MLopsProjectGroup6' AIRFLOW_CTX_DAG_ID='DataPipeline' AIRFLOW_CTX_TASK_ID='download_data_from_gcp' AIRFLOW_CTX_EXECUTION_DATE='2024-10-25T17:48:43.854398+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-25T17:48:43.854398+00:00'
+[2024-10-25T17:48:49.670+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-10-25T17:48:49.739+0000] {DownloadData.py:26} INFO - Starting data download process
+[2024-10-25T17:48:49.747+0000] {DownloadData.py:67} ERROR - An unexpected error occurred: File /opt/***/dags/path/to/your/key.json was not found.
+Traceback (most recent call last):
+  File "/opt/airflow/dags/src/DownloadData.py", line 39, in download_data_from_gcp
+    storage_client = storage.Client()
+                     ^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/storage/client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/client/__init__.py", line 320, in __init__
+    _ClientProjectMixin.__init__(self, project=project, credentials=credentials)
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/client/__init__.py", line 268, in __init__
+    project = self._determine_default(project)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/client/__init__.py", line 287, in _determine_default
+    return _determine_default_project(project)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/_helpers/__init__.py", line 152, in _determine_default_project
+    _, project = google.auth.default()
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/auth/_default.py", line 657, in default
+    credentials, project_id = checker()
+                              ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/auth/_default.py", line 650, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/auth/_default.py", line 270, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/auth/_default.py", line 114, in load_credentials_from_file
+    raise exceptions.DefaultCredentialsError(
+google.auth.exceptions.DefaultCredentialsError: File /opt/***/dags/path/to/your/key.json was not found.
+[2024-10-25T17:48:49.758+0000] {python.py:237} INFO - Done. Returned value was: None
+[2024-10-25T17:48:49.759+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-10-25T17:48:49.773+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=DataPipeline, task_id=download_data_from_gcp, run_id=manual__2024-10-25T17:48:43.854398+00:00, execution_date=20241025T174843, start_date=20241025T174849, end_date=20241025T174849
+[2024-10-25T17:48:49.818+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-10-25T17:48:49.855+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-10-25T17:48:49.858+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -5,11 +5,11 @@ scikit-learn
 scipy
 pandas
 numpy
-os
 json
 logging
 pickle
-google.cloud
-google.auth.exceptions
+google-cloud-storage
+google-auth
 io
+pandas
 matplotlib

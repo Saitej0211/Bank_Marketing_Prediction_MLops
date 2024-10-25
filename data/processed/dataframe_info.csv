@@ -1,7 +1,7 @@
 Info
 Data columns (total 1 columns):
- #   Column                                                                                                                                                                                Non-Null Count  Dtype 
----  ------                                                                                                                                                                                --------------  ----- 
-" 0   age,job,marital,education,default,housing,loan,contact,month,day_of_week,duration,campaign,pdays,previous,poutcome,emp.var.rate,cons.price.idx,cons.conf.idx,euribor3m,nr.employed,y  41188 non-null  object"
+ #   Column                                                                                                                Non-Null Count  Dtype 
+---  ------                                                                                                                --------------  ----- 
+" 0   age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y  45211 non-null  object"
 dtypes: object(1)
-memory usage: 321.9+ KB
+memory usage: 353.3+ KB
