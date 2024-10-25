@@ -248,3 +248,133 @@ Index: []
 2024-10-25 00:57:01,216 - INFO - Saved plot for nr.employed before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../data/processed/plots/nr.employed_outlier_handling.png
 2024-10-25 00:57:01,216 - INFO - Outlier handling completed.
 2024-10-25 00:57:01,392 - INFO - Saved outlier-handled data to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../data/processed/outlier_handled_data.csv
+2024-10-25 01:06:18,605 - INFO - Loaded data from /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../data/processed/datatype_format_processed.csv with shape (41188, 21)
+2024-10-25 01:06:18,606 - INFO - Starting outlier handling.
+2024-10-25 01:06:18,623 - INFO - Outliers in age:
+       age      job   marital            education  default housing  ... emp.var.rate cons.price.idx cons.conf.idx euribor3m  nr.employed    y
+27713   70  retired  divorced             basic.4y       no     yes  ...         -1.8         92.843         -50.0     1.811       5099.1  yes
+27757   76  retired   married    university.degree       no      no  ...         -1.8         92.843         -50.0     1.757       5099.1   no
+27780   73  retired   married    university.degree       no     yes  ...         -1.8         92.843         -50.0     1.687       5099.1   no
+27800   88  retired  divorced             basic.4y       no     yes  ...         -1.8         92.843         -50.0     1.663       5099.1   no
+27802   88  retired  divorced             basic.4y       no      no  ...         -1.8         92.843         -50.0     1.663       5099.1  yes
+...    ...      ...       ...                  ...      ...     ...  ...          ...            ...           ...       ...          ...  ...
+40986   84  retired  divorced             basic.4y  unknown     yes  ...         -1.1         94.601         -49.5     1.000       4963.6   no
+40996   81  retired   married             basic.4y       no     yes  ...         -1.1         94.601         -49.5     1.016       4963.6  yes
+41004   80  retired   married  professional.course       no     yes  ...         -1.1         94.601         -49.5     1.025       4963.6  yes
+41183   73  retired   married  professional.course       no     yes  ...         -1.1         94.767         -50.8     1.028       4963.6  yes
+41187   74  retired   married  professional.course       no     yes  ...         -1.1         94.767         -50.8     1.028       4963.6   no
+
+[469 rows x 21 columns]
+2024-10-25 01:06:18,623 - INFO - Handled outliers in age using IQR method.
+2024-10-25 01:06:18,863 - INFO - Saved plot for age before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/age_outlier_handling.png
+2024-10-25 01:06:18,873 - INFO - Outliers in duration:
+       age           job   marital            education  default  ... cons.price.idx cons.conf.idx euribor3m nr.employed    y
+37      52    technician   married             basic.9y       no  ...         93.994         -36.4     4.857      5191.0   no
+57      45      services   married          high.school  unknown  ...         93.994         -36.4     4.857      5191.0   no
+61      51   blue-collar   married             basic.9y       no  ...         93.994         -36.4     4.857      5191.0   no
+75      41   blue-collar  divorced             basic.4y  unknown  ...         93.994         -36.4     4.857      5191.0  yes
+83      49  entrepreneur   married    university.degree  unknown  ...         93.994         -36.4     4.857      5191.0  yes
+...    ...           ...       ...                  ...      ...  ...            ...           ...       ...         ...  ...
+41147   25    technician    single  professional.course       no  ...         94.767         -50.8     1.040      4963.6  yes
+41153   67     housemaid  divorced  professional.course       no  ...         94.767         -50.8     1.039      4963.6  yes
+41160   33        admin.   married    university.degree       no  ...         94.767         -50.8     1.035      4963.6  yes
+41164   54        admin.   married  professional.course       no  ...         94.767         -50.8     1.035      4963.6  yes
+41166   32        admin.   married    university.degree       no  ...         94.767         -50.8     1.030      4963.6  yes
+
+[2963 rows x 21 columns]
+2024-10-25 01:06:18,873 - INFO - Handled outliers in duration using IQR method.
+2024-10-25 01:06:19,012 - INFO - Saved plot for duration before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/duration_outlier_handling.png
+2024-10-25 01:06:19,021 - INFO - Outliers in campaign:
+       age           job   marital            education  default  ... cons.price.idx cons.conf.idx euribor3m nr.employed    y
+887     54        admin.   married    university.degree       no  ...         93.994         -36.4     4.856      5191.0   no
+1043    41    technician    single    university.degree  unknown  ...         93.994         -36.4     4.856      5191.0   no
+1094    40    technician   married  professional.course       no  ...         93.994         -36.4     4.856      5191.0   no
+1097    51   blue-collar   married             basic.4y  unknown  ...         93.994         -36.4     4.856      5191.0   no
+1230    48   blue-collar  divorced             basic.4y       no  ...         93.994         -36.4     4.855      5191.0   no
+...    ...           ...       ...                  ...      ...  ...            ...           ...       ...         ...  ...
+40611   75       retired   married             basic.9y       no  ...         94.199         -37.5     0.883      4963.6   no
+40631   88       retired   married             basic.4y       no  ...         94.199         -37.5     0.882      4963.6   no
+40698   29    technician    single  professional.course       no  ...         94.199         -37.5     0.879      4963.6   no
+40821   33    technician    single  professional.course       no  ...         94.199         -37.5     0.879      4963.6   no
+40993   50  entrepreneur  divorced    university.degree       no  ...         94.601         -49.5     1.008      4963.6  yes
+
+[2406 rows x 21 columns]
+2024-10-25 01:06:19,022 - INFO - Handled outliers in campaign using IQR method.
+2024-10-25 01:06:19,154 - INFO - Saved plot for campaign before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/campaign_outlier_handling.png
+2024-10-25 01:06:19,163 - INFO - Outliers in pdays:
+       age            job   marital            education  default  ... cons.price.idx cons.conf.idx euribor3m nr.employed    y
+24108   37         admin.   married    university.degree       no  ...         93.200         -42.0     4.286      5195.8   no
+24264   48     management   married    university.degree       no  ...         93.200         -42.0     4.191      5195.8   no
+24279   42     technician   married  professional.course  unknown  ...         93.200         -42.0     4.191      5195.8   no
+24397   50   entrepreneur   married    university.degree  unknown  ...         93.200         -42.0     4.191      5195.8   no
+24482   36  self-employed    single    university.degree       no  ...         93.200         -42.0     4.191      5195.8   no
+...    ...            ...       ...                  ...      ...  ...            ...           ...       ...         ...  ...
+41163   35     technician  divorced             basic.4y       no  ...         94.767         -50.8     1.035      4963.6  yes
+41164   54         admin.   married  professional.course       no  ...         94.767         -50.8     1.035      4963.6  yes
+41174   62        retired   married    university.degree       no  ...         94.767         -50.8     1.031      4963.6  yes
+41178   62        retired   married    university.degree       no  ...         94.767         -50.8     1.031      4963.6  yes
+41182   29     unemployed    single             basic.4y       no  ...         94.767         -50.8     1.028      4963.6   no
+
+[1515 rows x 21 columns]
+2024-10-25 01:06:19,163 - INFO - Handled outliers in pdays using IQR method.
+2024-10-25 01:06:19,300 - INFO - Saved plot for pdays before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/pdays_outlier_handling.png
+2024-10-25 01:06:19,309 - INFO - Outliers in previous:
+       age          job  marital            education default housing  ... emp.var.rate cons.price.idx cons.conf.idx euribor3m  nr.employed    y
+24013   38  blue-collar   single              unknown      no     yes  ...         -0.1         93.798         -40.4     4.968       5195.8   no
+24019   40     services  married          high.school      no     yes  ...         -0.1         93.798         -40.4     4.968       5195.8  yes
+24076   36       admin.  married    university.degree      no     yes  ...         -0.1         93.200         -42.0     4.663       5195.8   no
+24102   36       admin.  married          high.school      no     yes  ...         -0.1         93.200         -42.0     4.286       5195.8  yes
+24108   37       admin.  married    university.degree      no     yes  ...         -0.1         93.200         -42.0     4.286       5195.8   no
+...    ...          ...      ...                  ...     ...     ...  ...          ...            ...           ...       ...          ...  ...
+41174   62      retired  married    university.degree      no     yes  ...         -1.1         94.767         -50.8     1.031       4963.6  yes
+41175   34      student   single              unknown      no     yes  ...         -1.1         94.767         -50.8     1.031       4963.6   no
+41178   62      retired  married    university.degree      no      no  ...         -1.1         94.767         -50.8     1.031       4963.6  yes
+41182   29   unemployed   single             basic.4y      no     yes  ...         -1.1         94.767         -50.8     1.028       4963.6   no
+41187   74      retired  married  professional.course      no     yes  ...         -1.1         94.767         -50.8     1.028       4963.6   no
+
+[5625 rows x 21 columns]
+2024-10-25 01:06:19,309 - INFO - Handled outliers in previous using IQR method.
+2024-10-25 01:06:19,453 - INFO - Saved plot for previous before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/previous_outlier_handling.png
+2024-10-25 01:06:19,455 - INFO - Outliers in emp.var.rate:
+Empty DataFrame
+Columns: [age, job, marital, education, default, housing, loan, contact, month, day_of_week, duration, campaign, pdays, previous, poutcome, emp.var.rate, cons.price.idx, cons.conf.idx, euribor3m, nr.employed, y]
+Index: []
+2024-10-25 01:06:19,455 - INFO - Handled outliers in emp.var.rate using IQR method.
+2024-10-25 01:06:19,591 - INFO - Saved plot for emp.var.rate before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/emp.var.rate_outlier_handling.png
+2024-10-25 01:06:19,592 - INFO - Outliers in cons.price.idx:
+Empty DataFrame
+Columns: [age, job, marital, education, default, housing, loan, contact, month, day_of_week, duration, campaign, pdays, previous, poutcome, emp.var.rate, cons.price.idx, cons.conf.idx, euribor3m, nr.employed, y]
+Index: []
+2024-10-25 01:06:19,593 - INFO - Handled outliers in cons.price.idx using IQR method.
+2024-10-25 01:06:19,732 - INFO - Saved plot for cons.price.idx before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/cons.price.idx_outlier_handling.png
+2024-10-25 01:06:19,741 - INFO - Outliers in cons.conf.idx:
+       age         job   marital          education default housing  ... emp.var.rate cons.price.idx cons.conf.idx euribor3m  nr.employed    y
+38154   50  management   married  university.degree      no     yes  ...         -3.4         92.431         -26.9     0.754       5017.5  yes
+38155   37      admin.    single  university.degree      no     yes  ...         -3.4         92.431         -26.9     0.754       5017.5  yes
+38156   59  technician    single           basic.6y      no      no  ...         -3.4         92.431         -26.9     0.754       5017.5   no
+38157   31      admin.   married  university.degree      no     yes  ...         -3.4         92.431         -26.9     0.754       5017.5   no
+38158   35      admin.   married        high.school      no     yes  ...         -3.4         92.431         -26.9     0.754       5017.5  yes
+...    ...         ...       ...                ...     ...     ...  ...          ...            ...           ...       ...          ...  ...
+38596   69     retired   married           basic.4y      no     yes  ...         -3.4         92.431         -26.9     0.720       5017.5  yes
+38597   18     student    single           basic.6y      no      no  ...         -3.4         92.431         -26.9     0.720       5017.5  yes
+38598   59     retired  divorced           basic.4y      no     yes  ...         -3.4         92.431         -26.9     0.720       5017.5   no
+38599   37      admin.    single  university.degree      no      no  ...         -3.4         92.431         -26.9     0.720       5017.5  yes
+38600   78     retired  divorced           basic.6y      no      no  ...         -3.4         92.431         -26.9     0.720       5017.5   no
+
+[447 rows x 21 columns]
+2024-10-25 01:06:19,741 - INFO - Handled outliers in cons.conf.idx using IQR method.
+2024-10-25 01:06:19,896 - INFO - Saved plot for cons.conf.idx before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/cons.conf.idx_outlier_handling.png
+2024-10-25 01:06:19,898 - INFO - Outliers in euribor3m:
+Empty DataFrame
+Columns: [age, job, marital, education, default, housing, loan, contact, month, day_of_week, duration, campaign, pdays, previous, poutcome, emp.var.rate, cons.price.idx, cons.conf.idx, euribor3m, nr.employed, y]
+Index: []
+2024-10-25 01:06:19,898 - INFO - Handled outliers in euribor3m using IQR method.
+2024-10-25 01:06:20,028 - INFO - Saved plot for euribor3m before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/euribor3m_outlier_handling.png
+2024-10-25 01:06:20,030 - INFO - Outliers in nr.employed:
+Empty DataFrame
+Columns: [age, job, marital, education, default, housing, loan, contact, month, day_of_week, duration, campaign, pdays, previous, poutcome, emp.var.rate, cons.price.idx, cons.conf.idx, euribor3m, nr.employed, y]
+Index: []
+2024-10-25 01:06:20,030 - INFO - Handled outliers in nr.employed using IQR method.
+2024-10-25 01:06:20,164 - INFO - Saved plot for nr.employed before and after outlier handling to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../assets/plots/nr.employed_outlier_handling.png
+2024-10-25 01:06:20,164 - INFO - Outlier handling completed.
+2024-10-25 01:06:20,341 - INFO - Saved outlier-handled data to /Users/saitejareddygajula/Bank_Marketing_Prediction_MLops/src/../data/processed/outlier_handled_data.csv
