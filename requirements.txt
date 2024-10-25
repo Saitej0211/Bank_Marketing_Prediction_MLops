@@ -12,4 +12,4 @@ pickle
 google.cloud
 google.auth.exceptions
 io
-pandas
+matplotlib
