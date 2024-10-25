@@ -13,3 +13,6 @@ google.cloud
 google.auth.exceptions
 io
 pandas
+pytest
+unittest
+requests

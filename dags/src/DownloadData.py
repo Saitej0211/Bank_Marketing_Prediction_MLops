@@ -67,20 +67,3 @@ def download_data_from_gcp(bucket_name):
     except Exception as e:
         logging.error(f"An unexpected error occurred: {e}")
         return None
-    
-#bucket_name = "mlopsprojectdatabucketgrp6"
-#
-#pickled_file_path = download_data_from_gcp(bucket_name)
-#
-## Verify the pickled file
-#if pickled_file_path is not None:
-#    if os.path.exists(pickled_file_path):
-#        print(f"Pickled file exists at: {pickled_file_path}")
-#        with open(pickled_file_path, 'rb') as f:
-#            loaded_data = pickle.load(f)
-#        print(f"Loaded data type: {type(loaded_data)}")
-#        print(f"Loaded data size: {len(loaded_data)} bytes")
-#    else:
-#        print("Pickled file was not created.")
-#else:
-#    print("Failed to download and pickle the file.")
