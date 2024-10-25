@@ -12,6 +12,3 @@ google-cloud-storage
 google-auth
 io
 pandas
-pytest
-unittest
-requests
