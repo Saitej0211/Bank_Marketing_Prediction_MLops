@@ -25,7 +25,7 @@ logging.basicConfig(
 DATA_DIR = os.path.join(PROJECT_DIR, "..", "data", "processed")
 INPUT_FILE_PATH = os.path.join(DATA_DIR, "datatype_format_processed.csv")
 OUTPUT_FILE_PATH = os.path.join(DATA_DIR, "outlier_handled_data.csv")  # New output file path
-PLOTS_DIR = os.path.join(DATA_DIR, "plots")  # Directory for saving plots
+PLOTS_DIR = os.path.join(PROJECT_DIR, "..", "assets", "plots")  # Directory for saving plots
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
 # Function to plot data before and after outlier handling
