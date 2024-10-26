@@ -519,3 +519,31 @@
 2024-10-26 09:21:18,895 - INFO - No features dropped due to null values
 2024-10-26 09:21:18,918 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
 2024-10-26 09:21:18,918 - INFO - Data processing completed successfully
+2024-10-26 22:08:20,662 - INFO - Starting data download process
+2024-10-26 22:08:20,663 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 22:08:21,993 - INFO - Starting data loading process
+2024-10-26 22:08:21,994 - INFO - Using pickle file: None
+2024-10-26 22:08:21,994 - ERROR - Pickle file not found: None
+2024-10-26 22:08:23,795 - INFO - Starting data processing
+2024-10-26 22:08:23,796 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 22:08:23,845 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 22:08:23,856 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 22:08:23,872 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 22:08:23,875 - INFO - No duplicate rows found.
+2024-10-26 22:08:23,877 - INFO - No features dropped due to null values
+2024-10-26 22:08:23,901 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 22:08:23,901 - INFO - Data processing completed successfully
+2024-10-26 22:15:29,066 - INFO - Starting data download process
+2024-10-26 22:15:29,070 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 22:15:30,625 - INFO - Starting data loading process
+2024-10-26 22:15:30,626 - INFO - Using pickle file: None
+2024-10-26 22:15:30,626 - ERROR - Pickle file not found: None
+2024-10-26 22:15:31,443 - INFO - Starting data processing
+2024-10-26 22:15:31,443 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 22:15:31,481 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 22:15:31,488 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 22:15:31,497 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 22:15:31,498 - INFO - No duplicate rows found.
+2024-10-26 22:15:31,500 - INFO - No features dropped due to null values
+2024-10-26 22:15:31,516 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 22:15:31,517 - INFO - Data processing completed successfully

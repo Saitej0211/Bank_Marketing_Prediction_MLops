@@ -75,7 +75,7 @@ process_task = PythonOperator(
     dag=dag,
 )
 
-# Task to process data and drop columns with >80% null values
+# Task to process data with data type formatting and outlier handling
 pre_process_task = PythonOperator(
     task_id='pre_process_data',
     python_callable=preprocess_data,

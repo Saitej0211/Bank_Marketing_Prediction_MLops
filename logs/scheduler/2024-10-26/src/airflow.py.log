@@ -3038,3 +3038,320 @@ NameError: name 'process_data' is not defined. Did you mean: 'preprocess_data'?
 [2024-10-26T09:21:47.211+0000] {logging_mixin.py:188} INFO - [2024-10-26T09:21:47.211+0000] {dag.py:3096} INFO - Sync 1 DAGs
 [2024-10-26T09:21:47.215+0000] {logging_mixin.py:188} INFO - [2024-10-26T09:21:47.215+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
 [2024-10-26T09:21:47.222+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.618 seconds
+[2024-10-26T22:05:08.586+0000] {processor.py:161} INFO - Started process (PID=59) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:05:08.589+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:05:08.597+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:05:08.597+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:05:09.994+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:05:09.978+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 8, in <module>
+    LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs"))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: dirname() takes 1 positional argument but 2 were given
+[2024-10-26T22:05:09.996+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:05:10.033+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 1.464 seconds
+[2024-10-26T22:05:40.339+0000] {processor.py:161} INFO - Started process (PID=66) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:05:40.340+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:05:40.343+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:05:40.342+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:05:41.706+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:05:41.705+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 8, in <module>
+    LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs"))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: dirname() takes 1 positional argument but 2 were given
+[2024-10-26T22:05:41.707+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:05:41.722+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 1.391 seconds
+[2024-10-26T22:06:12.070+0000] {processor.py:161} INFO - Started process (PID=79) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:06:12.072+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:06:12.073+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:06:12.072+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:06:12.472+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:06:12.471+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 8, in <module>
+    LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs"))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: dirname() takes 1 positional argument but 2 were given
+[2024-10-26T22:06:12.472+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:06:12.481+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.419 seconds
+[2024-10-26T22:06:42.736+0000] {processor.py:161} INFO - Started process (PID=87) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:06:42.738+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:06:42.739+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:06:42.739+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:06:43.174+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:06:43.173+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 8, in <module>
+    LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs"))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: dirname() takes 1 positional argument but 2 were given
+[2024-10-26T22:06:43.174+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:06:43.183+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.456 seconds
+[2024-10-26T22:07:13.639+0000] {processor.py:161} INFO - Started process (PID=95) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:07:13.642+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:07:13.643+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:07:13.642+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:07:14.374+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:07:14.458+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:07:14.458+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:07:14.463+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:07:14.463+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:07:14.470+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.841 seconds
+[2024-10-26T22:07:44.733+0000] {processor.py:161} INFO - Started process (PID=103) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:07:44.735+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:07:44.737+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:07:44.736+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:07:45.316+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:07:45.331+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:07:45.331+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:07:45.336+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:07:45.336+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:07:45.343+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.619 seconds
+[2024-10-26T22:08:15.648+0000] {processor.py:161} INFO - Started process (PID=111) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:08:15.650+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:08:15.651+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:08:15.651+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:08:16.251+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:08:16.266+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:08:16.266+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:08:16.271+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:08:16.271+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:08:16.278+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.639 seconds
+[2024-10-26T22:08:46.531+0000] {processor.py:161} INFO - Started process (PID=119) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:08:46.534+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:08:46.535+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:08:46.534+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:08:47.071+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:08:47.085+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:08:47.085+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:08:47.090+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:08:47.089+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:08:47.097+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.576 seconds
+[2024-10-26T22:09:17.176+0000] {processor.py:161} INFO - Started process (PID=127) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:09:17.177+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:09:17.178+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:09:17.178+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:09:17.642+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:09:17.653+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:09:17.653+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:09:17.658+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:09:17.658+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:09:17.664+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.496 seconds
+[2024-10-26T22:09:47.925+0000] {processor.py:161} INFO - Started process (PID=135) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:09:47.926+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:09:47.927+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:09:47.927+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:09:48.543+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:09:48.565+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:09:48.564+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:09:48.570+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:09:48.570+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:09:48.578+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.658 seconds
+[2024-10-26T22:10:18.932+0000] {processor.py:161} INFO - Started process (PID=143) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:10:18.934+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:10:18.936+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:10:18.935+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:10:19.892+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:10:19.922+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:10:19.922+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:10:19.928+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:10:19.928+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:10:19.936+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 1.015 seconds
+[2024-10-26T22:10:40.193+0000] {processor.py:161} INFO - Started process (PID=145) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:10:40.202+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:10:40.206+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:10:40.204+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:10:40.948+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:10:40.984+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:10:40.983+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:10:40.992+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:10:40.992+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:10:41.004+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.837 seconds
+[2024-10-26T22:11:05.329+0000] {processor.py:161} INFO - Started process (PID=153) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:11:05.331+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:11:05.332+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:11:05.331+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:11:06.528+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:11:06.555+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:11:06.555+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:11:06.564+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:11:06.563+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:11:06.573+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 1.252 seconds
+[2024-10-26T22:11:36.844+0000] {processor.py:161} INFO - Started process (PID=161) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:11:36.846+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:11:36.847+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:11:36.846+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:11:37.439+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:11:37.452+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:11:37.452+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:11:37.457+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:11:37.457+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:11:37.642+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.811 seconds
+[2024-10-26T22:12:07.948+0000] {processor.py:161} INFO - Started process (PID=169) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:12:07.951+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:12:07.952+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:12:07.952+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:12:08.367+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:12:08.365+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 26, in <module>
+    logging.FileHandler(LOG_FILE_PATH),  # Log to file
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/dags/src/logs/process_data.log'
+[2024-10-26T22:12:08.367+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:12:08.378+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.439 seconds
+[2024-10-26T22:12:38.723+0000] {processor.py:161} INFO - Started process (PID=177) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:12:38.732+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:12:38.738+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:12:38.736+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:12:39.241+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:12:39.238+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 26, in <module>
+    logging.FileHandler(LOG_FILE_PATH),  # Log to file
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/dags/src/logs/process_data.log'
+[2024-10-26T22:12:39.241+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:12:39.258+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.545 seconds
+[2024-10-26T22:13:09.498+0000] {processor.py:161} INFO - Started process (PID=185) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:13:09.501+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:13:09.502+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:13:09.502+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:13:09.830+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:13:09.828+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 26, in <module>
+    logging.FileHandler(LOG_FILE_PATH),  # Log to file
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/dags/src/logs/process_data.log'
+[2024-10-26T22:13:09.830+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:13:09.838+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.349 seconds
+[2024-10-26T22:13:40.111+0000] {processor.py:161} INFO - Started process (PID=193) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:13:40.113+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:13:40.115+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:13:40.114+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:13:40.456+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:13:40.455+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 26, in <module>
+    logging.FileHandler(LOG_FILE_PATH),  # Log to file
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/dags/src/logs/process_data.log'
+[2024-10-26T22:13:40.457+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:13:40.467+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.366 seconds
+[2024-10-26T22:14:10.756+0000] {processor.py:161} INFO - Started process (PID=201) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:14:10.761+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:14:10.762+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:14:10.761+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:14:11.257+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:14:11.256+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 26, in <module>
+    logging.FileHandler(LOG_FILE_PATH),  # Log to file
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/dags/src/logs/process_data.log'
+[2024-10-26T22:14:11.258+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:14:11.268+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.550 seconds
+[2024-10-26T22:14:41.756+0000] {processor.py:161} INFO - Started process (PID=209) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:14:41.757+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:14:41.759+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:14:41.758+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:14:42.227+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:14:42.225+0000] {dagbag.py:355} ERROR - Failed to import: /opt/airflow/dags/src/airflow.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/dagbag.py", line 351, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/dags/src/airflow.py", line 18, in <module>
+    from src.data_preprocessing.preprocessing_main import preprocess_data
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 3, in <module>
+    from .datatype_format import process_datatype
+  File "/opt/airflow/dags/src/data_preprocessing/datatype_format.py", line 26, in <module>
+    logging.FileHandler(LOG_FILE_PATH),  # Log to file
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1231, in __init__
+    StreamHandler.__init__(self, self._open())
+                                 ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/logging/__init__.py", line 1263, in _open
+    return open_func(self.baseFilename, self.mode,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/dags/src/logs/process_data.log'
+[2024-10-26T22:14:42.228+0000] {processor.py:842} WARNING - No viable dags retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:14:42.258+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.510 seconds
+[2024-10-26T22:15:12.332+0000] {processor.py:161} INFO - Started process (PID=217) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:15:12.333+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:15:12.334+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:15:12.334+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:15:12.977+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:15:13.037+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:15:13.037+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:15:13.042+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:15:13.042+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:15:13.053+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.726 seconds
+[2024-10-26T22:15:43.309+0000] {processor.py:161} INFO - Started process (PID=231) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:15:43.314+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:15:43.316+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:15:43.315+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:15:43.838+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:15:43.855+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:15:43.855+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:15:43.860+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:15:43.860+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:15:43.867+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.580 seconds
+[2024-10-26T22:16:14.163+0000] {processor.py:161} INFO - Started process (PID=239) to work on /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:16:14.166+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/src/airflow.py for tasks to queue
+[2024-10-26T22:16:14.167+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:16:14.167+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:16:14.658+0000] {processor.py:840} INFO - DAG(s) 'DataPipeline' retrieved from /opt/airflow/dags/src/airflow.py
+[2024-10-26T22:16:14.671+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:16:14.671+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2024-10-26T22:16:14.675+0000] {logging_mixin.py:188} INFO - [2024-10-26T22:16:14.675+0000] {dag.py:3954} INFO - Setting next_dagrun for DataPipeline to None, run_after=None
+[2024-10-26T22:16:14.682+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/src/airflow.py took 0.550 seconds
