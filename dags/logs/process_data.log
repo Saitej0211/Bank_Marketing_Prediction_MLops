@@ -14,3 +14,508 @@
 2024-10-25 18:39:09,676 - INFO - No features dropped due to null values
 2024-10-25 18:39:09,729 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
 2024-10-25 18:39:09,730 - INFO - Data processing completed successfully
+2024-10-26 06:09:16,306 - INFO - Starting data download process
+2024-10-26 06:09:16,310 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:09:17,349 - INFO - Starting data loading process
+2024-10-26 06:09:17,350 - INFO - Using pickle file: None
+2024-10-26 06:09:17,350 - ERROR - Pickle file not found: None
+2024-10-26 06:09:18,549 - INFO - Starting data processing
+2024-10-26 06:09:18,550 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:09:18,605 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:09:18,622 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:09:18,637 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:09:18,639 - INFO - No duplicate rows found.
+2024-10-26 06:09:18,641 - INFO - No features dropped due to null values
+2024-10-26 06:09:18,650 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:09:18,650 - INFO - Data processing completed successfully
+2024-10-26 06:14:44,372 - INFO - Starting data download process
+2024-10-26 06:14:44,373 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:14:45,820 - INFO - Starting data loading process
+2024-10-26 06:14:45,820 - INFO - Using pickle file: None
+2024-10-26 06:14:45,821 - ERROR - Pickle file not found: None
+2024-10-26 06:14:46,899 - INFO - Starting data processing
+2024-10-26 06:14:46,899 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:14:46,938 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:14:46,950 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:14:46,963 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:14:46,964 - INFO - No duplicate rows found.
+2024-10-26 06:14:46,966 - INFO - No features dropped due to null values
+2024-10-26 06:14:46,976 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:14:46,976 - INFO - Data processing completed successfully
+2024-10-26 06:15:58,136 - INFO - Starting data download process
+2024-10-26 06:15:58,137 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:15:59,101 - INFO - Starting data loading process
+2024-10-26 06:15:59,102 - INFO - Using pickle file: None
+2024-10-26 06:15:59,102 - ERROR - Pickle file not found: None
+2024-10-26 06:16:00,275 - INFO - Starting data processing
+2024-10-26 06:16:00,275 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:16:00,343 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:16:00,353 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:16:00,365 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:16:00,367 - INFO - No duplicate rows found.
+2024-10-26 06:16:00,369 - INFO - No features dropped due to null values
+2024-10-26 06:16:00,392 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:16:00,393 - INFO - Data processing completed successfully
+2024-10-26 06:19:31,016 - INFO - Starting data download process
+2024-10-26 06:19:31,017 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:19:31,847 - INFO - Starting data loading process
+2024-10-26 06:19:31,847 - INFO - Using pickle file: None
+2024-10-26 06:19:31,847 - ERROR - Pickle file not found: None
+2024-10-26 06:19:33,132 - INFO - Starting data processing
+2024-10-26 06:19:33,133 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:19:33,166 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:19:33,174 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:19:33,186 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:19:33,188 - INFO - No duplicate rows found.
+2024-10-26 06:19:33,190 - INFO - No features dropped due to null values
+2024-10-26 06:19:33,202 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:19:33,202 - INFO - Data processing completed successfully
+2024-10-26 06:19:34,178 - INFO - Starting data processing
+2024-10-26 06:19:34,178 - INFO - Input file: None
+2024-10-26 06:19:34,179 - ERROR - Input file not found: None
+2024-10-26 06:20:29,948 - INFO - Starting data download process
+2024-10-26 06:20:29,949 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:20:31,066 - INFO - Starting data loading process
+2024-10-26 06:20:31,066 - INFO - Using pickle file: None
+2024-10-26 06:20:31,067 - ERROR - Pickle file not found: None
+2024-10-26 06:20:32,152 - INFO - Starting data processing
+2024-10-26 06:20:32,152 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:20:32,184 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:20:32,190 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:20:32,199 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:20:32,201 - INFO - No duplicate rows found.
+2024-10-26 06:20:32,202 - INFO - No features dropped due to null values
+2024-10-26 06:20:32,210 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:20:32,210 - INFO - Data processing completed successfully
+2024-10-26 06:20:33,260 - INFO - Starting data processing
+2024-10-26 06:20:33,261 - INFO - Input file: None
+2024-10-26 06:20:33,262 - ERROR - Input file not found: None
+2024-10-26 06:23:16,616 - INFO - Starting data download process
+2024-10-26 06:23:16,618 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:23:17,644 - INFO - Starting data loading process
+2024-10-26 06:23:17,645 - INFO - Using pickle file: None
+2024-10-26 06:23:17,645 - ERROR - Pickle file not found: None
+2024-10-26 06:23:18,630 - INFO - Starting data processing
+2024-10-26 06:23:18,631 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:23:18,662 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:23:18,669 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:23:18,679 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:23:18,680 - INFO - No duplicate rows found.
+2024-10-26 06:23:18,682 - INFO - No features dropped due to null values
+2024-10-26 06:23:18,691 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:23:18,691 - INFO - Data processing completed successfully
+2024-10-26 06:23:19,704 - INFO - Starting data processing
+2024-10-26 06:23:19,705 - INFO - Input file: None
+2024-10-26 06:23:19,705 - ERROR - Input file not found: None
+2024-10-26 06:24:19,114 - INFO - Starting data download process
+2024-10-26 06:24:19,116 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:24:20,061 - INFO - Starting data loading process
+2024-10-26 06:24:20,061 - INFO - Using pickle file: None
+2024-10-26 06:24:20,062 - ERROR - Pickle file not found: None
+2024-10-26 06:24:21,170 - INFO - Starting data processing
+2024-10-26 06:24:21,170 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:24:21,201 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:24:21,208 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:24:21,217 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:24:21,218 - INFO - No duplicate rows found.
+2024-10-26 06:24:21,219 - INFO - No features dropped due to null values
+2024-10-26 06:24:21,228 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:24:21,228 - INFO - Data processing completed successfully
+2024-10-26 06:24:22,352 - INFO - Starting data processing
+2024-10-26 06:24:22,353 - INFO - Input file: None
+2024-10-26 06:24:22,354 - ERROR - Input file not found: None
+2024-10-26 06:24:23,028 - INFO - Starting data download process
+2024-10-26 06:24:23,028 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:24:24,164 - INFO - Starting data loading process
+2024-10-26 06:24:24,164 - INFO - Using pickle file: None
+2024-10-26 06:24:24,164 - ERROR - Pickle file not found: None
+2024-10-26 06:24:25,303 - INFO - Starting data processing
+2024-10-26 06:24:25,303 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:24:25,349 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:24:25,359 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:24:25,369 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:24:25,370 - INFO - No duplicate rows found.
+2024-10-26 06:24:25,372 - INFO - No features dropped due to null values
+2024-10-26 06:24:25,381 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:24:25,381 - INFO - Data processing completed successfully
+2024-10-26 06:24:26,479 - INFO - Starting data processing
+2024-10-26 06:24:26,479 - INFO - Input file: None
+2024-10-26 06:24:26,480 - ERROR - Input file not found: None
+2024-10-26 06:24:54,706 - INFO - Starting data download process
+2024-10-26 06:24:54,708 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:24:55,505 - INFO - Starting data loading process
+2024-10-26 06:24:55,506 - INFO - Using pickle file: None
+2024-10-26 06:24:55,506 - ERROR - Pickle file not found: None
+2024-10-26 06:24:56,613 - INFO - Starting data processing
+2024-10-26 06:24:56,614 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:24:56,645 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:24:56,652 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:24:56,662 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:24:56,663 - INFO - No duplicate rows found.
+2024-10-26 06:24:56,665 - INFO - No features dropped due to null values
+2024-10-26 06:24:56,672 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:24:56,673 - INFO - Data processing completed successfully
+2024-10-26 06:24:57,249 - INFO - Starting data processing
+2024-10-26 06:24:57,249 - INFO - Input file: None
+2024-10-26 06:24:57,250 - ERROR - Input file not found: None
+2024-10-26 06:38:08,015 - INFO - Starting data download process
+2024-10-26 06:38:08,016 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:38:08,835 - INFO - Starting data loading process
+2024-10-26 06:38:08,835 - INFO - Using pickle file: None
+2024-10-26 06:38:08,836 - ERROR - Pickle file not found: None
+2024-10-26 06:38:09,918 - INFO - Starting data processing
+2024-10-26 06:38:09,918 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:38:09,952 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:38:09,960 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:38:09,969 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:38:09,971 - INFO - No duplicate rows found.
+2024-10-26 06:38:09,972 - INFO - No features dropped due to null values
+2024-10-26 06:38:09,980 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:38:09,980 - INFO - Data processing completed successfully
+2024-10-26 06:38:11,019 - INFO - Starting data processing
+2024-10-26 06:38:11,019 - INFO - Input file: None
+2024-10-26 06:38:11,020 - ERROR - Input file not found: None
+2024-10-26 06:44:40,287 - INFO - Starting data download process
+2024-10-26 06:44:40,289 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:44:41,790 - INFO - Starting data loading process
+2024-10-26 06:44:41,791 - INFO - Using pickle file: None
+2024-10-26 06:44:41,791 - ERROR - Pickle file not found: None
+2024-10-26 06:44:42,956 - INFO - Starting data processing
+2024-10-26 06:44:42,956 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:44:42,990 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:44:42,996 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:44:43,005 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:44:43,007 - INFO - No duplicate rows found.
+2024-10-26 06:44:43,008 - INFO - No features dropped due to null values
+2024-10-26 06:44:43,016 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:44:43,016 - INFO - Data processing completed successfully
+2024-10-26 06:44:44,018 - INFO - Starting data processing
+2024-10-26 06:44:44,019 - INFO - Input file: None
+2024-10-26 06:44:44,020 - ERROR - Input file not found: None
+2024-10-26 06:45:25,676 - INFO - Starting data download process
+2024-10-26 06:45:25,678 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 06:45:27,167 - INFO - Starting data loading process
+2024-10-26 06:45:27,167 - INFO - Using pickle file: None
+2024-10-26 06:45:27,167 - ERROR - Pickle file not found: None
+2024-10-26 06:45:28,268 - INFO - Starting data processing
+2024-10-26 06:45:28,268 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 06:45:28,302 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 06:45:28,310 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 06:45:28,323 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 06:45:28,325 - INFO - No duplicate rows found.
+2024-10-26 06:45:28,326 - INFO - No features dropped due to null values
+2024-10-26 06:45:28,336 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 06:45:28,337 - INFO - Data processing completed successfully
+2024-10-26 06:45:29,378 - INFO - Starting data processing
+2024-10-26 06:45:29,378 - INFO - Input file: None
+2024-10-26 06:45:29,379 - ERROR - Input file not found: None
+2024-10-26 07:02:09,295 - INFO - Starting data download process
+2024-10-26 07:02:09,297 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:02:10,332 - INFO - Starting data loading process
+2024-10-26 07:02:10,333 - INFO - Using pickle file: None
+2024-10-26 07:02:10,333 - ERROR - Pickle file not found: None
+2024-10-26 07:02:11,265 - INFO - Starting data processing
+2024-10-26 07:02:11,266 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:02:11,304 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:02:11,312 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:02:11,322 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:02:11,324 - INFO - No duplicate rows found.
+2024-10-26 07:02:11,325 - INFO - No features dropped due to null values
+2024-10-26 07:02:11,335 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:02:11,336 - INFO - Data processing completed successfully
+2024-10-26 07:02:11,845 - INFO - Starting data processing
+2024-10-26 07:02:11,845 - INFO - Input file: None
+2024-10-26 07:02:11,846 - ERROR - Input file not found: None
+2024-10-26 07:07:06,902 - INFO - Starting data download process
+2024-10-26 07:07:06,903 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:07:07,564 - INFO - Starting data loading process
+2024-10-26 07:07:07,565 - INFO - Using pickle file: None
+2024-10-26 07:07:07,565 - ERROR - Pickle file not found: None
+2024-10-26 07:07:08,608 - INFO - Starting data processing
+2024-10-26 07:07:08,608 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:07:08,641 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:07:08,648 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:07:08,657 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:07:08,658 - INFO - No duplicate rows found.
+2024-10-26 07:07:08,660 - INFO - No features dropped due to null values
+2024-10-26 07:07:08,668 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:07:08,668 - INFO - Data processing completed successfully
+2024-10-26 07:08:42,381 - INFO - Starting data download process
+2024-10-26 07:08:42,382 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:08:42,983 - INFO - Starting data loading process
+2024-10-26 07:08:42,984 - INFO - Using pickle file: None
+2024-10-26 07:08:42,984 - ERROR - Pickle file not found: None
+2024-10-26 07:08:44,071 - INFO - Starting data processing
+2024-10-26 07:08:44,071 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:08:44,102 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:08:44,108 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:08:44,117 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:08:44,119 - INFO - No duplicate rows found.
+2024-10-26 07:08:44,120 - INFO - No features dropped due to null values
+2024-10-26 07:08:44,130 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:08:44,130 - INFO - Data processing completed successfully
+2024-10-26 07:08:44,768 - INFO - Starting data processing
+2024-10-26 07:08:44,769 - INFO - Input file: /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:08:44,771 - ERROR - An unexpected error occurred during data processing: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte
+2024-10-26 07:11:10,835 - INFO - Starting data download process
+2024-10-26 07:11:10,836 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:11:11,495 - INFO - Starting data loading process
+2024-10-26 07:11:11,496 - INFO - Using pickle file: None
+2024-10-26 07:11:11,496 - ERROR - Pickle file not found: None
+2024-10-26 07:11:12,600 - INFO - Starting data processing
+2024-10-26 07:11:12,600 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:11:12,643 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:11:12,651 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:11:12,661 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:11:12,663 - INFO - No duplicate rows found.
+2024-10-26 07:11:12,664 - INFO - No features dropped due to null values
+2024-10-26 07:11:12,673 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:11:12,674 - INFO - Data processing completed successfully
+2024-10-26 07:11:13,371 - INFO - Starting data processing
+2024-10-26 07:11:13,372 - INFO - Input file: /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:11:13,374 - ERROR - An unexpected error occurred during data processing: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte
+2024-10-26 07:12:30,974 - INFO - Starting data download process
+2024-10-26 07:12:30,975 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:12:31,768 - INFO - Starting data loading process
+2024-10-26 07:12:31,769 - INFO - Using pickle file: None
+2024-10-26 07:12:31,769 - ERROR - Pickle file not found: None
+2024-10-26 07:12:33,085 - INFO - Starting data processing
+2024-10-26 07:12:33,086 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:12:33,117 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:12:33,126 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:12:33,141 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:12:33,142 - INFO - No duplicate rows found.
+2024-10-26 07:12:33,144 - INFO - No features dropped due to null values
+2024-10-26 07:12:33,155 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:12:33,155 - INFO - Data processing completed successfully
+2024-10-26 07:12:34,208 - INFO - Starting data processing
+2024-10-26 07:12:34,208 - INFO - Input file: /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:12:34,210 - ERROR - An unexpected error occurred during data processing: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte
+2024-10-26 07:16:17,756 - INFO - Starting data download process
+2024-10-26 07:16:17,757 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:16:18,720 - INFO - Starting data loading process
+2024-10-26 07:16:18,721 - INFO - Using pickle file: None
+2024-10-26 07:16:18,721 - ERROR - Pickle file not found: None
+2024-10-26 07:16:19,965 - INFO - Starting data processing
+2024-10-26 07:16:19,966 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:16:19,999 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:16:20,005 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:16:20,014 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:16:20,016 - INFO - No duplicate rows found.
+2024-10-26 07:16:20,017 - INFO - No features dropped due to null values
+2024-10-26 07:16:20,026 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:16:20,027 - INFO - Data processing completed successfully
+2024-10-26 07:16:21,248 - INFO - Starting data processing
+2024-10-26 07:16:21,248 - INFO - Input file: data/processed/processed_data.pkl
+2024-10-26 07:16:21,251 - ERROR - An unexpected error occurred during data processing: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte
+2024-10-26 07:17:56,187 - INFO - Starting data download process
+2024-10-26 07:17:56,189 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:17:56,737 - INFO - Starting data loading process
+2024-10-26 07:17:56,737 - INFO - Using pickle file: None
+2024-10-26 07:17:56,737 - ERROR - Pickle file not found: None
+2024-10-26 07:17:57,823 - INFO - Starting data processing
+2024-10-26 07:17:57,823 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:17:57,858 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:17:57,864 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:17:57,873 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:17:57,875 - INFO - No duplicate rows found.
+2024-10-26 07:17:57,876 - INFO - No features dropped due to null values
+2024-10-26 07:17:57,884 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:17:57,884 - INFO - Data processing completed successfully
+2024-10-26 07:17:58,942 - INFO - Starting data processing
+2024-10-26 07:17:58,942 - INFO - Input file: data/processed/processed_data.pkl
+2024-10-26 07:17:58,944 - ERROR - An unexpected error occurred during data processing: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte
+2024-10-26 07:20:53,176 - INFO - Starting data download process
+2024-10-26 07:20:53,178 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:20:54,678 - INFO - Starting data loading process
+2024-10-26 07:20:54,679 - INFO - Using pickle file: None
+2024-10-26 07:20:54,679 - ERROR - Pickle file not found: None
+2024-10-26 07:20:55,782 - INFO - Starting data processing
+2024-10-26 07:20:55,782 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:20:55,816 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:20:55,823 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:20:55,833 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:20:55,834 - INFO - No duplicate rows found.
+2024-10-26 07:20:55,835 - INFO - No features dropped due to null values
+2024-10-26 07:20:55,851 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:20:55,851 - INFO - Data processing completed successfully
+2024-10-26 07:20:57,244 - INFO - Starting data processing
+2024-10-26 07:20:57,244 - INFO - Input file: /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:20:57,246 - ERROR - An unexpected error occurred during data processing: 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte
+2024-10-26 07:24:10,608 - INFO - Starting data download process
+2024-10-26 07:24:10,610 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:24:12,349 - INFO - Starting data loading process
+2024-10-26 07:24:12,349 - INFO - Using pickle file: None
+2024-10-26 07:24:12,349 - ERROR - Pickle file not found: None
+2024-10-26 07:24:12,906 - INFO - Starting data processing
+2024-10-26 07:24:12,907 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:24:12,963 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:24:12,974 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:24:12,986 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:24:12,988 - INFO - No duplicate rows found.
+2024-10-26 07:24:12,989 - INFO - No features dropped due to null values
+2024-10-26 07:24:12,999 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:24:13,000 - INFO - Data processing completed successfully
+2024-10-26 07:26:14,599 - INFO - Starting data download process
+2024-10-26 07:26:14,600 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:26:15,421 - INFO - Starting data loading process
+2024-10-26 07:26:15,422 - INFO - Using pickle file: None
+2024-10-26 07:26:15,422 - ERROR - Pickle file not found: None
+2024-10-26 07:26:16,827 - INFO - Starting data processing
+2024-10-26 07:26:16,827 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:26:16,863 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:26:16,871 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:26:16,883 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:26:16,885 - INFO - No duplicate rows found.
+2024-10-26 07:26:16,886 - INFO - No features dropped due to null values
+2024-10-26 07:26:16,897 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:26:16,897 - INFO - Data processing completed successfully
+2024-10-26 07:32:16,663 - INFO - Starting data download process
+2024-10-26 07:32:16,664 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:32:18,023 - INFO - Starting data loading process
+2024-10-26 07:32:18,024 - INFO - Using pickle file: None
+2024-10-26 07:32:18,024 - ERROR - Pickle file not found: None
+2024-10-26 07:32:19,179 - INFO - Starting data processing
+2024-10-26 07:32:19,180 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:32:19,229 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:32:19,238 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:32:19,253 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:32:19,255 - INFO - No duplicate rows found.
+2024-10-26 07:32:19,256 - INFO - No features dropped due to null values
+2024-10-26 07:32:19,268 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:32:19,269 - INFO - Data processing completed successfully
+2024-10-26 07:37:14,483 - INFO - Starting data download process
+2024-10-26 07:37:14,485 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:37:15,498 - INFO - Starting data loading process
+2024-10-26 07:37:15,498 - INFO - Using pickle file: None
+2024-10-26 07:37:15,499 - ERROR - Pickle file not found: None
+2024-10-26 07:37:16,531 - INFO - Starting data processing
+2024-10-26 07:37:16,531 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:37:16,563 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:37:16,570 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:37:16,580 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:37:16,581 - INFO - No duplicate rows found.
+2024-10-26 07:37:16,583 - INFO - No features dropped due to null values
+2024-10-26 07:37:16,591 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:37:16,591 - INFO - Data processing completed successfully
+2024-10-26 07:38:29,162 - INFO - Starting data download process
+2024-10-26 07:38:29,163 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:38:30,187 - INFO - Starting data loading process
+2024-10-26 07:38:30,189 - INFO - Using pickle file: None
+2024-10-26 07:38:30,190 - ERROR - Pickle file not found: None
+2024-10-26 07:38:31,054 - INFO - Starting data processing
+2024-10-26 07:38:31,054 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:38:31,093 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:38:31,101 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:38:31,112 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:38:31,113 - INFO - No duplicate rows found.
+2024-10-26 07:38:31,115 - INFO - No features dropped due to null values
+2024-10-26 07:38:31,125 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:38:31,125 - INFO - Data processing completed successfully
+2024-10-26 07:39:25,051 - INFO - Starting data download process
+2024-10-26 07:39:25,052 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:39:26,574 - INFO - Starting data loading process
+2024-10-26 07:39:26,575 - INFO - Using pickle file: None
+2024-10-26 07:39:26,575 - ERROR - Pickle file not found: None
+2024-10-26 07:39:27,504 - INFO - Starting data processing
+2024-10-26 07:39:27,504 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:39:27,545 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:39:27,554 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:39:27,564 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:39:27,566 - INFO - No duplicate rows found.
+2024-10-26 07:39:27,567 - INFO - No features dropped due to null values
+2024-10-26 07:39:27,577 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:39:27,577 - INFO - Data processing completed successfully
+2024-10-26 07:40:37,398 - INFO - Starting data download process
+2024-10-26 07:40:37,401 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 07:40:38,266 - INFO - Starting data loading process
+2024-10-26 07:40:38,267 - INFO - Using pickle file: None
+2024-10-26 07:40:38,267 - ERROR - Pickle file not found: None
+2024-10-26 07:40:39,398 - INFO - Starting data processing
+2024-10-26 07:40:39,398 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 07:40:39,460 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 07:40:39,471 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 07:40:39,485 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 07:40:39,487 - INFO - No duplicate rows found.
+2024-10-26 07:40:39,488 - INFO - No features dropped due to null values
+2024-10-26 07:40:39,508 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 07:40:39,508 - INFO - Data processing completed successfully
+2024-10-26 09:10:28,708 - INFO - Starting data processing
+2024-10-26 09:10:28,709 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 09:10:28,770 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 09:10:28,793 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 09:10:28,807 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 09:10:28,809 - INFO - No duplicate rows found.
+2024-10-26 09:10:28,810 - INFO - No features dropped due to null values
+2024-10-26 09:10:28,825 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 09:10:28,826 - INFO - Data processing completed successfully
+2024-10-26 09:12:16,160 - INFO - Starting data download process
+2024-10-26 09:12:16,162 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 09:12:17,076 - INFO - Starting data loading process
+2024-10-26 09:12:17,077 - INFO - Using pickle file: None
+2024-10-26 09:12:17,077 - ERROR - Pickle file not found: None
+2024-10-26 09:12:18,126 - INFO - Starting data processing
+2024-10-26 09:12:18,126 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 09:12:18,159 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 09:12:18,167 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 09:12:18,179 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 09:12:18,181 - INFO - No duplicate rows found.
+2024-10-26 09:12:18,182 - INFO - No features dropped due to null values
+2024-10-26 09:12:18,194 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 09:12:18,195 - INFO - Data processing completed successfully
+2024-10-26 09:12:46,643 - INFO - Starting data download process
+2024-10-26 09:12:46,645 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 09:12:47,487 - INFO - Starting data loading process
+2024-10-26 09:12:47,487 - INFO - Using pickle file: None
+2024-10-26 09:12:47,488 - ERROR - Pickle file not found: None
+2024-10-26 09:12:48,525 - INFO - Starting data processing
+2024-10-26 09:12:48,527 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 09:12:48,576 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 09:12:48,585 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 09:12:48,605 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 09:12:48,610 - INFO - No duplicate rows found.
+2024-10-26 09:12:48,614 - INFO - No features dropped due to null values
+2024-10-26 09:12:48,628 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 09:12:48,629 - INFO - Data processing completed successfully
+2024-10-26 09:15:34,461 - INFO - Starting data download process
+2024-10-26 09:15:34,463 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 09:15:35,457 - INFO - Starting data loading process
+2024-10-26 09:15:35,458 - INFO - Using pickle file: None
+2024-10-26 09:15:35,458 - ERROR - Pickle file not found: None
+2024-10-26 09:15:36,385 - INFO - Starting data processing
+2024-10-26 09:15:36,385 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 09:15:36,417 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 09:15:36,423 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 09:15:36,433 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 09:15:36,434 - INFO - No duplicate rows found.
+2024-10-26 09:15:36,435 - INFO - No features dropped due to null values
+2024-10-26 09:15:36,444 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 09:15:36,444 - INFO - Data processing completed successfully
+2024-10-26 09:17:33,983 - INFO - Starting data download process
+2024-10-26 09:17:33,985 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 09:17:35,678 - INFO - Starting data loading process
+2024-10-26 09:17:35,678 - INFO - Using pickle file: None
+2024-10-26 09:17:35,678 - ERROR - Pickle file not found: None
+2024-10-26 09:17:36,829 - INFO - Starting data processing
+2024-10-26 09:17:36,830 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 09:17:36,865 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 09:17:36,873 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 09:17:36,887 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 09:17:36,889 - INFO - No duplicate rows found.
+2024-10-26 09:17:36,891 - INFO - No features dropped due to null values
+2024-10-26 09:17:36,911 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 09:17:36,912 - INFO - Data processing completed successfully
+2024-10-26 09:21:16,841 - INFO - Starting data download process
+2024-10-26 09:21:16,842 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-26 09:21:17,835 - INFO - Starting data loading process
+2024-10-26 09:21:17,835 - INFO - Using pickle file: None
+2024-10-26 09:21:17,836 - ERROR - Pickle file not found: None
+2024-10-26 09:21:18,845 - INFO - Starting data processing
+2024-10-26 09:21:18,845 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-26 09:21:18,876 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-26 09:21:18,882 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-26 09:21:18,892 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-26 09:21:18,893 - INFO - No duplicate rows found.
+2024-10-26 09:21:18,895 - INFO - No features dropped due to null values
+2024-10-26 09:21:18,918 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-26 09:21:18,918 - INFO - Data processing completed successfully

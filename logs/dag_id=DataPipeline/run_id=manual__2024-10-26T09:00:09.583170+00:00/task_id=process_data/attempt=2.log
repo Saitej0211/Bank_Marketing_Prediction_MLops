@@ -1,0 +1,77 @@
+[2024-10-26T09:02:31.384+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-10-26T09:02:31.393+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: DataPipeline.process_data manual__2024-10-26T09:00:09.583170+00:00 [queued]>
+[2024-10-26T09:02:31.396+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: DataPipeline.process_data manual__2024-10-26T09:00:09.583170+00:00 [queued]>
+[2024-10-26T09:02:31.396+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 4
+[2024-10-26T09:02:31.401+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): process_data> on 2024-10-26 09:00:09.583170+00:00
+[2024-10-26T09:02:31.405+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=283) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-10-26T09:02:31.406+0000] {standard_task_runner.py:63} INFO - Started process 285 to run task
+[2024-10-26T09:02:31.406+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'DataPipeline', 'process_data', 'manual__2024-10-26T09:00:09.583170+00:00', '--job-id', '155', '--raw', '--subdir', 'DAGS_FOLDER/src/***.py', '--cfg-path', '/tmp/tmp8jedjyys']
+[2024-10-26T09:02:31.408+0000] {standard_task_runner.py:91} INFO - Job 155: Subtask process_data
+[2024-10-26T09:02:31.428+0000] {task_command.py:426} INFO - Running <TaskInstance: DataPipeline.process_data manual__2024-10-26T09:00:09.583170+00:00 [running]> on host 558a41ea7330
+[2024-10-26T09:02:31.471+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='MLopsProjectGroup6' AIRFLOW_CTX_DAG_ID='DataPipeline' AIRFLOW_CTX_TASK_ID='process_data' AIRFLOW_CTX_EXECUTION_DATE='2024-10-26T09:00:09.583170+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-26T09:00:09.583170+00:00'
+[2024-10-26T09:02:31.472+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-10-26T09:02:31.523+0000] {HandlingNullValues.py:35} INFO - Starting data processing
+[2024-10-26T09:02:31.523+0000] {HandlingNullValues.py:36} INFO - Starting data processing
+[2024-10-26T09:02:31.528+0000] {HandlingNullValues.py:35} INFO - Input file:       age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y
+0      58,management,married,tertiary,no,2143,yes,no,...                                                                  
+1      44,technician,single,secondary,no,29,yes,no,un...                                                                  
+2      33,entrepreneur,married,secondary,no,2,yes,yes...                                                                  
+3      47,blue-collar,married,unknown,no,1506,yes,no,...                                                                  
+4      33,unknown,single,unknown,no,1,no,no,unknown,5...                                                                  
+...                                                  ...                                                                  
+45206  51,technician,married,tertiary,no,825,no,no,ce...                                                                  
+45207  71,retired,divorced,primary,no,1729,no,no,cell...                                                                  
+45208  72,retired,married,secondary,no,5715,no,no,cel...                                                                  
+45209  57,blue-collar,married,secondary,no,668,no,no,...                                                                  
+45210  37,entrepreneur,married,secondary,no,2971,no,n...                                                                  
+
+[45211 rows x 1 columns]
+[2024-10-26T09:02:31.528+0000] {HandlingNullValues.py:36} INFO - Input file:       age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y
+0      58,management,married,tertiary,no,2143,yes,no,...                                                                  
+1      44,technician,single,secondary,no,29,yes,no,un...                                                                  
+2      33,entrepreneur,married,secondary,no,2,yes,yes...                                                                  
+3      47,blue-collar,married,unknown,no,1506,yes,no,...                                                                  
+4      33,unknown,single,unknown,no,1,no,no,unknown,5...                                                                  
+...                                                  ...                                                                  
+45206  51,technician,married,tertiary,no,825,no,no,ce...                                                                  
+45207  71,retired,divorced,primary,no,1729,no,no,cell...                                                                  
+45208  72,retired,married,secondary,no,5715,no,no,cel...                                                                  
+45209  57,blue-collar,married,secondary,no,668,no,no,...                                                                  
+45210  37,entrepreneur,married,secondary,no,2971,no,n...                                                                  
+
+[45211 rows x 1 columns]
+[2024-10-26T09:02:31.529+0000] {HandlingNullValues.py:38} ERROR - An unexpected error occurred during data processing: stat: path should be string, bytes, os.PathLike or integer, not DataFrame
+[2024-10-26T09:02:31.529+0000] {HandlingNullValues.py:39} ERROR - An unexpected error occurred during data processing: stat: path should be string, bytes, os.PathLike or integer, not DataFrame
+[2024-10-26T09:02:31.529+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-10-26T09:02:31.529+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/src/data_preprocessing/preprocessing_main.py", line 23, in preprocess_data
+    data = process_data(data)
+           ^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/src/data_preprocessing/HandlingNullValues.py", line 57, in process_data
+    if input_file_path is None or not os.path.exists(input_file_path):
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen genericpath>", line 19, in exists
+TypeError: stat: path should be string, bytes, os.PathLike or integer, not DataFrame
+[2024-10-26T09:02:31.535+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=DataPipeline, task_id=process_data, run_id=manual__2024-10-26T09:00:09.583170+00:00, execution_date=20241026T090009, start_date=20241026T090231, end_date=20241026T090231
+[2024-10-26T09:02:31.540+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 155 for task process_data (stat: path should be string, bytes, os.PathLike or integer, not DataFrame; 285)
+[2024-10-26T09:02:31.546+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2024-10-26T09:02:31.554+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-10-26T09:02:31.554+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

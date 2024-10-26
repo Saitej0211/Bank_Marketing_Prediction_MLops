@@ -88,9 +88,9 @@ def process_data(input_file_path=INPUT_FILE_PATH):
         # Save processed data as a pickle file
         df_dropped.to_pickle(PICKLE_FILE_PATH)
         custom_log(f"Processed data saved as pickle at {PICKLE_FILE_PATH}")
-
         custom_log("Data processing completed successfully")
 
+        return PICKLE_FILE_PATH
     except FileNotFoundError:
         custom_log(f"Input file not found: {input_file_path}", level=logging.ERROR)
     except pd.errors.EmptyDataError:
