@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 # Define paths
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
-LOG_DIR = os.path.join(PROJECT_DIR, "logs")
+LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 OUTPUT_FILE_PATH = os.path.join(DATA_DIR, "outlier_handled_data.pkl")  # New output file path
-LOG_FILE_PATH = os.path.join(LOG_DIR, "outlier_handling.log")
+LOG_FILE_PATH = os.path.join(LOG_DIR,"logs", "outlier_handling.log")
 
 # Ensure necessary directories exist
 os.makedirs(LOG_DIR, exist_ok=True)

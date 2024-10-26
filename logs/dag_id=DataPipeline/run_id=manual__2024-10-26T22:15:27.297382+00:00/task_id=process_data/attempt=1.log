@@ -1,0 +1,38 @@
+[2024-10-26T22:15:31.361+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2024-10-26T22:15:31.370+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: DataPipeline.process_data manual__2024-10-26T22:15:27.297382+00:00 [queued]>
+[2024-10-26T22:15:31.373+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: DataPipeline.process_data manual__2024-10-26T22:15:27.297382+00:00 [queued]>
+[2024-10-26T22:15:31.373+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2024-10-26T22:15:31.378+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): process_data> on 2024-10-26 22:15:27.297382+00:00
+[2024-10-26T22:15:31.381+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61: DeprecationWarning: This process (pid=232) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-10-26T22:15:31.382+0000] {standard_task_runner.py:63} INFO - Started process 234 to run task
+[2024-10-26T22:15:31.383+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'DataPipeline', 'process_data', 'manual__2024-10-26T22:15:27.297382+00:00', '--job-id', '191', '--raw', '--subdir', 'DAGS_FOLDER/src/***.py', '--cfg-path', '/tmp/tmp9n1ppqir']
+[2024-10-26T22:15:31.384+0000] {standard_task_runner.py:91} INFO - Job 191: Subtask process_data
+[2024-10-26T22:15:31.404+0000] {task_command.py:426} INFO - Running <TaskInstance: DataPipeline.process_data manual__2024-10-26T22:15:27.297382+00:00 [running]> on host 558a41ea7330
+[2024-10-26T22:15:31.437+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='MLopsProjectGroup6' AIRFLOW_CTX_DAG_ID='DataPipeline' AIRFLOW_CTX_TASK_ID='process_data' AIRFLOW_CTX_EXECUTION_DATE='2024-10-26T22:15:27.297382+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-10-26T22:15:27.297382+00:00'
+[2024-10-26T22:15:31.438+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2024-10-26T22:15:31.443+0000] {HandlingNullValues.py:35} INFO - Starting data processing
+[2024-10-26T22:15:31.443+0000] {HandlingNullValues.py:36} INFO - Starting data processing
+[2024-10-26T22:15:31.443+0000] {HandlingNullValues.py:35} INFO - Input file: /opt/***/data/processed/raw_data.csv
+[2024-10-26T22:15:31.443+0000] {HandlingNullValues.py:36} INFO - Input file: /opt/***/data/processed/raw_data.csv
+[2024-10-26T22:15:31.480+0000] {HandlingNullValues.py:35} INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+[2024-10-26T22:15:31.481+0000] {HandlingNullValues.py:36} INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+[2024-10-26T22:15:31.487+0000] {HandlingNullValues.py:35} INFO - DataFrame info saved to /opt/***/data/processed/dataframe_info.csv
+[2024-10-26T22:15:31.488+0000] {HandlingNullValues.py:36} INFO - DataFrame info saved to /opt/***/data/processed/dataframe_info.csv
+[2024-10-26T22:15:31.497+0000] {HandlingNullValues.py:35} INFO - DataFrame description saved to /opt/***/data/processed/dataframe_description.csv
+[2024-10-26T22:15:31.497+0000] {HandlingNullValues.py:36} INFO - DataFrame description saved to /opt/***/data/processed/dataframe_description.csv
+[2024-10-26T22:15:31.498+0000] {HandlingNullValues.py:35} INFO - No duplicate rows found.
+[2024-10-26T22:15:31.498+0000] {HandlingNullValues.py:36} INFO - No duplicate rows found.
+[2024-10-26T22:15:31.500+0000] {HandlingNullValues.py:35} INFO - No features dropped due to null values
+[2024-10-26T22:15:31.500+0000] {HandlingNullValues.py:36} INFO - No features dropped due to null values
+[2024-10-26T22:15:31.515+0000] {HandlingNullValues.py:35} INFO - Processed data saved as pickle at /opt/***/data/processed/processed_data.pkl
+[2024-10-26T22:15:31.516+0000] {HandlingNullValues.py:36} INFO - Processed data saved as pickle at /opt/***/data/processed/processed_data.pkl
+[2024-10-26T22:15:31.517+0000] {HandlingNullValues.py:35} INFO - Data processing completed successfully
+[2024-10-26T22:15:31.517+0000] {HandlingNullValues.py:36} INFO - Data processing completed successfully
+[2024-10-26T22:15:31.519+0000] {python.py:237} INFO - Done. Returned value was: /opt/***/data/processed/processed_data.pkl
+[2024-10-26T22:15:31.519+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2024-10-26T22:15:31.537+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=DataPipeline, task_id=process_data, run_id=manual__2024-10-26T22:15:27.297382+00:00, execution_date=20241026T221527, start_date=20241026T221531, end_date=20241026T221531
+[2024-10-26T22:15:31.562+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2024-10-26T22:15:31.576+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2024-10-26T22:15:31.576+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -5,14 +5,14 @@ import logging
 # Define paths
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
-LOG_DIR = os.path.join(PROJECT_DIR, "logs")
+LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 
 # Input and output file paths
 INPUT_FILE_PATH = os.path.join(DATA_DIR, "processed_data.pkl")  # Input from HandlingNullValues
 INFO_CSV_PATH_BEFORE = os.path.join(DATA_DIR, "datatype_info_before.csv")
 INFO_CSV_PATH_AFTER = os.path.join(DATA_DIR, "datatype_info_after.csv")
 OUTPUT_PICKLE_PATH = os.path.join(DATA_DIR, "datatype_format_processed.pkl")  # New output pickle path
-LOG_FILE_PATH = os.path.join(LOG_DIR, "process_data.log")
+LOG_FILE_PATH = os.path.join(LOG_DIR,"logs", "process_data.log")
 
 # Ensure necessary directories exist
 os.makedirs(DATA_DIR, exist_ok=True)
