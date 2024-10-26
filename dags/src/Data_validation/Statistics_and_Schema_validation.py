@@ -1,91 +1,111 @@
-# Install required packages for TensorFlow Data Validation and TensorFlow
-!pip install tensorflow_data_validation
-!pip install --upgrade tensorflow
-!pip install tensorflow tensorflow-data-validation protobuf==3.20.*
-!pip install scikit-learn
-
-# Import necessary libraries
+import os
+import pickle
+import logging
+from google.cloud import storage
+from google.auth.exceptions import RefreshError
+from airflow.utils.log.logging_mixin import LoggingMixin
 import tensorflow as tf
 import tensorflow_data_validation as tfdv
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from util import add_extra_rows  # Custom utility for adding rows
 from tensorflow_metadata.proto.v0 import schema_pb2
 
-# Print the versions of TFDV and TensorFlow to confirm installation
-print('TFDV Version: {}'.format(tfdv.__version__))
-print('Tensorflow Version: {}'.format(tf.__version__))
+# Set up Airflow logger
+airflow_logger = LoggingMixin().log
 
-# Load the dataset
-df = pd.read_csv('raw_data.csv', skipinitialspace=True)
+# Set up custom file logger
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+LOG_DIR = os.path.join(PROJECT_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+LOG_FILE_PATH = os.path.join(LOG_DIR, 'download_data.log')
 
-# Split the data into training and evaluation sets, 80-20 split without shuffling
-train_df, eval_df = train_test_split(df, test_size=0.2, shuffle=False)
+file_logger = logging.getLogger('file_logger')
+file_logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler(LOG_FILE_PATH, mode='a')
+file_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(file_formatter)
+file_logger.addHandler(file_handler)
 
-# Preview the training set
-train_df.head()
+# Set up project directories
+DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
+os.makedirs(DATA_DIR, exist_ok=True)
 
-# Preview the evaluation set
-eval_df.head()
+def custom_log(message, level=logging.INFO):
+    """Log to both Airflow and custom file logger"""
+    if level == logging.INFO:
+        airflow_logger.info(message)
+        file_logger.info(message)
+    elif level == logging.ERROR:
+        airflow_logger.error(message)
+        file_logger.error(message)
+    elif level == logging.WARNING:
+        airflow_logger.warning(message)
+        file_logger.warning(message)
 
-# Add extra rows to the evaluation set, if required by the project context
-eval_df = add_extra_rows(eval_df)
+def load_and_split_data(file_path):
+    """Load dataset from file and split into training and evaluation sets."""
+    try:
+        df = pd.read_csv(file_path, skipinitialspace=True)
+        train_df, eval_df = train_test_split(df, test_size=0.2, shuffle=False)
+        custom_log("Data successfully loaded and split into training and evaluation sets.")
+        return train_df, eval_df
+    except Exception as e:
+        custom_log(f"Failed to load and split data: {e}", level=logging.ERROR)
+        return None, None
 
-# Display the last 4 rows of the evaluation set to confirm addition of rows
-eval_df.tail(4)
+def generate_statistics(df, dataset_name=""):
+    """Generate statistics for a given dataset using TFDV."""
+    try:
+        stats = tfdv.generate_statistics_from_dataframe(df)
+        custom_log(f"Statistics generated for {dataset_name}.")
+        return stats
+    except Exception as e:
+        custom_log(f"Failed to generate statistics for {dataset_name}: {e}", level=logging.ERROR)
+        return None
 
-# Generate statistics for the training set using TensorFlow Data Validation
-train_stats = tfdv.generate_statistics_from_dataframe(train_df)
+def infer_and_update_schema(train_stats):
+    """Infer schema from training stats and update it with domain constraints."""
+    try:
+        schema = tfdv.infer_schema(statistics=train_stats)
+        valid_months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+        valid_days_of_week = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+        
+        for feature in schema.feature:
+            if feature.name == 'age':
+                feature.int_domain.min = 18
+                feature.int_domain.max = 100
+                feature.value_count.min = 1
+                feature.value_count.max = 1
+            elif feature.name == 'month':
+                feature.ClearField('domain')
+                feature.string_domain.value[:] = valid_months
+                feature.value_count.min = 1
+                feature.value_count.max = 1
+            elif feature.name == 'day_of_week':
+                feature.ClearField('domain')
+                feature.string_domain.value[:] = valid_days_of_week
+                feature.value_count.min = 1
+                feature.value_count.max = 1
 
-# Display the training set statistics
-train_stats
+        custom_log("Schema inferred and updated with constraints.")
+        return schema
+    except Exception as e:
+        custom_log(f"Failed to infer and update schema: {e}", level=logging.ERROR)
+        return None
 
-# Visualize the statistics to gain insights into data distributions, missing values, etc.
-tfdv.visualize_statistics(train_stats)
+def visualize_statistics(lhs_stats, rhs_stats, lhs_name="TRAIN_DATASET", rhs_name="EVAL_DATASET"):
+    """Visualize statistics for comparison between two datasets."""
+    try:
+        tfdv.visualize_statistics(lhs_statistics=lhs_stats, rhs_statistics=rhs_stats, lhs_name=lhs_name, rhs_name=rhs_name)
+        custom_log("Statistics visualization complete.")
+    except Exception as e:
+        custom_log(f"Failed to visualize statistics: {e}", level=logging.ERROR)
 
-# Infer a schema from the training data, which will serve as a template for expected data structure and feature types
-schema = tfdv.infer_schema(statistics=train_stats)
-
-# Define valid values for 'month' and 'day_of_week'
-valid_months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
-valid_days_of_week = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
- 
-# Update the schema to set valid values for 'month' and 'day_of_week'
-for feature in schema.feature:
-    if feature.name == 'age':
-        # Set valid range for 'age'
-        feature.int_domain.min = 18  # Minimum valid age
-        feature.int_domain.max = 100  # Maximum valid age
-        # Set valency for 'age'
-        feature.value_count.min = 1  # Minimum number of values (one value expected)
-        feature.value_count.max = 1  # Maximum number of values (one value expected)
-    elif feature.name == 'month':
-        feature.ClearField('domain')  # Ensure no separate domain is set
-        feature.string_domain.value[:] = valid_months  # Set valid months directly
-        # Set valency for 'month'
-        feature.value_count.min = 1
-        feature.value_count.max = 1
-    elif feature.name == 'day_of_week':
-        feature.ClearField('domain')  # Ensure no separate domain is set
-        feature.string_domain.value[:] = valid_days_of_week  # Set valid days directly
-        # Set valency for 'day_of_week'
-        feature.value_count.min = 1
-        feature.value_count.max = 1
- 
-# Display the updated schema
-tfdv.display_schema(schema)
-
-# Display the inferred schema
-tfdv.display_schema(schema)
-
-# Generate statistics for the evaluation set to compare with training data
-eval_stats = tfdv.generate_statistics_from_dataframe(eval_df)
-
-# Compare training and evaluation statistics side-by-side to check for any anomalies or distribution shifts
-tfdv.visualize_statistics(
-    lhs_statistics=eval_stats, 
-    rhs_statistics=train_stats, 
-    lhs_name='EVAL_DATASET', 
-    rhs_name='TRAIN_DATASET'
-)
-
+# Example usage (for testing purposes)
+if __name__ == "__main__":
+    train_df, eval_df = load_and_split_data(os.path.join(DATA_DIR, "raw_data.csv"))
+    if train_df is not None and eval_df is not None:
+        train_stats = generate_statistics(train_df, "Training Set")
+        eval_stats = generate_statistics(eval_df, "Evaluation Set")
+        schema = infer_and_update_schema(train_stats)
+        visualize_statistics(lhs_stats=eval_stats, rhs_stats=train_stats)
