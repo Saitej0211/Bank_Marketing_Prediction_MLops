@@ -1,7 +1,23 @@
 Info
-Data columns (total 1 columns):
- #   Column                                                                                                                Non-Null Count  Dtype 
----  ------                                                                                                                --------------  ----- 
-" 0   age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y  45211 non-null  object"
-dtypes: object(1)
-memory usage: 353.3+ KB
+Data columns (total 17 columns):
+ #   Column     Non-Null Count  Dtype 
+---  ------     --------------  ----- 
+ 0   age        45211 non-null  int64 
+ 1   job        45211 non-null  object
+ 2   marital    45211 non-null  object
+ 3   education  45211 non-null  object
+ 4   default    45211 non-null  object
+ 5   balance    45211 non-null  int64 
+ 6   housing    45211 non-null  object
+ 7   loan       45211 non-null  object
+ 8   contact    45211 non-null  object
+ 9   day        45211 non-null  int64 
+ 10  month      45211 non-null  object
+ 11  duration   45211 non-null  int64 
+ 12  campaign   45211 non-null  int64 
+ 13  pdays      45211 non-null  int64 
+ 14  previous   45211 non-null  int64 
+ 15  poutcome   45211 non-null  object
+ 16  y          45211 non-null  object
+"dtypes: int64(7), object(10)"
+memory usage: 5.9+ MB

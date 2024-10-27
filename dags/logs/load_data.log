@@ -702,3 +702,689 @@
 2024-10-26 22:15:31,500 - INFO - No features dropped due to null values
 2024-10-26 22:15:31,516 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
 2024-10-26 22:15:31,517 - INFO - Data processing completed successfully
+2024-10-27 14:28:40,837 - INFO - Starting data download process
+2024-10-27 14:28:40,841 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-27 14:28:42,771 - INFO - Starting data loading process
+2024-10-27 14:28:42,774 - INFO - Using pickle file: None
+2024-10-27 14:28:42,777 - ERROR - Pickle file not found: None
+2024-10-27 14:28:44,477 - INFO - Starting data processing
+2024-10-27 14:28:44,480 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 14:28:44,572 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 14:28:44,601 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 14:28:44,623 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 14:28:44,628 - INFO - No duplicate rows found.
+2024-10-27 14:28:44,632 - INFO - No features dropped due to null values
+2024-10-27 14:28:44,681 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 14:28:44,682 - INFO - Data processing completed successfully
+2024-10-27 14:38:45,370 - INFO - Starting data download process
+2024-10-27 14:38:45,378 - ERROR - An unexpected error occurred: File /opt/airflow/config/key.json was not found.
+2024-10-27 14:38:47,924 - INFO - Starting data loading process
+2024-10-27 14:38:47,929 - INFO - Using pickle file: None
+2024-10-27 14:38:47,933 - ERROR - Pickle file not found: None
+2024-10-27 14:38:50,676 - INFO - Starting data processing
+2024-10-27 14:38:50,681 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 14:38:50,968 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 14:38:51,050 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 14:38:51,128 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 14:38:51,184 - INFO - No duplicate rows found.
+2024-10-27 14:38:51,205 - INFO - No features dropped due to null values
+2024-10-27 14:38:51,277 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 14:38:51,280 - INFO - Data processing completed successfully
+2024-10-27 14:54:08,058 - INFO - Starting data download process
+2024-10-27 14:54:09,459 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 14:54:09,544 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 14:54:12,675 - INFO - Starting data loading process
+2024-10-27 14:54:12,678 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 14:54:12,736 - INFO - Pickle file loaded successfully
+2024-10-27 14:54:13,331 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 14:54:17,020 - INFO - Starting data processing
+2024-10-27 14:54:17,024 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 14:54:17,297 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 14:54:17,365 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 14:54:17,422 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 14:54:17,462 - INFO - No duplicate rows found.
+2024-10-27 14:54:17,484 - INFO - No features dropped due to null values
+2024-10-27 14:54:17,637 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 14:54:17,642 - INFO - Data processing completed successfully
+2024-10-27 15:13:20,576 - INFO - Starting data download process
+2024-10-27 15:13:21,376 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 15:13:21,414 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 15:13:22,861 - INFO - Starting data loading process
+2024-10-27 15:13:22,864 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 15:13:22,889 - INFO - Pickle file loaded successfully
+2024-10-27 15:13:23,166 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 15:13:24,576 - INFO - Starting data processing
+2024-10-27 15:13:24,577 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 15:13:24,654 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 15:13:24,677 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 15:13:24,696 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 15:13:24,720 - INFO - No duplicate rows found.
+2024-10-27 15:13:25,182 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 15:13:25,231 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 15:13:25,233 - INFO - Data processing completed successfully
+2024-10-27 15:29:03,924 - INFO - Starting data download process
+2024-10-27 15:29:04,670 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 15:29:04,706 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 15:29:06,522 - INFO - Starting data loading process
+2024-10-27 15:29:06,525 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 15:29:06,561 - INFO - Pickle file loaded successfully
+2024-10-27 15:29:06,876 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 15:29:08,636 - INFO - Starting data processing
+2024-10-27 15:29:08,639 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 15:29:08,727 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 15:29:08,751 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 15:29:08,771 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 15:29:08,793 - INFO - No duplicate rows found.
+2024-10-27 15:29:09,242 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 15:29:09,244 - INFO - age: 0.00%
+2024-10-27 15:29:09,245 - INFO - job: 0.64%
+2024-10-27 15:29:09,247 - INFO - marital: 0.00%
+2024-10-27 15:29:09,248 - INFO - education: 4.11%
+2024-10-27 15:29:09,250 - INFO - default: 0.00%
+2024-10-27 15:29:09,251 - INFO - balance: 0.00%
+2024-10-27 15:29:09,253 - INFO - housing: 0.00%
+2024-10-27 15:29:09,255 - INFO - loan: 0.00%
+2024-10-27 15:29:09,256 - INFO - contact: 28.80%
+2024-10-27 15:29:09,258 - INFO - day: 0.00%
+2024-10-27 15:29:09,261 - INFO - month: 0.00%
+2024-10-27 15:29:09,263 - INFO - duration: 0.00%
+2024-10-27 15:29:09,265 - INFO - campaign: 0.00%
+2024-10-27 15:29:09,267 - INFO - pdays: 0.00%
+2024-10-27 15:29:09,269 - INFO - previous: 0.00%
+2024-10-27 15:29:09,272 - INFO - poutcome: 81.75%
+2024-10-27 15:29:09,273 - INFO - y: 0.00%
+2024-10-27 15:29:09,279 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 15:29:09,321 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 15:29:09,322 - INFO - Data processing completed successfully
+2024-10-27 15:50:40,622 - INFO - Starting data download process
+2024-10-27 15:50:41,598 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 15:50:41,629 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 15:50:43,420 - INFO - Starting data loading process
+2024-10-27 15:50:43,424 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 15:50:43,457 - INFO - Pickle file loaded successfully
+2024-10-27 15:50:43,769 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 15:50:45,226 - INFO - Starting data processing
+2024-10-27 15:50:45,228 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 15:50:45,312 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 15:50:45,337 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 15:50:45,359 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 15:50:45,381 - INFO - No duplicate rows found.
+2024-10-27 15:50:45,810 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 15:50:45,813 - INFO - age: 0.00%
+2024-10-27 15:50:45,816 - INFO - job: 0.64%
+2024-10-27 15:50:45,819 - INFO - marital: 0.00%
+2024-10-27 15:50:45,821 - INFO - education: 4.11%
+2024-10-27 15:50:45,823 - INFO - default: 0.00%
+2024-10-27 15:50:45,825 - INFO - balance: 0.00%
+2024-10-27 15:50:45,826 - INFO - housing: 0.00%
+2024-10-27 15:50:45,827 - INFO - loan: 0.00%
+2024-10-27 15:50:45,828 - INFO - contact: 28.80%
+2024-10-27 15:50:45,828 - INFO - day: 0.00%
+2024-10-27 15:50:45,830 - INFO - month: 0.00%
+2024-10-27 15:50:45,831 - INFO - duration: 0.00%
+2024-10-27 15:50:45,832 - INFO - campaign: 0.00%
+2024-10-27 15:50:45,832 - INFO - pdays: 0.00%
+2024-10-27 15:50:45,834 - INFO - previous: 0.00%
+2024-10-27 15:50:45,835 - INFO - poutcome: 81.75%
+2024-10-27 15:50:45,837 - INFO - y: 0.00%
+2024-10-27 15:50:45,844 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 15:50:45,874 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 15:50:45,906 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 15:50:45,949 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 15:50:45,951 - INFO - Data processing completed successfully
+2024-10-27 16:37:35,738 - INFO - Starting data download process
+2024-10-27 16:37:36,576 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 16:37:36,612 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 16:37:38,602 - INFO - Starting data loading process
+2024-10-27 16:37:38,604 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 16:37:38,632 - INFO - Pickle file loaded successfully
+2024-10-27 16:37:38,936 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 16:37:40,442 - INFO - Starting data processing
+2024-10-27 16:37:40,444 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 16:37:40,543 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 16:37:40,577 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 16:37:40,605 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 16:37:40,629 - INFO - No duplicate rows found.
+2024-10-27 16:37:41,017 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 16:37:41,018 - INFO - age: 0.00%
+2024-10-27 16:37:41,020 - INFO - job: 0.64%
+2024-10-27 16:37:41,022 - INFO - marital: 0.00%
+2024-10-27 16:37:41,023 - INFO - education: 4.11%
+2024-10-27 16:37:41,024 - INFO - default: 0.00%
+2024-10-27 16:37:41,025 - INFO - balance: 0.00%
+2024-10-27 16:37:41,026 - INFO - housing: 0.00%
+2024-10-27 16:37:41,028 - INFO - loan: 0.00%
+2024-10-27 16:37:41,030 - INFO - contact: 28.80%
+2024-10-27 16:37:41,032 - INFO - day: 0.00%
+2024-10-27 16:37:41,034 - INFO - month: 0.00%
+2024-10-27 16:37:41,035 - INFO - duration: 0.00%
+2024-10-27 16:37:41,035 - INFO - campaign: 0.00%
+2024-10-27 16:37:41,036 - INFO - pdays: 0.00%
+2024-10-27 16:37:41,038 - INFO - previous: 0.00%
+2024-10-27 16:37:41,039 - INFO - poutcome: 81.75%
+2024-10-27 16:37:41,040 - INFO - y: 0.00%
+2024-10-27 16:37:41,047 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 16:37:41,075 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 16:37:41,101 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 16:37:41,142 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 16:37:41,143 - INFO - Data processing completed successfully
+2024-10-27 19:49:28,179 - INFO - Starting data download process
+2024-10-27 19:49:29,038 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 19:49:29,059 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 19:49:31,951 - INFO - Starting data loading process
+2024-10-27 19:49:31,953 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 19:49:31,978 - INFO - Pickle file loaded successfully
+2024-10-27 19:49:32,308 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 19:49:34,561 - INFO - Starting data processing
+2024-10-27 19:49:34,563 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 19:49:34,661 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 19:49:34,711 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 19:49:34,748 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 19:49:34,780 - INFO - No duplicate rows found.
+2024-10-27 19:49:35,194 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 19:49:35,197 - INFO - age: 0.00%
+2024-10-27 19:49:35,198 - INFO - job: 0.64%
+2024-10-27 19:49:35,200 - INFO - marital: 0.00%
+2024-10-27 19:49:35,202 - INFO - education: 4.11%
+2024-10-27 19:49:35,203 - INFO - default: 0.00%
+2024-10-27 19:49:35,204 - INFO - balance: 0.00%
+2024-10-27 19:49:35,205 - INFO - housing: 0.00%
+2024-10-27 19:49:35,206 - INFO - loan: 0.00%
+2024-10-27 19:49:35,207 - INFO - contact: 28.80%
+2024-10-27 19:49:35,208 - INFO - day: 0.00%
+2024-10-27 19:49:35,209 - INFO - month: 0.00%
+2024-10-27 19:49:35,210 - INFO - duration: 0.00%
+2024-10-27 19:49:35,211 - INFO - campaign: 0.00%
+2024-10-27 19:49:35,212 - INFO - pdays: 0.00%
+2024-10-27 19:49:35,213 - INFO - previous: 0.00%
+2024-10-27 19:49:35,214 - INFO - poutcome: 81.75%
+2024-10-27 19:49:35,215 - INFO - y: 0.00%
+2024-10-27 19:49:35,227 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 19:49:35,257 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 19:49:35,284 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 19:49:35,332 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 19:49:35,333 - INFO - Data processing completed successfully
+2024-10-27 20:09:06,175 - INFO - Starting data download process
+2024-10-27 20:09:07,092 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 20:09:07,121 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 20:09:09,334 - INFO - Starting data loading process
+2024-10-27 20:09:09,336 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 20:09:09,354 - INFO - Pickle file loaded successfully
+2024-10-27 20:09:09,667 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:09:11,269 - INFO - Starting data processing
+2024-10-27 20:09:11,272 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:09:11,353 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 20:09:11,377 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 20:09:11,398 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 20:09:11,419 - INFO - No duplicate rows found.
+2024-10-27 20:09:11,786 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 20:09:11,789 - INFO - age: 0.00%
+2024-10-27 20:09:11,791 - INFO - job: 0.64%
+2024-10-27 20:09:11,793 - INFO - marital: 0.00%
+2024-10-27 20:09:11,795 - INFO - education: 4.11%
+2024-10-27 20:09:11,798 - INFO - default: 0.00%
+2024-10-27 20:09:11,799 - INFO - balance: 0.00%
+2024-10-27 20:09:11,801 - INFO - housing: 0.00%
+2024-10-27 20:09:11,802 - INFO - loan: 0.00%
+2024-10-27 20:09:11,804 - INFO - contact: 28.80%
+2024-10-27 20:09:11,806 - INFO - day: 0.00%
+2024-10-27 20:09:11,807 - INFO - month: 0.00%
+2024-10-27 20:09:11,809 - INFO - duration: 0.00%
+2024-10-27 20:09:11,810 - INFO - campaign: 0.00%
+2024-10-27 20:09:11,812 - INFO - pdays: 0.00%
+2024-10-27 20:09:11,813 - INFO - previous: 0.00%
+2024-10-27 20:09:11,815 - INFO - poutcome: 81.75%
+2024-10-27 20:09:11,816 - INFO - y: 0.00%
+2024-10-27 20:09:11,824 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 20:09:11,852 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 20:09:11,882 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 20:09:11,919 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 20:09:11,920 - INFO - Data processing completed successfully
+2024-10-27 20:51:50,845 - INFO - Starting data download process
+2024-10-27 20:51:51,607 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 20:51:51,637 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 20:51:53,326 - INFO - Starting data loading process
+2024-10-27 20:51:53,329 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 20:51:53,358 - INFO - Pickle file loaded successfully
+2024-10-27 20:51:53,608 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:51:55,575 - INFO - Starting data processing
+2024-10-27 20:51:55,577 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:51:55,659 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 20:51:55,686 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 20:51:55,707 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 20:51:55,728 - INFO - No duplicate rows found.
+2024-10-27 20:51:56,098 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 20:51:56,100 - INFO - age: 0.00%
+2024-10-27 20:51:56,102 - INFO - job: 0.64%
+2024-10-27 20:51:56,104 - INFO - marital: 0.00%
+2024-10-27 20:51:56,105 - INFO - education: 4.11%
+2024-10-27 20:51:56,106 - INFO - default: 0.00%
+2024-10-27 20:51:56,108 - INFO - balance: 0.00%
+2024-10-27 20:51:56,109 - INFO - housing: 0.00%
+2024-10-27 20:51:56,111 - INFO - loan: 0.00%
+2024-10-27 20:51:56,113 - INFO - contact: 28.80%
+2024-10-27 20:51:56,114 - INFO - day: 0.00%
+2024-10-27 20:51:56,115 - INFO - month: 0.00%
+2024-10-27 20:51:56,116 - INFO - duration: 0.00%
+2024-10-27 20:51:56,118 - INFO - campaign: 0.00%
+2024-10-27 20:51:56,118 - INFO - pdays: 0.00%
+2024-10-27 20:51:56,120 - INFO - previous: 0.00%
+2024-10-27 20:51:56,121 - INFO - poutcome: 81.75%
+2024-10-27 20:51:56,122 - INFO - y: 0.00%
+2024-10-27 20:51:56,129 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 20:51:56,157 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 20:51:56,186 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 20:51:56,230 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 20:51:56,231 - INFO - Data processing completed successfully
+2024-10-27 21:50:08,254 - INFO - Starting data download process
+2024-10-27 21:50:09,029 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 21:50:09,065 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 21:50:10,956 - INFO - Starting data loading process
+2024-10-27 21:50:10,958 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 21:50:10,981 - INFO - Pickle file loaded successfully
+2024-10-27 21:50:11,282 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:50:12,923 - INFO - Starting data processing
+2024-10-27 21:50:12,926 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:50:13,022 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 21:50:13,049 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 21:50:13,072 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 21:50:13,093 - INFO - No duplicate rows found.
+2024-10-27 21:50:13,485 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 21:50:13,488 - INFO - age: 0.00%
+2024-10-27 21:50:13,490 - INFO - job: 0.64%
+2024-10-27 21:50:13,491 - INFO - marital: 0.00%
+2024-10-27 21:50:13,492 - INFO - education: 4.11%
+2024-10-27 21:50:13,493 - INFO - default: 0.00%
+2024-10-27 21:50:13,494 - INFO - balance: 0.00%
+2024-10-27 21:50:13,495 - INFO - housing: 0.00%
+2024-10-27 21:50:13,496 - INFO - loan: 0.00%
+2024-10-27 21:50:13,497 - INFO - contact: 28.80%
+2024-10-27 21:50:13,498 - INFO - day: 0.00%
+2024-10-27 21:50:13,498 - INFO - month: 0.00%
+2024-10-27 21:50:13,499 - INFO - duration: 0.00%
+2024-10-27 21:50:13,501 - INFO - campaign: 0.00%
+2024-10-27 21:50:13,502 - INFO - pdays: 0.00%
+2024-10-27 21:50:13,502 - INFO - previous: 0.00%
+2024-10-27 21:50:13,503 - INFO - poutcome: 81.75%
+2024-10-27 21:50:13,504 - INFO - y: 0.00%
+2024-10-27 21:50:13,512 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 21:50:13,539 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 21:50:13,568 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 21:50:13,606 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 21:50:13,608 - INFO - Data processing completed successfully
+2024-10-27 21:52:04,407 - INFO - Starting data download process
+2024-10-27 21:52:05,312 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 21:52:05,342 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 21:52:06,592 - INFO - Starting data loading process
+2024-10-27 21:52:06,594 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 21:52:06,616 - INFO - Pickle file loaded successfully
+2024-10-27 21:52:06,852 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:52:09,034 - INFO - Starting data processing
+2024-10-27 21:52:09,036 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:52:09,125 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 21:52:09,150 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 21:52:09,170 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 21:52:09,192 - INFO - No duplicate rows found.
+2024-10-27 21:52:09,572 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 21:52:09,574 - INFO - age: 0.00%
+2024-10-27 21:52:09,577 - INFO - job: 0.64%
+2024-10-27 21:52:09,579 - INFO - marital: 0.00%
+2024-10-27 21:52:09,580 - INFO - education: 4.11%
+2024-10-27 21:52:09,581 - INFO - default: 0.00%
+2024-10-27 21:52:09,581 - INFO - balance: 0.00%
+2024-10-27 21:52:09,583 - INFO - housing: 0.00%
+2024-10-27 21:52:09,584 - INFO - loan: 0.00%
+2024-10-27 21:52:09,585 - INFO - contact: 28.80%
+2024-10-27 21:52:09,587 - INFO - day: 0.00%
+2024-10-27 21:52:09,588 - INFO - month: 0.00%
+2024-10-27 21:52:09,589 - INFO - duration: 0.00%
+2024-10-27 21:52:09,591 - INFO - campaign: 0.00%
+2024-10-27 21:52:09,592 - INFO - pdays: 0.00%
+2024-10-27 21:52:09,593 - INFO - previous: 0.00%
+2024-10-27 21:52:09,595 - INFO - poutcome: 81.75%
+2024-10-27 21:52:09,596 - INFO - y: 0.00%
+2024-10-27 21:52:09,603 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 21:52:09,631 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 21:52:09,660 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 21:52:09,704 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 21:52:09,706 - INFO - Data processing completed successfully
+2024-10-27 21:52:36,660 - INFO - Starting data download process
+2024-10-27 21:52:37,345 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 21:52:37,375 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 21:52:39,387 - INFO - Starting data loading process
+2024-10-27 21:52:39,392 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 21:52:39,419 - INFO - Pickle file loaded successfully
+2024-10-27 21:52:39,732 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:52:41,700 - INFO - Starting data processing
+2024-10-27 21:52:41,701 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:52:41,824 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 21:52:41,845 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 21:52:41,863 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 21:52:41,885 - INFO - No duplicate rows found.
+2024-10-27 21:52:42,275 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 21:52:42,277 - INFO - age: 0.00%
+2024-10-27 21:52:42,280 - INFO - job: 0.64%
+2024-10-27 21:52:42,282 - INFO - marital: 0.00%
+2024-10-27 21:52:42,283 - INFO - education: 4.11%
+2024-10-27 21:52:42,285 - INFO - default: 0.00%
+2024-10-27 21:52:42,286 - INFO - balance: 0.00%
+2024-10-27 21:52:42,287 - INFO - housing: 0.00%
+2024-10-27 21:52:42,288 - INFO - loan: 0.00%
+2024-10-27 21:52:42,288 - INFO - contact: 28.80%
+2024-10-27 21:52:42,289 - INFO - day: 0.00%
+2024-10-27 21:52:42,290 - INFO - month: 0.00%
+2024-10-27 21:52:42,291 - INFO - duration: 0.00%
+2024-10-27 21:52:42,292 - INFO - campaign: 0.00%
+2024-10-27 21:52:42,293 - INFO - pdays: 0.00%
+2024-10-27 21:52:42,294 - INFO - previous: 0.00%
+2024-10-27 21:52:42,295 - INFO - poutcome: 81.75%
+2024-10-27 21:52:42,296 - INFO - y: 0.00%
+2024-10-27 21:52:42,304 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 21:52:42,333 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 21:52:42,362 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 21:52:42,404 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 21:52:42,406 - INFO - Data processing completed successfully
+2024-10-27 22:00:33,251 - INFO - Starting data download process
+2024-10-27 22:00:34,148 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:00:34,183 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:00:35,836 - INFO - Starting data loading process
+2024-10-27 22:00:35,839 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:00:35,865 - INFO - Pickle file loaded successfully
+2024-10-27 22:00:36,173 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:00:38,369 - INFO - Starting data processing
+2024-10-27 22:00:38,372 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:00:38,478 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 22:00:38,506 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:00:38,531 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:00:38,559 - INFO - No duplicate rows found.
+2024-10-27 22:00:39,024 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 22:00:39,027 - INFO - age: 0.00%
+2024-10-27 22:00:39,028 - INFO - job: 0.64%
+2024-10-27 22:00:39,029 - INFO - marital: 0.00%
+2024-10-27 22:00:39,031 - INFO - education: 4.11%
+2024-10-27 22:00:39,032 - INFO - default: 0.00%
+2024-10-27 22:00:39,033 - INFO - balance: 0.00%
+2024-10-27 22:00:39,035 - INFO - housing: 0.00%
+2024-10-27 22:00:39,036 - INFO - loan: 0.00%
+2024-10-27 22:00:39,038 - INFO - contact: 28.80%
+2024-10-27 22:00:39,040 - INFO - day: 0.00%
+2024-10-27 22:00:39,041 - INFO - month: 0.00%
+2024-10-27 22:00:39,043 - INFO - duration: 0.00%
+2024-10-27 22:00:39,044 - INFO - campaign: 0.00%
+2024-10-27 22:00:39,045 - INFO - pdays: 0.00%
+2024-10-27 22:00:39,046 - INFO - previous: 0.00%
+2024-10-27 22:00:39,048 - INFO - poutcome: 81.75%
+2024-10-27 22:00:39,049 - INFO - y: 0.00%
+2024-10-27 22:00:39,057 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 22:00:39,088 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 22:00:39,116 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 22:00:39,156 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:00:39,158 - INFO - Data processing completed successfully
+2024-10-27 22:05:16,802 - INFO - Starting data download process
+2024-10-27 22:05:17,567 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:05:17,599 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:05:18,952 - INFO - Starting data loading process
+2024-10-27 22:05:18,953 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:05:18,974 - INFO - Pickle file loaded successfully
+2024-10-27 22:05:19,244 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:05:20,881 - INFO - Starting data processing
+2024-10-27 22:05:20,883 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:05:20,975 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 22:05:21,000 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:05:21,021 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:05:21,043 - INFO - No duplicate rows found.
+2024-10-27 22:05:21,426 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 22:05:21,428 - INFO - age: 0.00%
+2024-10-27 22:05:21,429 - INFO - job: 0.64%
+2024-10-27 22:05:21,431 - INFO - marital: 0.00%
+2024-10-27 22:05:21,433 - INFO - education: 4.11%
+2024-10-27 22:05:21,435 - INFO - default: 0.00%
+2024-10-27 22:05:21,436 - INFO - balance: 0.00%
+2024-10-27 22:05:21,437 - INFO - housing: 0.00%
+2024-10-27 22:05:21,438 - INFO - loan: 0.00%
+2024-10-27 22:05:21,440 - INFO - contact: 28.80%
+2024-10-27 22:05:21,441 - INFO - day: 0.00%
+2024-10-27 22:05:21,443 - INFO - month: 0.00%
+2024-10-27 22:05:21,444 - INFO - duration: 0.00%
+2024-10-27 22:05:21,446 - INFO - campaign: 0.00%
+2024-10-27 22:05:21,448 - INFO - pdays: 0.00%
+2024-10-27 22:05:21,449 - INFO - previous: 0.00%
+2024-10-27 22:05:21,451 - INFO - poutcome: 81.75%
+2024-10-27 22:05:21,452 - INFO - y: 0.00%
+2024-10-27 22:05:21,459 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 22:05:21,488 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 22:05:21,517 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 22:05:21,559 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:05:21,560 - INFO - Data processing completed successfully
+2024-10-27 22:08:04,371 - INFO - Starting data download process
+2024-10-27 22:08:05,081 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:08:05,117 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:08:06,551 - INFO - Starting data loading process
+2024-10-27 22:08:06,554 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:08:06,582 - INFO - Pickle file loaded successfully
+2024-10-27 22:08:06,869 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:08:08,868 - INFO - Starting data processing
+2024-10-27 22:08:08,870 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:08:08,953 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 22:08:08,975 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:08:08,995 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:08:09,016 - INFO - No duplicate rows found.
+2024-10-27 22:08:09,380 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 22:08:09,382 - INFO - age: 0.00%
+2024-10-27 22:08:09,384 - INFO - job: 0.64%
+2024-10-27 22:08:09,385 - INFO - marital: 0.00%
+2024-10-27 22:08:09,387 - INFO - education: 4.11%
+2024-10-27 22:08:09,387 - INFO - default: 0.00%
+2024-10-27 22:08:09,388 - INFO - balance: 0.00%
+2024-10-27 22:08:09,389 - INFO - housing: 0.00%
+2024-10-27 22:08:09,389 - INFO - loan: 0.00%
+2024-10-27 22:08:09,390 - INFO - contact: 28.80%
+2024-10-27 22:08:09,391 - INFO - day: 0.00%
+2024-10-27 22:08:09,392 - INFO - month: 0.00%
+2024-10-27 22:08:09,393 - INFO - duration: 0.00%
+2024-10-27 22:08:09,393 - INFO - campaign: 0.00%
+2024-10-27 22:08:09,394 - INFO - pdays: 0.00%
+2024-10-27 22:08:09,395 - INFO - previous: 0.00%
+2024-10-27 22:08:09,396 - INFO - poutcome: 81.75%
+2024-10-27 22:08:09,398 - INFO - y: 0.00%
+2024-10-27 22:08:09,405 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 22:08:09,432 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 22:08:09,460 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 22:08:09,504 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:08:09,505 - INFO - Data processing completed successfully
+2024-10-27 22:11:04,817 - INFO - Starting data download process
+2024-10-27 22:11:05,541 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:11:05,571 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:11:07,197 - INFO - Starting data loading process
+2024-10-27 22:11:07,199 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:11:07,231 - INFO - Pickle file loaded successfully
+2024-10-27 22:11:07,601 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:11:09,722 - INFO - Starting data processing
+2024-10-27 22:11:09,724 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:11:09,814 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 22:11:09,838 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:11:09,857 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:11:09,877 - INFO - No duplicate rows found.
+2024-10-27 22:11:10,250 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 22:11:10,252 - INFO - age: 0.00%
+2024-10-27 22:11:10,254 - INFO - job: 0.64%
+2024-10-27 22:11:10,256 - INFO - marital: 0.00%
+2024-10-27 22:11:10,258 - INFO - education: 4.11%
+2024-10-27 22:11:10,260 - INFO - default: 0.00%
+2024-10-27 22:11:10,262 - INFO - balance: 0.00%
+2024-10-27 22:11:10,264 - INFO - housing: 0.00%
+2024-10-27 22:11:10,265 - INFO - loan: 0.00%
+2024-10-27 22:11:10,266 - INFO - contact: 28.80%
+2024-10-27 22:11:10,268 - INFO - day: 0.00%
+2024-10-27 22:11:10,269 - INFO - month: 0.00%
+2024-10-27 22:11:10,271 - INFO - duration: 0.00%
+2024-10-27 22:11:10,273 - INFO - campaign: 0.00%
+2024-10-27 22:11:10,274 - INFO - pdays: 0.00%
+2024-10-27 22:11:10,276 - INFO - previous: 0.00%
+2024-10-27 22:11:10,277 - INFO - poutcome: 81.75%
+2024-10-27 22:11:10,279 - INFO - y: 0.00%
+2024-10-27 22:11:10,288 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 22:11:10,314 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 22:11:10,342 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 22:11:10,384 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:11:10,385 - INFO - Data processing completed successfully
+2024-10-27 22:15:44,802 - INFO - Starting data download process
+2024-10-27 22:15:45,542 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:15:45,576 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:15:47,744 - INFO - Starting data loading process
+2024-10-27 22:15:47,747 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:15:47,775 - INFO - Pickle file loaded successfully
+2024-10-27 22:15:48,080 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:15:49,546 - INFO - Starting data processing
+2024-10-27 22:15:49,548 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:15:49,623 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 22:15:49,647 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:15:49,666 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:15:49,686 - INFO - No duplicate rows found.
+2024-10-27 22:15:50,057 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 22:15:50,060 - INFO - age: 0.00%
+2024-10-27 22:15:50,062 - INFO - job: 0.64%
+2024-10-27 22:15:50,063 - INFO - marital: 0.00%
+2024-10-27 22:15:50,064 - INFO - education: 4.11%
+2024-10-27 22:15:50,065 - INFO - default: 0.00%
+2024-10-27 22:15:50,065 - INFO - balance: 0.00%
+2024-10-27 22:15:50,066 - INFO - housing: 0.00%
+2024-10-27 22:15:50,068 - INFO - loan: 0.00%
+2024-10-27 22:15:50,070 - INFO - contact: 28.80%
+2024-10-27 22:15:50,071 - INFO - day: 0.00%
+2024-10-27 22:15:50,072 - INFO - month: 0.00%
+2024-10-27 22:15:50,073 - INFO - duration: 0.00%
+2024-10-27 22:15:50,074 - INFO - campaign: 0.00%
+2024-10-27 22:15:50,075 - INFO - pdays: 0.00%
+2024-10-27 22:15:50,076 - INFO - previous: 0.00%
+2024-10-27 22:15:50,077 - INFO - poutcome: 81.75%
+2024-10-27 22:15:50,078 - INFO - y: 0.00%
+2024-10-27 22:15:50,085 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 22:15:50,113 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 22:15:50,143 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 22:15:50,182 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:15:50,184 - INFO - Data processing completed successfully
+2024-10-27 22:15:53,933 - INFO - Starting EDA process
+2024-10-27 22:15:53,936 - INFO - Using input file: /opt/airflow/data/processed/outlier_handled_data.pkl
+2024-10-27 22:15:54,023 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 16)
+2024-10-27 22:15:54,032 - INFO - Data head:
+    age           job  marital  education default  balance housing loan  contact  day month  duration  campaign  pdays  previous   y
+0  58.0    management  married   tertiary      no   2143.0     yes   no  unknown  5.0   may     261.0       1.0   -1.0       0.0  no
+1  44.0    technician   single  secondary      no     29.0     yes   no  unknown  5.0   may     151.0       1.0   -1.0       0.0  no
+2  33.0  entrepreneur  married  secondary      no      2.0     yes  yes  unknown  5.0   may      76.0       1.0   -1.0       0.0  no
+3  47.0   blue-collar  married  secondary      no   1506.0     yes   no  unknown  5.0   may      92.0       1.0   -1.0       0.0  no
+4  33.0   blue-collar   single  secondary      no      1.0      no   no  unknown  5.0   may     198.0       1.0   -1.0       0.0  no
+2024-10-27 22:15:54,033 - INFO - Current column names: ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'y']
+2024-10-27 22:15:54,122 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/deposit_distribution.png
+2024-10-27 22:15:54,127 - INFO - Contact method distribution:
+contact
+cellular     0.647741
+unknown      0.287983
+telephone    0.064276
+Name: proportion, dtype: Float64
+2024-10-27 22:15:54,305 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/contact_method_distribution.png
+2024-10-27 22:15:54,421 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/housing_loan_distribution.png
+2024-10-27 22:15:54,530 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/personal_loan_distribution.png
+2024-10-27 22:15:54,633 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/default_status_distribution.png
+2024-10-27 22:15:54,639 - INFO - Month distribution:
+month
+may    0.304483
+jul    0.152507
+aug    0.138174
+jun    0.118135
+nov     0.08781
+apr    0.064851
+feb    0.058592
+jan    0.031032
+oct    0.016323
+sep    0.012807
+mar    0.010551
+dec    0.004733
+Name: proportion, dtype: Float64
+2024-10-27 22:15:54,773 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/month_distribution.png
+2024-10-27 22:15:54,896 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/age_distribution.png
+2024-10-27 22:15:55,017 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/job_distribution.png
+2024-10-27 22:15:55,118 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/marital_status_distribution.png
+2024-10-27 22:15:55,215 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/education_distribution.png
+2024-10-27 22:15:55,696 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/correlation_heatmap.png
+2024-10-27 22:15:55,698 - INFO - EDA process completed successfully
+2024-10-27 22:18:16,728 - INFO - Starting data download process
+2024-10-27 22:18:17,525 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:18:17,568 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:18:20,044 - INFO - Starting data loading process
+2024-10-27 22:18:20,046 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:18:20,075 - INFO - Pickle file loaded successfully
+2024-10-27 22:18:20,378 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:18:21,773 - INFO - Starting data processing
+2024-10-27 22:18:21,776 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:18:21,873 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-10-27 22:18:21,897 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:18:21,915 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:18:21,935 - INFO - No duplicate rows found.
+2024-10-27 22:18:22,294 - INFO - Percentage of null or unknown values in each column:
+2024-10-27 22:18:22,298 - INFO - age: 0.00%
+2024-10-27 22:18:22,302 - INFO - job: 0.64%
+2024-10-27 22:18:22,305 - INFO - marital: 0.00%
+2024-10-27 22:18:22,308 - INFO - education: 4.11%
+2024-10-27 22:18:22,310 - INFO - default: 0.00%
+2024-10-27 22:18:22,312 - INFO - balance: 0.00%
+2024-10-27 22:18:22,314 - INFO - housing: 0.00%
+2024-10-27 22:18:22,316 - INFO - loan: 0.00%
+2024-10-27 22:18:22,318 - INFO - contact: 28.80%
+2024-10-27 22:18:22,319 - INFO - day: 0.00%
+2024-10-27 22:18:22,320 - INFO - month: 0.00%
+2024-10-27 22:18:22,321 - INFO - duration: 0.00%
+2024-10-27 22:18:22,322 - INFO - campaign: 0.00%
+2024-10-27 22:18:22,324 - INFO - pdays: 0.00%
+2024-10-27 22:18:22,325 - INFO - previous: 0.00%
+2024-10-27 22:18:22,327 - INFO - poutcome: 81.75%
+2024-10-27 22:18:22,328 - INFO - y: 0.00%
+2024-10-27 22:18:22,335 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-10-27 22:18:22,364 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-10-27 22:18:22,392 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-10-27 22:18:22,438 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:18:22,440 - INFO - Data processing completed successfully
+2024-10-27 22:18:26,221 - INFO - Starting EDA process
+2024-10-27 22:18:26,224 - INFO - Using input file: /opt/airflow/data/processed/outlier_handled_data.pkl
+2024-10-27 22:18:26,307 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 16)
+2024-10-27 22:18:26,316 - INFO - Data head:
+    age           job  marital  education default  balance housing loan  contact  day month  duration  campaign  pdays  previous   y
+0  58.0    management  married   tertiary      no   2143.0     yes   no  unknown  5.0   may     261.0       1.0   -1.0       0.0  no
+1  44.0    technician   single  secondary      no     29.0     yes   no  unknown  5.0   may     151.0       1.0   -1.0       0.0  no
+2  33.0  entrepreneur  married  secondary      no      2.0     yes  yes  unknown  5.0   may      76.0       1.0   -1.0       0.0  no
+3  47.0   blue-collar  married  secondary      no   1506.0     yes   no  unknown  5.0   may      92.0       1.0   -1.0       0.0  no
+4  33.0   blue-collar   single  secondary      no      1.0      no   no  unknown  5.0   may     198.0       1.0   -1.0       0.0  no
+2024-10-27 22:18:26,319 - INFO - Current column names: ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'y']
+2024-10-27 22:18:26,408 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/deposit_distribution.png
+2024-10-27 22:18:26,413 - INFO - Contact method distribution:
+contact
+cellular     0.647741
+unknown      0.287983
+telephone    0.064276
+Name: proportion, dtype: Float64
+2024-10-27 22:18:26,569 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/contact_method_distribution.png
+2024-10-27 22:18:26,675 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/housing_loan_distribution.png
+2024-10-27 22:18:26,781 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/personal_loan_distribution.png
+2024-10-27 22:18:26,877 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/default_status_distribution.png
+2024-10-27 22:18:26,885 - INFO - Month distribution:
+month
+may    0.304483
+jul    0.152507
+aug    0.138174
+jun    0.118135
+nov     0.08781
+apr    0.064851
+feb    0.058592
+jan    0.031032
+oct    0.016323
+sep    0.012807
+mar    0.010551
+dec    0.004733
+Name: proportion, dtype: Float64
+2024-10-27 22:18:27,021 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/month_distribution.png
+2024-10-27 22:18:27,149 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/age_distribution.png
+2024-10-27 22:18:27,277 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/job_distribution.png
+2024-10-27 22:18:27,401 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/marital_status_distribution.png
+2024-10-27 22:18:27,508 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/education_distribution.png
+2024-10-27 22:18:27,928 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/correlation_heatmap.png
+2024-10-27 22:18:27,931 - INFO - EDA process completed successfully

@@ -13,3 +13,4 @@ google-auth
 io
 pandas
 matplotlib
+seaborn
