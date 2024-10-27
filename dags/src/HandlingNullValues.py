@@ -2,6 +2,7 @@ import os
 import logging
 import pandas as pd
 import io
+import numpy as np
 from airflow.utils.log.logging_mixin import LoggingMixin
 
 # Define paths
@@ -41,6 +42,9 @@ def custom_log(message, level=logging.INFO):
         airflow_logger.warning(message)
         file_logger.warning(message)
 
+def is_null_or_unknown(x):
+    return pd.isnull(x) or (isinstance(x, str) and x.lower() in ['unknown', 'na', 'n/a', ''])
+
 def process_data(input_file_path=INPUT_FILE_PATH):
     """
     Process the input CSV data, perform data cleaning, and save results.
@@ -50,7 +54,7 @@ def process_data(input_file_path=INPUT_FILE_PATH):
         custom_log(f"Input file: {input_file_path}")
 
         # Load CSV data
-        df = pd.read_csv(input_file_path, sep=';')
+        df = pd.read_csv(input_file_path, sep=',')
         custom_log(f"Data loaded successfully. DataFrame shape: {df.shape}")
 
         # Save DataFrame info
@@ -74,19 +78,32 @@ def process_data(input_file_path=INPUT_FILE_PATH):
         else:
             custom_log("No duplicate rows found.")
 
-        # Handle null values
-        null_percentage = df.isnull().mean() * 100
-        features_to_drop = null_percentage[null_percentage > 50].index.tolist()
+        # Handle null and unknown values
+        null_unknown_percentage = df.apply(lambda x: x.apply(is_null_or_unknown).mean()) * 100
+
+        # Log columns and their percentage of null or unknown values
+        custom_log("Percentage of null or unknown values in each column:")
+        for column, percentage in null_unknown_percentage.items():
+            custom_log(f"{column}: {percentage:.2f}%")
+
+        features_to_drop = null_unknown_percentage[null_unknown_percentage > 80].index.tolist()
 
         if features_to_drop:
-            df_dropped = df.drop(columns=features_to_drop)
-            custom_log(f"Dropped features with >50% null values: {features_to_drop}")
+            df = df.drop(columns=features_to_drop)
+            custom_log(f"Dropped features with >80% null or unknown values: {features_to_drop}")
         else:
-            df_dropped = df
-            custom_log("No features dropped due to null values")
+            custom_log("No features dropped due to null or unknown values")
+
+        # Fill mode values for unknown values in job and education columns
+        for column in ['job', 'education']:
+            if column in df.columns:
+                mode_value = df[column].mode().iloc[0]
+                mask = df[column].apply(is_null_or_unknown)
+                df.loc[mask, column] = mode_value
+                custom_log(f"Filled unknown values in '{column}' column with mode value: {mode_value}")
 
         # Save processed data as a pickle file
-        df_dropped.to_pickle(PICKLE_FILE_PATH)
+        df.to_pickle(PICKLE_FILE_PATH)
         custom_log(f"Processed data saved as pickle at {PICKLE_FILE_PATH}")
         custom_log("Data processing completed successfully")
 

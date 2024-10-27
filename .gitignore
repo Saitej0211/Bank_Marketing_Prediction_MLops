@@ -1,3 +1,2 @@
 config/Key.json 
-logs/scheduler/latest/
-logs/
+/logs/

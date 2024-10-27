@@ -20,8 +20,10 @@ def preprocess_data(input_file_path= INPUT_FILE_PATH):
 
     # Outlier handling
     data = process_outlier_handling(data)
+
     
     print(f"Processed data saved to {data}")
+    return data
 
 if __name__ == "__main__":
     preprocess_data(INPUT_FILE_PATH)

@@ -16,6 +16,7 @@ from src.DownloadData import download_data_from_gcp
 from src.LoadData import load_data
 from src.HandlingNullValues import process_data
 from src.data_preprocessing.preprocessing_main import preprocess_data
+from src.eda import perform_eda
 
 #Define the paths to project directory and the path to the key
 PROJECT_DIR = os.getcwd()
@@ -85,8 +86,19 @@ pre_process_task = PythonOperator(
     dag=dag,
 )
 
+# Task to perform EDA
+eda_task = PythonOperator(
+    task_id='perform_eda',
+    python_callable=perform_eda,
+    op_kwargs={
+        'input_file_path': '{{ ti.xcom_pull(task_ids="pre_process_data") }}',
+    },
+    dag=dag,
+)
+
+
 # Define task dependencies
-download_task >> load_task >> process_task >> pre_process_task
+download_task >> load_task >> process_task >> pre_process_task >> eda_task
 
 
 if __name__ == "__main__":
