@@ -65,5 +65,24 @@ The dataset includes 45,211 instances and 16 features, covering multiple direct 
 Dataset Link:
 https://archive.ics.uci.edu/dataset/222/bank+marketing
 
+## Google Cloud Platform (GCP)
+We utilize Google Cloud Storage exclusively for storing our machine learning models, ensuring they are securely archived and readily accessible for deployment
+
+One must set up a service account to use Google Cloud Platform services using below steps.
+
+Go to the GCP Console: Visit the Google Cloud Console at https://console.cloud.google.com/.
+
+Navigate to IAM & Admin > Service accounts: In the left-hand menu, click on "IAM & Admin" and then select "Service accounts".
+
+Create a service account: Click on the "Create Service Account" button and follow the prompts. Give your service account a name and description.
+
+Assign permissions: Assign the necessary permissions to your service account based on your requirements. You can either grant predefined roles or create custom roles.
+
+Generate a key: After creating the service account, click on it from the list of service accounts. Then, navigate to the "Keys" tab. Click on the "Add key" dropdown and select "Create new key". Choose the key type (JSON is recommended) and click "Create". This will download the key file to your local machine.
+
+You can avoid these steps of creating a GCP bucket, instead you could raise a request to access our GCP bucket
+
 ## Set up GCP Bucket and the Key
-The dataset is downloaded and then uploaded to a GCP bucket which is alos tracked by DVC to account for any changes to the dataset. The Service account needed to access the GCP bucket is created as saved under 'config/Key.json'. However, this is added to .gitignore to not be tracked by git. While setting up the project on your local system, please create the GCP bucket, replace the bucket name in the airflow.py file. Download the key associated with your service account and place it under config/Key.json and then run the code, it will work as expected.
+The dataset is downloaded and then uploaded to a GCP bucket which is alos tracked by DVC to account for any changes to the dataset. The Service account key needed to access the GCP bucket is created as saved under 'config/Key.json'. However, this is added to .gitignore to not be tracked by git. 
+
+While setting up the project on your local system, please create the GCP bucket with your service account, replace the bucket name in the airflow.py file. Download the key associated with your service account and place it under config/Key.json and then run the code, it will work as expected.
