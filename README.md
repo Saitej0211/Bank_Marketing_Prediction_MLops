@@ -161,6 +161,20 @@ The User Installation Steps are as follows:
 - Data Version Control (DVC)
 - Google Cloud Storage (GCS)
 
+## GitHub Actions
+
+GitHub Actions is configured to initiate workflows upon pushes and pull requests to any branch, including the "Name**" and main branches.
+
+When a new commit is pushed, the workflow triggers a build process `unittest`. This process produces test reports in XML format, which are then stored as artifacts. The workflow is designed to locate and execute test cases situated within the test directory that correspond to modules in the dags directory. Additionally, the workflow assesses the code for readability, potential security issues, and adequate documentation. Upon the successful completion of these build checks , feature branches are merged into the main branch.
+
+## Docker and Airflow
+
+The `docker-compose.yaml` file contains the code neccessary to run Airflow. Through the use of Docker and containerization, we are able to ship our datapipeline with the required dependencies installed. This makes it platform indepedent, whether it is windows, mac or linux, our data pipeline should run smooth.
+
+## Data Version Control (DVC)
+
+DVC (Data Version Control) is an open-source tool essential for data versioning in machine learning projects. It tracks changes in datasets over time, ensuring reproducibility and traceability of experiments. By storing meta-information separately from data, DVC keeps Git repositories clean and lightweight. It integrates seamlessly with Git, allowing for efficient management of code, data, and models. This dual-repository approach simplifies collaboration and ensures that project states can be recreated easily. DVC's focus on data versioning is critical for maintaining the integrity and reliability of machine learning workflows.
+
 ## Google Cloud Platform (GCP)
 We utilize Google Cloud Storage exclusively for storing our machine learning models, ensuring they are securely archived and readily accessible for deployment
 
@@ -178,7 +192,4 @@ Generate a key: After creating the service account, click on it from the list of
 
 You can avoid these steps of creating a GCP bucket, instead you could raise a request to access our GCP bucket
 
-## Set up GCP Bucket and the Key
-The dataset is downloaded and then uploaded to a GCP bucket which is alos tracked by DVC to account for any changes to the dataset. The Service account key needed to access the GCP bucket is created as saved under 'config/Key.json'. However, this is added to .gitignore to not be tracked by git. 
 
-While setting up the project on your local system, please create the GCP bucket with your service account, replace the bucket name in the airflow.py file. Download the key associated with your service account and place it under config/Key.json and then run the code, it will work as expected.
