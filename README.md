@@ -64,3 +64,7 @@ The dataset includes 45,211 instances and 16 features, covering multiple direct 
 
 Dataset Link:
 https://archive.ics.uci.edu/dataset/222/bank+marketing
+
+## Set up GCP Bucket and the Key
+The dataset is downloaded and then uploaded to a GCP bucket which is alos tracked by DVC to account for any changes to the dataset. The Service account needed to access the GCP bucket is created as saved under 'config/Key.json'. However, this is added to .gitignore to not be tracked by git. While setting up the bucket locally, please create a Bucket in GCP, place the data set downloaded from the UCI repository link above inside the bucket and version control it using DVC.
+Download the key associated with your service account and place it under config/Key.json and then run the code, it will work as expected.
