@@ -5,12 +5,9 @@ scikit-learn
 scipy
 pandas
 numpy
-json
-logging
-pickle
 google-cloud-storage
 google-auth
-io
 matplotlib
 seaborn
 imblearn
+tensorflow_data_validation
