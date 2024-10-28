@@ -140,18 +140,26 @@ The User Installation Steps are as follows:
   ```
 5. In the cloned directory, navigate to the config directory under Bank_Marketing_Prediction_Mlops and place your key.json file from the GCP service account for handling pulling the data from GCP.
 
-6. Run the Docker composer.
+6. Build the Docker Image
+   ```
+   docker compose build
+   ```
+7. Run the Docker composer and initialize airflow.
+   ```
+   docker compose up ariflow-init
+   ```
+8. Run the docker image.
    ```
    docker compose up
    ```
-7. To view Airflow dags on the web server, visit https://localhost:8080 and log in with credentials
+9. To view Airflow dags on the web server, visit https://localhost:8080 and log in with credentials
    ```
    user: airflow2
    password: airflow2
    ```
-8. Run the DAG by clicking on the play button on the right side of the window
+10. Run the DAG by clicking on the play button on the right side of the window
 
-9. Stop docker containers (hit Ctrl + C in the terminal)
+11. Stop docker containers (hit Ctrl + C in the terminal)
     
 # Tools Used for MLOps
 
