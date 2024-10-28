@@ -11,6 +11,5 @@ pickle
 google-cloud-storage
 google-auth
 io
-pandas
 matplotlib
 seaborn
