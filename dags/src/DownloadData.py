@@ -4,6 +4,7 @@ import logging
 from google.cloud import storage
 from google.auth.exceptions import RefreshError
 from airflow.utils.log.logging_mixin import LoggingMixin
+import tensorflow_data_validation as tfdv
 
 # Set up Airflow logger
 airflow_logger = LoggingMixin().log
