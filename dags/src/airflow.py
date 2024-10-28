@@ -16,6 +16,7 @@ from src.DownloadData import download_data_from_gcp
 from src.LoadData import load_data
 from src.HandlingNullValues import process_data
 from src.data_preprocessing.preprocessing_main import preprocess_data
+from src.data_preprocessing.encoding import encode_categorical_variables
 
 #Define the paths to project directory and the path to the key
 PROJECT_DIR = os.getcwd()
@@ -85,8 +86,20 @@ pre_process_task = PythonOperator(
     dag=dag,
 )
 
+
+# Task to perform encoding of categorical variables
+encode_categorical_task = PythonOperator(
+    task_id='encode_categorical_variables',
+    python_callable=encode_categorical_variables,
+    op_kwargs={
+        'input_file_path': '{{ ti.xcom_pull(task_ids="pre_process_data") }}',
+    },
+    dag=dag,
+)
+
+
 # Define task dependencies
-download_task >> load_task >> process_task >> pre_process_task
+download_task >> load_task >> process_task >> pre_process_task >> encode_categorical_task 
 
 
 if __name__ == "__main__":

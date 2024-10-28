@@ -702,3 +702,612 @@
 2024-10-26 22:15:31,500 - INFO - No features dropped due to null values
 2024-10-26 22:15:31,516 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
 2024-10-26 22:15:31,517 - INFO - Data processing completed successfully
+2024-10-27 16:24:17,671 - INFO - Starting data download process
+2024-10-27 16:24:18,652 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 16:24:18,663 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 16:24:20,661 - INFO - Starting data loading process
+2024-10-27 16:24:20,662 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 16:24:20,668 - INFO - Pickle file loaded successfully
+2024-10-27 16:24:20,904 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 16:24:22,214 - INFO - Starting data processing
+2024-10-27 16:24:22,215 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 16:24:22,261 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 16:24:22,278 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 16:24:22,289 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 16:24:22,290 - INFO - No duplicate rows found.
+2024-10-27 16:24:22,292 - INFO - No features dropped due to null values
+2024-10-27 16:24:22,302 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 16:24:22,302 - INFO - Data processing completed successfully
+2024-10-27 19:52:53,800 - INFO - Starting data download process
+2024-10-27 19:52:54,700 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 19:52:54,713 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 19:52:57,158 - INFO - Starting data loading process
+2024-10-27 19:52:57,158 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 19:52:57,165 - INFO - Pickle file loaded successfully
+2024-10-27 19:52:57,412 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 19:52:58,989 - INFO - Starting data processing
+2024-10-27 19:52:58,990 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 19:52:59,028 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 19:52:59,045 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 19:52:59,054 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 19:52:59,056 - INFO - No duplicate rows found.
+2024-10-27 19:52:59,057 - INFO - No features dropped due to null values
+2024-10-27 19:52:59,065 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 19:52:59,066 - INFO - Data processing completed successfully
+2024-10-27 19:59:34,074 - INFO - Starting data download process
+2024-10-27 19:59:34,837 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 19:59:34,850 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 19:59:37,294 - INFO - Starting data loading process
+2024-10-27 19:59:37,295 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 19:59:37,326 - INFO - Pickle file loaded successfully
+2024-10-27 19:59:37,581 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 19:59:40,121 - INFO - Starting data processing
+2024-10-27 19:59:40,122 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 19:59:40,171 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 19:59:40,183 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 19:59:40,192 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 19:59:40,193 - INFO - No duplicate rows found.
+2024-10-27 19:59:40,195 - INFO - No features dropped due to null values
+2024-10-27 19:59:40,203 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 19:59:40,204 - INFO - Data processing completed successfully
+2024-10-27 20:01:02,105 - INFO - Starting data download process
+2024-10-27 20:01:02,906 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 20:01:02,915 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 20:01:05,795 - INFO - Starting data loading process
+2024-10-27 20:01:05,796 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 20:01:05,801 - INFO - Pickle file loaded successfully
+2024-10-27 20:01:06,018 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:01:08,587 - INFO - Starting data processing
+2024-10-27 20:01:08,588 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:01:08,643 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 20:01:08,653 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 20:01:08,666 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 20:01:08,668 - INFO - No duplicate rows found.
+2024-10-27 20:01:08,671 - INFO - No features dropped due to null values
+2024-10-27 20:01:08,682 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 20:01:08,683 - INFO - Data processing completed successfully
+2024-10-27 20:31:22,391 - INFO - Starting data download process
+2024-10-27 20:31:23,127 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 20:31:23,134 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 20:31:26,505 - INFO - Starting data loading process
+2024-10-27 20:31:26,506 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 20:31:26,511 - INFO - Pickle file loaded successfully
+2024-10-27 20:31:26,755 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:31:29,575 - INFO - Starting data processing
+2024-10-27 20:31:29,576 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:31:29,638 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 20:31:29,653 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 20:31:29,662 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 20:31:29,664 - INFO - No duplicate rows found.
+2024-10-27 20:31:29,667 - INFO - No features dropped due to null values
+2024-10-27 20:31:29,686 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 20:31:29,686 - INFO - Data processing completed successfully
+2024-10-27 20:34:50,821 - INFO - Starting data download process
+2024-10-27 20:34:51,574 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 20:34:51,585 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 20:34:53,902 - INFO - Starting data loading process
+2024-10-27 20:34:53,902 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 20:34:53,926 - INFO - Pickle file loaded successfully
+2024-10-27 20:34:54,211 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:34:56,243 - INFO - Starting data processing
+2024-10-27 20:34:56,244 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:34:56,280 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 20:34:56,288 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 20:34:56,297 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 20:34:56,298 - INFO - No duplicate rows found.
+2024-10-27 20:34:56,300 - INFO - No features dropped due to null values
+2024-10-27 20:34:56,310 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 20:34:56,310 - INFO - Data processing completed successfully
+2024-10-27 20:38:38,200 - INFO - Starting data download process
+2024-10-27 20:38:39,008 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 20:38:39,016 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 20:38:41,233 - INFO - Starting data loading process
+2024-10-27 20:38:41,235 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 20:38:41,256 - INFO - Pickle file loaded successfully
+2024-10-27 20:38:41,514 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:38:44,183 - INFO - Starting data processing
+2024-10-27 20:38:44,184 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:38:44,252 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 20:38:44,277 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 20:38:44,296 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 20:38:44,298 - INFO - No duplicate rows found.
+2024-10-27 20:38:44,299 - INFO - No features dropped due to null values
+2024-10-27 20:38:44,321 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 20:38:44,322 - INFO - Data processing completed successfully
+2024-10-27 20:40:33,057 - INFO - Starting data download process
+2024-10-27 20:40:33,812 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 20:40:33,819 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 20:40:36,441 - INFO - Starting data loading process
+2024-10-27 20:40:36,442 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 20:40:36,455 - INFO - Pickle file loaded successfully
+2024-10-27 20:40:36,645 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:40:38,265 - INFO - Starting data processing
+2024-10-27 20:40:38,265 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:40:38,308 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 20:40:38,320 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 20:40:38,329 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 20:40:38,330 - INFO - No duplicate rows found.
+2024-10-27 20:40:38,331 - INFO - No features dropped due to null values
+2024-10-27 20:40:38,359 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 20:40:38,361 - INFO - Data processing completed successfully
+2024-10-27 20:44:47,685 - INFO - Starting data download process
+2024-10-27 20:44:48,514 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 20:44:48,521 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 20:44:51,263 - INFO - Starting data loading process
+2024-10-27 20:44:51,263 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 20:44:51,272 - INFO - Pickle file loaded successfully
+2024-10-27 20:44:51,514 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:44:53,799 - INFO - Starting data processing
+2024-10-27 20:44:53,800 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:44:53,833 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 20:44:53,844 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 20:44:53,859 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 20:44:53,860 - INFO - No duplicate rows found.
+2024-10-27 20:44:53,862 - INFO - No features dropped due to null values
+2024-10-27 20:44:53,871 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 20:44:53,871 - INFO - Data processing completed successfully
+2024-10-27 20:53:40,515 - INFO - Starting data download process
+2024-10-27 20:53:41,366 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 20:53:41,376 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 20:53:43,939 - INFO - Starting data loading process
+2024-10-27 20:53:43,939 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 20:53:43,945 - INFO - Pickle file loaded successfully
+2024-10-27 20:53:44,202 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:53:46,712 - INFO - Starting data processing
+2024-10-27 20:53:46,712 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 20:53:46,745 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 20:53:46,757 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 20:53:46,766 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 20:53:46,767 - INFO - No duplicate rows found.
+2024-10-27 20:53:46,769 - INFO - No features dropped due to null values
+2024-10-27 20:53:46,787 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 20:53:46,788 - INFO - Data processing completed successfully
+2024-10-27 21:04:50,505 - INFO - Starting data download process
+2024-10-27 21:04:51,395 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 21:04:51,403 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 21:04:55,033 - INFO - Starting data loading process
+2024-10-27 21:04:55,034 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 21:04:55,041 - INFO - Pickle file loaded successfully
+2024-10-27 21:04:55,372 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:04:58,751 - INFO - Starting data processing
+2024-10-27 21:04:58,752 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:04:58,792 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 21:04:58,804 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 21:04:58,823 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 21:04:58,826 - INFO - No duplicate rows found.
+2024-10-27 21:04:58,828 - INFO - No features dropped due to null values
+2024-10-27 21:04:58,850 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 21:04:58,850 - INFO - Data processing completed successfully
+2024-10-27 21:16:18,346 - INFO - Starting data download process
+2024-10-27 21:16:19,316 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 21:16:19,328 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 21:16:22,373 - INFO - Starting data loading process
+2024-10-27 21:16:22,374 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 21:16:22,396 - INFO - Pickle file loaded successfully
+2024-10-27 21:16:22,605 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:16:26,649 - INFO - Starting data processing
+2024-10-27 21:16:26,652 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 21:16:26,709 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 21:16:26,723 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 21:16:26,733 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 21:16:26,734 - INFO - No duplicate rows found.
+2024-10-27 21:16:26,736 - INFO - No features dropped due to null values
+2024-10-27 21:16:26,745 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 21:16:26,745 - INFO - Data processing completed successfully
+2024-10-27 22:25:24,593 - INFO - Starting data download process
+2024-10-27 22:25:25,431 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:25:25,437 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:25:27,194 - INFO - Starting data loading process
+2024-10-27 22:25:27,195 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:25:27,211 - INFO - Pickle file loaded successfully
+2024-10-27 22:25:27,469 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:25:29,943 - INFO - Starting data processing
+2024-10-27 22:25:29,944 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:25:30,016 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 22:25:30,038 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:25:30,056 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:25:30,058 - INFO - No duplicate rows found.
+2024-10-27 22:25:30,060 - INFO - No features dropped due to null values
+2024-10-27 22:25:30,074 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:25:30,075 - INFO - Data processing completed successfully
+2024-10-27 22:25:34,331 - INFO - Starting categorical encoding process
+2024-10-27 22:25:34,344 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 1)
+2024-10-27 22:25:34,491 - INFO - Converted pickle to CSV
+2024-10-27 22:25:34,492 - INFO - Column datatypes:
+2024-10-27 22:25:34,492 - INFO - age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y: object
+2024-10-27 22:25:34,494 - INFO - Identified 1 categorical columns: ['age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y']
+2024-10-27 22:25:34,566 - INFO - Encoded column: age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y
+2024-10-27 22:25:34,584 - INFO - Saved encoded data to CSV file: /opt/airflow/data/processed/encoded_data.csv
+2024-10-27 22:25:34,586 - INFO - Saved encoded data to pickle file: /opt/airflow/data/processed/encoded_data.pkl
+2024-10-27 22:25:34,587 - INFO - Categorical encoding process completed successfully
+2024-10-27 22:26:04,879 - INFO - Starting data download process
+2024-10-27 22:26:05,551 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:26:05,564 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:26:07,432 - INFO - Starting data loading process
+2024-10-27 22:26:07,433 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:26:07,439 - INFO - Pickle file loaded successfully
+2024-10-27 22:26:07,633 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:26:09,932 - INFO - Starting data processing
+2024-10-27 22:26:09,933 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:26:09,981 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 22:26:09,989 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:26:09,997 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:26:09,999 - INFO - No duplicate rows found.
+2024-10-27 22:26:10,001 - INFO - No features dropped due to null values
+2024-10-27 22:26:10,017 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:26:10,017 - INFO - Data processing completed successfully
+2024-10-27 22:26:14,113 - INFO - Starting categorical encoding process
+2024-10-27 22:26:14,122 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 1)
+2024-10-27 22:26:14,223 - INFO - Converted pickle to CSV
+2024-10-27 22:26:14,224 - INFO - Column datatypes:
+2024-10-27 22:26:14,225 - INFO - age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y: object
+2024-10-27 22:26:14,227 - INFO - Identified 1 categorical columns: ['age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y']
+2024-10-27 22:26:14,283 - INFO - Encoded column: age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y
+2024-10-27 22:26:14,301 - INFO - Saved encoded data to CSV file: /opt/airflow/data/processed/encoded_data.csv
+2024-10-27 22:26:14,303 - INFO - Saved encoded data to pickle file: /opt/airflow/data/processed/encoded_data.pkl
+2024-10-27 22:26:14,303 - INFO - Categorical encoding process completed successfully
+2024-10-27 22:31:16,329 - INFO - Starting data download process
+2024-10-27 22:31:17,065 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:31:17,074 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:31:19,635 - INFO - Starting data loading process
+2024-10-27 22:31:19,636 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:31:19,644 - INFO - Pickle file loaded successfully
+2024-10-27 22:31:19,923 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:31:21,739 - INFO - Starting data processing
+2024-10-27 22:31:21,739 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:31:21,776 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 22:31:21,783 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:31:21,796 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:31:21,799 - INFO - No duplicate rows found.
+2024-10-27 22:31:21,800 - INFO - No features dropped due to null values
+2024-10-27 22:31:21,830 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:31:21,830 - INFO - Data processing completed successfully
+2024-10-27 22:31:26,259 - INFO - Starting categorical encoding process
+2024-10-27 22:31:26,268 - INFO - Loaded data from /opt/airflow/data/processed/datatype_format_processed.pkl with shape (45211, 1)
+2024-10-27 22:31:26,374 - INFO - Converted pickle to CSV
+2024-10-27 22:31:26,375 - INFO - Column datatypes:
+2024-10-27 22:31:26,375 - INFO - age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y: object
+2024-10-27 22:31:26,376 - INFO - Identified 1 categorical columns: ['age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y']
+2024-10-27 22:31:26,443 - INFO - Encoded column: age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y
+2024-10-27 22:31:26,460 - INFO - Saved encoded data to CSV file: /opt/airflow/data/processed/encoded_data.csv
+2024-10-27 22:31:26,462 - INFO - Saved encoded data to pickle file: /opt/airflow/data/processed/encoded_data.pkl
+2024-10-27 22:31:26,463 - INFO - Categorical encoding process completed successfully
+2024-10-27 22:43:42,053 - INFO - Starting data download process
+2024-10-27 22:43:42,884 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 22:43:42,901 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 22:43:45,452 - INFO - Starting data loading process
+2024-10-27 22:43:45,453 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 22:43:45,459 - INFO - Pickle file loaded successfully
+2024-10-27 22:43:45,718 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:43:47,284 - INFO - Starting data processing
+2024-10-27 22:43:47,285 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 22:43:47,325 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 22:43:47,335 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 22:43:47,346 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 22:43:47,348 - INFO - No duplicate rows found.
+2024-10-27 22:43:47,350 - INFO - No features dropped due to null values
+2024-10-27 22:43:47,358 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 22:43:47,358 - INFO - Data processing completed successfully
+2024-10-27 22:43:51,399 - INFO - Starting categorical encoding process
+2024-10-27 22:43:51,408 - INFO - Loaded data from /opt/airflow/data/processed/datatype_format_processed.pkl with shape (45211, 1)
+2024-10-27 22:43:51,503 - INFO - Converted pickle to CSV
+2024-10-27 22:43:51,504 - INFO - Column datatypes:
+2024-10-27 22:43:51,504 - INFO - age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y: object
+2024-10-27 22:43:51,505 - INFO - Identified 1 categorical columns: ['age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y']
+2024-10-27 22:43:51,548 - INFO - Encoded column: age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y
+2024-10-27 22:43:51,568 - INFO - Saved encoded data to CSV file: /opt/airflow/data/processed/encoded_data.csv
+2024-10-27 22:43:51,570 - INFO - Saved encoded data to pickle file: /opt/airflow/data/processed/encoded_data.pkl
+2024-10-27 22:43:51,570 - INFO - Categorical encoding process completed successfully
+2024-10-27 23:03:54,846 - INFO - Starting data download process
+2024-10-27 23:03:55,818 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 23:03:55,828 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 23:03:57,893 - INFO - Starting data loading process
+2024-10-27 23:03:57,894 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 23:03:57,900 - INFO - Pickle file loaded successfully
+2024-10-27 23:03:58,109 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:04:01,043 - INFO - Starting data processing
+2024-10-27 23:04:01,044 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:04:01,081 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 23:04:01,092 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 23:04:01,101 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 23:04:01,102 - INFO - No duplicate rows found.
+2024-10-27 23:04:01,103 - INFO - No features dropped due to null values
+2024-10-27 23:04:01,114 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 23:04:01,114 - INFO - Data processing completed successfully
+2024-10-27 23:04:05,380 - INFO - Starting categorical encoding process
+2024-10-27 23:04:05,389 - INFO - Loaded data from /opt/airflow/data/processed/datatype_format_processed.pkl with shape (45211, 1)
+2024-10-27 23:04:05,505 - INFO - Converted pickle to CSV
+2024-10-27 23:04:05,506 - INFO - Column datatypes:
+2024-10-27 23:04:05,506 - INFO - age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y: object
+2024-10-27 23:04:05,507 - INFO - Identified 1 categorical columns: ['age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y']
+2024-10-27 23:04:05,552 - INFO - Encoded column: age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y
+2024-10-27 23:04:05,568 - INFO - Saved encoded data to CSV file: /opt/airflow/data/processed/encoded_data.csv
+2024-10-27 23:04:05,570 - INFO - Saved encoded data to pickle file: /opt/airflow/data/processed/encoded_data.pkl
+2024-10-27 23:04:05,570 - INFO - Categorical encoding process completed successfully
+2024-10-27 23:08:48,987 - INFO - Starting data download process
+2024-10-27 23:08:50,187 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 23:08:50,235 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 23:08:51,946 - INFO - Starting data loading process
+2024-10-27 23:08:51,947 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 23:08:51,952 - INFO - Pickle file loaded successfully
+2024-10-27 23:08:52,255 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:08:54,323 - INFO - Starting data processing
+2024-10-27 23:08:54,323 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:08:54,380 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 23:08:54,389 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 23:08:54,399 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 23:08:54,401 - INFO - No duplicate rows found.
+2024-10-27 23:08:54,403 - INFO - No features dropped due to null values
+2024-10-27 23:08:54,414 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 23:08:54,415 - INFO - Data processing completed successfully
+2024-10-27 23:20:54,254 - INFO - Starting data download process
+2024-10-27 23:20:55,036 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 23:20:55,050 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 23:20:57,623 - INFO - Starting data loading process
+2024-10-27 23:20:57,624 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 23:20:57,639 - INFO - Pickle file loaded successfully
+2024-10-27 23:20:57,959 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:20:59,988 - INFO - Starting data processing
+2024-10-27 23:20:59,989 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:21:00,035 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 23:21:00,048 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 23:21:00,066 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 23:21:00,068 - INFO - No duplicate rows found.
+2024-10-27 23:21:00,069 - INFO - No features dropped due to null values
+2024-10-27 23:21:00,077 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 23:21:00,077 - INFO - Data processing completed successfully
+2024-10-27 23:22:54,474 - INFO - Starting data download process
+2024-10-27 23:22:55,348 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 23:22:55,369 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 23:22:58,312 - INFO - Starting data loading process
+2024-10-27 23:22:58,313 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 23:22:58,319 - INFO - Pickle file loaded successfully
+2024-10-27 23:22:58,501 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:23:00,711 - INFO - Starting data processing
+2024-10-27 23:23:00,712 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:23:00,755 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 23:23:00,766 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 23:23:00,775 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 23:23:00,777 - INFO - No duplicate rows found.
+2024-10-27 23:23:00,779 - INFO - No features dropped due to null values
+2024-10-27 23:23:00,788 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 23:23:00,788 - INFO - Data processing completed successfully
+2024-10-27 23:29:42,553 - INFO - Starting data download process
+2024-10-27 23:29:43,418 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 23:29:43,455 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 23:29:45,891 - INFO - Starting data loading process
+2024-10-27 23:29:45,892 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 23:29:45,899 - INFO - Pickle file loaded successfully
+2024-10-27 23:29:46,292 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:29:48,915 - INFO - Starting data processing
+2024-10-27 23:29:48,916 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:29:48,966 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 23:29:48,991 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 23:29:49,012 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 23:29:49,013 - INFO - No duplicate rows found.
+2024-10-27 23:29:49,014 - INFO - No features dropped due to null values
+2024-10-27 23:29:49,024 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 23:29:49,024 - INFO - Data processing completed successfully
+2024-10-27 23:31:21,477 - INFO - Starting data download process
+2024-10-27 23:31:22,211 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-27 23:31:22,223 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-27 23:31:24,915 - INFO - Starting data loading process
+2024-10-27 23:31:24,916 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-27 23:31:24,926 - INFO - Pickle file loaded successfully
+2024-10-27 23:31:25,144 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:31:27,681 - INFO - Starting data processing
+2024-10-27 23:31:27,681 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-27 23:31:27,715 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-27 23:31:27,733 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-27 23:31:27,743 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-27 23:31:27,745 - INFO - No duplicate rows found.
+2024-10-27 23:31:27,747 - INFO - No features dropped due to null values
+2024-10-27 23:31:27,755 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-27 23:31:27,755 - INFO - Data processing completed successfully
+2024-10-28 01:29:55,937 - INFO - Starting data download process
+2024-10-28 01:29:56,876 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-28 01:29:56,887 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-28 01:29:59,274 - INFO - Starting data loading process
+2024-10-28 01:29:59,275 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-28 01:29:59,279 - INFO - Pickle file loaded successfully
+2024-10-28 01:29:59,458 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 01:30:01,146 - INFO - Starting data processing
+2024-10-28 01:30:01,147 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 01:30:01,180 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-28 01:30:01,192 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-28 01:30:01,201 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-28 01:30:01,202 - INFO - No duplicate rows found.
+2024-10-28 01:30:01,203 - INFO - No features dropped due to null values
+2024-10-28 01:30:01,211 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-28 01:30:01,212 - INFO - Data processing completed successfully
+2024-10-28 01:33:02,846 - INFO - Starting data download process
+2024-10-28 01:33:03,697 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-28 01:33:03,740 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-28 01:33:06,509 - INFO - Starting data loading process
+2024-10-28 01:33:06,510 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-28 01:33:06,516 - INFO - Pickle file loaded successfully
+2024-10-28 01:33:06,735 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 01:33:09,261 - INFO - Starting data processing
+2024-10-28 01:33:09,262 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 01:33:09,297 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-28 01:33:09,303 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-28 01:33:09,313 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-28 01:33:09,314 - INFO - No duplicate rows found.
+2024-10-28 01:33:09,316 - INFO - No features dropped due to null values
+2024-10-28 01:33:09,326 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-28 01:33:09,327 - INFO - Data processing completed successfully
+2024-10-28 01:37:16,207 - INFO - Starting data download process
+2024-10-28 01:37:17,064 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-28 01:37:17,069 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-28 01:37:19,704 - INFO - Starting data loading process
+2024-10-28 01:37:19,705 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-28 01:37:19,711 - INFO - Pickle file loaded successfully
+2024-10-28 01:37:19,962 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 01:37:23,034 - INFO - Starting data processing
+2024-10-28 01:37:23,035 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 01:37:23,069 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-28 01:37:23,075 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-28 01:37:23,084 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-28 01:37:23,085 - INFO - No duplicate rows found.
+2024-10-28 01:37:23,087 - INFO - No features dropped due to null values
+2024-10-28 01:37:23,113 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-28 01:37:23,113 - INFO - Data processing completed successfully
+2024-10-28 01:37:27,053 - INFO - Starting categorical encoding process
+2024-10-28 01:45:55,116 - INFO - Starting data download process
+2024-10-28 01:45:55,889 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-28 01:45:55,902 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-28 01:45:57,905 - INFO - Starting data loading process
+2024-10-28 01:45:57,905 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-28 01:45:57,911 - INFO - Pickle file loaded successfully
+2024-10-28 01:45:58,129 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 01:46:00,478 - INFO - Starting data processing
+2024-10-28 01:46:00,479 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 01:46:00,513 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-28 01:46:00,521 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-28 01:46:00,532 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-28 01:46:00,534 - INFO - No duplicate rows found.
+2024-10-28 01:46:00,536 - INFO - No features dropped due to null values
+2024-10-28 01:46:00,551 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-28 01:46:00,551 - INFO - Data processing completed successfully
+2024-10-28 01:46:05,526 - INFO - Starting categorical encoding process
+2024-10-28 01:46:05,537 - INFO - Loaded data from /opt/airflow/data/processed/datatype_format_processed.pkl with shape (45211, 1)
+2024-10-28 01:46:05,543 - INFO -   age,job,marital,education,default,balance,housing,loan,contact,day,month,duration,campaign,pdays,previous,poutcome,y
+0  58,management,married,tertiary,no,2143,yes,no,...                                                                  
+1  44,technician,single,secondary,no,29,yes,no,un...                                                                  
+2  33,entrepreneur,married,secondary,no,2,yes,yes...                                                                  
+3  47,blue-collar,married,unknown,no,1506,yes,no,...                                                                  
+4  33,unknown,single,unknown,no,1,no,no,unknown,5...                                                                  
+2024-10-28 01:46:05,691 - INFO - Column datatypes:
+2024-10-28 01:46:05,691 - INFO - age: string
+2024-10-28 01:46:05,692 - INFO - job: string
+2024-10-28 01:46:05,692 - INFO - marital: string
+2024-10-28 01:46:05,692 - INFO - education: string
+2024-10-28 01:46:05,693 - INFO - default: string
+2024-10-28 01:46:05,693 - INFO - balance: string
+2024-10-28 01:46:05,694 - INFO - housing: string
+2024-10-28 01:46:05,694 - INFO - loan: string
+2024-10-28 01:46:05,695 - INFO - contact: string
+2024-10-28 01:46:05,695 - INFO - day: string
+2024-10-28 01:46:05,695 - INFO - month: string
+2024-10-28 01:46:05,696 - INFO - duration: string
+2024-10-28 01:46:05,696 - INFO - campaign: string
+2024-10-28 01:46:05,696 - INFO - pdays: string
+2024-10-28 01:46:05,697 - INFO - previous: string
+2024-10-28 01:46:05,697 - INFO - poutcome: string
+2024-10-28 01:46:05,697 - INFO - y: string
+2024-10-28 01:46:05,734 - INFO - Identified 17 categorical columns: ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'poutcome', 'y']
+2024-10-28 01:46:05,743 - INFO - Encoded column: age
+2024-10-28 01:46:05,750 - INFO - Encoded column: job
+2024-10-28 01:46:05,757 - INFO - Encoded column: marital
+2024-10-28 01:46:05,763 - INFO - Encoded column: education
+2024-10-28 01:46:05,770 - INFO - Encoded column: default
+2024-10-28 01:46:05,786 - INFO - Encoded column: balance
+2024-10-28 01:46:05,792 - INFO - Encoded column: housing
+2024-10-28 01:46:05,798 - INFO - Encoded column: loan
+2024-10-28 01:46:05,804 - INFO - Encoded column: contact
+2024-10-28 01:46:05,810 - INFO - Encoded column: day
+2024-10-28 01:46:05,817 - INFO - Encoded column: month
+2024-10-28 01:46:05,827 - INFO - Encoded column: duration
+2024-10-28 01:46:05,831 - INFO - Encoded column: campaign
+2024-10-28 01:46:05,837 - INFO - Encoded column: pdays
+2024-10-28 01:46:05,841 - INFO - Encoded column: previous
+2024-10-28 01:46:05,847 - INFO - Encoded column: poutcome
+2024-10-28 01:46:05,858 - INFO - Encoded column: y
+2024-10-28 01:46:05,941 - INFO - Saved encoded data to CSV file: /opt/airflow/data/processed/encoded_data.csv
+2024-10-28 01:46:05,948 - INFO - Saved encoded data to pickle file: /opt/airflow/data/processed/encoded_data.pkl
+2024-10-28 01:46:05,948 - INFO - Categorical encoding process completed successfully
+2024-10-28 03:02:41,236 - INFO - Starting data download process
+2024-10-28 03:02:42,022 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-28 03:02:42,040 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-28 03:02:44,670 - INFO - Starting data loading process
+2024-10-28 03:02:44,671 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-28 03:02:44,681 - INFO - Pickle file loaded successfully
+2024-10-28 03:02:45,122 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 03:02:47,867 - INFO - Starting data processing
+2024-10-28 03:02:47,868 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 03:02:47,907 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-28 03:02:47,925 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-28 03:02:47,939 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-28 03:02:47,941 - INFO - No duplicate rows found.
+2024-10-28 03:02:47,943 - INFO - No features dropped due to null values
+2024-10-28 03:02:47,953 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-28 03:02:47,953 - INFO - Data processing completed successfully
+2024-10-28 03:02:52,474 - INFO - Starting categorical encoding process
+2024-10-28 03:02:52,485 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 1)
+2024-10-28 03:04:20,681 - INFO - Starting data download process
+2024-10-28 03:04:21,423 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-28 03:04:21,435 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-28 03:04:23,244 - INFO - Starting data loading process
+2024-10-28 03:04:23,245 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-28 03:04:23,252 - INFO - Pickle file loaded successfully
+2024-10-28 03:04:23,441 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 03:04:25,667 - INFO - Starting data processing
+2024-10-28 03:04:25,669 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 03:04:25,706 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-28 03:04:25,714 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-28 03:04:25,723 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-28 03:04:25,724 - INFO - No duplicate rows found.
+2024-10-28 03:04:25,726 - INFO - No features dropped due to null values
+2024-10-28 03:04:25,734 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-28 03:04:25,734 - INFO - Data processing completed successfully
+2024-10-28 03:04:32,065 - INFO - Starting categorical encoding process
+2024-10-28 03:04:32,081 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 1)
+2024-10-28 03:04:32,081 - INFO - ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'poutcome', 'y']
+2024-10-28 03:05:08,996 - INFO - Starting data download process
+2024-10-28 03:05:09,750 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-10-28 03:05:09,765 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-10-28 03:05:11,750 - INFO - Starting data loading process
+2024-10-28 03:05:11,751 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-10-28 03:05:11,757 - INFO - Pickle file loaded successfully
+2024-10-28 03:05:11,930 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 03:05:14,525 - INFO - Starting data processing
+2024-10-28 03:05:14,527 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-10-28 03:05:14,571 - INFO - Data loaded successfully. DataFrame shape: (45211, 1)
+2024-10-28 03:05:14,578 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-10-28 03:05:14,590 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-10-28 03:05:14,592 - INFO - No duplicate rows found.
+2024-10-28 03:05:14,595 - INFO - No features dropped due to null values
+2024-10-28 03:05:14,611 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-10-28 03:05:14,611 - INFO - Data processing completed successfully
+2024-10-28 03:05:19,315 - INFO - Starting categorical encoding process
+2024-10-28 03:05:19,326 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 1)
+2024-10-28 03:05:19,326 - INFO - ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'poutcome', 'y']
+2024-10-28 03:05:19,453 - INFO - Column datatypes:
+2024-10-28 03:05:19,453 - INFO - age: string
+2024-10-28 03:05:19,454 - INFO - job: string
+2024-10-28 03:05:19,454 - INFO - marital: string
+2024-10-28 03:05:19,454 - INFO - education: string
+2024-10-28 03:05:19,455 - INFO - default: string
+2024-10-28 03:05:19,455 - INFO - balance: string
+2024-10-28 03:05:19,455 - INFO - housing: string
+2024-10-28 03:05:19,456 - INFO - loan: string
+2024-10-28 03:05:19,456 - INFO - contact: string
+2024-10-28 03:05:19,456 - INFO - day: string
+2024-10-28 03:05:19,457 - INFO - month: string
+2024-10-28 03:05:19,457 - INFO - duration: string
+2024-10-28 03:05:19,457 - INFO - campaign: string
+2024-10-28 03:05:19,458 - INFO - pdays: string
+2024-10-28 03:05:19,458 - INFO - previous: string
+2024-10-28 03:05:19,458 - INFO - poutcome: string
+2024-10-28 03:05:19,459 - INFO - y: string
+2024-10-28 03:05:19,490 - INFO - Identified 17 categorical columns: ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'poutcome', 'y']
+2024-10-28 03:05:19,498 - INFO - Encoded column: age
+2024-10-28 03:05:19,504 - INFO - Encoded column: job
+2024-10-28 03:05:19,511 - INFO - Encoded column: marital
+2024-10-28 03:05:19,517 - INFO - Encoded column: education
+2024-10-28 03:05:19,524 - INFO - Encoded column: default
+2024-10-28 03:05:19,539 - INFO - Encoded column: balance
+2024-10-28 03:05:19,545 - INFO - Encoded column: housing
+2024-10-28 03:05:19,551 - INFO - Encoded column: loan
+2024-10-28 03:05:19,558 - INFO - Encoded column: contact
+2024-10-28 03:05:19,564 - INFO - Encoded column: day
+2024-10-28 03:05:19,572 - INFO - Encoded column: month
+2024-10-28 03:05:19,581 - INFO - Encoded column: duration
+2024-10-28 03:05:19,589 - INFO - Encoded column: campaign
+2024-10-28 03:05:19,601 - INFO - Encoded column: pdays
+2024-10-28 03:05:19,606 - INFO - Encoded column: previous
+2024-10-28 03:05:19,614 - INFO - Encoded column: poutcome
+2024-10-28 03:05:19,628 - INFO - Encoded column: y
+2024-10-28 03:05:19,723 - INFO - Saved encoded data to CSV file: /opt/airflow/data/processed/encoded_data.csv
+2024-10-28 03:05:19,733 - INFO - Saved encoded data to pickle file: /opt/airflow/data/processed/encoded_data.pkl
+2024-10-28 03:05:19,733 - INFO - Categorical encoding process completed successfully

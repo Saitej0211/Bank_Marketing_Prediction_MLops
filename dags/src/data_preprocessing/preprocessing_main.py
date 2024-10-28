@@ -19,9 +19,11 @@ def preprocess_data(input_file_path= INPUT_FILE_PATH):
     data = process_datatype(input_file_path)
 
     # Outlier handling
-    data = process_outlier_handling(data)
+    data_path = process_outlier_handling(data)
     
-    print(f"Processed data saved to {data}")
+    print(f"Processed data saved to {data_path}")
+
+    return data_path
 
 if __name__ == "__main__":
     preprocess_data(INPUT_FILE_PATH)
