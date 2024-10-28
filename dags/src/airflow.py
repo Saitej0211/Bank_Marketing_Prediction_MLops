@@ -12,6 +12,7 @@ from airflow.operators.bash import BashOperator
 import os
 
 #import all the functions that we had created in the src folder
+from src.data_preprocessing.smote import smote_analysis
 from src.data_preprocessing.correlation_analysis import correlation_analysis
 from src.data_preprocessing.encoding import encode_categorical_variables
 from src.DownloadData import download_data_from_gcp
@@ -115,8 +116,15 @@ correlation_analysis_task = PythonOperator(
     dag=dag,
 )
 
+smote_analysis_task = PythonOperator(
+    task_id='smote_analysis',
+    python_callable=smote_analysis,
+    op_kwargs={'input_file_path': '{{ ti.xcom_pull(task_ids="encode_categorical_variables") }}'},
+    dag=dag,
+)
+
 # Define task dependencies
-download_task >> load_task >> process_task >> pre_process_task >> eda_task >> encode_categorical_task >> correlation_analysis_task
+download_task >> load_task >> process_task >> pre_process_task >> eda_task >> encode_categorical_task >> correlation_analysis_task >> smote_analysis_task
 
 
 if __name__ == "__main__":
