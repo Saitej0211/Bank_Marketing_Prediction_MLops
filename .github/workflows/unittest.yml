@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - vignesh_ci_cd
+      - hashwanth_2
   pull_request:
     branches:
       - main
