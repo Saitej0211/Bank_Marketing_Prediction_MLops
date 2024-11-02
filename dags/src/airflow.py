@@ -42,9 +42,26 @@ default_args = {
     'retry_delay':timedelta(minutes=5)
 }
 
-# Email settings
-EMAIL_RECIPIENT = "hansda.s@northeastern.edu"
+# Define function to notify failure or sucess via an email
+def notify_success(context):
+    success_email = EmailOperator(
+        task_id='success_email',
+        to='aishwariya.alagesanus@gmail.com',
+        subject='Success Notification from Airflow',
+        html_content='<p>The task succeeded.</p>',
+        dag=context['dag']
+    )
+    success_email.execute(context=context)
 
+def notify_failure(context):
+    failure_email = EmailOperator(
+        task_id='failure_email',
+        to='aishwariya.alagesanus@gmail.com',
+        subject='Failure Notification from Airflow',
+        html_content='<p>The task failed.</p>',
+        dag=context['dag']
+    )
+    failure_email.execute(context=context)
 
 #INITIALIZE THE DAG INSTANCE
 dag = DAG(
@@ -62,6 +79,7 @@ download_task = PythonOperator(
     task_id='download_data_from_gcp',
     python_callable=download_data_from_gcp,
     op_kwargs={'bucket_name': 'mlopsprojectdatabucketgrp6'},
+    on_failure_callback=notify_failure,
     dag=dag,
 )
 
@@ -71,6 +89,7 @@ load_task = PythonOperator(
     op_kwargs={
         'pickled_file_path': '{{ ti.xcom_pull(task_ids="download_data_from_gcp") }}',
     },
+    on_failure_callback=notify_failure,
     dag=dag,
 )
 
@@ -81,6 +100,7 @@ process_task = PythonOperator(
     op_kwargs={
         'pickled_file_path': '{{ ti.xcom_pull(task_ids="load_task") }}',
     },
+    on_failure_callback=notify_failure,
     dag=dag,
 )
 
@@ -91,6 +111,7 @@ pre_process_task = PythonOperator(
     op_kwargs={
         'pickled_file_path': '{{ ti.xcom_pull(task_ids="process_data") }}',
     },
+    on_failure_callback=notify_failure,
     dag=dag,
 )
 
@@ -101,6 +122,7 @@ eda_task = PythonOperator(
     op_kwargs={
         'input_file_path': '{{ ti.xcom_pull(task_ids="pre_process_data") }}',
     },
+    on_failure_callback=notify_failure,
     dag=dag,
 )
 
@@ -111,6 +133,7 @@ encode_categorical_task = PythonOperator(
     op_kwargs={
         'input_file_path': '{{ ti.xcom_pull(task_ids="pre_process_data") }}',
     },
+    on_failure_callback=notify_failure,
     dag=dag,
 )
 
@@ -118,6 +141,7 @@ correlation_analysis_task = PythonOperator(
     task_id='correlation_analysis',
     python_callable=correlation_analysis,
     op_kwargs={'input_file_path': '{{ ti.xcom_pull(task_ids="encode_categorical_variables") }}'},
+    on_failure_callback=notify_failure,
     dag=dag,
 )
 
@@ -125,29 +149,40 @@ smote_analysis_task = PythonOperator(
     task_id='smote_analysis',
     python_callable=smote_analysis,
     op_kwargs={'input_file_path': '{{ ti.xcom_pull(task_ids="encode_categorical_variables") }}'},
+    on_failure_callback=notify_failure,
     dag=dag,
 )
 
-validate_task_1 = PythonOperator(
+stats_validate_task = PythonOperator(
     task_id='validate_data_schema',
     python_callable=validate_data_schema,
     op_kwargs={
         'pickled_file_path': '{{ ti.xcom_pull(task_ids="load_data") }}',
     },
+    on_failure_callback=notify_failure,
     dag=dag,
 )
  
-validate_task_2 = PythonOperator(
+anomaly_validate_task = PythonOperator(
     task_id='anomaly_detection',
     python_callable = anomaly_detection,
     op_kwargs={
         'pickled_file_path': '{{ ti.xcom_pull(task_ids="validate_data_schema") }}',
     },
+    on_failure_callback=notify_failure,
+    dag=dag,
+)
+
+email_notification_task = EmailOperator(
+    task_id='send_email_notification',
+    to='aishwariya.alagesanus@gmail.com',
+    subject='Dag Completed Successfully',
+    html_content='<p>The dag has completed successfully.</p>',
     dag=dag,
 )
 
 # Define task dependencies
-download_task >> load_task >> validate_task_1 >> validate_task_2 >> process_task >> pre_process_task >> eda_task >> encode_categorical_task >> correlation_analysis_task >> smote_analysis_task
+download_task >> load_task >> stats_validate_task >> anomaly_validate_task >> process_task >> pre_process_task >> eda_task >> encode_categorical_task >> correlation_analysis_task >> smote_analysis_task >> email_notification_task
 
 
 if __name__ == "__main__":
