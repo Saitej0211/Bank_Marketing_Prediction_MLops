@@ -200,4 +200,112 @@ Generate a key: After creating the service account, click on it from the list of
 
 You can avoid these steps of creating a GCP bucket, instead you could raise a request to access our GCP bucket
 
+# Overall ML Project PipeLine
+The following flowchart offers a brief overview of our ML Project Pipeline
+
+
+
+
+## Pipeline Optimization
+
+
+Pictured above: Airflow DAG Execution Gantt Chart for Data Pipeline
+
+**Gantt Chart**: It is a popular project management tool used to visualize and track the progress of tasks or activities over time. It provides a graphical representation of a pipeline's schedule, showing when each task is planned to start and finish.
+
+# End-to-End Pipeline for Model Deployment
+
+Pictured above: Machine Learning Pipeline - Data to Deployment Flowchart
+
+Our Model Pipeline till this part for creating Data Pipeline has 2 major components
+#### 1.Data Download
+#### 2.Data Cleaning and Preprocessing
+
+Our Pipeline begins with data acquisition where we fetch Data from the Source and perform Data Slicing. After the Data is downloaded, in the next step, we clean and Preprocess the Data. 
+Next, the preprocessed data is analyzed to generate performance metrics.
+
+We use Apache Airflow to orchestrate our data pipeline, treating each module as a distinct task within our primary DAG (Directed Acyclic Graph). This setup allows us to efficiently manage the flow from data acquisition to model deployment, ensuring each step is executed in the correct order and monitored for performance and success.
+
+# Data Download
+In this phase, the dataset is fetched and extracted into the designated data folder using the following modules:
+
+- **DownloadData.py**: This python file downloads the latest available file from the GCP bucket and pickles it stores it in the folder.
+- **LoadData.py**: This python file unpickles the data and stores it as a CCSV file in the data/processed folder allowing the next task to pick this up as input for data validation.
+
+# Data Cleaning and Preprocessing
+
+
+## Stats Gen
+
+
+## Email Alerts
+
+# Model Performance Evaluation:
+
+# Model Retraining
+
+## Hyper Parameter Tuning
+
+# Staging, Production and Archived models (MLFLOW)
+
+# Logging and Monitoring
+
+# Model Analysis
+
+# Deployment Pipeline
+
+# Cost Analysis
+
+# Contributing / Development Guide
+
+## Testing
+
+## Step 1: Install Required Tools
+
+## Step 2: Check Code Quality and Vulnerabilities
+
+## Step 3: Run Test Suites
+
+
+## Airflow Dags
+
+Once your code for data pipeline modules is built successfully, copy them to dags/src/. Create your Python Operator in airflow.py within dags/src/. Set pipeline dependencies using the >> operator.
+
+After this step, we then proceed to edit our docker-compose.yaml file
+
+Install and set up a docker desktop for building custom images from docker-compose.yaml file.
+
+## Docker
+Additional: If your code has extra dependencies, modify the docker-compose.yaml file. Add them under the Environment section or as follows:
+
+Add your packages to _PIP_ADDITIONAL_REQUIREMENTS: in the docker-compose.yaml file.
+
+Next, initialize the Airflow database as outlined in User Installation Step n. Then, continue with DAG development up to Step n.
+
+If correctly set up, your module should appear in the DAG. If there are errors, you can check the logs and debug as needed.
+
+## DVC Versioning
+
+Setting up Data Versioning Control through dvc library installed as part of requirements.
+
+1. Initialize dvc in the parent directory if not done already.
+    ```python
+    dvc init
+    ```
+2. Set up remote Google Cloud Storage connection.
+    ```python
+    dvc remote add -d myremote gs://<bucket>/<path>
+    ```
+3. Modify Google Cloud credentials to myremote by adding keys to the credential path.
+    ```python
+    dvc remote modify myremote credentialpath <GOOGLE-KEY-JSON-PATH>
+    ```
+
+## MLFlow
+
+4. Optionally, you may or may not choose to ignore warnings:
+```
+warnings.filterwarnings("ignore")
+```
+
 
