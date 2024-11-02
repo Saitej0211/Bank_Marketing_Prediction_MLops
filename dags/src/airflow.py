@@ -20,6 +20,8 @@ from src.LoadData import load_data
 from src.HandlingNullValues import process_data
 from src.data_preprocessing.preprocessing_main import preprocess_data
 from src.eda import perform_eda
+from src.Data_validation.data_schema_statistics_generation import validate_data_schema
+from src.Data_validation.anomaly_detection import anomaly_detection
 
 #Define the paths to project directory and the path to the key
 PROJECT_DIR = os.getcwd()
@@ -39,6 +41,9 @@ default_args = {
     'retries': 2,
     'retry_delay':timedelta(minutes=5)
 }
+
+# Email settings
+EMAIL_RECIPIENT = "hansda.s@northeastern.edu"
 
 
 #INITIALIZE THE DAG INSTANCE
@@ -123,8 +128,26 @@ smote_analysis_task = PythonOperator(
     dag=dag,
 )
 
+validate_task_1 = PythonOperator(
+    task_id='validate_data_schema',
+    python_callable=validate_data_schema,
+    op_kwargs={
+        'pickled_file_path': '{{ ti.xcom_pull(task_ids="load_data") }}',
+    },
+    dag=dag,
+)
+ 
+validate_task_2 = PythonOperator(
+    task_id='anomaly_detection',
+    python_callable = anomaly_detection,
+    op_kwargs={
+        'pickled_file_path': '{{ ti.xcom_pull(task_ids="validate_data_schema") }}',
+    },
+    dag=dag,
+)
+
 # Define task dependencies
-download_task >> load_task >> process_task >> pre_process_task >> eda_task >> encode_categorical_task >> correlation_analysis_task >> smote_analysis_task
+download_task >> load_task >> validate_task_1 >> validate_task_2 >> process_task >> pre_process_task >> eda_task >> encode_categorical_task >> correlation_analysis_task >> smote_analysis_task
 
 
 if __name__ == "__main__":

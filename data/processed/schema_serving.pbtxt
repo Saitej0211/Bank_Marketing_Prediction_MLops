@@ -1,0 +1,301 @@
+feature {
+  name: "age"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "job"
+  type: BYTES
+  domain: "job"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "marital"
+  type: BYTES
+  domain: "marital"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "education"
+  type: BYTES
+  domain: "education"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "default"
+  type: BYTES
+  domain: "default"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "balance"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "housing"
+  type: BYTES
+  domain: "housing"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "loan"
+  type: BYTES
+  domain: "loan"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "contact"
+  type: BYTES
+  domain: "contact"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "day"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "month"
+  type: BYTES
+  domain: "month"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "duration"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "campaign"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "pdays"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "previous"
+  type: INT
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "poutcome"
+  type: BYTES
+  domain: "poutcome"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+feature {
+  name: "y"
+  type: BYTES
+  domain: "y"
+  presence {
+    min_fraction: 1.0
+    min_count: 1
+  }
+  shape {
+    dim {
+      size: 1
+    }
+  }
+}
+string_domain {
+  name: "job"
+  value: "admin."
+  value: "blue-collar"
+  value: "entrepreneur"
+  value: "housemaid"
+  value: "management"
+  value: "retired"
+  value: "self-employed"
+  value: "services"
+  value: "student"
+  value: "technician"
+  value: "unemployed"
+  value: "unknown"
+}
+string_domain {
+  name: "marital"
+  value: "divorced"
+  value: "married"
+  value: "single"
+}
+string_domain {
+  name: "education"
+  value: "primary"
+  value: "secondary"
+  value: "tertiary"
+  value: "unknown"
+}
+string_domain {
+  name: "default"
+  value: "no"
+  value: "yes"
+}
+string_domain {
+  name: "housing"
+  value: "no"
+  value: "yes"
+}
+string_domain {
+  name: "loan"
+  value: "no"
+  value: "yes"
+}
+string_domain {
+  name: "contact"
+  value: "cellular"
+  value: "telephone"
+  value: "unknown"
+}
+string_domain {
+  name: "month"
+  value: "aug"
+  value: "jul"
+  value: "jun"
+  value: "may"
+  value: "nov"
+  value: "oct"
+}
+string_domain {
+  name: "poutcome"
+  value: "failure"
+  value: "other"
+  value: "success"
+  value: "unknown"
+}
+string_domain {
+  name: "y"
+  value: "no"
+  value: "yes"
+}
