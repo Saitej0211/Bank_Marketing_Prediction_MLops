@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - vignesh_ci_cd
+      - tejesvani_test
   pull_request:
     branches:
       - main
