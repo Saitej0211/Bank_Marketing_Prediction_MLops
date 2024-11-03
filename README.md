@@ -289,12 +289,23 @@ Reliable and high-quality data is crucial for machine learning model performance
 
 # Email Alerts
 - **Email Notification Setup**
-The DAG is configured to send email notifications upon successful completion, allowing users to monitor task completion status directly from their inbox. This setup ensures users stay informed about the DAG's progress without manually checking the Airflow dashboard. To enable this feature, ensure that SMTP configurations in docker-compose.yaml file under the [smtp] section, specifying the SMTP server, email sender, and recipient settings.
-
-![image](https://github.com/user-attachments/assets/4435684c-a1e0-4fe2-8f0c-21ec5b14994c)
-
+The DAG is configured to send email notifications upon successful completion, allowing users to monitor task completion status directly from their inbox. This setup ensures users stay informed about the DAG's progress without manually checking the Airflow dashboard. To enable this feature, ensure that SMTP configurations in `docker-compose.yaml` file under the [smtp] section, specifying the SMTP server, email sender, and recipient settings.
+```yaml
+    AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
+    AIRFLOW__SMTP__SMTP_STARTTLS: 'True'
+    AIRFLOW__SMTP__SMTP_SSL: 'False'
+    AIRFLOW__SMTP__SMTP_USER: aishwariya.alagesanus@gmail.com           # Replace with your Gmail
+    AIRFLOW__SMTP__SMTP_PASSWORD: avlp hcjj nexa ytpw         # App password generated from Google
+    AIRFLOW__SMTP__SMTP_PORT: 587
+    AIRFLOW__SMTP__SMTP_MAIL_FROM: aishwariya.alagesanus@gmail.com      # Same Gmail address
+    AIRFLOW__SMTP__SMTP_TIMEOUT: 30                         # SMTP timeout in seconds
+    AIRFLOW__SMTP__SMTP_RETRY_LIMIT: 5                      # Maximum retries
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
+  ```
 - **Testing and Verification**
 Once the DAG is executed, check for a "DAG Completed" email notification in the specified email inbox. This email serves as a confirmation that the DAG has successfully completed all tasks as per the defined workflow. Users can modify the notification logic to send emails upon task failures or retries, enhancing monitoring capabilities for critical workflows.
+
+![image](https://github.com/user-attachments/assets/4435684c-a1e0-4fe2-8f0c-21ec5b14994c)
 
 # Model Performance Evaluation:
 
