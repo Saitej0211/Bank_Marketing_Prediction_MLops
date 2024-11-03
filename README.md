@@ -17,9 +17,7 @@ Hence, the model has learned what triggers increase the likelihood of subscripti
 
 The primary goal of this project is to develop a predictive model that accurately determines whether a client will subscribe to a term deposit based on past marketing campaign data. By using a binary classification approach, the project aims to optimize the bank's marketing strategy, improve the efficiency of client outreach, and increase the conversion rate of campaigns. This solution should ultimately enable the bank to make data-driven decisions that reduce costs, enhance customer engagement, and maximize return on investment for its marketing efforts.
 
-# Dataset Information 
-The dataset reflects the bank's direct marketing campaigns, where clients were primarily contacted by phone to promote term deposits. Since term deposits can require persuasion, many clients received multiple calls to determine their interest. Each call provided insights on the client's likelihood of subscribing ("yes") or declining ("no"), along with details on the timing and frequency of these interactions. By tracking how often and in what context clients responded positively, the data offers a detailed view of campaign dynamics, laying the groundwork for a predictive model to identify clients most likely to subscribe and thus enhance future campaign efficiency.
-
+# Dataset Information
 ## Data Card
 
 Shape - (45211, 16)
@@ -259,14 +257,17 @@ In this phase, the dataset is fetched and extracted into the designated data fol
 - **LoadData.py**: This python file unpickles the data and stores it as a CCSV file in the data/processed folder allowing the next task to pick this up as input for data validation.
 
 # Handling Null values and duplicates
-The process_data function performs the following operations:
-Data Loading: Reads a CSV file into a pandas DataFrame.
-Metadata Saving: Saves DataFrame info and description to separate CSV files.
-Duplicate Handling:
+
+- **The process_data function performs the following operations**:
+  
+- **Data Loading**: Reads a CSV file into a pandas DataFrame.
+- **Metadata Saving**: Saves DataFrame info and description to separate CSV files.
+- **Duplicate Handling**:
 Checks for duplicate rows in the DataFrame.
 If duplicates are found, it removes them using drop_duplicates() method.
 Logs the number of duplicate rows removed or if no duplicates were found.
-Null and Unknown Value Handling:
+
+- **Null and Unknown Value Handling**:
 Identifies columns with high percentages of null or unknown values.
 Drops columns with more than 80% null or unknown values.
 Fills unknown values in 'job' and 'education' columns with mode values.
