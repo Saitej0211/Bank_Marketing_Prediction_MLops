@@ -289,7 +289,7 @@ Reliable and high-quality data is crucial for machine learning model performance
 
 # Email Alerts
 - **Email Notification Setup**
-The DAG is configured to send email notifications upon successful completion, allowing users to monitor task completion status directly from their inbox. This setup ensures users stay informed about the DAG's progress without manually checking the Airflow dashboard. To enable this feature, ensure that SMTP configurations in docker_compose.yaml file under the [smtp] section, specifying the SMTP server, email sender, and recipient settings.
+The DAG is configured to send email notifications upon successful completion, allowing users to monitor task completion status directly from their inbox. This setup ensures users stay informed about the DAG's progress without manually checking the Airflow dashboard. To enable this feature, ensure that SMTP configurations in docker-compose.yaml file under the [smtp] section, specifying the SMTP server, email sender, and recipient settings.
 
 ![image](https://github.com/user-attachments/assets/4435684c-a1e0-4fe2-8f0c-21ec5b14994c)
 
