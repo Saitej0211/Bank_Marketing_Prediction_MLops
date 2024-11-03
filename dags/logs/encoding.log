@@ -4443,3 +4443,327 @@ Name: month, dtype: Float64
 2024-11-03 00:03:11,111 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/education_distribution.png
 2024-11-03 00:03:15,921 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/correlation_heatmap.png
 2024-11-03 00:03:15,930 - INFO - EDA process completed successfully
+2024-11-03 02:24:37,747 - INFO - Starting data download process
+2024-11-03 02:24:38,481 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-11-03 02:24:38,512 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-11-03 02:24:43,420 - INFO - Starting data loading process
+2024-11-03 02:24:43,425 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-11-03 02:24:43,466 - INFO - Pickle file loaded successfully
+2024-11-03 02:24:43,848 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-11-03 02:24:48,597 - INFO - Starting data loading process
+2024-11-03 02:24:48,683 - INFO - Loaded data from /opt/airflow/data/processed/raw_data.csv with shape (45211, 17)
+2024-11-03 02:24:48,698 - INFO - Prepared training data with shape (27126, 17)
+2024-11-03 02:24:48,700 - INFO - Prepared evaluation data with shape (9042, 17)
+2024-11-03 02:24:48,704 - INFO - Prepared serving data with shape (9043, 16)
+2024-11-03 02:24:48,873 - INFO - Generated training data statistics.
+2024-11-03 02:24:48,880 - INFO - Inferred schema from training data statistics.
+2024-11-03 02:24:48,891 - INFO - Schema saved to /opt/airflow/data/processed/schema.pbtxt
+2024-11-03 02:24:48,979 - INFO - Generated serving data statistics.
+2024-11-03 02:24:49,047 - INFO - Generated training data statistics.
+2024-11-03 02:24:49,052 - INFO - Statistics visualization complete.
+2024-11-03 02:24:49,092 - INFO - Saved object to pickle file at /opt/airflow/data/processed/validate.pkl
+2024-11-03 02:24:49,344 - INFO - DataFrame saved to CSV file at /opt/airflow/data/processed/validate.csv
+2024-11-03 02:24:54,080 - INFO - Starting data processing...
+2024-11-03 02:24:54,084 - INFO - Starting data loading process
+2024-11-03 02:24:54,237 - INFO - Loaded data from /opt/airflow/data/processed/validate.pkl with shape (45211, 17)
+2024-11-03 02:24:54,250 - INFO - Schema loaded successfully from /opt/airflow/data/processed/schema.pbtxt
+2024-11-03 02:24:54,253 - INFO - Schema type: <class 'tensorflow_metadata.proto.v0.schema_pb2.Schema'>
+2024-11-03 02:24:54,261 - INFO - Prepared data splits: train shape (31647, 17), eval shape (6782, 17), serving shape (6782, 16)
+2024-11-03 02:24:54,474 - INFO - Anomalies calculated and displayed.
+2024-11-03 02:24:54,478 - INFO - Anomalies calculated and displayed.
+2024-11-03 02:24:54,628 - INFO - Sliced statistics visualized.
+2024-11-03 02:24:54,668 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.pkl
+2024-11-03 02:24:54,970 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.csv
+2024-11-03 02:24:54,977 - INFO - Data processing complete and saved to /opt/airflow/data/processed/validate_process.pkl and /opt/airflow/data/processed/validate_process.csv
+2024-11-03 02:24:54,987 - INFO - Data processing completed successfully.
+2024-11-03 02:25:00,220 - INFO - Starting data processing
+2024-11-03 02:25:00,224 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-11-03 02:25:00,327 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-11-03 02:25:00,394 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-11-03 02:25:00,426 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-11-03 02:25:00,448 - INFO - No duplicate rows found.
+2024-11-03 02:25:00,876 - INFO - Percentage of null or unknown values in each column:
+2024-11-03 02:25:00,882 - INFO - age: 0.00%
+2024-11-03 02:25:00,885 - INFO - job: 0.64%
+2024-11-03 02:25:00,888 - INFO - marital: 0.00%
+2024-11-03 02:25:00,890 - INFO - education: 4.11%
+2024-11-03 02:25:00,892 - INFO - default: 0.00%
+2024-11-03 02:25:00,894 - INFO - balance: 0.00%
+2024-11-03 02:25:00,897 - INFO - housing: 0.00%
+2024-11-03 02:25:00,899 - INFO - loan: 0.00%
+2024-11-03 02:25:00,901 - INFO - contact: 28.80%
+2024-11-03 02:25:00,903 - INFO - day: 0.00%
+2024-11-03 02:25:00,905 - INFO - month: 0.00%
+2024-11-03 02:25:00,907 - INFO - duration: 0.00%
+2024-11-03 02:25:00,910 - INFO - campaign: 0.00%
+2024-11-03 02:25:00,912 - INFO - pdays: 0.00%
+2024-11-03 02:25:00,916 - INFO - previous: 0.00%
+2024-11-03 02:25:00,917 - INFO - poutcome: 81.75%
+2024-11-03 02:25:00,919 - INFO - y: 0.00%
+2024-11-03 02:25:00,928 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-11-03 02:25:00,959 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-11-03 02:25:00,992 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-11-03 02:25:01,055 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-11-03 02:25:01,059 - INFO - Data processing completed successfully
+2024-11-03 02:25:12,902 - INFO - Starting EDA process
+2024-11-03 02:25:12,906 - INFO - Using input file: /opt/airflow/data/processed/outlier_handled_data.pkl
+2024-11-03 02:25:13,014 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 16)
+2024-11-03 02:25:13,025 - INFO - Data head:
+    age           job  marital  education default  balance housing loan  contact  day month  duration  campaign  pdays  previous   y
+0  58.0    management  married   tertiary      no   2143.0     yes   no  unknown  5.0   may     261.0       1.0   -1.0       0.0  no
+1  44.0    technician   single  secondary      no     29.0     yes   no  unknown  5.0   may     151.0       1.0   -1.0       0.0  no
+2  33.0  entrepreneur  married  secondary      no      2.0     yes  yes  unknown  5.0   may      76.0       1.0   -1.0       0.0  no
+3  47.0   blue-collar  married  secondary      no   1506.0     yes   no  unknown  5.0   may      92.0       1.0   -1.0       0.0  no
+4  33.0   blue-collar   single  secondary      no      1.0      no   no  unknown  5.0   may     198.0       1.0   -1.0       0.0  no
+2024-11-03 02:25:13,029 - INFO - Current column names: ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'y']
+2024-11-03 02:25:13,191 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/deposit_distribution.png
+2024-11-03 02:25:13,197 - INFO - Contact method distribution:
+cellular     0.647741
+unknown      0.287983
+telephone    0.064276
+Name: contact, dtype: Float64
+2024-11-03 02:25:13,372 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/contact_method_distribution.png
+2024-11-03 02:25:13,521 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/housing_loan_distribution.png
+2024-11-03 02:25:13,666 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/personal_loan_distribution.png
+2024-11-03 02:25:13,791 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/default_status_distribution.png
+2024-11-03 02:25:13,798 - INFO - Month distribution:
+may    0.304483
+jul    0.152507
+aug    0.138174
+jun    0.118135
+nov     0.08781
+apr    0.064851
+feb    0.058592
+jan    0.031032
+oct    0.016323
+sep    0.012807
+mar    0.010551
+dec    0.004733
+Name: month, dtype: Float64
+2024-11-03 02:25:13,928 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/month_distribution.png
+2024-11-03 02:25:14,060 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/age_distribution.png
+2024-11-03 02:25:14,191 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/job_distribution.png
+2024-11-03 02:25:14,320 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/marital_status_distribution.png
+2024-11-03 02:25:14,451 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/education_distribution.png
+2024-11-03 02:25:14,925 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/correlation_heatmap.png
+2024-11-03 02:25:14,928 - INFO - EDA process completed successfully
+2024-11-03 02:25:19,397 - INFO - Starting categorical encoding process
+2024-11-03 02:25:19,474 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 16)
+2024-11-03 02:25:19,476 - INFO - Column datatypes:
+2024-11-03 02:25:19,479 - INFO - age: float64
+2024-11-03 02:25:19,480 - INFO - job: string
+2024-11-03 02:25:19,482 - INFO - marital: string
+2024-11-03 02:25:19,483 - INFO - education: string
+2024-11-03 02:25:19,485 - INFO - default: string
+2024-11-03 02:25:19,486 - INFO - balance: float64
+2024-11-03 02:25:19,488 - INFO - housing: string
+2024-11-03 02:25:19,489 - INFO - loan: string
+2024-11-03 02:25:19,491 - INFO - contact: string
+2024-11-03 02:25:19,492 - INFO - day: float64
+2024-11-03 02:25:19,494 - INFO - month: string
+2024-11-03 02:25:19,496 - INFO - duration: float64
+2024-11-03 02:25:19,497 - INFO - campaign: float64
+2024-11-03 02:25:19,499 - INFO - pdays: float64
+2024-11-03 02:25:19,500 - INFO - previous: float64
+2024-11-03 02:25:19,502 - INFO - y: string
+2024-11-03 02:25:19,512 - INFO - Identified 9 categorical columns: ['job', 'marital', 'education', 'default', 'housing', 'loan', 'contact', 'month', 'y']
+2024-11-03 02:25:19,530 - INFO - Encoded column: job
+2024-11-03 02:25:19,544 - INFO - Encoded column: marital
+2024-11-03 02:25:19,559 - INFO - Encoded column: education
+2024-11-03 02:25:19,573 - INFO - Encoded column: default
+2024-11-03 02:25:19,587 - INFO - Encoded column: housing
+2024-11-03 02:25:19,601 - INFO - Encoded column: loan
+2024-11-03 02:25:19,614 - INFO - Encoded column: contact
+2024-11-03 02:25:19,626 - INFO - Encoded column: month
+2024-11-03 02:25:19,639 - INFO - Encoded column: y
+2024-11-03 02:25:19,827 - INFO - Saved encoded data to CSV file: /opt/airflow/data/processed/encoded_data.csv
+2024-11-03 02:25:19,876 - INFO - Saved encoded data to pickle file: /opt/airflow/data/processed/encoded_data.pkl
+2024-11-03 02:25:19,878 - INFO - Categorical encoding process completed successfully
+2024-11-03 02:25:24,657 - INFO - Starting correlation analysis
+2024-11-03 02:25:24,662 - INFO - Input file: /opt/airflow/data/processed/encoded_data.pkl
+2024-11-03 02:25:24,701 - INFO - Loaded data from /opt/airflow/data/processed/encoded_data.pkl with shape (45211, 16)
+2024-11-03 02:25:24,754 - INFO - Correlation matrix saved to /opt/airflow/data/processed/correlation_matrix.csv
+2024-11-03 02:25:24,763 - INFO - Correlation matrix saved to /opt/airflow/data/processed/correlation_matrix.pkl
+2024-11-03 02:25:24,772 - INFO - No highly correlated pairs found.
+2024-11-03 02:25:25,286 - INFO - Correlation heatmap saved to /opt/airflow/data/processed/eda_plots/correlation_heatmap.png
+2024-11-03 02:25:25,292 - INFO - Correlation analysis completed successfully
+2024-11-03 02:25:30,564 - INFO - Starting SMOTE analysis
+2024-11-03 02:25:30,569 - INFO - Input file: /opt/airflow/data/processed/encoded_data.pkl
+2024-11-03 02:25:30,631 - INFO - Loaded data from /opt/airflow/data/processed/encoded_data.pkl with shape (45211, 16)
+2024-11-03 02:25:30,645 - INFO - Target variable distribution before SMOTE:
+0    0.883015
+1    0.116985
+Name: y, dtype: float64
+2024-11-03 02:25:30,744 - INFO - Shape of training data before SMOTE: (36168, 15)
+2024-11-03 02:25:30,750 - INFO - Shape of training data after SMOTE: (63940, 15)
+2024-11-03 02:25:30,754 - INFO - Target variable distribution after SMOTE:
+0    0.5
+1    0.5
+Name: y, dtype: float64
+2024-11-03 02:25:31,230 - INFO - Saved SMOTE resampled training data to CSV: /opt/airflow/data/processed/smote_resampled_train_data.csv
+2024-11-03 02:25:31,306 - INFO - Saved test data to CSV: /opt/airflow/data/processed/test_data.csv
+2024-11-03 02:25:31,382 - INFO - Saved SMOTE resampled training data to pickle: /opt/airflow/data/processed/smote_resampled_train_data.pkl
+2024-11-03 02:25:31,409 - INFO - Saved test data to pickle: /opt/airflow/data/processed/test_data.pkl
+2024-11-03 02:25:31,412 - INFO - SMOTE analysis completed successfully
+2024-11-03 02:30:50,091 - INFO - Starting data download process
+2024-11-03 02:30:50,946 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
+2024-11-03 02:30:50,978 - INFO - File content pickled and saved as /opt/airflow/data/processed/raw_data.pkl.
+2024-11-03 02:30:55,459 - INFO - Starting data loading process
+2024-11-03 02:30:55,465 - INFO - Using pickle file: /opt/airflow/data/processed/raw_data.pkl
+2024-11-03 02:30:55,501 - INFO - Pickle file loaded successfully
+2024-11-03 02:30:55,867 - INFO - Data saved as CSV to: /opt/airflow/data/processed/raw_data.csv
+2024-11-03 02:31:00,624 - INFO - Starting data loading process
+2024-11-03 02:31:00,722 - INFO - Loaded data from /opt/airflow/data/processed/raw_data.csv with shape (45211, 17)
+2024-11-03 02:31:00,734 - INFO - Prepared training data with shape (27126, 17)
+2024-11-03 02:31:00,737 - INFO - Prepared evaluation data with shape (9042, 17)
+2024-11-03 02:31:00,742 - INFO - Prepared serving data with shape (9043, 16)
+2024-11-03 02:31:00,852 - INFO - Generated training data statistics.
+2024-11-03 02:31:00,859 - INFO - Inferred schema from training data statistics.
+2024-11-03 02:31:00,868 - INFO - Schema saved to /opt/airflow/data/processed/schema.pbtxt
+2024-11-03 02:31:00,930 - INFO - Generated serving data statistics.
+2024-11-03 02:31:00,988 - INFO - Generated training data statistics.
+2024-11-03 02:31:00,992 - INFO - Statistics visualization complete.
+2024-11-03 02:31:01,058 - INFO - Saved object to pickle file at /opt/airflow/data/processed/validate.pkl
+2024-11-03 02:31:01,450 - INFO - DataFrame saved to CSV file at /opt/airflow/data/processed/validate.csv
+2024-11-03 02:31:06,613 - INFO - Starting data processing...
+2024-11-03 02:31:06,615 - INFO - Starting data loading process
+2024-11-03 02:31:06,662 - INFO - Loaded data from /opt/airflow/data/processed/validate.pkl with shape (45211, 17)
+2024-11-03 02:31:06,680 - INFO - Schema loaded successfully from /opt/airflow/data/processed/schema.pbtxt
+2024-11-03 02:31:06,687 - INFO - Schema type: <class 'tensorflow_metadata.proto.v0.schema_pb2.Schema'>
+2024-11-03 02:31:06,699 - INFO - Prepared data splits: train shape (31647, 17), eval shape (6782, 17), serving shape (6782, 16)
+2024-11-03 02:31:06,933 - INFO - Anomalies calculated and displayed.
+2024-11-03 02:31:06,941 - INFO - Anomalies calculated and displayed.
+2024-11-03 02:31:07,063 - INFO - Sliced statistics visualized.
+2024-11-03 02:31:07,134 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.pkl
+2024-11-03 02:31:07,406 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.csv
+2024-11-03 02:31:07,416 - INFO - Data processing complete and saved to /opt/airflow/data/processed/validate_process.pkl and /opt/airflow/data/processed/validate_process.csv
+2024-11-03 02:31:07,427 - INFO - Data processing completed successfully.
+2024-11-03 02:31:13,161 - INFO - Starting data processing
+2024-11-03 02:31:13,167 - INFO - Input file: /opt/airflow/data/processed/raw_data.csv
+2024-11-03 02:31:13,261 - INFO - Data loaded successfully. DataFrame shape: (45211, 17)
+2024-11-03 02:31:13,315 - INFO - DataFrame info saved to /opt/airflow/data/processed/dataframe_info.csv
+2024-11-03 02:31:13,346 - INFO - DataFrame description saved to /opt/airflow/data/processed/dataframe_description.csv
+2024-11-03 02:31:13,380 - INFO - No duplicate rows found.
+2024-11-03 02:31:13,916 - INFO - Percentage of null or unknown values in each column:
+2024-11-03 02:31:13,919 - INFO - age: 0.00%
+2024-11-03 02:31:13,923 - INFO - job: 0.64%
+2024-11-03 02:31:13,926 - INFO - marital: 0.00%
+2024-11-03 02:31:13,929 - INFO - education: 4.11%
+2024-11-03 02:31:13,932 - INFO - default: 0.00%
+2024-11-03 02:31:13,935 - INFO - balance: 0.00%
+2024-11-03 02:31:13,938 - INFO - housing: 0.00%
+2024-11-03 02:31:13,941 - INFO - loan: 0.00%
+2024-11-03 02:31:13,944 - INFO - contact: 28.80%
+2024-11-03 02:31:13,948 - INFO - day: 0.00%
+2024-11-03 02:31:13,951 - INFO - month: 0.00%
+2024-11-03 02:31:13,953 - INFO - duration: 0.00%
+2024-11-03 02:31:13,956 - INFO - campaign: 0.00%
+2024-11-03 02:31:13,958 - INFO - pdays: 0.00%
+2024-11-03 02:31:13,960 - INFO - previous: 0.00%
+2024-11-03 02:31:13,963 - INFO - poutcome: 81.75%
+2024-11-03 02:31:13,965 - INFO - y: 0.00%
+2024-11-03 02:31:13,972 - INFO - Dropped features with >80% null or unknown values: ['poutcome']
+2024-11-03 02:31:14,007 - INFO - Filled unknown values in 'job' column with mode value: blue-collar
+2024-11-03 02:31:14,042 - INFO - Filled unknown values in 'education' column with mode value: secondary
+2024-11-03 02:31:14,080 - INFO - Processed data saved as pickle at /opt/airflow/data/processed/processed_data.pkl
+2024-11-03 02:31:14,084 - INFO - Data processing completed successfully
+2024-11-03 02:31:23,259 - INFO - Starting EDA process
+2024-11-03 02:31:23,262 - INFO - Using input file: /opt/airflow/data/processed/outlier_handled_data.pkl
+2024-11-03 02:31:23,333 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 16)
+2024-11-03 02:31:23,341 - INFO - Data head:
+    age           job  marital  education default  balance housing loan  contact  day month  duration  campaign  pdays  previous   y
+0  58.0    management  married   tertiary      no   2143.0     yes   no  unknown  5.0   may     261.0       1.0   -1.0       0.0  no
+1  44.0    technician   single  secondary      no     29.0     yes   no  unknown  5.0   may     151.0       1.0   -1.0       0.0  no
+2  33.0  entrepreneur  married  secondary      no      2.0     yes  yes  unknown  5.0   may      76.0       1.0   -1.0       0.0  no
+3  47.0   blue-collar  married  secondary      no   1506.0     yes   no  unknown  5.0   may      92.0       1.0   -1.0       0.0  no
+4  33.0   blue-collar   single  secondary      no      1.0      no   no  unknown  5.0   may     198.0       1.0   -1.0       0.0  no
+2024-11-03 02:31:23,342 - INFO - Current column names: ['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact', 'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'y']
+2024-11-03 02:31:23,435 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/deposit_distribution.png
+2024-11-03 02:31:23,497 - INFO - Contact method distribution:
+cellular     0.647741
+unknown      0.287983
+telephone    0.064276
+Name: contact, dtype: Float64
+2024-11-03 02:31:23,647 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/contact_method_distribution.png
+2024-11-03 02:31:23,764 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/housing_loan_distribution.png
+2024-11-03 02:31:23,862 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/personal_loan_distribution.png
+2024-11-03 02:31:23,988 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/default_status_distribution.png
+2024-11-03 02:31:23,995 - INFO - Month distribution:
+may    0.304483
+jul    0.152507
+aug    0.138174
+jun    0.118135
+nov     0.08781
+apr    0.064851
+feb    0.058592
+jan    0.031032
+oct    0.016323
+sep    0.012807
+mar    0.010551
+dec    0.004733
+Name: month, dtype: Float64
+2024-11-03 02:31:24,094 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/month_distribution.png
+2024-11-03 02:31:24,212 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/age_distribution.png
+2024-11-03 02:31:24,318 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/job_distribution.png
+2024-11-03 02:31:24,400 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/marital_status_distribution.png
+2024-11-03 02:31:24,486 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/education_distribution.png
+2024-11-03 02:31:24,717 - INFO - Saved plot: /opt/airflow/data/processed/eda_plots/correlation_heatmap.png
+2024-11-03 02:31:24,720 - INFO - EDA process completed successfully
+2024-11-03 02:31:28,835 - INFO - Starting categorical encoding process
+2024-11-03 02:31:28,905 - INFO - Loaded data from /opt/airflow/data/processed/outlier_handled_data.pkl with shape (45211, 16)
+2024-11-03 02:31:28,907 - INFO - Column datatypes:
+2024-11-03 02:31:28,909 - INFO - age: float64
+2024-11-03 02:31:28,911 - INFO - job: string
+2024-11-03 02:31:28,912 - INFO - marital: string
+2024-11-03 02:31:28,913 - INFO - education: string
+2024-11-03 02:31:28,914 - INFO - default: string
+2024-11-03 02:31:28,915 - INFO - balance: float64
+2024-11-03 02:31:28,917 - INFO - housing: string
+2024-11-03 02:31:28,918 - INFO - loan: string
+2024-11-03 02:31:28,919 - INFO - contact: string
+2024-11-03 02:31:28,921 - INFO - day: float64
+2024-11-03 02:31:28,922 - INFO - month: string
+2024-11-03 02:31:28,923 - INFO - duration: float64
+2024-11-03 02:31:28,924 - INFO - campaign: float64
+2024-11-03 02:31:28,926 - INFO - pdays: float64
+2024-11-03 02:31:28,927 - INFO - previous: float64
+2024-11-03 02:31:28,928 - INFO - y: string
+2024-11-03 02:31:28,937 - INFO - Identified 9 categorical columns: ['job', 'marital', 'education', 'default', 'housing', 'loan', 'contact', 'month', 'y']
+2024-11-03 02:31:28,953 - INFO - Encoded column: job
+2024-11-03 02:31:28,967 - INFO - Encoded column: marital
+2024-11-03 02:31:28,980 - INFO - Encoded column: education
+2024-11-03 02:31:28,993 - INFO - Encoded column: default
+2024-11-03 02:31:29,006 - INFO - Encoded column: housing
+2024-11-03 02:31:29,018 - INFO - Encoded column: loan
+2024-11-03 02:31:29,031 - INFO - Encoded column: contact
+2024-11-03 02:31:29,047 - INFO - Encoded column: month
+2024-11-03 02:31:29,063 - INFO - Encoded column: y
+2024-11-03 02:31:29,357 - INFO - Saved encoded data to CSV file: /opt/airflow/data/processed/encoded_data.csv
+2024-11-03 02:31:29,387 - INFO - Saved encoded data to pickle file: /opt/airflow/data/processed/encoded_data.pkl
+2024-11-03 02:31:29,388 - INFO - Categorical encoding process completed successfully
+2024-11-03 02:31:33,648 - INFO - Starting correlation analysis
+2024-11-03 02:31:33,651 - INFO - Input file: /opt/airflow/data/processed/encoded_data.pkl
+2024-11-03 02:31:33,685 - INFO - Loaded data from /opt/airflow/data/processed/encoded_data.pkl with shape (45211, 16)
+2024-11-03 02:31:33,718 - INFO - Correlation matrix saved to /opt/airflow/data/processed/correlation_matrix.csv
+2024-11-03 02:31:33,725 - INFO - Correlation matrix saved to /opt/airflow/data/processed/correlation_matrix.pkl
+2024-11-03 02:31:33,731 - INFO - No highly correlated pairs found.
+2024-11-03 02:31:34,232 - INFO - Correlation heatmap saved to /opt/airflow/data/processed/eda_plots/correlation_heatmap.png
+2024-11-03 02:31:34,235 - INFO - Correlation analysis completed successfully
+2024-11-03 02:31:38,961 - INFO - Starting SMOTE analysis
+2024-11-03 02:31:38,965 - INFO - Input file: /opt/airflow/data/processed/encoded_data.pkl
+2024-11-03 02:31:39,036 - INFO - Loaded data from /opt/airflow/data/processed/encoded_data.pkl with shape (45211, 16)
+2024-11-03 02:31:39,052 - INFO - Target variable distribution before SMOTE:
+0    0.883015
+1    0.116985
+Name: y, dtype: float64
+2024-11-03 02:31:39,112 - INFO - Shape of training data before SMOTE: (36168, 15)
+2024-11-03 02:31:39,116 - INFO - Shape of training data after SMOTE: (63940, 15)
+2024-11-03 02:31:39,120 - INFO - Target variable distribution after SMOTE:
+0    0.5
+1    0.5
+Name: y, dtype: float64
+2024-11-03 02:31:39,529 - INFO - Saved SMOTE resampled training data to CSV: /opt/airflow/data/processed/smote_resampled_train_data.csv
+2024-11-03 02:31:39,584 - INFO - Saved test data to CSV: /opt/airflow/data/processed/test_data.csv
+2024-11-03 02:31:39,642 - INFO - Saved SMOTE resampled training data to pickle: /opt/airflow/data/processed/smote_resampled_train_data.pkl
+2024-11-03 02:31:39,660 - INFO - Saved test data to pickle: /opt/airflow/data/processed/test_data.pkl
+2024-11-03 02:31:39,664 - INFO - SMOTE analysis completed successfully
