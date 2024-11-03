@@ -230,6 +230,7 @@ You can avoid these steps of creating a GCP bucket, instead you could raise a re
 
 # End-to-End Pipeline for Model Deployment
 ![ML Project Pipeline](https://github.com/user-attachments/assets/84b79898-c4cb-41bd-a07c-60d07986216d)
+
 Pictured above: ML project Pipeline
 
 ## Pipeline Optimization
