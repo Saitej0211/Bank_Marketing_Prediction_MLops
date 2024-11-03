@@ -53,9 +53,8 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 - **assets/**: Stores images, visualizations, and graphs.
 - **data/**: Contains raw and processed datasets.
 - **notebooks/**: Jupyter notebooks for exploratory data analysis (EDA) and model experimentation.
-- **src/**: Source code for data preprocessing, feature engineering, and model training.
+- **dags/**: Source code for data preprocessing, feature engineering, and Airflow DAG.
 - **config/**: Configuration files for setting paths, parameters, and schemas.
-- **pipeline/**: Scripts for running the end-to-end data pipeline.
 - **tests/**: Unit tests for validating code functionality.
 - **logs/**: Stores log files from pipeline runs.
 
@@ -63,37 +62,66 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 ## Git repository structure
 ```plaintext
 .
-├── LICENSE                 ## License information
-├── README.md               ## Overview of the project, how to use, and dataset details
-├── assets                  ## Store images, graphs, or other visualizations
-├── config                  ## Configuration files for the project
-│   ├── config.yaml         ## General configurations like file paths, hyperparameters
-│   ├── constants.py        ## Constant variables (e.g., target variable, feature names)
-│   └── schema.yaml         ## Dataset schema (columns and types)
-├── data                    ## Raw and processed data files
-│   ├── raw                 ## Raw dataset, e.g., bank-additional-full.csv
-│   ├── processed           ## Processed data, train/test splits
-├── logs                    ## Store log files during execution
-│   └── training.log        ## Log details for model training
-├── notebooks               ## Jupyter notebooks for exploratory data analysis (EDA)
-│   ├── 01_EDA.ipynb        ## Exploratory Data Analysis notebook
-├── pipeline                ## Pipeline scripts for orchestrating the workflow
-│   ├── main.py             ## All-in-one script to run the entire pipeline
-├── src                     ## Source code for the project
-│   ├── __init__.py
-│   ├── data_preprocessing  ## Data preprocessing scripts
-│   │   ├── __init__.py
-│   ├── feature_engineering ## Feature engineering scripts
-│   │   ├── __init__.py
-│   ├── models              ## Machine learning model scripts
-│   │   ├── __init__.py
-│   ├── utils               ## Utility functions used throughout the project
-│   │   ├── __init__.py
-├── tests                   ## Unit tests for various modules
-│   └── test_utils.py
-├── Dockerfile              ## Docker container setup
-├── docker-compose.yaml     ## Docker Compose for multi-container setups
-└── requirements.txt        ## List of dependencies (Python libraries)
+├── LICENSE                         ## License information
+├── README.md                       ## Overview of the project, how to use it, and dataset details
+├── assets                          ## Store images, graphs, or other visualizations
+│   ├── images                      ## Images used in the project
+│   └── plots                       ## Graphs or plots generated during analysis
+├── config                          ## Configuration files for the project
+│   ├── config.yaml                 ## General configurations like file paths, hyperparameters
+│   ├── constants.py                ## Constant variables (e.g., target variable, feature names)
+│   ├── Key.json                    ## Key file (possibly for authentication or API access)
+│   └── schema.yaml                 ## Dataset schema (columns and types)
+├── data                            ## Raw and processed data files
+│   ├── raw                         ## Raw dataset files
+│   │   ├── bank                    ## Raw bank marketing data
+│   │   └── bank-additional          ## Additional raw bank marketing data
+│   ├── processed                   ## Processed data, train/test splits
+│       ├── eda_plots               ## Exploratory Data Analysis plots
+│       ├── correlation_matrix.csv  ## Correlation matrix in CSV format
+│       ├── correlation_matrix.pkl  ## Correlation matrix in pickle format
+│       ├── dataframe_description.csv  ## Description of the dataframe
+│       ├── dataframe_info.csv      ## Information about the dataframe
+│       ├── datatype_format_processed.csv  ## Datatype format after processing (CSV)
+│       ├── datatype_format_processed.pkl  ## Datatype format after processing (Pickle)
+│       ├── datatype_info_after.csv  ## Datatype information after processing (CSV)
+│       ├── datatype_info_before.csv  ## Datatype information before processing (CSV)
+│       ├── encoded_data.csv        ## Encoded data in CSV format
+│       ├── encoded_data.pkl        ## Encoded data in pickle format
+│       ├── outlier_handled_data.csv  ## Data after handling outliers (CSV)
+│       ├── outlier_handled_data.pkl  ## Data after handling outliers (Pickle)
+│       ├── processed_data.pkl      ## Final processed data in pickle format
+│       ├── raw_data.csv            ## Raw dataset in CSV format
+│       └── raw_data.pkl            ## Raw dataset in pickle format  
+├── dags                            ## Directed Acyclic Graphs (DAGs) for pipeline orchestration
+│   └── __init__.py                 ## Initialization file for DAGs module
+├── logs                            ## Store log files during execution
+│   ├── dag_id=DataPipeline         ## Logs related to DataPipeline DAG execution 
+│   ├── dag_processor_manager       ## Logs related to DAG processor manager 
+│   ├── download_data.log           ## Log for downloading data 
+│   ├── eda.log                     ## Log for Exploratory Data Analysis 
+│   └── outlier_handling.log        ## Log for outlier handling process 
+├── plugins                         ## Plugins used in the project (if any)
+├── src                             ## Source code for the project
+│   ├── models                      ## Machine learning models and related scripts 
+│   │   └── __init__.py             ## Initialization file for models module 
+│   └── utils                       ## Utility functions used throughout the project 
+│       └── __init__.py             ## Initialization file for utils module 
+├── tests                           ## Unit tests for various modules 
+│   ├── test_CorrelationAndEncoding.py  ## Test script for correlation and encoding 
+│   ├── test_data_format.py         ## Test script for data formatting 
+│   ├── test_DownloadAndLoadData.py  ## Test script for downloading and loading data 
+│   ├── test_eda.py                 ## Test script for exploratory data analysis 
+│   ├── test_HandleNullValues.py    ## Test script for handling null values 
+│   └── test_Smote.py               ## Test script for SMOTE oversampling technique 
+├── .dvcignore                      ## DVC ignore file to specify which files to exclude from DVC tracking 
+├── .env                            ## Environment variables file 
+├── .gitattributes                  ## Git attributes configuration file 
+├── .gitignore                      ## Git ignore file to exclude specific files from version control 
+├── airflow.cfg                     ## Airflow configuration file  
+├── docker-compose.yaml             ## Docker Compose setup for multi-container environments 
+├── Dockerfile                      ## Docker container setup  
+└── requirements.txt                ## List of dependencies (Python libraries)  
 ```
 
 ## Installation
