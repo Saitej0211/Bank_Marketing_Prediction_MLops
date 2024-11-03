@@ -1,5 +1,5 @@
 # Bank Marketing Campaign Prediction
-Sheela Hnasda, Saiteja Reddy Gajula, Hashwanth Moorthy, Aishwarya Alagesan, Vignesh Sankar, Tejesvani Muppara vijayaram
+Sheela Hansda, Saiteja Reddy Gajula, Hashwanth Moorthy, Aishwarya Alagesan, Vignesh Sankar, Tejesvani Muppara vijayaram
 
 # Introduction
 
