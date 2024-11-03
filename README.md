@@ -258,6 +258,20 @@ In this phase, the dataset is fetched and extracted into the designated data fol
 - **DownloadData.py**: This python file downloads the latest available file from the GCP bucket and pickles it stores it in the folder.
 - **LoadData.py**: This python file unpickles the data and stores it as a CCSV file in the data/processed folder allowing the next task to pick this up as input for data validation.
 
+# Handling Null values and duplicates
+The process_data function performs the following operations:
+Data Loading: Reads a CSV file into a pandas DataFrame.
+Metadata Saving: Saves DataFrame info and description to separate CSV files.
+Duplicate Handling:
+Checks for duplicate rows in the DataFrame.
+If duplicates are found, it removes them using drop_duplicates() method.
+Logs the number of duplicate rows removed or if no duplicates were found.
+Null and Unknown Value Handling:
+Identifies columns with high percentages of null or unknown values.
+Drops columns with more than 80% null or unknown values.
+Fills unknown values in 'job' and 'education' columns with mode values.
+Data Saving: Saves the processed DataFrame as a pickle file.
+
 # Data Cleaning and Preprocessing
 Reliable and high-quality data is crucial for machine learning model performance. This preprocessing pipeline uses several scripts to ensure the data integrity and readiness for model training, making the pipeline more efficient and robust.
 
