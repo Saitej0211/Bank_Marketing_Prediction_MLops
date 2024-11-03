@@ -9,6 +9,9 @@ from tensorflow_metadata.proto.v0.schema_pb2 import Schema  # Import Schema dire
 from src.Data_validation.data_schema_statistics_generation import (
     infer_schema, save_schema, validate_data_schema, read_data, prepare_train_data
 )
+from tensorflow_data_validation.utils import schema_util
+from tensorflow_metadata.proto.v0.schema_pb2 import Schema
+from tensorflow_data_validation.utils import slicing_util
 from airflow.utils.log.logging_mixin import LoggingMixin
 
 # Define paths
@@ -84,6 +87,16 @@ def read_data(input_file_path):
         custom_log(f"Error in read_data: {e}", level=logging.ERROR)
         raise  # Re-raise the exception for upstream handling
 
+def load_schema(schema_path):
+    """Load schema from a .pbtxt file and return as Schema proto."""
+    try:
+        schema = schema_util.load_schema_text(schema_path)
+        custom_log(f"Schema loaded successfully from {schema_path}")
+        return schema
+    except Exception as e:
+        custom_log(f"Failed to load schema: {e}", level=logging.ERROR)
+        raise
+
 def save_dataframe(df, output_pickle_path, output_csv_path):
     """Save a DataFrame as both a pickle and CSV file."""
     try:
@@ -156,39 +169,47 @@ def validate_data(input_file_path, output_pickle_path, output_csv_path):
     # Read the data from the file
     df = read_data(input_file_path)
 
-    # Save the schema and validate the schema type
-    train_stats, schema, schema_file = save_schema(input_file_path, os.path.dirname(output_pickle_path))
+    schema_path = os.path.join(os.path.dirname(output_pickle_path), "schema.pbtxt")
+    schema = load_schema(schema_path)
+
+    # Check if the schema is of the correct type
+    if not isinstance(schema, Schema):
+        custom_log(f"Schema is of type {type(schema)}, expected Schema proto.", level=logging.ERROR)
+        raise TypeError("Expected Schema proto, got {}".format(type(schema)))
 
     custom_log(f"Schema type: {type(schema)}")  # Log the schema type
 
+    # Prepare data splits
     train_df, eval_df, serving_df = prepare_data_splits(df)
 
+    # Generate statistics for each split
+    train_stats = tfdv.generate_statistics_from_dataframe(train_df)
     eval_stats = tfdv.generate_statistics_from_dataframe(eval_df)
-    calculate_and_display_anomalies(eval_stats, schema=schema)
+    serving_stats = tfdv.generate_statistics_from_dataframe(serving_df, stats_options=tfdv.StatsOptions(schema=schema, infer_type_from_schema=True))
 
-    options = tfdv.StatsOptions(schema=schema, infer_type_from_schema=True)
-    serving_stats = tfdv.generate_statistics_from_dataframe(serving_df, stats_options=options)
+    # Display anomalies for evaluation and serving data
+    calculate_and_display_anomalies(eval_stats, schema=schema)
     calculate_and_display_anomalies(serving_stats, schema=schema)
 
+    # Set environments in schema for training and serving
     schema.default_environment.extend(['TRAINING', 'SERVING'])
     tfdv.get_feature(schema, 'y').not_in_environment.append('SERVING')
 
+    # Set skew comparator for duration
     duration = tfdv.get_feature(schema, 'duration')
     duration.skew_comparator.infinity_norm.threshold = 0.03
 
-    skew_drift_anomalies = tfdv.validate_statistics(train_stats, schema,
-                                                    previous_statistics=eval_stats,
-                                                    serving_statistics=serving_stats)
+    # Validate for skew and drift
+    skew_drift_anomalies = tfdv.validate_statistics(train_stats, schema, previous_statistics=eval_stats, serving_statistics=serving_stats)
     tfdv.display_anomalies(skew_drift_anomalies)
 
+    # Generate sliced statistics
     slice_fn = slicing_util.get_feature_value_slicer(features={'job': None, 'marital': None, 'education': None})
-    slice_stats_options = tfdv.StatsOptions(schema=schema,
-                                            experimental_slice_functions=[slice_fn],
-                                            infer_type_from_schema=True)
+    slice_stats_options = tfdv.StatsOptions(schema=schema, experimental_slice_functions=[slice_fn], infer_type_from_schema=True)
     sliced_stats = tfdv.generate_statistics_from_dataframe(df, stats_options=slice_stats_options)
     visualize_slices_in_groups(sliced_stats, group_size=3)
 
-    # Save the processed DataFrame as both a pickle and CSV file
+    # Save the processed DataFrame
     save_dataframe(df, output_pickle_path, output_csv_path)
     custom_log(f"Data processing complete and saved to {output_pickle_path} and {output_csv_path}")
 
