@@ -94,8 +94,8 @@ load_task = PythonOperator(
 )
 
 # Task to process data and drop columns with >80% null values
-process_task = PythonOperator(
-    task_id='process_data',
+pre_process_task1 = PythonOperator(
+    task_id='pre_process_task1',
     python_callable=process_data,
     op_kwargs={
         'pickled_file_path': '{{ ti.xcom_pull(task_ids="load_task") }}',
@@ -105,11 +105,11 @@ process_task = PythonOperator(
 )
 
 # Task to process data with data type formatting and outlier handling
-pre_process_task = PythonOperator(
-    task_id='pre_process_data',
+pre_process_task2 = PythonOperator(
+    task_id='pre_process_task2',
     python_callable=preprocess_data,
     op_kwargs={
-        'pickled_file_path': '{{ ti.xcom_pull(task_ids="process_data") }}',
+        'pickled_file_path': '{{ ti.xcom_pull(task_ids="pre_process_task1") }}',
     },
     on_failure_callback=notify_failure,
     dag=dag,
@@ -120,7 +120,7 @@ eda_task = PythonOperator(
     task_id='perform_eda',
     python_callable=perform_eda,
     op_kwargs={
-        'input_file_path': '{{ ti.xcom_pull(task_ids="pre_process_data") }}',
+        'input_file_path': '{{ ti.xcom_pull(task_ids="pre_process_task2") }}',
     },
     on_failure_callback=notify_failure,
     dag=dag,
@@ -131,7 +131,7 @@ encode_categorical_task = PythonOperator(
     task_id='encode_categorical_variables',
     python_callable=encode_categorical_variables,
     op_kwargs={
-        'input_file_path': '{{ ti.xcom_pull(task_ids="pre_process_data") }}',
+        'input_file_path': '{{ ti.xcom_pull(task_ids="pre_process_task2") }}',
     },
     on_failure_callback=notify_failure,
     dag=dag,
@@ -182,7 +182,7 @@ email_notification_task = EmailOperator(
 )
 
 # Define task dependencies
-download_task >> load_task >> stats_validate_task >> anomaly_validate_task >> process_task >> pre_process_task >> eda_task >> encode_categorical_task >> correlation_analysis_task >> smote_analysis_task >> email_notification_task
+download_task >> load_task >> stats_validate_task >> anomaly_validate_task >> pre_process_task1 >> pre_process_task2 >> eda_task >> encode_categorical_task >> correlation_analysis_task >> smote_analysis_task >> email_notification_task
 
 
 if __name__ == "__main__":
