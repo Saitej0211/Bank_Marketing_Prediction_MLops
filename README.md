@@ -311,31 +311,31 @@ Once the DAG is executed, check for a "DAG Completed" email notification in the 
 
 ![image](https://github.com/user-attachments/assets/4435684c-a1e0-4fe2-8f0c-21ec5b14994c)
 
-# Model Performance Evaluation:
+### Model Performance Evaluation:
 
-# Model Retraining
+### Model Retraining
 
-## Hyper Parameter Tuning
+### Hyper Parameter Tuning
 
-# Staging, Production and Archived models (MLFLOW)
+### Staging, Production and Archived models (MLFLOW)
 
-# Logging and Monitoring
+### Logging and Monitoring
 
-# Model Analysis
+### Model Analysis
 
-# Deployment Pipeline
+### Deployment Pipeline
 
-# Cost Analysis
+### Cost Analysis
 
-# Contributing / Development Guide
+### Contributing / Development Guide
 
-## Testing
+### Testing
 
-## Step 1: Install Required Tools
+### Step 1: Install Required Tools
 
-## Step 2: Check Code Quality and Vulnerabilities
+### Step 2: Check Code Quality and Vulnerabilities
 
-## Step 3: Run Test Suites
+### Step 3: Run Test Suites
 
 
 ## Airflow Dags
