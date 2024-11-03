@@ -268,7 +268,9 @@ Reliable and high-quality data is crucial for machine learning model performance
 - **Smote.py**: Addresses class imbalance using SMOTE to enhance model performance. Loads the encoded data, splits it into training and testing sets, applies SMOTE to balance classes, and saves the adjusted data.
   
 # Stats Gen
-- **data_schema_statistics_generation.py**: Loads data from CSV file into a DataFrame and splits the data into training(60%), evaluation(20%), and serving(20%) datasets. Creates descriptive statistics for the training and serving datasets to understand data distribution and identify potential anomalies. Infers a training schema and serving schema(excluding the target variable Y) from the training statistics and saves it in .pbtxt format. The data stored in .pkl file to be used for preprocessing.
+- **data_schema_statistics_generation.py**: Loads data from CSV file into a DataFrame and splits the data into training(60%), evaluation(20%), and serving(20%) datasets. Creates descriptive statistics for the training and serving datasets. Infers a training schema and serving schema(excluding the target variable Y) from the training statistics and saves it in .pbtxt format. Saves the data in .pkl format to be used for anomaly detection.
+  
+- **anomaly_detection.py**: Loads data from .pkl file and generates statistics to check for inconsistencies against a defined schema and identifies potential anomalies. Visualizations of data slices are created to highlight distribution differences. The data stored in .pkl file to be used for preprocessing.
 
 # Email Alerts
 
