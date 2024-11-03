@@ -177,7 +177,7 @@ email_notification_task = EmailOperator(
     task_id='send_email_notification',
     to='aishwariya.alagesanus@gmail.com',
     subject='Dag Completed Successfully',
-    html_content='<p>The dag has completed successfully.</p>',
+    html_content='<p>Dag Completed</p>',
     dag=dag,
 )
 
