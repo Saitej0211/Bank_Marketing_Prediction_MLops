@@ -287,6 +287,13 @@ Reliable and high-quality data is crucial for machine learning model performance
 - **anomaly_detection.py**: Loads data from .pkl file and generates statistics to check for inconsistencies against a defined schema and identifies potential anomalies. Visualizations of data slices are created to highlight distribution differences. The data stored in .pkl file to be used for preprocessing.
 
 # Email Alerts
+- **Email Notification Setup**
+The DAG is configured to send email notifications upon successful completion, allowing users to monitor task completion status directly from their inbox. This setup ensures users stay informed about the DAG's progress without manually checking the Airflow dashboard. To enable this feature, ensure that SMTP configurations in Airflow are correctly set up in airflow.cfg under the [smtp] section, specifying the SMTP server, email sender, and recipient settings.
+
+![image](https://github.com/user-attachments/assets/4435684c-a1e0-4fe2-8f0c-21ec5b14994c)
+
+- **Testing and Verification**
+Once the DAG is executed, check for a "DAG Completed" email notification in the specified email inbox. This email serves as a confirmation that the DAG has successfully completed all tasks as per the defined workflow. Users can modify the notification logic to send emails upon task failures or retries, enhancing monitoring capabilities for critical workflows.
 
 # Model Performance Evaluation:
 
