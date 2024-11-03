@@ -228,22 +228,13 @@ Generate a key: After creating the service account, click on it from the list of
 
 You can avoid these steps of creating a GCP bucket, instead you could raise a request to access our GCP bucket
 
-# Overall ML Project PipeLine
-The following flowchart offers a brief overview of our ML Project Pipeline
-
-
-
+# End-to-End Pipeline for Model Deployment
+![ML Project Pipeline](https://github.com/user-attachments/assets/84b79898-c4cb-41bd-a07c-60d07986216d)
+Pictured above: ML project Pipeline
 
 ## Pipeline Optimization
-
-
-Pictured above: Airflow DAG Execution Gantt Chart for Data Pipeline
-
-**Gantt Chart**: It is a popular project management tool used to visualize and track the progress of tasks or activities over time. It provides a graphical representation of a pipeline's schedule, showing when each task is planned to start and finish.
-
-# End-to-End Pipeline for Model Deployment
-
-Pictured above: Machine Learning Pipeline - Data to Deployment Flowchart
+![image](https://github.com/user-attachments/assets/f669d1e1-7d8e-422b-b6ea-d5d5ceb0af1a)
+Pictured above: Airflow DAG Execution Gantt Chart for Data Pipeline. It is a popular project management tool used to visualize and track the progress of tasks or activities over time. It provides a graphical representation of a pipeline's schedule, showing when each task is planned to start and finish.
 
 Our Model Pipeline till this part for creating Data Pipeline has 2 major components
 #### 1.Data Download
@@ -269,10 +260,10 @@ Reliable and high-quality data is crucial for machine learning model performance
 
 - **Smote.py**: Addresses class imbalance using SMOTE to enhance model performance. Loads the encoded data, splits it into training and testing sets, applies SMOTE to balance classes, and saves the adjusted data.
   
-## Stats Gen
+# Stats Gen
 
 
-## Email Alerts
+# Email Alerts
 
 # Model Performance Evaluation:
 
