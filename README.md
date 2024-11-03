@@ -281,6 +281,10 @@ Reliable and high-quality data is crucial for machine learning model performance
 - **CorrelationAnalysis.py**: Analyzes and visualizes feature correlations to uncover relationships between variables. Loads the encoded data, computes the correlation matrix, saves it as .csv and .pkl files, and generates a heatmap visualization saved as an image.
 
 - **Smote.py**: Addresses class imbalance using SMOTE to enhance model performance. Loads the encoded data, splits it into training and testing sets, applies SMOTE to balance classes, and saves the adjusted data.
+
+- **datatype_format.py**: Ensures data types are consistent across the dataset, improving compatibility with various analysis and machine learning techniques. It loads the processed data, checks and converts data types, logs data type changes, and saves the results.
+
+- **outlier_handling.py**: Detects and handles outliers using the IQR method to reduce extreme values that could distort the model. It loads the processed data, calculates IQR for each numeric column, logs detected outliers, caps outliers within bounds, and saves the outlier-handled data as a .pkl file.
   
 # Stats Gen
 - **data_schema_statistics_generation.py**: Loads data from CSV file into a DataFrame and splits the data into training(60%), evaluation(20%), and serving(20%) datasets. Creates descriptive statistics for the training and serving datasets. Infers a training schema and serving schema(excluding the target variable Y) from the training statistics and saves it in .pbtxt format. Saves the data in .pkl format to be used for anomaly detection.
@@ -295,7 +299,7 @@ The DAG is configured to send email notifications upon successful completion, al
     AIRFLOW__SMTP__SMTP_STARTTLS: 'True'
     AIRFLOW__SMTP__SMTP_SSL: 'False'
     AIRFLOW__SMTP__SMTP_USER: aishwariya.alagesanus@gmail.com           # Replace with your Gmail
-    AIRFLOW__SMTP__SMTP_PASSWORD: avlp hcjj nexa ytpw         # App password generated from Google
+    AIRFLOW__SMTP__SMTP_PASSWORD: **** **** **** ****         # App password generated from Google
     AIRFLOW__SMTP__SMTP_PORT: 587
     AIRFLOW__SMTP__SMTP_MAIL_FROM: aishwariya.alagesanus@gmail.com      # Same Gmail address
     AIRFLOW__SMTP__SMTP_TIMEOUT: 30                         # SMTP timeout in seconds
