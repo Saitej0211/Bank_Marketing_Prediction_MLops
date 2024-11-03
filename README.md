@@ -226,7 +226,13 @@ Assign permissions: Assign the necessary permissions to your service account bas
 
 Generate a key: After creating the service account, click on it from the list of service accounts. Then, navigate to the "Keys" tab. Click on the "Add key" dropdown and select "Create new key". Choose the key type (JSON is recommended) and click "Create". This will download the key file to your local machine.
 
+[Link to our GCP bucket - It is Public](https://console.cloud.google.com/storage/browser/mlopsprojectdatabucketgrp6)
+
 You can avoid these steps of creating a GCP bucket, instead you could raise a request to access our GCP bucket
+
+![image](https://github.com/user-attachments/assets/0b752e97-0587-4bed-b5c8-c5883a71c745)
+
+Pictured above: GCP Bucket tracking the Data Version for the dataset
 
 # End-to-End Pipeline for Model Deployment
 ![ML Project Pipeline](https://github.com/user-attachments/assets/84b79898-c4cb-41bd-a07c-60d07986216d)
