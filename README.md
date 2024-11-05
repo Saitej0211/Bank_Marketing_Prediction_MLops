@@ -1,5 +1,5 @@
 # Bank Marketing Campaign Prediction
-Sheela Hansda, Saiteja Reddy Gajula, Hashwanth Moorthy, Aishwarya Alagesan, Vignesh Sankar, Tejesvani Muppara vijayaram
+Sheela Hansda, Saiteja Reddy Gajula, Hashwanth Moorthy, Aishwariya Alagesan, Vignesh Sankar, Tejesvani Muppara vijayaram
 
 # Introduction
 
@@ -313,15 +313,15 @@ Data Saving: Saves the processed DataFrame as a pickle file.
 # Data Cleaning and Preprocessing
 Reliable and high-quality data is crucial for machine learning model performance. This preprocessing pipeline uses several scripts to ensure the data integrity and readiness for model training, making the pipeline more efficient and robust.
 
+- **datatype_format.py**: Ensures data types are consistent across the dataset, improving compatibility with various analysis and machine learning techniques. It loads the processed data, checks and converts data types, logs data type changes, and saves the results.
+
+- **outlier_handling.py**: Detects and handles outliers using the IQR method to reduce extreme values that could distort the model. It loads the processed data, calculates IQR for each numeric column, logs detected outliers, caps outliers within bounds, and saves the outlier-handled data as a .pkl file.
+
 - **Encoding.py**: Encodes categorical variables to numeric formats for compatibility with machine learning algorithms. It loads the input data, identifies categorical columns, applies encoding transformations, and saves the processed data as .pkl and .csv files.
 
 - **CorrelationAnalysis.py**: Analyzes and visualizes feature correlations to uncover relationships between variables. Loads the encoded data, computes the correlation matrix, saves it as .csv and .pkl files, and generates a heatmap visualization saved as an image.
 
 - **Smote.py**: Addresses class imbalance using SMOTE to enhance model performance. Loads the encoded data, splits it into training and testing sets, applies SMOTE to balance classes, and saves the adjusted data.
-
-- **datatype_format.py**: Ensures data types are consistent across the dataset, improving compatibility with various analysis and machine learning techniques. It loads the processed data, checks and converts data types, logs data type changes, and saves the results.
-
-- **outlier_handling.py**: Detects and handles outliers using the IQR method to reduce extreme values that could distort the model. It loads the processed data, calculates IQR for each numeric column, logs detected outliers, caps outliers within bounds, and saves the outlier-handled data as a .pkl file.
   
 # Stats Gen
 - **data_schema_statistics_generation.py**: Loads data from CSV file into a DataFrame and splits the data into training(60%), evaluation(20%), and serving(20%) datasets. Creates descriptive statistics for the training and serving datasets. Infers a training schema and serving schema(excluding the target variable Y) from the training statistics and saves it in .pbtxt format. Saves the data in .pkl format to be used for anomaly detection.
