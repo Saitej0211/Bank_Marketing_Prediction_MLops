@@ -290,7 +290,7 @@ We use Apache Airflow to orchestrate our data pipeline, treating each module as 
 In this phase, the dataset is fetched and extracted into the designated data folder using the following modules:
 
 - **DownloadData.py**: This python file downloads the latest available file from the GCP bucket and pickles it stores it in the folder.
-- **LoadData.py**: This python file unpickles the data and stores it as a CCSV file in the data/processed folder allowing the next task to pick this up as input for data validation.
+- **LoadData.py**: This python file unpickles the data and stores it as a CSV file in the data/processed folder allowing the next task to pick this up as input for data validation.
 
 # Handling Null values and duplicates
 
