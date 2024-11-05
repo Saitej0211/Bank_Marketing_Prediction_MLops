@@ -9,7 +9,9 @@ from airflow import configuration as conf
 from airflow.operators.python import PythonOperator
 from airflow.operators.email import EmailOperator
 from airflow.operators.bash import BashOperator
+from airflow.utils.email import send_email
 import os
+import logging
 
 #import all the functions that we had created in the src folder
 from src.data_preprocessing.smote import smote_analysis
@@ -173,6 +175,49 @@ anomaly_validate_task = PythonOperator(
     dag=dag,
 )
 
+send_alert_to = "aishwariya.alagesanus@gmail.com"
+
+def check_anomalies_and_alert(**kwargs):
+    ti = kwargs['ti']
+    # Retrieve the anomaly detection results from XCom
+    anomaly_results = ti.xcom_pull(task_ids='anomaly_detection')
+    # Check if anomaly_results is None before proceeding
+    if anomaly_results is None:
+        logging.error("No data received from anomaly detection task. Skipping alert.")
+        return  # Exit the function if no data is found
+    
+    issues = anomaly_results.get('issues', {})
+
+    try:
+        if issues:  # If any issues were detected, proceed to send an alert
+            subject = "Anomaly Detected in Dataset"
+            html_content = "<h3>Detected Anomalies:</h3>"
+            for issue, description in issues.items():
+                html_content += f"<p><strong>{issue}:</strong> {description}</p>"
+            
+            # Optionally, include general statistics in the alert
+            stats = anomaly_results.get('stats', {})
+            html_content += "<h4>Statistics:</h4>"
+            for stat, value in stats.items():
+                html_content += f"<p><strong>{stat}:</strong> {value}</p>"
+
+            # Send the email alert
+            send_email(to=send_alert_to, subject=subject, html_content=html_content)
+            logging.info("Alert email sent due to detected anomalies.")
+            return True
+        else:
+            logging.info("No anomalies detected, no alert sent.")
+    except Exception as e:
+        logging.error(f"An error occurred in check_anomalies_and_alert: {e}")
+
+# Task definition in your DAG
+alert_task = PythonOperator(
+    task_id='send_alert_if_anomalies',
+    python_callable=check_anomalies_and_alert,
+    provide_context=True,
+    dag=dag,
+)
+
 email_notification_task = EmailOperator(
     task_id='send_email_notification',
     to='aishwariya.alagesanus@gmail.com',
@@ -182,7 +227,7 @@ email_notification_task = EmailOperator(
 )
 
 # Define task dependencies
-download_task >> load_task >> stats_validate_task >> anomaly_validate_task >> process_task >> pre_process_task >> eda_task >> encode_categorical_task >> correlation_analysis_task >> smote_analysis_task >> email_notification_task
+download_task >> load_task >> stats_validate_task >> anomaly_validate_task >> alert_task >> process_task >> pre_process_task >> eda_task >> encode_categorical_task >> correlation_analysis_task >> smote_analysis_task >> email_notification_task
 
 
 if __name__ == "__main__":
