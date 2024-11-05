@@ -292,6 +292,17 @@ In this phase, the dataset is fetched and extracted into the designated data fol
 - **DownloadData.py**: This python file downloads the latest available file from the GCP bucket and pickles it stores it in the folder.
 - **LoadData.py**: This python file unpickles the data and stores it as a CSV file in the data/processed folder allowing the next task to pick this up as input for data validation.
 
+# Statistics Generation
+- **data_schema_statistics_generation.py**: Loads data from CSV file into a DataFrame and splits the data into training(60%), evaluation(20%), and serving(20%) datasets. Creates descriptive statistics for the training and serving datasets. Infers a training schema and serving schema(excluding the target variable Y) from the training statistics and saves it in .pbtxt format. Saves the data in .pkl format to be used for anomaly detection.
+
+# Anomaly detection and alerts
+- **anomaly_detection.py**: The `anomaly_detection` script detects anomalies in a dataset based on predefined rules for data quality and structure, logging any issues found. It loads data from a specified path, validates it against expected columns, data types, and value ranges, and saves results in .pkl and .csv formats. If anomalies are detected, the script sends an alert email with details of the issues. This script can be used as part of an automated Airflow DAG to streamline data validation workflows.
+- **send_alerts_if_anomalies**: The system includes an email alert feature, which notifies the team immediately when an anomaly is detected. The alerts contain specific details about the detected issues, helping the team take quick corrective action.
+
+![image](https://github.com/user-attachments/assets/5cae44b9-f35f-4d42-9ad0-14a7a057bf0c)
+
+Pictured above : An alert message is sent to the recipient's email in case anomalies are detected.
+
 # Handling Null values and duplicates
 
 - **The process_data function performs the following operations**:
@@ -321,11 +332,6 @@ Reliable and high-quality data is crucial for machine learning model performance
 - **CorrelationAnalysis.py**: Analyzes and visualizes feature correlations to uncover relationships between variables. Loads the encoded data, computes the correlation matrix, saves it as .csv and .pkl files, and generates a heatmap visualization saved as an image.
 
 - **Smote.py**: Addresses class imbalance using SMOTE to enhance model performance. Loads the encoded data, splits it into training and testing sets, applies SMOTE to balance classes, and saves the adjusted data.
-  
-# Stats Gen
-- **data_schema_statistics_generation.py**: Loads data from CSV file into a DataFrame and splits the data into training(60%), evaluation(20%), and serving(20%) datasets. Creates descriptive statistics for the training and serving datasets. Infers a training schema and serving schema(excluding the target variable Y) from the training statistics and saves it in .pbtxt format. Saves the data in .pkl format to be used for anomaly detection.
-  
-- **anomaly_detection.py**: Loads data from .pkl file and generates statistics to check for inconsistencies against a defined schema and identifies potential anomalies. Visualizations of data slices are created to highlight distribution differences. The data stored in .pkl file to be used for preprocessing.
 
 # Email Alerts
 - **Email Notification Setup**
@@ -346,6 +352,8 @@ The DAG is configured to send email notifications upon successful completion, al
 Once the DAG is executed, check for a "DAG Completed" email notification in the specified email inbox. This email serves as a confirmation that the DAG has successfully completed all tasks as per the defined workflow. Users can modify the notification logic to send emails upon task failures or retries, enhancing monitoring capabilities for critical workflows.
 
 ![image](https://github.com/user-attachments/assets/4435684c-a1e0-4fe2-8f0c-21ec5b14994c)
+
+Pictured above : Dag completed notification sent to recipient mail.
 
 ### Model Performance Evaluation:
 
