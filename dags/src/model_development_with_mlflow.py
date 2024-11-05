@@ -1,14 +1,10 @@
-""" MLflow module for Random Forest model training and logging artifacts. """
 import os
 import logging
 import warnings
 import json
-import io
-import pickle
 from datetime import datetime
 
 import pandas as pd
-import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
@@ -17,11 +13,19 @@ import mlflow.sklearn
 from mlflow.models import infer_signature
 from hyperopt import hp, fmin, tpe, Trials, STATUS_OK
 from hyperopt.pyll import scope
+from google.cloud import storage
 
-# Loading file
+
+
+# Loading file paths for CSVs instead of pickles now
 PAR_DIRECTORY = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-__TRAINPATH__ = os.path.join(PAR_DIRECTORY, "data", "processed", "smote_resampled_train_data.pkl")
-__TESTPATH__ = os.path.join(PAR_DIRECTORY, "data", "processed", "test_data.pkl")
+__TRAINPATH__ = os.path.join(PAR_DIRECTORY, "data", "processed", "smote_resampled_train_data.csv")
+__TESTPATH__ = os.path.join(PAR_DIRECTORY, "data", "processed", "test_data.csv")
+BUCKET_NAME = "mlopsprojectbucketgrp6"
+
+# Set Google Cloud credentials (update the path to your service account key)
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(PAR_DIRECTORY, "config", "Key.json")
+
 
 # Reduced hyperparameter search space for faster execution
 SPACE = {
@@ -43,50 +47,29 @@ mlflow.set_tracking_uri("http://localhost:5001")
 mlflow.set_experiment("random_forest_classification")
 
 def load_data(train_path, test_path):
-    """Load train and test data from pickle files"""
+    """Load train and test data from CSV files"""
     try:
-        # Load train data
-        with open(train_path, 'rb') as f:
-            train_loaded_data = pickle.load(f)
-        
-        # Load test data
-        with open(test_path, 'rb') as f:
-            test_loaded_data = pickle.load(f)
-        
-        # Debug print statements
-        logger.info(f"Train data type: {type(train_loaded_data)}")
-        logger.info(f"Test data type: {type(test_loaded_data)}")
-        
-        # Function to convert loaded data to DataFrame
-        def to_dataframe(data):
-            if isinstance(data, pd.DataFrame):
-                return data
-            elif isinstance(data, bytes):
-                return pd.read_csv(io.StringIO(data.decode('utf-8')), sep=';')
-            elif isinstance(data, str):
-                return pd.read_csv(io.StringIO(data), sep=';')
-            else:
-                raise ValueError(f"Unexpected data type: {type(data)}")
+        # Load train data from CSV
+        train_data = pd.read_csv(train_path)
+        logger.info(f"Loaded train data from {train_path} with shape {train_data.shape}")
 
-        train_data = to_dataframe(train_loaded_data)
-        test_data = to_dataframe(test_loaded_data)
+        # Load test data from CSV
+        test_data = pd.read_csv(test_path)
+        logger.info(f"Loaded test data from {test_path} with shape {test_data.shape}")
 
-        logger.info("Train data head:")
-        logger.info(train_data.head())
-        logger.info("Test data head:")
-        logger.info(test_data.head())
-        
-        X_train = train_data.drop('y', axis=1)
+        # Split features (X) and target (y)
+        X_train = train_data.drop('y', axis=1)  # Assuming 'y' is the target column in your dataset
         y_train = train_data['y']
         X_test = test_data.drop('y', axis=1)
         y_test = test_data['y']
         
         return X_train, y_train, X_test, y_test
+    
     except FileNotFoundError as e:
-        logger.exception(f"Pickle file not found. Error: {e}")
+        logger.exception(f"CSV file not found. Error: {e}")
         raise
     except pd.errors.EmptyDataError as e:
-        logger.exception(f"The CSV data in the pickle file is empty. Error: {e}")
+        logger.exception(f"The CSV file is empty. Error: {e}")
         raise
     except Exception as e:
         logger.exception(f"Unable to load files. Error: {e}")
@@ -111,22 +94,59 @@ def push_to_registry(model, model_name):
     # Implement logic to push model to a registry
     logger.info(f"Pushed model {model_name} to registry")
 
+def upload_model_to_gcs(local_model_path, bucket_name, blob_name):
+    """Upload a model to Google Cloud Storage"""
+    try:
+        # Initialize GCS client
+        client = storage.Client()
+        
+        # Get the bucket
+        bucket = client.get_bucket(bucket_name)
+        
+        # Create a new blob and upload the file's content
+        blob = bucket.blob(blob_name)
+        blob.upload_from_filename(local_model_path)
+        
+        logger.info(f"Model uploaded to gs://{bucket_name}/{blob_name}")
+    except Exception as e:
+        logger.error(f"Error uploading model to GCS: {e}")
+        raise
+
+def get_latest_model_version(bucket_name):
+    """Retrieve the latest model version from GCS"""
+    client = storage.Client()
+    blobs = client.list_blobs(bucket_name)
+
+    latest_blob = None
+
+    for blob in blobs:
+        if latest_blob is None or blob.updated > latest_blob.updated:
+            latest_blob = blob
+
+    if latest_blob:
+        return latest_blob.name  # Return the name of the latest blob (model file)
+    
+    logger.warning("No models found in GCS bucket.")
+    return None
+
 def train_and_log_model(X_train, y_train, X_test, y_test):
     """Train the model and log results with MLflow"""
     run_name = datetime.now().strftime("%Y%m%d-%H%M%S")
+    
     with mlflow.start_run(run_name=run_name) as run:
         mlflow.set_tag("run_name", run_name)
 
-        # Hyperparameter tuning
+        # Hyperparameter tuning using Hyperopt
         trials = Trials()
         fmin_objective = lambda params: objective(params, X_train, y_train)
+        
         best = fmin(fn=fmin_objective,
                     space=SPACE,
                     algo=tpe.suggest,
                     max_evals=10,
                     trials=trials)
 
-        # Create best model
+        # Create best model based on tuned parameters
         best_params = {
             'n_estimators': int(best['n_estimators']),
             'max_depth': int(best['max_depth']),
@@ -139,59 +159,66 @@ def train_and_log_model(X_train, y_train, X_test, y_test):
         model = RandomForestClassifier(**best_params, n_jobs=-1)
         model.fit(X_train, y_train)
 
-        # Make predictions and calculate metrics
+        # Make predictions and calculate metrics on test set
         y_pred = model.predict(X_test)
         accuracy = accuracy_score(y_test, y_pred)
+        
         precision, recall, f1, _ = precision_recall_fscore_support(y_test, y_pred, average='weighted')
 
-        # Log parameters
+        # Log parameters and metrics in MLflow
         mlflow.log_params(best_params)
-
-        # Log metrics
         mlflow.log_metric("accuracy", accuracy)
+        
+        # Log additional metrics if needed.
         mlflow.log_metric("precision", precision)
         mlflow.log_metric("recall", recall)
         mlflow.log_metric("f1", f1)
-
-        # Log the model
-        signature = infer_signature(X_test, y_pred)
-        mlflow.sklearn.log_model(model, "model", signature=signature)
-
-        # Compare with previous best model
+        # Log the trained model in MLflow with signature for inference later.
+        signature = infer_signature(X_test,y_pred)
+        local_model_path = f"model_{run_name}.pkl"
+        mlflow.sklearn.save_model(model, local_model_path)
+        # Define a unique name for the model version using timestamp or incrementing logic.
+        blob_name = f"models/random_forest_{run_name}.pkl"
+        bucket_name = BUCKET_NAME
+        upload_model_to_gcs(local_model_path, bucket_name, blob_name)
+        # Compare with previous best model in registry (if exists) and push if better.
         try:
-            old_model = mlflow.sklearn.load_model("models:/RandomForestClassifier/Production")
-            if compare_models(model, old_model, X_test, y_test):
-                push_to_registry(model, "RandomForestClassifier")
-                notify("New model outperforms old model and has been pushed to registry")
+            old_model_blob_name = get_latest_model_version(bucket_name)  # Get latest model from GCS
+           
+            if old_model_blob_name:
+                old_model_local_path = f"old_{run_name}.pkl"
+                storage.Blob(old_model_blob_name).download_to_filename(old_model_local_path)  # Download old model
+               
+                old_model=mlflow.sklearn.load_model(old_model_local_path)  # Load old model
+               
+                if compare_models(model,old_model,X_test,y_test):
+                    push_to_registry(model,"RandomForestClassifier")
+                    notify("New model outperforms old model and has been pushed to registry")
+                else:
+                    notify("New model does not outperform old model. Rolling back.")
             else:
-                notify("New model does not outperform old model. Rolling back.")
+                push_to_registry(model,"RandomForestClassifier")
+                notify("First model pushed to registry")
+                
         except Exception as e:
             logger.error(f"Error comparing models: {e}")
-            push_to_registry(model, "RandomForestClassifier")
+            push_to_registry(model,"RandomForestClassifier")
             notify("First model pushed to registry")
-
-        # Log run details
-        run_id = run.info.run_id
+        # Log run details in MLflow.
+        run_id=run.info.run_id
         logger.info(f"Run ID: {run_id}")
         
-        return run_id, run_name
+        return run_id
 
 def main():
-    """Main function to run the model training process"""
-    X_train, y_train, X_test, y_test = load_data(__TRAINPATH__, __TESTPATH__)
+    """Main function to load data and run the training process"""
     
-    run_dict = {}
-    run_id, run_name = train_and_log_model(X_train, y_train, X_test, y_test)
-    run_dict[run_name] = run_id
+    X_train,y_train,X_test,y_test=load_data(__TRAINPATH__,__TESTPATH__)
 
-    # Save run details
-    p = os.path.join(PAR_DIRECTORY, datetime.now().strftime("%Y%m%d"))
-    file = os.path.join(p, datetime.now().strftime("%H%M%S") + ".json")
-    if not os.path.exists(p):
-        os.makedirs(p)
-
-    with open(file, "w") as f:
-        json.dump(run_dict, f, indent=6)
+    run_dict={}
+    
+    # Train and log the model
+    run_id=train_and_log_model(X_train,y_train,X_test,y_test)
 
 if __name__ == "__main__":
-    main()
+     main()
