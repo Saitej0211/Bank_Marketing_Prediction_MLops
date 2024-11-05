@@ -85,9 +85,11 @@ def smote_analysis(input_file_path):
         df_train_resampled = pd.concat([pd.DataFrame(X_train_resampled, columns=X.columns), 
                                         pd.Series(y_train_resampled, name=y.name)], axis=1)
 
-        # Combine the test data
-        df_test = pd.concat([pd.DataFrame(X_test_normalized, columns=X.columns), 
-                             pd.Series(y_test, name=y.name)], axis=1)
+        # Combine the test data (Fix applied here)
+        df_test = pd.DataFrame(X_test_normalized, columns=X.columns)
+        
+        # Reset index of y_test to match X_test
+        df_test[y.name] = y_test.reset_index(drop=True)
 
         # Save the resampled training data as CSV
         train_csv_path = os.path.join(DATA_DIR, "smote_resampled_train_data.csv")
@@ -122,11 +124,12 @@ def smote_analysis(input_file_path):
         custom_log(f"Saved test data to pickle: {test_pkl_path}")
 
         custom_log("SMOTE analysis with scaling and normalization completed successfully")
-        return train_pkl_path, test_pkl_path
-
+        
     except Exception as e:
-        custom_log(f"An error occurred during SMOTE analysis: {e}", level=logging.ERROR)
-        raise
+        
+       custom_log(f"An error occurred during SMOTE analysis: {e}", level=logging.ERROR)
+       raise
+
 
 if __name__ == "__main__":
     input_file_path = os.path.join(DATA_DIR, "encoded_data.pkl")  # Adjust this path if needed
