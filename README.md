@@ -90,13 +90,19 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 │       ├── outlier_handled_data.pkl  ## Data after handling outliers (Pickle)
 │       ├── processed_data.pkl      ## Final processed data in pickle format
 │       ├── raw_data.csv            ## Raw dataset in CSV format
-│       └── raw_data.pkl            ## Raw dataset in pickle format  
+│       ├── raw_data.pkl            ## Raw dataset in pickle format
+│       ├── validate.csv            ## Data after data validation (CSV)
+│       ├── validate.pkl            ## Data after data validation (Pickle)
+│       ├── validate_process.csv    ## Data after anomaly detection (CSV)
+│       └── validate_process.pkl    ## Data after anomaly detection (Pickle)
 ├── dags                            ## Directed Acyclic Graphs (DAGs) for pipeline orchestration
 │   └── __init__.py                 ## Initialization file for DAGs module
 ├── logs                            ## Store log files during execution
 │   ├── dag_id=DataPipeline         ## Logs related to DataPipeline DAG execution 
 │   ├── dag_processor_manager       ## Logs related to DAG processor manager 
-│   ├── download_data.log           ## Log for downloading data 
+│   ├── download_data.log           ## Log for downloading data
+│   ├── anomaly_detetcion.log       ## Log for anomaly detection
+│   ├── data_schema_statistics_generation.log  ## Log for schema generation 
 │   ├── eda.log                     ## Log for Exploratory Data Analysis 
 │   └── outlier_handling.log        ## Log for outlier handling process 
 ├── plugins                         ## Plugins used in the project (if any)
@@ -276,15 +282,15 @@ Data Saving: Saves the processed DataFrame as a pickle file.
 # Data Cleaning and Preprocessing
 Reliable and high-quality data is crucial for machine learning model performance. This preprocessing pipeline uses several scripts to ensure the data integrity and readiness for model training, making the pipeline more efficient and robust.
 
+- **datatype_format.py**: Ensures data types are consistent across the dataset, improving compatibility with various analysis and machine learning techniques. It loads the processed data, checks and converts data types, logs data type changes, and saves the results.
+
+- **outlier_handling.py**: Detects and handles outliers using the IQR method to reduce extreme values that could distort the model. It loads the processed data, calculates IQR for each numeric column, logs detected outliers, caps outliers within bounds, and saves the outlier-handled data as a .pkl file.
+
 - **Encoding.py**: Encodes categorical variables to numeric formats for compatibility with machine learning algorithms. It loads the input data, identifies categorical columns, applies encoding transformations, and saves the processed data as .pkl and .csv files.
 
 - **CorrelationAnalysis.py**: Analyzes and visualizes feature correlations to uncover relationships between variables. Loads the encoded data, computes the correlation matrix, saves it as .csv and .pkl files, and generates a heatmap visualization saved as an image.
 
 - **Smote.py**: Addresses class imbalance using SMOTE to enhance model performance. Loads the encoded data, splits it into training and testing sets, applies SMOTE to balance classes, and saves the adjusted data.
-
-- **datatype_format.py**: Ensures data types are consistent across the dataset, improving compatibility with various analysis and machine learning techniques. It loads the processed data, checks and converts data types, logs data type changes, and saves the results.
-
-- **outlier_handling.py**: Detects and handles outliers using the IQR method to reduce extreme values that could distort the model. It loads the processed data, calculates IQR for each numeric column, logs detected outliers, caps outliers within bounds, and saves the outlier-handled data as a .pkl file.
   
 # Stats Gen
 - **data_schema_statistics_generation.py**: Loads data from CSV file into a DataFrame and splits the data into training(60%), evaluation(20%), and serving(20%) datasets. Creates descriptive statistics for the training and serving datasets. Infers a training schema and serving schema(excluding the target variable Y) from the training statistics and saves it in .pbtxt format. Saves the data in .pkl format to be used for anomaly detection.
