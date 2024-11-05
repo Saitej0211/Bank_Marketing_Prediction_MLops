@@ -11,3 +11,5 @@ matplotlib
 seaborn
 imblearn
 tensorflow_data_validation
+hyperopt
+mlflow
