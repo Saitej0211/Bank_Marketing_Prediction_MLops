@@ -5,6 +5,7 @@ import pickle
 from sklearn.metrics import accuracy_score
 from datetime import datetime
 import tempfile
+import pandas as pd
 
 # Set logging configurations
 logging.basicConfig(level=logging.INFO)
@@ -14,10 +15,13 @@ logger = logging.getLogger(__name__)
 PAR_DIRECTORY = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 MODEL_DIR = os.path.join(PAR_DIRECTORY, 'models')
-NEW_MODEL_PATH = os.path.join(MODEL_DIR, "random_forest_20241105-214233.pkl") #need to make it dynamic such that the path created in the previous script goes as input to this file
+NEW_MODEL_PATH = os.path.join(MODEL_DIR, "random_forest_20241106-121604.pkl")  # Update this path dynamically if needed
 
 # Set Google Cloud credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(PAR_DIRECTORY, "config", "Key.json")
+
+# Define the path for the test data
+TEST_DATA_PATH = os.path.join(PAR_DIRECTORY, "data", "processed", "test_data.csv")
 
 def load_model_from_gcs(bucket_name, blob_name):
     """Load model from GCS"""
@@ -100,9 +104,25 @@ def get_latest_model_version():
         logger.error(f"Error retrieving the latest model version from GCS: {e}")
         raise
 
+def load_test_data(test_path):
+    """Load test data from a CSV file."""
+    try:
+        test_data = pd.read_csv(test_path)
+        logger.info(f"Loaded test data from {test_path} with shape {test_data.shape}")
+        
+        X_test = test_data.drop('y', axis=1)  # Assuming 'y' is the target variable
+        y_test = test_data['y']
+        return X_test, y_test
+    except Exception as e:
+        logger.error(f"Error loading test data: {e}")
+        raise
+
 def main():
     """Main function to compare models and upload the better one with versioning"""
     try:
+        # Load test data
+        X_test, y_test = load_test_data(TEST_DATA_PATH)
+
         # Get the latest model version
         latest_version = get_latest_model_version()
 
@@ -116,17 +136,16 @@ def main():
             logger.info("First model uploaded to GCS with version 1.")
         else:
             # Load the old model from GCS
-            old_model_version = latest_version
-            old_model_blob_name = f"models/model_v{old_model_version}.pkl"
+            old_model_blob_name = f"models/model_v{latest_version}.pkl"
             old_model = load_model_from_gcs(BUCKET_NAME, old_model_blob_name)
 
             # Compare the models and upload the better one
-            if compare_models(new_model, old_model, X_test, y_test):  # Assuming you have X_test and y_test loaded
-                new_version = old_model_version + 1
+            if compare_models(new_model, old_model, X_test, y_test):
+                new_version = latest_version + 1
                 upload_model_to_gcs(new_model, BUCKET_NAME, version=new_version)
                 logger.info(f"New model uploaded to GCS as version {new_version}, it outperforms the old model.")
             else:
-                logger.info(f"Old model (v{old_model_version}) is better. No need to upload the new model.")
+                logger.info(f"Old model (v{latest_version}) is better. No need to upload the new model.")
     
     except Exception as e:
         logger.error(f"Error in the model comparison process: {e}")
