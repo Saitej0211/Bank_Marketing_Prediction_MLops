@@ -1,4 +1,3 @@
----
 x-airflow-common:
   &airflow-common
   build: .
@@ -22,7 +21,9 @@ x-airflow-common:
     AIRFLOW__SMTP__SMTP_TIMEOUT: 30                         # SMTP timeout in seconds
     AIRFLOW__SMTP__SMTP_RETRY_LIMIT: 5                      # Maximum retries
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
-    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-matplotlib scikit-learn seaborn imblearn} 
+    
+    # Add PYTHONPATH to include the src directory for module imports
+    PYTHONPATH: /opt/airflow/dags/src:/opt/airflow
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs

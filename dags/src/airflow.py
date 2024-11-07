@@ -1,4 +1,3 @@
-
 """"
         AIRFLOW DAG FILE FOR DATA PREPROCESSING
 """
@@ -11,6 +10,8 @@ from airflow.operators.python import PythonOperator
 from airflow.operators.email import EmailOperator
 from airflow.operators.bash import BashOperator
 from airflow.utils.email import send_email
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+
 import os
 import logging
 
