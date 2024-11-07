@@ -13,12 +13,22 @@ from mlflow.models import infer_signature
 from hyperopt import hp, fmin, tpe, Trials, STATUS_OK
 from hyperopt.pyll import scope
 import pickle
+# Get the current directory of the script
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Loading file paths for CSVs
-PAR_DIRECTORY = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-__TRAINPATH__ = os.path.join(PAR_DIRECTORY, "data", "processed", "smote_resampled_train_data.csv")
-__TESTPATH__ = os.path.join(PAR_DIRECTORY, "data", "processed", "test_data.csv")
-MODELS_DIR = os.path.join(PAR_DIRECTORY, "models")
+# Go up two levels to reach project-root
+PAR_DIRECTORY = os.path.dirname(os.path.dirname(CURRENT_DIR))
+
+# Construct paths to the data files
+# Access the data files two levels up from /app
+__TRAINPATH__ = '/app/data/processed/smote_resampled_train_data.csv'
+__TESTPATH__ = '/app/data/processed/test_data.csv'
+
+
+MODELS_DIR = '/app/final_models/'
+
+print(f"Training data path: {__TRAINPATH__}")
+print(f"Testing data path: {__TESTPATH__}")
 
 # Reduced hyperparameter search space for faster execution
 SPACE = {
@@ -36,7 +46,7 @@ logger = logging.getLogger(__name__)
 warnings.filterwarnings("ignore")
 
 # Set MLflow tracking URI
-mlflow.set_tracking_uri("http://127.0.0.1:5001")
+mlflow.set_tracking_uri("http://mlflow:5000")
 mlflow.set_experiment("random_forest_classification")
 
 def load_data(train_path, test_path):

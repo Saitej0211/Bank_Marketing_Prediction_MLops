@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  development:
+    build:
+      context: .  
+      dockerfile: Dockerfile
+    volumes:
+      - ../../data/processed:/app/data/processed  
+      - .:/app  
+    depends_on:
+      - mlflow
+    command: >
+      sh -c "sleep 15 && python model_development_with_mlflow.py"
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    ports:
+      - "5001:5000"
+    volumes:
+      - ../../mlruns:/mlruns
+    command: >
+      mlflow server --backend-store-uri sqlite:///mlruns/mlflow.db --default-artifact-root /mlruns --host 0.0.0.0 --port 5000
