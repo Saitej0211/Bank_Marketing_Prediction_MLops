@@ -1,3 +1,4 @@
+---
 x-airflow-common:
   &airflow-common
   build: .
@@ -21,9 +22,7 @@ x-airflow-common:
     AIRFLOW__SMTP__SMTP_TIMEOUT: 30                         # SMTP timeout in seconds
     AIRFLOW__SMTP__SMTP_RETRY_LIMIT: 5                      # Maximum retries
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
-    
-    # Add PYTHONPATH to include the src directory for module imports
-    PYTHONPATH: /opt/airflow/dags/src:/opt/airflow
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-matplotlib scikit-learn seaborn imblearn} 
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
@@ -39,6 +38,27 @@ x-airflow-common:
       condition: service_healthy
 
 services:
+  airflow:
+    build: .
+    ports:
+      - "8081:8080"  # Change host port if needed
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      # Add other necessary environment variables here
+    depends_on:
+      - mlflow  # If using MLflow as well
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    ports:
+      - "5001:5000"
+    command: >
+      mlflow server --backend-store-uri sqlite:///mlflow.db --host 0.0.0.0 --port 5000 
+    user: root
+    volumes:
+      - ./dags/src/final_models:/app/final_models  # Mounting local final_models directory inside dags/src
+
+    
   postgres:
     image: postgres:13
     environment:
@@ -186,3 +206,4 @@ services:
 
 volumes:
   postgres-db-volume:
+  mlflow-artifacts:
