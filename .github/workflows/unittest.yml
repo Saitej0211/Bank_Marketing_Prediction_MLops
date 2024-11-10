@@ -6,6 +6,7 @@ on:
       - main
       - vignesh_ci_cd
       - tejesvani_test
+      -hashwanth_model_pipeline
   pull_request:
     branches:
       - main
