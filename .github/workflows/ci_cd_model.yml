@@ -50,7 +50,7 @@ jobs:
 
     - name: Run model development with MLflow
       run: |
-        python src/Model_Pipeline/model_development_with_mlflow.py
+        python src/model_development_pipeline.py
 
   deploy-model:
     needs: model-development
