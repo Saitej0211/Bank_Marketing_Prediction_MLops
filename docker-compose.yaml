@@ -41,7 +41,7 @@ services:
   airflow:
     build: .
     ports:
-      - "8081:8080"  # Change host port if needed
+      - "8080:8080"  # Change host port if needed
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       # Add other necessary environment variables here
