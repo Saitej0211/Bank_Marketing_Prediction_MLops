@@ -25,5 +25,5 @@ jobs:
       run: |
         docker compose up -d
         sleep 30  # Wait for Airflow to initialize
-        docker exec airflow-webserver airflow dags trigger ModelDevelopmentPipeline
+        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags trigger ModelDevelopmentPipeline
         docker compose down
