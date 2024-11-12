@@ -1,0 +1,24 @@
+name: Trigger Airflow DAG
+
+on:
+  push:
+    branches:
+      - hashwanth_model_pipeline  # Trigger on push to the main branch
+  pull_request:
+    branches:
+      - vhashwanth_model_pipeline  # Trigger on pull requests to the main branch
+jobs:
+  trigger_dag:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Trigger Airflow DAG via API
+      run: |
+        curl -X POST \
+          -H "Content-Type: application/json" \
+          -u "${{ secrets.AIRFLOW_USERNAME }}:${{ secrets.AIRFLOW_PASSWORD }}" \
+          https://19ff-2601-19f0-cf60-e478-fa3f-dca4-24a5.ngrok-free.app/api/v1/dags/ModelDevelopmentPipeline/dagRuns \
+          -d '{"conf": {"key": "value"}}'
