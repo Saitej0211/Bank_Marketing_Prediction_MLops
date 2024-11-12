@@ -6,7 +6,7 @@ on:
       - hashwanth_model_pipeline  # Trigger on push to the main branch
   pull_request:
     branches:
-      - vhashwanth_model_pipeline  # Trigger on pull requests to the main branch
+      - hashwanth_model_pipeline  # Trigger on pull requests to the main branch
 jobs:
   trigger_dag:
     runs-on: ubuntu-latest
@@ -20,5 +20,5 @@ jobs:
         curl -X POST \
           -H "Content-Type: application/json" \
           -u "${{ secrets.AIRFLOW_USERNAME }}:${{ secrets.AIRFLOW_PASSWORD }}" \
-          https://19ff-2601-19f0-cf60-e478-fa3f-dca4-24a5.ngrok-free.app/api/v1/dags/ModelDevelopmentPipeline/dagRuns \
+          https://11b2-2601-19b-f00-cf60-e478-fa3f-dca4-24a5.ngrok-free.app/api/v1/dags/ModelDevelopmentPipeline/dagRuns \
           -d '{"conf": {"key": "value"}}'
