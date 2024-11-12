@@ -6,6 +6,7 @@ import logging
 
 # Import the function from your script
 from src.Model_Pipeline.model_development_and_evaluation_with_mlflow import run_model_development
+from src.Model_Pipeline.compare_best_models import compare_and_select_best
 
 default_args = {
     'owner': 'MLopsProjectGroup6',
@@ -49,4 +50,12 @@ model_development_task = PythonOperator(
     dag=dag_2,
 )
 
-model_development_task
+# Define the task for comparing best models
+compare_best_model_task = PythonOperator(
+    task_id='compare_best_models',
+    python_callable=compare_and_select_best,
+    dag=dag_2,
+)
+
+# Set the task dependencies
+model_development_task >> compare_best_model_task
