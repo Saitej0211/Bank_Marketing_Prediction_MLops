@@ -360,10 +360,22 @@ Pictured above : Dag completed notification sent to recipient mail.
 ### Model Retraining
 
 ### Hyper Parameter Tuning
+This model has several hyperparameters, including max_depth, max_features, min_samples_split, min_samples_leaf, and n_estimators. We used MLflow to track different training runs by logging these hyperparameters and performance metrics such as accuracy, F1 score, precision, and recall.
 
 ### Staging, Production and Archived models (MLFLOW)
+For monitoring our experimental machine learning pipeline, we employ MLflow, Docker, and Python. We selected three key metrics to determine the optimal model parameters from the plot provided:
+
+![image](https://github.com/user-attachments/assets/06dc6ff6-6cc2-4f01-8c57-c58f7d2e9e5a)
+
+Pictured: Plot for Performance Metrics Visualization of the Model
 
 ### Logging and Monitoring
+We implemented the ELK (Elasticsearch, Logstash, Kibana) stack for logging and monitoring purposes. This solution provided centralized log management, real-time monitoring capabilities, and scalability, allowing for efficient analysis of system logs and performance metrics.
+
+![ELK](https://github.com/user-attachments/assets/57812795-94b1-4958-8e98-9433d11f1135)
+
+Pictured: Log Management with ELK - Analyzing and Visualizing Logs
+
 
 ### Model Analysis
 
