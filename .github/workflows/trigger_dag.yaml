@@ -30,10 +30,12 @@ jobs:
     - name: Wait for DAG completion and fetch logs
       run: |
         sleep 60  # Wait for DAG to start and run (adjust time as needed)
-        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags show-dag-runs ModelDevelopmentPipeline
+        
+        # List DAG runs
+        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags list-runs -d ModelDevelopmentPipeline
         
         # Get the latest DAG run ID
-        DAG_RUN_ID=$(docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags show-dag-runs ModelDevelopmentPipeline | awk 'NR==4 {print $3}')
+        DAG_RUN_ID=$(docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags list-runs -d ModelDevelopmentPipeline | awk 'NR==4 {print $2}')
         
         # Fetch logs for each task in the DAG
         TASKS=$(docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow tasks list ModelDevelopmentPipeline)
@@ -43,6 +45,5 @@ jobs:
           docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow tasks logs -t ModelDevelopmentPipeline $TASK $DAG_RUN_ID
           echo "----------------------------------------"
         done
-
     - name: Shutdown Airflow
       run: docker compose down
