@@ -64,16 +64,23 @@ def prepare_train_data(df):
     total_len = len(df)
     train_len = int(total_len * 0.6)
     eval_len = int(total_len * 0.2)
- 
+
     train_df = df.iloc[:train_len].reset_index(drop=True)
     eval_df = df.iloc[train_len:train_len + eval_len].reset_index(drop=True)
-    serving_df = df.iloc[train_len + eval_len:].drop(columns='y').reset_index(drop=True)
- 
+
+    # Check if 'y' exists before dropping it
+    if 'y' in df.columns:
+        serving_df = df.iloc[train_len + eval_len:].drop(columns='y').reset_index(drop=True)
+    else:
+        serving_df = df.iloc[train_len + eval_len:].reset_index(drop=True)
+        custom_log("Column 'y' not found, skipping drop for serving data.", level=logging.WARNING)
+
     custom_log(f"Prepared training data with shape {train_df.shape}")
     custom_log(f"Prepared evaluation data with shape {eval_df.shape}")
     custom_log(f"Prepared serving data with shape {serving_df.shape}")
- 
+
     return train_df, eval_df, serving_df
+
  
 def generate_statistics(df):
     """Generate statistics from the dataset."""

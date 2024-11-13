@@ -56,8 +56,10 @@ services:
       mlflow server --backend-store-uri sqlite:///mlflow.db --host 0.0.0.0 --port 5000 
     user: root
     volumes:
-      - ./dags/src/final_models:/app/final_models  # Mounting local final_models directory inside dags/src
-
+      - ./dags/src/final_model:/app/final_model  # Mounting local final_models directory inside dags/src
+      - ./config/Key.json:/opt/airflow/config/Key.json  # Mount the Key.json file to the container
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/config/Key.json  # Set the environment variable
     
   postgres:
     image: postgres:13
@@ -207,3 +209,4 @@ services:
 volumes:
   postgres-db-volume:
   mlflow-artifacts:
+  
