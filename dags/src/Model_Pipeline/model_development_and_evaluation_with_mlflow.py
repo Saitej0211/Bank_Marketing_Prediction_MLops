@@ -33,6 +33,20 @@ SPACE = {
     'bootstrap': hp.choice('bootstrap', [True, False])
 }
 
+def log_metrics_to_file(metrics, model_name):
+    log_dir = os.path.join(PROJECT_DIR, "logs")
+    os.makedirs(log_dir, exist_ok=True)
+    log_file = os.path.join(log_dir, "ml_metrics.log")
+    
+    log_entry = {
+        "timestamp": datetime.now().isoformat(),
+        "model_name": model_name,
+        **metrics
+    }
+    
+    with open(log_file, "a") as f:
+        f.write(json.dumps(log_entry) + "\n")
+
 def setup_mlflow():
     mlflow.set_tracking_uri("http://mlflow:5000")
     mlflow.set_experiment("random_forest_classification")
@@ -93,18 +107,19 @@ def save_model_and_results(model, results, run_name):
     return results_path  # Return the path of the JSON file
 
 def evaluate_model_performance(y_test, y_pred, threshold=0.7):
-    """Evaluate model performance and return True if all metrics are above the threshold"""
     accuracy = accuracy_score(y_test, y_pred)
     precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred, average='weighted')
     
-    logger.info(f"Model performance: Accuracy={accuracy:.4f}, Precision={precision:.4f}, Recall={recall:.4f}, F1-score={f1_score:.4f}")
-    
-    return all(metric >= threshold for metric in [accuracy, precision, recall, f1_score]), {
+    metrics = {
         "accuracy": accuracy,
         "precision": precision,
         "recall": recall,
         "f1_score": f1_score
     }
+    
+    logger.info(f"Model performance metrics: {json.dumps(metrics)}")
+    
+    return all(metric >= threshold for metric in metrics.values()), metrics
 
 def train_and_log_model(X_train, y_train, X_test, y_test):
     """Train multiple models and log results with MLflow"""
@@ -156,6 +171,7 @@ def train_and_log_model(X_train, y_train, X_test, y_test):
                 signature = infer_signature(X_test, y_pred)
                 mlflow.sklearn.log_model(model, f"model_{i}", signature=signature)
 
+                log_metrics_to_file(metrics, f"model_{i}")
                 logger.info(f"Logged model {i} with parameters: {params}")
 
                 # Update best model if this one performs better
@@ -165,6 +181,7 @@ def train_and_log_model(X_train, y_train, X_test, y_test):
                     best_metrics = metrics
 
         # Save the best trained model and results locally after logging metrics
+        log_metrics_to_file(best_metrics, "best_model")
         results = {
             **best_metrics,
             "best_params": best_params,
@@ -176,24 +193,23 @@ def train_and_log_model(X_train, y_train, X_test, y_test):
         return best_performance, best_metrics
 
 def run_model_development(train_path, test_path, max_attempts=3):
-    """Function to run the entire model development process"""
     setup_mlflow()
     X_train, y_train, X_test, y_test = load_data(train_path, test_path)
-    
     attempt = 0
     while attempt < max_attempts:
         logger.info(f"Starting model development attempt {attempt + 1}")
         performance_ok, metrics = train_and_log_model(X_train, y_train, X_test, y_test)
-        
         if performance_ok:
             logger.info("Model performance meets the threshold. Process complete.")
+            log_metrics_to_file(metrics, f"final_model_attempt_{attempt + 1}")
             return metrics
         else:
             logger.warning("Model performance below threshold. Rerunning the process.")
             attempt += 1
     
     logger.error(f"Failed to achieve desired performance after {max_attempts} attempts.")
-    return metrics  # Return the last metrics even if they don't meet the threshold
+    log_metrics_to_file(metrics, f"final_model_attempt_{attempt}")
+    return metrics
 
 if __name__ == "__main__":
     # Example usage 
