@@ -1,41 +1,99 @@
-name: Trigger Airflow DAG
+name: Bank Marketing MLOps CI/CD
 
 on:
   push:
-    branches:
-      - vignesh_model_dev_3  # Replace with your target branch
+    branches: [ vignesh_model_dev_3 ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'  # Runs every day at midnight
+  workflow_dispatch:
+
+env:
+  REGION: us-east4
+  REPOSITORY_NAME: Bank_Marketing_Prediction_MLops
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
 
 jobs:
-  trigger-dag:
+  build_test_and_deploy:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      
-    - name: Install Docker Compose
-      run: |
-        sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v2
-      
-    - name: Run Airflow and trigger DAG
-      run: |
-        docker compose up -d
-        sleep 30  # Wait for Airflow to initialize
-        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags unpause ModelDevelopmentPipeline
-        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags trigger ModelDevelopmentPipeline
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-    - name: Wait for DAG completion and check status
-      run: |
-        sleep 60  # Wait for DAG to start and run (adjust time as needed)
-        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags list-runs -d ModelDevelopmentPipeline
-        
-        # List tasks and their states
-        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow tasks list ModelDevelopmentPipeline
-        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags show ModelDevelopmentPipeline
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
 
-    - name: Shutdown Airflow
-      run: docker compose down
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Authenticate with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Set GCP project ID
+        run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Create directories for Airflow
+        run: |
+          mkdir -p ./dags ./logs ./plugins
+
+      - name: Initialize Airflow Database
+        run: |
+          docker-compose up airflow-init
+
+      - name: Start Airflow services
+        run: |
+          docker-compose up -d
+
+      - name: Trigger DAGs
+        run: |
+          sleep 60  # Wait for Airflow to initialize fully
+          docker exec airflow-webserver airflow dags trigger ModelDevelopmentPipeline
+
+      - name: Save and Upload Model to GCS
+        run: |
+          gsutil cp ./final_model/best_model.pkl gs://${{ env.GCS_BUCKET_NAME }}/models/best_model_${{ github.sha }}.pkl
+
+      - name: Deploy Model to AI Platform
+        run: |
+          gcloud ai models upload \
+            --region=${{ env.REGION }} \
+            --display-name=bank-marketing-model-${{ github.sha }} \
+            --artifact-uri=gs://${{ env.GCS_BUCKET_NAME }}/models/best_model_${{ github.sha }}.pkl
+
+      - name: Build and Push Docker Image
+        env:
+          IMAGE_NAME: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY_NAME }}/model-image
+        run: |
+          docker build -t ${IMAGE_NAME}:${{ github.sha }} .
+          docker push ${IMAGE_NAME}:${{ github.sha }}
+          docker tag ${IMAGE_NAME}:${{ github.sha }} ${IMAGE_NAME}:latest
+          docker push ${IMAGE_NAME}:latest
+
+      - name: Clean up
+        if: always()
+        run: docker-compose down --volumes --rmi all
+
+      - name: Deployment success message
+        if: success()
+        run: echo "CI/CD pipeline completed successfully. Model uploaded and services started."
+
+      - name: Deployment failed notification
+        if: failure()
+        run: echo "CI/CD pipeline failed. Check the logs for details."

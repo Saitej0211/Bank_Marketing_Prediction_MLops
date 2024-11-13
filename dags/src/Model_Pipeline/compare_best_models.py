@@ -4,6 +4,7 @@ import logging
 import pickle
 import mlflow
 import mlflow.sklearn
+from google.cloud import storage  # Import Google Cloud Storage client
 
 # Logging setup
 logging.basicConfig(level=logging.INFO)
@@ -12,6 +13,9 @@ logger = logging.getLogger(__name__)
 # Define the directory where models and results are stored
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "final_model")
+
+# GCP Configuration
+GCS_BUCKET_NAME = os.getenv('GCS_BUCKET_NAME')  # Make sure this environment variable is set
 
 def load_metrics(file_path):
     """Load model metrics from a JSON file."""
@@ -63,6 +67,16 @@ def log_best_model_in_mlflow(best_model_path, best_metrics):
         
         logger.info("Logged the best model and metrics to MLflow.")
 
+def upload_model_to_gcs(model_file_path, gcs_bucket_name):
+    """Upload the model file to Google Cloud Storage."""
+    try:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(gcs_bucket_name)
+        blob = bucket.blob(os.path.basename(model_file_path))  # Use the filename as the blob name
+        blob.upload_from_filename(model_file_path)
+        logger.info(f"Uploaded {model_file_path} to gs://{gcs_bucket_name}/{blob.name}")
+    except Exception as e:
+        logger.error(f"Failed to upload model to GCS: {e}")
 
 def compare_and_select_best():
     """Compare models from different sessions and update the best model if necessary."""
@@ -116,7 +130,10 @@ def compare_and_select_best():
 
         # Log best model and metrics in MLflow
         log_best_model_in_mlflow(best_model_file, flattened_metrics)
-        
+
+        # Upload the best model to GCS
+        upload_model_to_gcs(best_model_file, GCS_BUCKET_NAME)
+
     except Exception as e:
         logger.error(f"Failed to save the best model or metrics: {e}")
 
