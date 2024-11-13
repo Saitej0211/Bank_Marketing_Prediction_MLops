@@ -64,7 +64,7 @@ jobs:
       - name: Trigger DAGs
         run: |
           sleep 60  # Wait for Airflow to initialize fully
-          docker exec airflow-webserver airflow dags trigger ModelDevelopmentPipeline
+          docker compose exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags trigger ModelDevelopmentPipeline
 
       - name: Save and Upload Model to GCS
         run: |
