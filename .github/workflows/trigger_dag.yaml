@@ -47,7 +47,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Set GCP project ID
-        run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+        run: gcloud config set project "${{ secrets.GCP_PROJECT_ID }}"
 
       - name: Create directories for Airflow
         run: |
