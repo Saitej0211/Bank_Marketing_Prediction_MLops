@@ -1,5 +1,5 @@
 config/Key.json 
-/logs/
+/**logs/
 **/mlruns/
 **/mlruns/
 **/mlartifacts
