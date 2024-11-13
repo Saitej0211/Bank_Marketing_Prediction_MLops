@@ -61,10 +61,23 @@ jobs:
         run: |
           docker compose up -d
 
+      - name: Wait for Airflow to initialize
+        run: |
+          sleep 180  # Wait for 3 minutes
+
+      - name: Check Airflow services status
+        run: |
+          docker compose ps
+
       - name: Trigger DAGs
         run: |
-          sleep 60  # Wait for Airflow to initialize fully
-          docker compose exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags trigger ModelDevelopmentPipeline
+          if docker compose ps | grep -q "airflow-webserver.*Up"; then
+            docker compose exec airflow-webserver airflow dags trigger ModelDevelopmentPipeline
+          else
+            echo "Airflow webserver is not running. Current status:"
+            docker compose ps
+            exit 1
+          fi
 
       - name: Save and Upload Model to GCS
         run: |
@@ -97,6 +110,3 @@ jobs:
       - name: Deployment failed notification
         if: failure()
         run: echo "CI/CD pipeline failed. Check the logs for details."
-
-
-# Comment 1
