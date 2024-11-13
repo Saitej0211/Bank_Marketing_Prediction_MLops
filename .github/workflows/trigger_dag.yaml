@@ -69,19 +69,49 @@ jobs:
         run: |
           docker compose ps
 
-      - name: Trigger DAGs
+      - name: Trigger DAG and wait for completion
         run: |
           if docker compose ps | grep -q "airflow-webserver.*Up"; then
+            echo "Triggering DAG..."
             docker compose exec airflow-webserver airflow dags trigger ModelDevelopmentPipeline
+            
+            echo "Waiting for DAG to complete..."
+            while true; do
+              STATUS=$(docker compose exec airflow-webserver airflow dags state ModelDevelopmentPipeline $(date +%Y-%m-%d))
+              echo "Current DAG status: $STATUS"
+              if [ "$STATUS" = "success" ]; then
+                echo "DAG completed successfully"
+                break
+              elif [ "$STATUS" = "failed" ]; then
+                echo "DAG failed"
+                exit 1
+              fi
+              echo "DAG still running, waiting..."
+              sleep 60
+            done
           else
             echo "Airflow webserver is not running. Current status:"
             docker compose ps
             exit 1
           fi
 
+      - name: Check for model file
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Contents of current directory:"
+          ls -R
+          echo "Searching for best_model.pkl:"
+          find . -name best_model.pkl
+
       - name: Save and Upload Model to GCS
         run: |
-          gsutil cp ./final_model/best_model.pkl gs://${{ env.GCS_BUCKET_NAME }}/models/best_model_${{ github.sha }}.pkl
+          MODEL_FILE=$(find . -name best_model.pkl)
+          if [ -z "$MODEL_FILE" ]; then
+            echo "Error: best_model.pkl not found"
+            exit 1
+          fi
+          echo "Uploading $MODEL_FILE to GCS"
+          gsutil cp $MODEL_FILE gs://${{ env.GCS_BUCKET_NAME }}/models/best_model_${{ github.sha }}.pkl
 
       - name: Deploy Model to AI Platform
         run: |
