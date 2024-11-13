@@ -355,21 +355,23 @@ Once the DAG is executed, check for a "DAG Completed" email notification in the 
 
 Pictured above : Dag completed notification sent to recipient mail.
 
-### Model Performance Evaluation:
+# Model Building Evaluation and Retraining:
 
-### Model Retraining
+- **model_development_and_evaluation_with_mlflow.py**: This script performs hyperparameter tuning for a Random Forest model using Hyperopt. It tracks and logs the performance of different hyperparameter configurations (e.g., n_estimators, max_depth, min_samples_split) in MLflow. The results, including metrics like accuracy, precision, recall, and F1 score, are visualized in MLflow for comparison across multiple runs.
 
-### Hyper Parameter Tuning
-This model has several hyperparameters, including max_depth, max_features, min_samples_split, min_samples_leaf, and n_estimators. We used MLflow to track different training runs by logging these hyperparameters and performance metrics such as accuracy, F1 score, precision, and recall.
+- **model_pipeline.py**: This DAG orchestrates the model development process, starting with training the model using run_model_development and logging metrics. If the performance metrics (e.g., accuracy, precision, recall, F1 score) fall below 0.7, the model retrains up to three times.
+- 
+# Hyper Parameter Tuning
+This model has several hyperparameters, including max_depth, max_features, min_samples_split, min_samples_leaf, and n_estimators. These hyper parameters are tuning the hyperopts parameter in Sckit Learn and to choose the best model. We used MLflow to track different training runs by logging these hyperparameters and performance metrics such as accuracy, F1 score, precision, and recall.
 
-### Staging, Production and Archived models (MLFLOW)
+# Staging, Production and Archived models (MLFLOW)
 For monitoring our experimental machine learning pipeline, we employ MLflow, Docker, and Python. We selected three key metrics to determine the optimal model parameters from the plot provided:
 
 ![image](https://github.com/user-attachments/assets/06dc6ff6-6cc2-4f01-8c57-c58f7d2e9e5a)
 
 Pictured: Plot for Performance Metrics Visualization of the Model
 
-### Logging and Monitoring
+# Logging and Monitoring
 We implemented the ELK (Elasticsearch, Logstash, Kibana) stack for logging and monitoring purposes. This solution provided centralized log management, real-time monitoring capabilities, and scalability, allowing for efficient analysis of system logs and performance metrics.
 
 ![ELK](https://github.com/user-attachments/assets/57812795-94b1-4958-8e98-9433d11f1135)
@@ -377,21 +379,21 @@ We implemented the ELK (Elasticsearch, Logstash, Kibana) stack for logging and m
 Pictured: Log Management with ELK - Analyzing and Visualizing Logs
 
 
-### Model Analysis
+# Model Analysis
 
-### Deployment Pipeline
+# Deployment Pipeline
 
-### Cost Analysis
+# Cost Analysis
 
-### Contributing / Development Guide
+# Contributing / Development Guide
 
-### Testing
+# Testing
 
-### Step 1: Install Required Tools
+# Step 1: Install Required Tools
 
-### Step 2: Check Code Quality and Vulnerabilities
+# Step 2: Check Code Quality and Vulnerabilities
 
-### Step 3: Run Test Suites
+# Step 3: Run Test Suites
 
 
 ## Airflow Dags
