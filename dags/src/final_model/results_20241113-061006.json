@@ -1,0 +1,16 @@
+{
+    "accuracy": 0.7624682074532788,
+    "precision": 0.8936526562993677,
+    "recall": 0.7624682074532788,
+    "f1_score": 0.8010786353941884,
+    "best_params": {
+        "bootstrap": 1,
+        "max_depth": 5.0,
+        "max_features": 1,
+        "min_samples_leaf": 3.0,
+        "min_samples_split": 2.0,
+        "n_estimators": 100.0
+    },
+    "run_id": "a908cf79bea44ef3951da77e7d526e5f",
+    "timestamp": "20241113-061006"
+}

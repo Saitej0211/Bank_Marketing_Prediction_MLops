@@ -1,4 +1,0 @@
-2024-10-25 14:28:50,196 - INFO - Starting data download process
-2024-10-25 14:28:50,999 - INFO - Latest file files/md5/75/4954d29a573fb8ff0a6f327960d9cf downloaded from GCS.
-2024-10-25 14:28:51,006 - INFO - File content pickled and saved as C:\Users\vickv\Documents\MSDS Coursework\IE 7374 - MLOps\1. Project_Github\Bank_Marketing_Prediction_MLops\data\processed\raw_data.pkl.
-2024-10-25 14:28:51,007 - INFO - Data successfully downloaded and saved to C:\Users\vickv\Documents\MSDS Coursework\IE 7374 - MLOps\1. Project_Github\Bank_Marketing_Prediction_MLops\data\processed\raw_data.pkl
