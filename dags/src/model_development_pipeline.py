@@ -22,6 +22,7 @@ dag_2 = DAG(
     description='DAG for running model development with MLflow',
     schedule_interval=None,
     catchup=False,
+    paused=False
 )
 
 def run_model_development_task(**kwargs):

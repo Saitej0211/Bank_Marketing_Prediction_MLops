@@ -25,25 +25,17 @@ jobs:
       run: |
         docker compose up -d
         sleep 30  # Wait for Airflow to initialize
+        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags unpause ModelDevelopmentPipeline
         docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags trigger ModelDevelopmentPipeline
 
-    - name: Wait for DAG completion and fetch logs
+    - name: Wait for DAG completion and check status
       run: |
         sleep 60  # Wait for DAG to start and run (adjust time as needed)
-        
-        # List DAG runs
         docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags list-runs -d ModelDevelopmentPipeline
         
-        # Get the latest DAG run ID
-        DAG_RUN_ID=$(docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags list-runs -d ModelDevelopmentPipeline | awk 'NR==4 {print $2}')
-        
-        # Fetch logs for each task in the DAG
-        TASKS=$(docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow tasks list ModelDevelopmentPipeline)
-        for TASK in $TASKS
-        do
-          echo "Logs for task: $TASK"
-          docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow tasks logs -t ModelDevelopmentPipeline $TASK $DAG_RUN_ID
-          echo "----------------------------------------"
-        done
+        # List tasks and their states
+        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow tasks list ModelDevelopmentPipeline
+        docker exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags show ModelDevelopmentPipeline
+
     - name: Shutdown Airflow
       run: docker compose down
