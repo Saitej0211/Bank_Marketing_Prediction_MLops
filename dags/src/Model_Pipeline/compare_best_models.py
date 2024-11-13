@@ -15,7 +15,7 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "final_model")
 
 # GCP Configuration
-GCS_BUCKET_NAME = os.getenv('GCS_BUCKET_NAME')  # Make sure this environment variable is set
+GCS_BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 
 def load_metrics(file_path):
     """Load model metrics from a JSON file."""
