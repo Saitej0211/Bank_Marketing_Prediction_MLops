@@ -2,8 +2,6 @@ name: Bank Marketing MLOps CI/CD
 
 on:
   push:
-    branches: [ vignesh_model_dev_3 ]
-  pull_request:
     branches: [ main ]
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight
