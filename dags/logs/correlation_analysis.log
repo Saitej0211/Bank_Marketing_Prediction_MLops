@@ -2921,3 +2921,6 @@ Name: proportion, dtype: float64
 2024-11-12 11:24:10,878 - INFO - Saved SMOTE resampled training data to pickle: /opt/airflow/data/processed/smote_resampled_train_data.pkl
 2024-11-12 11:24:10,906 - INFO - Saved test data to pickle: /opt/airflow/data/processed/test_data.pkl
 2024-11-12 11:24:10,912 - INFO - SMOTE analysis with scaling and normalization completed successfully
+2024-11-14 01:46:01,535 - INFO - Starting data loading process
+2024-11-14 01:46:01,641 - INFO - Using pickle file: None
+2024-11-14 01:46:01,653 - ERROR - Pickle file not found: None

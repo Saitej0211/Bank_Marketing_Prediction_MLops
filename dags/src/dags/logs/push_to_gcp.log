@@ -1,0 +1,133 @@
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 3
+Downloading model best_random_forest_model version 3 from MLflow to /tmp/model
+Failed to download model best_random_forest_model from MLflow: download_artifacts() got an unexpected keyword argument 'model_uri'
+Failed to download model: download_artifacts() got an unexpected keyword argument 'model_uri'
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 4
+Downloading model best_random_forest_model version 4 from MLflow to /tmp/model
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 5
+Downloading model best_random_forest_model version 5 from MLflow to /tmp/model
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/Key.json was not found.
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/Key.json was not found.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 6
+Downloading model best_random_forest_model version 6 from MLflow to /tmp/model
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/Key.json was not found.
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/Key.json was not found.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 7
+Downloading model best_random_forest_model version 7 from MLflow to /tmp/model
+Failed to download model best_random_forest_model from MLflow: download_artifacts() got an unexpected keyword argument 'model_uri'
+Failed to download model: download_artifacts() got an unexpected keyword argument 'model_uri'
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 8
+Downloading model best_random_forest_model version 8 from MLflow to /tmp/model
+Failed to download model best_random_forest_model from MLflow: download_artifacts() got an unexpected keyword argument 'model_uri'
+Failed to download model: download_artifacts() got an unexpected keyword argument 'model_uri'
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 9
+Downloading model best_random_forest_model version 9 from MLflow to /tmp/model
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 1
+Downloading model best_random_forest_model version 1 from MLflow to /tmp/model
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 2
+Downloading model best_random_forest_model version 2 from MLflow to /tmp/model
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: Registered Model with name=best_random_forest_model not found
+Failed to download model: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: Registered Model with name=best_random_forest_model not found
+Failed to download model: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: Registered Model with name=best_random_forest_model not found
+Failed to download model: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: Registered Model with name=best_random_forest_model not found
+Failed to download model: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 4
+Downloading model best_random_forest_model version 4 from MLflow to /tmp/model
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/key.json was not found.
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: Registered Model with name=best_random_forest_model not found
+Failed to download model: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 5
+Downloading model best_random_forest_model version 5 from MLflow to /tmp/model
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/Key.json was not found.
+Failed to upload model to GCS: File /opt/airflow/dags/src/config/Key.json was not found.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 1
+Downloading model best_random_forest_model version 1 from MLflow to /tmp/model
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Model download and upload process completed successfully.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 2
+Downloading model best_random_forest_model version 2 from MLflow to /tmp/model
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Model download and upload process completed successfully.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 1
+Downloading model best_random_forest_model version 1 from MLflow to /tmp/model
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Model download and upload process completed successfully.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 2
+Downloading model best_random_forest_model version 2 from MLflow to /tmp/model
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Model download and upload process completed successfully.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 3
+Downloading model best_random_forest_model version 3 from MLflow to /tmp/model
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Model download and upload process completed successfully.
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: Registered Model with name=best_random_forest_model not found
+Failed to download model: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 3
+Downloading model best_random_forest_model version 3 from MLflow to /tmp/model
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Model download and upload process completed successfully.
