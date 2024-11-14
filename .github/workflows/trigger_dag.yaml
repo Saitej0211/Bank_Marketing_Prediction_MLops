@@ -3,7 +3,7 @@ name: Run Python Scripts
 on:
   push:
     branches:
-      - '*'
+      - 'vignesh_cicd_check'
 
 jobs:
   run_scripts:
@@ -24,10 +24,10 @@ jobs:
         if [ -f dags/requirements.txt ]; then pip install -r dags/requirements.txt; fi
 
     - name: Run script1.py
-      run: python dags/src/model_development_and_evaluation_with_mlflow.py
+      run: python dags/src/Model_Pipeline/model_development_and_evaluation_with_mlflow.py
 
     - name: Run script2.py
-      run: python dags/src/compare_best_models.py
+      run: python dags/src/Model_Pipeline/compare_best_models.py
 
     - name: Run script3.py
-      run: python dags/src/push_to_gcp.py
+      run: python dags/src/Model_Pipeline/push_to_gcp.py
