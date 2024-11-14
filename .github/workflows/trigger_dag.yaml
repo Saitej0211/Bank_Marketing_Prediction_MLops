@@ -9,7 +9,7 @@ on:
 
 env:
   REGION: us-east4
-  REPOSITORY_NAME: Bank_Marketing_Prediction_MLops
+  REPOSITORY_NAME: bank_marketing_prediction_mlops  
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
 
@@ -47,7 +47,7 @@ jobs:
       - name: Set GCP project ID
         run: gcloud config set project "${{ secrets.GCP_PROJECT_ID }}"
 
-### Move Docker Build and Push Steps Earlier
+### Docker Build and Push Steps
       - name: Build and Push Docker Image
         env:
           IMAGE_NAME: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY_NAME }}/model-image
