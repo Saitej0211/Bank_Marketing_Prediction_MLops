@@ -21,13 +21,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f dags/requirements.txt ]; then pip install -r dags/requirements.txt; fi
+        pip install -r bank_marketing_prediciton_mlops/requirements.txt
 
-    - name: Run script1.py
+    - name: Run model_development_and_evaluation_with_mlflow.py
       run: python dags/src/Model_Pipeline/model_development_and_evaluation_with_mlflow.py
 
-    - name: Run script2.py
+    - name: Run compare_best_models.py
       run: python dags/src/Model_Pipeline/compare_best_models.py
 
-    - name: Run script3.py
+    - name: Run push_to_gcp.py
       run: python dags/src/Model_Pipeline/push_to_gcp.py
