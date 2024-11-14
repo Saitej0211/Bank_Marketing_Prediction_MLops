@@ -2,7 +2,7 @@ name: Bank Marketing MLOps CI/CD
 
 on:
   push:
-    branches: hashwanth_model_cicd
+    branches: [ main ]
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight
   workflow_dispatch:
@@ -39,6 +39,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
       - name: Run tests
         run: |
           PYTHONPATH=. pytest tests/
@@ -60,11 +68,11 @@ jobs:
 
       - name: Initialize Airflow Database
         run: |
-          docker-compose up airflow-init
+          docker compose up airflow-init
 
       - name: Start Airflow services
         run: |
-          docker-compose up -d
+          docker compose up -d
 
       - name: Wait for Airflow to initialize
         run: |
@@ -72,17 +80,17 @@ jobs:
 
       - name: Check Airflow services status
         run: |
-          docker-compose ps
+          docker compose ps
 
       - name: Trigger DAG and wait for completion
         run: |
-          if docker-compose ps | grep -q "airflow-webserver.*Up"; then
+          if docker compose ps | grep -q "airflow-webserver.*Up"; then
             echo "Triggering DAG..."
-            docker-compose exec -T airflow-webserver airflow dags trigger ModelDevelopmentPipeline
+            docker compose exec airflow-webserver airflow dags trigger ModelDevelopmentPipeline
             
             echo "Waiting for DAG to complete..."
             for i in {1..30}; do
-              STATUS=$(docker-compose exec -T airflow-webserver airflow dags state ModelDevelopmentPipeline $(date +%Y-%m-%d))
+              STATUS=$(docker compose exec airflow-webserver airflow dags state ModelDevelopmentPipeline $(date +%Y-%m-%d))
               echo "Current DAG status: $STATUS"
               if [ "$STATUS" = "success" ]; then
                 echo "DAG completed successfully"
@@ -96,9 +104,8 @@ jobs:
             done
           else
             echo "Airflow webserver is not running. Current status:"
-            docker-compose ps
+            docker compose ps
             exit 1
-          fi
 
       - name: Check for model file
         run: |
@@ -134,9 +141,9 @@ jobs:
           docker tag ${IMAGE_NAME}:${{ github.sha }} ${IMAGE_NAME}:latest
           docker push ${IMAGE_NAME}:latest
 
-      - name: Clean up
+      - name: Clean up (Docker Compose V2)
         if: always()
-        run: docker-compose down --volumes --rmi all
+        run: docker compose down --volumes --rmi all
 
       - name: Deployment success message
         if: success()
