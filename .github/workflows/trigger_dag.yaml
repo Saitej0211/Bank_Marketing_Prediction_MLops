@@ -19,7 +19,7 @@ jobs:
     - name: Build and run Airflow with Docker
       run: |
         # Start the Docker containers for Airflow
-        docker compose -f docker-compose.yml up -d
+        docker compose -f docker-compose.yaml up -d
         
         # Wait for Airflow to be ready (you may need to adjust this based on your setup)
         sleep 30
