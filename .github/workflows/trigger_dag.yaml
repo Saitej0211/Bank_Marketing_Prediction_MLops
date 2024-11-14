@@ -2,7 +2,7 @@ name: Bank Marketing MLOps CI/CD
 
 on:
   push:
-    branches: [ Sheela-ci_cd ]
+    branches: [ main ]
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight
   workflow_dispatch:
