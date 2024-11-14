@@ -5,3 +5,4 @@ config/Key.json
 **/mlartifacts
 **/__pycache__/
 **/final_model/
+*.pyc
