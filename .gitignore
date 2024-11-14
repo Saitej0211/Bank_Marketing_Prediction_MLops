@@ -4,3 +4,4 @@ config/Key.json
 **/mlruns/
 **/mlartifacts
 **/__pycache__/
+**/final_model/
