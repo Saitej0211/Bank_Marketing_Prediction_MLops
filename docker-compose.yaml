@@ -1,4 +1,3 @@
-version: '3.6'
 x-airflow-common:
   &airflow-common
   build: .
