@@ -19,7 +19,7 @@ jobs:
     - name: Build and run Airflow with Docker
       run: |
         # Start the Docker containers for Airflow
-        docker-compose -f docker-compose.yaml up -d
+        docker compose -f docker-compose.yaml up -d
         
         # Wait for Airflow web server to be ready
         until [ "$(docker-compose exec bank_marketing_prediction_mlops-airflow-webserver curl -s -o /dev/null -w '%{http_code}' http://localhost:8080)" == "200" ]; do
@@ -28,7 +28,7 @@ jobs:
         done
         
         # Trigger the DAG locally
-        docker-compose exec bank_marketing_prediction_mlops-airflow-webserver airflow dags trigger ModelDevelopmentPipeline  # Replace with your actual DAG ID
+        docker compose exec bank_marketing_prediction_mlops-airflow-webserver airflow dags trigger ModelDevelopmentPipeline  # Replace with your actual DAG ID
 
     - name: Shut down Airflow containers
       run: |
