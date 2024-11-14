@@ -12,10 +12,9 @@ env:
   REPOSITORY_NAME: Bank_Marketing_Prediction_MLops
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
-  PYTHON_VERSION: '3.10'
 
 jobs:
-  build_and_deploy_model:
+  build_and_trigger_dag:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,66 +23,102 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: '3.10'
 
       - name: Cache pip dependencies
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Ensure PYTHONPATH includes dags/src for proper imports
-      - name: Set PYTHONPATH for scripts
-        run: |
-          export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/dags/src
-
-      # Run your model development script directly instead of triggering a DAG
-      - name: Run model development script
-        run: |
-          python dags/src/Model_Pipeline/model_development_and_evaluation_with_mlflow.py
-
-      # Run your model comparison script after training the models
-      - name: Run model comparison script
-        run: |
-          python dags/src/Model_Pipeline/compare_best_models.py
-
-      # Check for the trained model file (e.g., best_model.pkl)
-      - name: Check for model file
-        run: |
-          echo "Current directory $(pwd)"
-          echo "Contents of current directory:"
-          ls -R
-          echo "Searching for best_model.pkl:"
-          find . -name best_model.pkl
-
-      # Authenticate with Google Cloud Platform (GCP)
       - name: Authenticate with GCP
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      # Upload the trained model to Google Cloud Storage (GCS)
-      - name: Save and Upload Model to GCS
-        run: |
-          MODEL_FILE=$(find . -name best_model.pkl)
-          if [ -z "$MODEL_FILE" ]; then;
-            echo "Error best_model.pkl not found";
-            exit 1;
-          fi;
-          echo "Uploading $MODEL_FILE to GCS";
-          gsutil cp $MODEL_FILE gs://${{ env.GCS_BUCKET_NAME }}/models/best_model_${{ github.sha }}.pkl;
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
 
-      # Deploy the trained model to AI Platform (optional)
-      - name: Deploy Model to AI Platform (Optional)
+      - name: Set GCP project ID
+        run: gcloud config set project "${{ secrets.GCP_PROJECT_ID }}"
+
+      - name: Create directories for Airflow
         run: |
-          gcloud ai models upload \
-            --region=${{ env.REGION }} \
-            --display-name=bank-marketing-model-${{ github.sha }} \
-            --artifact-uri=gs://${{ env.GCS_BUCKET_NAME }}/models/best_model_${{ github.sha }}.pkl
+          mkdir -p ./dags ./logs ./plugins
+
+      - name: Initialize Airflow Database
+        run: |
+          docker compose up airflow-init
+
+      - name: Start Airflow services
+        run: |
+          docker compose up -d
+
+      - name: Wait for Airflow to initialize and check health
+        run: |
+          echo "Waiting for Airflow to initialize..."
+          for i in {1..30}; do
+            if docker compose exec airflow-webserver airflow jobs check --job-type SchedulerJob --hostname "$$(hostname)"; then
+              echo "Airflow is healthy and ready"
+              break
+            fi
+            if [ $i -eq 30 ]; then
+              echo "Airflow failed to become healthy after 5 minutes"
+              exit 1
+            fi
+            echo "Waiting for Airflow to be ready... (attempt $i/30)"
+            sleep 10
+          done
+
+      - name: Trigger DAG and capture logs
+        run: |
+          echo "Triggering DAG..."
+          docker compose exec airflow-webserver airflow dags trigger ModelDevelopmentPipeline
+          
+          echo "Waiting for DAG to start and capturing logs..."
+          sleep 30  # Give some time for the DAG to start
+          
+          # Capture logs for 5 minutes or until the DAG completes
+          end=$((SECONDS+300))
+          while [ $SECONDS -lt $end ]; do
+            docker compose exec airflow-webserver airflow dags show ModelDevelopmentPipeline --subdir /opt/airflow/dags
+            docker compose exec airflow-webserver airflow tasks states-for-dag-run ModelDevelopmentPipeline $(date +%Y-%m-%d)
+            docker compose logs --tail=100 airflow-worker
+            
+            # Check if DAG has completed
+            if docker compose exec airflow-webserver airflow dags state ModelDevelopmentPipeline $(date +%Y-%m-%d) | grep -q "success"; then
+              echo "DAG completed successfully"
+              break
+            elif docker compose exec airflow-webserver airflow dags state ModelDevelopmentPipeline $(date +%Y-%m-%d) | grep -q "failed"; then
+              echo "DAG failed"
+              exit 1
+            fi
+            
+            echo "DAG still running, waiting..."
+            sleep 30
+          done
+
+      - name: Display Airflow logs
+        if: always()
+        run: |
+          echo "Displaying Airflow logs..."
+          docker compose logs airflow-webserver
+          docker compose logs airflow-scheduler
+          docker compose logs airflow-worker
+
+      - name: Clean up
+        if: always()
+        run: docker compose down --volumes --rmi all
+
+      - name: Deployment success message
+        if: success()
+        run: echo "CI/CD pipeline completed successfully. DAG triggered and Airflow services cleaned up."
+
+      - name: Deployment failed notification
+        if: failure()
+        run: echo "CI/CD pipeline failed. Check the logs for details."

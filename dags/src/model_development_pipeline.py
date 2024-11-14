@@ -7,6 +7,7 @@ import logging
 # Import the function from your script
 from src.Model_Pipeline.model_development_and_evaluation_with_mlflow import run_model_development
 from src.Model_Pipeline.compare_best_models import compare_and_select_best
+from src.Model_Pipeline.push_to_gcp import push_to_gcp
 
 default_args = {
     'owner': 'MLopsProjectGroup6',
@@ -58,5 +59,12 @@ compare_best_model_task = PythonOperator(
     dag=dag_2,
 )
 
+# Define the task for pushing the changes to gcp
+push_to_gcp_task = PythonOperator(
+    task_id='push_to_gcp',
+    python_callable=push_to_gcp,
+    dag=dag_2,
+)
+
 # Set the task dependencies
-model_development_task >> compare_best_model_task
+model_development_task >> compare_best_model_task >> push_to_gcp_task
