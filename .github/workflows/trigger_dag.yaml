@@ -2,7 +2,7 @@ name: Bank Marketing MLOps CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ vignesh_cicd_check ]
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight
   workflow_dispatch:
@@ -14,7 +14,7 @@ env:
   GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
 
 jobs:
-  build_test_and_deploy:
+  build_and_trigger_dag:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -59,73 +59,57 @@ jobs:
         run: |
           docker compose up -d
 
-      - name: Wait for Airflow to initialize
+      - name: Wait for Airflow to initialize and check health
         run: |
-          sleep 180  # Wait for 3 minutes
+          echo "Waiting for Airflow to initialize..."
+          for i in {1..30}; do
+            if docker compose exec airflow-webserver airflow jobs check --job-type SchedulerJob --hostname "$$(hostname)"; then
+              echo "Airflow is healthy and ready"
+              break
+            fi
+            if [ $i -eq 30 ]; then
+              echo "Airflow failed to become healthy after 5 minutes"
+              exit 1
+            fi
+            echo "Waiting for Airflow to be ready... (attempt $i/30)"
+            sleep 10
+          done
 
-      - name: Check Airflow services status
+      - name: Trigger DAG and capture logs
         run: |
-          docker compose ps
-
-      - name: Trigger DAG and wait for completion
-        run: |
-          if docker compose ps | grep -q "airflow-webserver.*Up"; then
-            echo "Triggering DAG..."
-            docker compose exec airflow-webserver airflow dags trigger ModelDevelopmentPipeline
+          echo "Triggering DAG..."
+          docker compose exec airflow-webserver airflow dags trigger ModelDevelopmentPipeline
+          
+          echo "Waiting for DAG to start and capturing logs..."
+          sleep 30  # Give some time for the DAG to start
+          
+          # Capture logs for 5 minutes or until the DAG completes
+          end=$((SECONDS+300))
+          while [ $SECONDS -lt $end ]; do
+            docker compose exec airflow-webserver airflow dags show ModelDevelopmentPipeline --subdir /opt/airflow/dags
+            docker compose exec airflow-webserver airflow tasks states-for-dag-run ModelDevelopmentPipeline $(date +%Y-%m-%d)
+            docker compose logs --tail=100 airflow-worker
             
-            echo "Waiting for DAG to complete..."
-            while true; do
-              STATUS=$(docker compose exec airflow-webserver airflow dags state ModelDevelopmentPipeline $(date +%Y-%m-%d))
-              echo "Current DAG status: $STATUS"
-              if [ "$STATUS" = "success" ]; then
-                echo "DAG completed successfully"
-                break
-              elif [ "$STATUS" = "failed" ]; then
-                echo "DAG failed"
-                exit 1
-              fi
-              echo "DAG still running, waiting..."
-              sleep 60
-            done
-          else
-            echo "Airflow webserver is not running. Current status:"
-            docker compose ps
-            exit 1
-          fi
+            # Check if DAG has completed
+            if docker compose exec airflow-webserver airflow dags state ModelDevelopmentPipeline $(date +%Y-%m-%d) | grep -q "success"; then
+              echo "DAG completed successfully"
+              break
+            elif docker compose exec airflow-webserver airflow dags state ModelDevelopmentPipeline $(date +%Y-%m-%d) | grep -q "failed"; then
+              echo "DAG failed"
+              exit 1
+            fi
+            
+            echo "DAG still running, waiting..."
+            sleep 30
+          done
 
-      - name: Check for model file
+      - name: Display Airflow logs
+        if: always()
         run: |
-          echo "Current directory: $(pwd)"
-          echo "Contents of current directory:"
-          ls -R
-          echo "Searching for best_model.pkl:"
-          find . -name best_model.pkl
-
-      - name: Save and Upload Model to GCS
-        run: |
-          MODEL_FILE=$(find . -name best_model.pkl)
-          if [ -z "$MODEL_FILE" ]; then
-            echo "Error: best_model.pkl not found"
-            exit 1
-          fi
-          echo "Uploading $MODEL_FILE to GCS"
-          gsutil cp $MODEL_FILE gs://${{ env.GCS_BUCKET_NAME }}/models/best_model_${{ github.sha }}.pkl
-
-      - name: Deploy Model to AI Platform
-        run: |
-          gcloud ai models upload \
-            --region=${{ env.REGION }} \
-            --display-name=bank-marketing-model-${{ github.sha }} \
-            --artifact-uri=gs://${{ env.GCS_BUCKET_NAME }}/models/best_model_${{ github.sha }}.pkl
-
-      - name: Build and Push Docker Image
-        env:
-          IMAGE_NAME: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY_NAME }}/model-image
-        run: |
-          docker build -t ${IMAGE_NAME}:${{ github.sha }} .
-          docker push ${IMAGE_NAME}:${{ github.sha }}
-          docker tag ${IMAGE_NAME}:${{ github.sha }} ${IMAGE_NAME}:latest
-          docker push ${IMAGE_NAME}:latest
+          echo "Displaying Airflow logs..."
+          docker compose logs airflow-webserver
+          docker compose logs airflow-scheduler
+          docker compose logs airflow-worker
 
       - name: Clean up
         if: always()
@@ -133,7 +117,7 @@ jobs:
 
       - name: Deployment success message
         if: success()
-        run: echo "CI/CD pipeline completed successfully. Model uploaded and services started."
+        run: echo "CI/CD pipeline completed successfully. DAG triggered and Airflow services cleaned up."
 
       - name: Deployment failed notification
         if: failure()
