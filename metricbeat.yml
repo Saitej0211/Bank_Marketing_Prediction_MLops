@@ -1,0 +1,51 @@
+metricbeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+metricbeat.modules:
+- module: elasticsearch
+  metricsets: ["node", "node_stats"]
+  period: 10s
+  hosts: ["http://elasticsearch:9200"]
+
+- module: logstash
+  metricsets: ["node", "node_stats"]
+  period: 10s
+  hosts: ["http://logstash:9600"]
+
+- module: kibana
+  metricsets: ["stats"]
+  period: 10s
+  hosts: ["http://kibana:5601"]
+
+- module: docker
+  metricsets:
+    - "container"
+    - "cpu"
+    - "diskio"
+    - "healthcheck"
+    - "info"
+    - "memory"
+    - "network"
+  hosts: ["unix:///var/run/docker.sock"]
+  period: 10s
+  enabled: true
+
+- module: postgresql
+  metricsets: ["database", "bgwriter", "activity"]
+  period: 10s
+  hosts: ["postgres://airflow:airflow@postgres:5432/airflow?sslmode=disable"]
+
+- module: redis
+  metricsets: ["info", "keyspace"]
+  period: 10s
+  hosts: ["redis:6379"]
+
+processors:
+  - add_host_metadata: ~
+  - add_docker_metadata: ~
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  username: "elastic"
+  password: "elastic"

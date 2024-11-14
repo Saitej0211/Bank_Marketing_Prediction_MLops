@@ -1,0 +1,25 @@
+filebeat.inputs:
+- type: filestream
+  id: airflow-logs
+  paths:
+    - /opt/airflow/logs/*/*.log
+
+- type: filestream
+  id: ml-metrics
+  paths:
+    - /opt/airflow/dags/src/logs/ml_metrics.log
+  json.keys_under_root: true
+  json.add_error_key: true
+
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+
+processors:
+- add_docker_metadata: ~
+- add_host_metadata: ~
+- add_cloud_metadata: ~
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]

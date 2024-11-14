@@ -1,2 +1,6 @@
 config/Key.json 
-/logs/
+/**logs/
+**/mlruns/
+**/mlruns/
+**/mlartifacts
+**/__pycache__/
