@@ -45,7 +45,7 @@ def simplify_metrics(metrics):
     return simplified_metrics
 
 def log_best_model_in_mlflow(best_model_path, best_metrics):
-    """Log the best model and its metrics in MLflow."""
+    """Log and register the best model and its metrics in MLflow."""
     with mlflow.start_run(run_name="Best_Model_Logging"):
         # Log only numeric metrics
         for metric_name, metric_value in best_metrics.items():
@@ -54,14 +54,28 @@ def log_best_model_in_mlflow(best_model_path, best_metrics):
             else:
                 logger.warning(f"Skipping non-numeric metric {metric_name}: {metric_value}")
 
-        # Log the model as an artifact
+        # Log and register the model
         with open(best_model_path, 'rb') as model_file:
+            model = pickle.load(model_file)
             mlflow.sklearn.log_model(
-                sk_model=pickle.load(model_file),
+                sk_model=model,
                 artifact_path="best_model"
             )
+            
+            # Register the model
+            model_name = "best_random_forest_model"
+            mlflow.register_model(f"runs:/{mlflow.active_run().info.run_id}/best_model", model_name)
+            
+            # Transition the model to the "Staging" stage
+            client = mlflow.tracking.MlflowClient()
+            latest_version = client.get_latest_versions(model_name, stages=["None"])[0].version
+            client.transition_model_version_stage(
+                name=model_name,
+                version=latest_version,
+                stage="Staging"
+            )
         
-        logger.info("Logged the best model and metrics to MLflow.")
+        logger.info(f"Logged and registered the best model '{model_name}' in MLflow and transitioned to 'Staging' stage.")
 
 
 def compare_and_select_best():
