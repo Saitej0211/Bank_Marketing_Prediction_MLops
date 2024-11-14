@@ -2,7 +2,7 @@ name: Bank Marketing MLOps CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ Sheela-ci_cd ]
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight
   workflow_dispatch:
@@ -47,6 +47,17 @@ jobs:
       - name: Set GCP project ID
         run: gcloud config set project "${{ secrets.GCP_PROJECT_ID }}"
 
+### Move Docker Build and Push Steps Earlier
+      - name: Build and Push Docker Image
+        env:
+          IMAGE_NAME: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY_NAME }}/model-image
+        run: |
+          docker build -t ${IMAGE_NAME}:${{ github.sha }} .
+          docker push ${IMAGE_NAME}:${{ github.sha }}
+          docker tag ${IMAGE_NAME}:${{ github.sha }} ${IMAGE_NAME}:latest
+          docker push ${IMAGE_NAME}:latest
+
+### Continue with Airflow Setup and Model Deployment
       - name: Create directories for Airflow
         run: |
           mkdir -p ./dags ./logs ./plugins
@@ -93,6 +104,7 @@ jobs:
             exit 1
           fi
 
+### Model Upload and Deployment
       - name: Check for model file
         run: |
           echo "Current directory: $(pwd)"
@@ -118,15 +130,7 @@ jobs:
             --display-name=bank-marketing-model-${{ github.sha }} \
             --artifact-uri=gs://${{ env.GCS_BUCKET_NAME }}/models/best_model_${{ github.sha }}.pkl
 
-      - name: Build and Push Docker Image
-        env:
-          IMAGE_NAME: ${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.REPOSITORY_NAME }}/model-image
-        run: |
-          docker build -t ${IMAGE_NAME}:${{ github.sha }} .
-          docker push ${IMAGE_NAME}:${{ github.sha }}
-          docker tag ${IMAGE_NAME}:${{ github.sha }} ${IMAGE_NAME}:latest
-          docker push ${IMAGE_NAME}:latest
-
+### Final Cleanup and Notifications
       - name: Clean up
         if: always()
         run: docker compose down --volumes --rmi all
