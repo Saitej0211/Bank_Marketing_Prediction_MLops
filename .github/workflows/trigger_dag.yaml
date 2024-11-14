@@ -25,8 +25,8 @@ jobs:
         sleep 30
         
         # Trigger the DAG locally
-        docker-compose exec airflow-webserver airflow dags trigger modeldevelopmentpipeline  # Replace with your actual DAG ID
+        docker compose exec bank_marketing_prediction_mlops-airflow-webserver-1 airflow dags trigger ModelDevelopmentPipeline  # Replace with your actual DAG ID
 
     - name: Shut down Airflow containers
       run: |
-        docker-compose -f docker-compose.yml down
+        docker compose -f docker-compose.yaml down
