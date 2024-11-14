@@ -11,7 +11,7 @@ env:
   REGION: us-east4
   REPOSITORY_NAME: bank_marketing_prediction_mlops  
   GCP_PROJECT_ID: sylvan-stream-439001-n5
-  GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
+  GCS_BUCKET_NAME: mlopsprojectdatabucketgrp6
 
 jobs:
   build_test_and_deploy:
