@@ -9,8 +9,8 @@ on:
 
 env:
   REGION: us-east4
-  REPOSITORY_NAME: bank_marketing_prediction_mlops  
-  GCP_PROJECT_ID:  sylvan-stream-439001-n5
+  REPOSITORY_NAME: Bank_Marketing_Prediction_MLops  
+  GCP_PROJECT_ID:  iconic-vine-438222-u6
   GCS_BUCKET_NAME: mlopsprojectdatabucketgrp6
 
 jobs:
@@ -45,12 +45,12 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Set GCP project ID
-        run: gcloud config set project "sylvan-stream-439001-n5"
+        run: gcloud config set project "iconic-vine-438222-u6"
 
 ### Docker Build and Push Steps
       - name: Build and Push Docker Image
         env:
-          IMAGE_NAME: ${{ env.REGION }}-docker.pkg.dev/sylvan-stream-439001-n5/${{ env.REPOSITORY_NAME }}/model-image
+          IMAGE_NAME: ${{ env.REGION }}-docker.pkg.dev/iconic-vine-438222-u6/${{ env.REPOSITORY_NAME }}/model-image
         run: |
           docker build -t ${IMAGE_NAME}:${{ github.sha }} .
           docker push ${IMAGE_NAME}:${{ github.sha }}
