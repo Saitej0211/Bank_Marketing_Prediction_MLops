@@ -9,7 +9,7 @@ on:
 
 env:
   REGION: us-east4
-  REPOSITORY_NAME: Bank_Marketing_Prediction_MLops  
+  REPOSITORY_NAME: bank_marketing_prediction_mlops  
   GCP_PROJECT_ID:  iconic-vine-438222-u6
   GCS_BUCKET_NAME: mlopsprojectdatabucketgrp6
 
