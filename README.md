@@ -392,6 +392,24 @@ Pictured: Plot for Performance Metrics Visualization of the Model
 
 # Logging and Monitoring
 
+# Model Sensitivity Analysis
+
+This project implements sensitivity analysis techniques to understand how different features and hyperparameters affect our machine learning model's performance. The analysis helps identify which inputs have the most significant impact on the model's predictions and how changes in hyperparameters influence overall model performance.
+
+## Features
+
+1. Feature Importance Analysis
+   - Uses permutation importance to evaluate the impact of each feature on model performance
+   - Visualizes feature importance using bar plots
+
+2. SHAP (SHapley Additive exPlanations) Analysis
+   - Provides detailed interpretation of feature impacts on model predictions
+   - Generates summary plots to visualize SHAP values
+
+3. Hyperparameter Sensitivity Analysis
+   - Analyzes how changes in hyperparameters affect model performance
+   - Visualizes the impact of each hyperparameter on model performance
+
 ## Model Bias Detection (Using Slicing Techniques)
 
 Our project implements a comprehensive bias detection process to ensure fairness across different subgroups of the population. Here's an overview of our approach:
