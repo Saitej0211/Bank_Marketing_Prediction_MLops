@@ -124,8 +124,16 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 │   │       ├── data_schema_statistics_generation.py  # Script that generates statistics about dataset schema (e.g., │column types, missing values).
 │   │       │                                        # Ensures incoming datasets adhere to expected formats.
 │   │       ├── util_bank_marketing.py  # Utility functions specific to a bank marketing dataset, including custom │transformations or validations.
-│   ├── airflow.py                   # Main Airflow DAG definition file that orchestrates different tasks such as │downloading data,
+│   │   ├── Model_Pipeline          # Contains scripts for Model Development, Evaluation and Pushing to GCP registry
+│   │       ├── __pycache__         # Cache files related to the data validation module.
+│   │       ├── model_development_and_evaluation_with_mlflow.py     # Script to develop the model, tune hyperparameters and version the model with mlflow.
+│   │       ├── compare_best_models.py  # Script that is used to compare the recently run model with the latest versioned model from mlflow and push the model to GCP registry.
+│   │       ├── Bias check.py         #
+|   |       ├── Sensitivity check.py   #                              
+│   │       ├── push_to_gcp.py  # Utility functions specific to a bank marketing dataset, including custom │transformations or validations.
+│   ├── data_pipeline.py                   # Main Airflow DAG definition file that orchestrates different tasks such as │downloading data,
 │   │                                # preprocessing it, validating it, and loading it into a target system. Defines │task dependencies,schedules, and triggers within Airflow.
+│   ├── model_development_pipeline.py      # Main Airflow DAG definition file that orchestrates different model development tasks such as │Model development, training, bias and sensitivity check, compare and push best model to GCP bucket. 
 │   ├── DownloadData.py              # Script responsible for downloading raw datasets from external sources like APIs │or cloud storage systems.Ensures datasets are available locally before starting any preprocessing tasks.
 │   ├── eda.py                       # Script dedicated to performing Exploratory Data Analysis (EDA) on raw datasets. │Generates summary statistics,
 │   │                                # visualizations, and other insights needed before applying transformations.
@@ -264,7 +272,7 @@ Generate a key: After creating the service account, click on it from the list of
 
 You can avoid these steps of creating a GCP bucket, instead you could raise a request to access our GCP bucket
 
-![image](https://github.com/user-attachments/assets/0b752e97-0587-4bed-b5c8-c5883a71c745)
+![image](![image](https://github.com/user-attachments/assets/c2b3deb7-dba4-49ff-83ea-40be938e10e1)
 
 Pictured above: GCP Bucket tracking the Data Version for the dataset
 
@@ -360,7 +368,15 @@ Pictured above : Dag completed notification sent to recipient mail.
 - **model_development_and_evaluation_with_mlflow.py**: This script performs hyperparameter tuning for a Random Forest model using Hyperopt. It tracks and logs the performance of different hyperparameter configurations (e.g., n_estimators, max_depth, min_samples_split) in MLflow. The results, including metrics like accuracy, precision, recall, and F1 score, are visualized in MLflow for comparison across multiple runs.
 
 - **model_pipeline.py**: This DAG orchestrates the model development process, starting with training the model using run_model_development and logging metrics. If the performance metrics (e.g., accuracy, precision, recall, F1 score) fall below 0.7, the model retrains up to three times.
-- 
+
+- **Biascheck.py**:
+
+- **Sensitivity_Check.py**:
+
+- **compare_best_models.py**:
+
+- **push_to_gcp.py**:
+
 # Hyper Parameter Tuning
 This model has several hyperparameters, including max_depth, max_features, min_samples_split, min_samples_leaf, and n_estimators. These hyper parameters are tuning the hyperopts parameter in Sckit Learn and to choose the best model. We used MLflow to track different training runs by logging these hyperparameters and performance metrics such as accuracy, F1 score, precision, and recall.
 
@@ -388,13 +404,8 @@ Pictured: Log Management with ELK - Analyzing and Visualizing Logs
 # Contributing / Development Guide
 
 # Testing
-
-# Step 1: Install Required Tools
-
-# Step 2: Check Code Quality and Vulnerabilities
-
-# Step 3: Run Test Suites
-
+Before you push your code to GitHub, it's crucial to ensure that it meets our quality standards, including formatting, security, and functionality. To facilitate this, we recommend the following steps using `pytest` and `pylint`. These tools help identify formatting issues, potential vulnerabilities, and ensure that your test suites pass.
+Every time a code push is made to the branch of our choice, the unittest written for data pipeline will get triggered with the help of GitHUb CI/CD Pipelines ensuring that there is no errors to the previous files when any new push is done to the branch of our choice.
 
 ## Airflow Dags
 
@@ -432,9 +443,21 @@ Setting up Data Versioning Control through dvc library installed as part of requ
 
 ## MLFlow
 
+1. Establish the tracking URL for MLFlow:
+```
+mlflow.set_tracking_uri("ADD URL")
+```
+2. Setting the minimum logging level to record only warnings and more severe issues (errors and critical alerts):
+```
+logging.basicConfig(level=logging.WARN)
+```
+3. Set up the logger:
+```
+logger = logging.getLogger(__name__)
+```
+
 4. Optionally, you may or may not choose to ignore warnings:
 ```
 warnings.filterwarnings("ignore")
 ```
-
 

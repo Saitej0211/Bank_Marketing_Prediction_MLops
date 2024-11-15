@@ -1,6 +1,4 @@
-version: '3.6'
-x-airflow-common:
-  &airflow-common
+x-airflow-common: &airflow-common
   build: .
   environment:
     &airflow-common-env
@@ -15,14 +13,14 @@ x-airflow-common:
     AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
     AIRFLOW__SMTP__SMTP_STARTTLS: 'True'
     AIRFLOW__SMTP__SMTP_SSL: 'False'
-    AIRFLOW__SMTP__SMTP_USER: aishwariya.alagesanus@gmail.com
-    AIRFLOW__SMTP__SMTP_PASSWORD: avlp hcjj nexa ytpw
+    AIRFLOW__SMTP__SMTP_USER: hashwanthmoorthy@gmail.com
+    AIRFLOW__SMTP__SMTP_PASSWORD: tkbr irrm aojz uzcc
     AIRFLOW__SMTP__SMTP_PORT: 587
-    AIRFLOW__SMTP__SMTP_MAIL_FROM: aishwariya.alagesanus@gmail.com
+    AIRFLOW__SMTP__SMTP_MAIL_FROM: hashwanthmoorthy@gmail.com
     AIRFLOW__SMTP__SMTP_TIMEOUT: 30
     AIRFLOW__SMTP__SMTP_RETRY_LIMIT: 5
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
-    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-matplotlib scikit-learn seaborn imblearn} 
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
@@ -36,7 +34,7 @@ x-airflow-common:
       condition: service_healthy
     postgres:
       condition: service_healthy
-
+ 
 services:
   airflow:
     build: .
@@ -46,20 +44,20 @@ services:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
     depends_on:
       - mlflow
-
+ 
   mlflow:
     image: ghcr.io/mlflow/mlflow:latest
     ports:
       - "5001:5000"
     command: >
-      mlflow server --backend-store-uri sqlite:///mlflow.db --host 0.0.0.0 --port 5000 
+      mlflow server --backend-store-uri sqlite:///mlflow.db --host 0.0.0.0 --port 5000
     user: root
     volumes:
-      - ./dags/src/final_model:/app/final_model  # Mounting local final_models directory inside dags/src
-      - ./config/Key.json:/opt/airflow/config/Key.json  # Mount the Key.json file to the container
+      - ./dags/src/final_model:/app/final_model
+      - ./config/Key.json:/opt/airflow/config/Key.json
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/config/Key.json
-
+ 
   postgres:
     image: postgres:13
     environment:
@@ -74,7 +72,7 @@ services:
       retries: 5
       start_period: 5s
     restart: always
-
+ 
   redis:
     image: redis:7.2-bookworm
     expose:
@@ -86,7 +84,7 @@ services:
       retries: 50
       start_period: 30s
     restart: always
-
+ 
   airflow-webserver:
     <<: *airflow-common
     command: webserver
@@ -103,7 +101,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+ 
   airflow-scheduler:
     <<: *airflow-common
     command: scheduler
@@ -118,7 +116,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+ 
   airflow-worker:
     <<: *airflow-common
     command: celery worker
@@ -138,7 +136,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+ 
   airflow-triggerer:
     <<: *airflow-common
     command: triggerer
@@ -153,7 +151,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+ 
   airflow-init:
     <<: *airflow-common
     entrypoint: /bin/bash
@@ -173,7 +171,7 @@ services:
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
-
+ 
   airflow-cli:
     <<: *airflow-common
     profiles:
@@ -185,7 +183,7 @@ services:
       - bash
       - -c
       - airflow
-
+ 
   flower:
     <<: *airflow-common
     command: celery flower
@@ -204,72 +202,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
-  elasticsearch:
-    image: elasticsearch:7.16.2
-    container_name: elasticsearch
-    restart: always
-    volumes:
-      - elastic_data:/usr/share/elasticsearch/data/
-      - ./logstash/:/logstash_dir
-    environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      discovery.type: single-node    
-    ports:
-      - '9200:9200'
-      - '9300:9300'
-    networks:
-      - elk
-
-  kibana:
-    image: kibana:7.16.2
-    container_name: kibana
-    restart: always       
-    ports:
-      - '5601:5601'
-    environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - xpack.security.enabled=false
-      - xpack.encryptedSavedObjects.encryptionKey=TnX1pCE7fwYV3jSBDcg7nd/L821GTk/w/aVde8Q4lnY=
-    depends_on:
-      - elasticsearch  
-    networks:
-      - elk
-  filebeat:
-    image: docker.elastic.co/beats/filebeat:7.16.2
-    volumes:
-      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs:ro
-    command: ["--strict.perms=false"]  # Disable strict permission checks
-    user: root  # Add this line to run Filebeat as root
-    networks:
-      - elk
-    depends_on:
-      - elasticsearch
-
-  metricbeat:
-    image: docker.elastic.co/beats/metricbeat:7.16.2
-    container_name: metricbeat
-    user: root
-    volumes:
-      - ./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-      - /proc:/hostfs/proc:ro
-      - /:/hostfs:ro
-    networks:
-      - elk
-    command: ["--strict.perms=false", "-system.hostfs=/hostfs"]
-    depends_on:
-      - elasticsearch
-
+ 
 volumes:
   postgres-db-volume:
   mlflow-artifacts:
-  elastic_data:
-
-networks:
-  elk:
-  default:

@@ -1,6 +1,8 @@
 import os
+import io
 import logging
 import warnings
+from google.cloud import storage
 import json
 from datetime import datetime
 import pandas as pd
@@ -50,22 +52,43 @@ def log_metrics_to_file(metrics, model_name):
 def setup_mlflow():
     mlflow.set_tracking_uri("http://mlflow:5000")
     mlflow.set_experiment("random_forest_classification")
+    
+KEY_PATH = os.path.join(PROJECT_DIR, "config", "key.json")
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = KEY_PATH
+bucket_name = "mlopsprojectdatabucketgrp6"
 
-def load_data(train_path, test_path):
-    """Load train and test data from CSV files"""
+def load_data(train_blob_path, test_blob_path):
+    """Load train and test data from GCS bucket."""
     try:
-        train_data = pd.read_csv(train_path)
-        logger.info(f"Loaded train data from {train_path} with shape {train_data.shape}")
-        test_data = pd.read_csv(test_path)
-        logger.info(f"Loaded test data from {test_path} with shape {test_data.shape}")
+        # Initialize Google Cloud Storage client
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
         
+        # Load train data from GCS
+        train_blob = bucket.blob(train_blob_path)
+        if not train_blob.exists():
+            logger.error(f"Train file {train_blob_path} not found in bucket {bucket_name}")
+            return None
+        train_data = pd.read_csv(io.BytesIO(train_blob.download_as_string()))
+        logger.info(f"Loaded train data from {train_blob_path} with shape {train_data.shape}")
+
+        # Load test data from GCS
+        test_blob = bucket.blob(test_blob_path)
+        if not test_blob.exists():
+            logger.error(f"Test file {test_blob_path} not found in bucket {bucket_name}")
+            return None
+        test_data = pd.read_csv(io.BytesIO(test_blob.download_as_string()))
+        logger.info(f"Loaded test data from {test_blob_path} with shape {test_data.shape}")
+
+        # Separate features and target
         X_train = train_data.drop('y', axis=1)
         y_train = train_data['y']
         X_test = test_data.drop('y', axis=1)
         y_test = test_data['y']
+        
         return X_train, y_train, X_test, y_test
     except Exception as e:
-        logger.exception(f"Error loading data: {e}")
+        logger.exception(f"Error loading data from GCS: {e}")
         raise
 
 def objective(params, X, y):
@@ -74,7 +97,7 @@ def objective(params, X, y):
     score = cross_val_score(clf, X, y, cv=3, scoring='accuracy', n_jobs=-1).mean()
     return {'loss': -score, 'status': STATUS_OK}
 
-def save_model_and_results(model, results, run_name):
+def save_model_and_results(model, results, run_name, X_test, y_test):
     """Save the model and results as JSON in the models folder and return the JSON path."""
     models_dir = DATA_DIR
     os.makedirs(models_dir, exist_ok=True)
@@ -84,6 +107,12 @@ def save_model_and_results(model, results, run_name):
     with open(model_path, 'wb') as f:
         pickle.dump(model, f)
     
+    # Save X_test and y_test to CSV
+    X_test_path = os.path.join(models_dir,f"random_forest_{run_name}_X_test.csv")
+    y_test_path = os.path.join(models_dir,f"random_forest_{run_name}_y_test.csv")
+    X_test.to_csv(X_test_path, index=False)
+    y_test.to_csv(y_test_path, index=False)
+
     # Convert int64 to regular int for JSON serialization
     def convert_to_serializable(obj):
         if isinstance(obj, np.integer):
@@ -96,12 +125,17 @@ def save_model_and_results(model, results, run_name):
 
     # Save results
     results['timestamp'] = run_name
+    results['model_path'] = str(model_path)
+    results['X_test_path'] = str(X_test_path)
+    results['y_test_path'] = str(y_test_path)
     serializable_results = json.loads(json.dumps(results, default=convert_to_serializable))
     results_path = os.path.join(models_dir, f"results_{run_name}.json")
     with open(results_path, 'w') as f:
         json.dump(serializable_results, f, indent=4)
     
     logger.info(f"Model saved to {model_path}")
+    logger.info(f"X_test saved to {X_test_path}")
+    logger.info(f"y_test saved to {y_test_path}")
     logger.info(f"Results saved to {results_path}")
     
     return results_path  # Return the path of the JSON file
@@ -188,7 +222,7 @@ def train_and_log_model(X_train, y_train, X_test, y_test):
             "run_id": parent_run.info.run_id,
             "timestamp": run_name
         }
-        save_model_and_results(best_model, results, run_name)
+        save_model_and_results(best_model, results, run_name, X_test, y_test)
 
         return best_performance, best_metrics
 

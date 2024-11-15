@@ -167,3 +167,35 @@ Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/b
 Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
 Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
 Model download and upload process completed successfully.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 1
+Downloading model best_random_forest_model version 1 from MLflow to /tmp/model
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Model download and upload process completed successfully.
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found
+Failed to download model: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found
+Failed to download model: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found
+Failed to download model: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found
+Failed to download model: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 1
+Downloading model best_random_forest_model version 1 from MLflow to /tmp/model
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Model download and upload process completed successfully.
