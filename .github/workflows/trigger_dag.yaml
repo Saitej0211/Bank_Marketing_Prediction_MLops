@@ -50,7 +50,7 @@ jobs:
 ### Docker Build and Push Steps
       - name: Build and Push Docker Image
         env:
-          IMAGE_NAME: ${{ env.REGION }}-docker.pkg.dev/iconic-vine-438222-u6/${{ env.REPOSITORY_NAME }}/model-image
+          IMAGE_NAME: ${{ env.REGION}}-docker.pkg.dev/iconic-vine-438222-u6/bank_marketing_prediction_mlops/model-image
         run: |
           docker build -t ${IMAGE_NAME}:${{ github.sha }} .
           docker push ${IMAGE_NAME}:${{ github.sha }}
