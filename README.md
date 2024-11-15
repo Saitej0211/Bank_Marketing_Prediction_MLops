@@ -394,6 +394,47 @@ We implemented the ELK (Elasticsearch, Logstash, Kibana) stack for logging and m
 
 Pictured: Log Management with ELK - Analyzing and Visualizing Logs
 
+## Model Bias Detection (Using Slicing Techniques)
+
+Our project implements a comprehensive bias detection process to ensure fairness across different subgroups of the population. Here's an overview of our approach:
+
+### 1. Performing Slicing
+
+We break down the dataset into meaningful slices based on sensitive features, primarily focusing on age and marital status:
+
+- Age groups: 18-30, 31-45, 46-60, 61-75, 75+
+- Marital status: Single, Married, Divorced
+
+The `slice_data` function handles this slicing process, creating appropriate bins for numerical features and using unique values for categorical features.
+
+### 2. Tracking Metrics Across Slices
+
+For each slice, we evaluate and track the following metrics:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+
+The `evaluate_slice` function calculates these metrics for each slice, allowing us to identify any significant disparities across different subgroups.
+
+### 3. Visualizing Bias
+
+We generate visualizations to illustrate performance across different slices:
+
+- Bar plots are created for each sensitive feature, showing the performance metrics across slices.
+- Visualizations are saved in the `bias_analysis_output` directory.
+
+![bias_age_accuracy](https://github.com/user-attachments/assets/08f310ff-c206-4c8b-a872-7514bbd5b6f1)
+![bias_marital_accuracy](https://github.com/user-attachments/assets/36f61390-15f8-4993-8373-14a829a87ee0)
+
+### 4. Documenting Bias Detection
+
+Our bias detection process is thoroughly documented:
+
+- Detailed logging is implemented throughout the process, capturing information about each step.
+- The `run_bias_analysis` function provides a comprehensive analysis of bias across specified sensitive features.
+
 # Cost Analysis
 
 # Contributing / Development Guide
