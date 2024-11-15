@@ -264,7 +264,7 @@ Generate a key: After creating the service account, click on it from the list of
 
 You can avoid these steps of creating a GCP bucket, instead you could raise a request to access our GCP bucket
 
-![image](https://github.com/user-attachments/assets/0b752e97-0587-4bed-b5c8-c5883a71c745)
+![image](![image](https://github.com/user-attachments/assets/c2b3deb7-dba4-49ff-83ea-40be938e10e1)
 
 Pictured above: GCP Bucket tracking the Data Version for the dataset
 
