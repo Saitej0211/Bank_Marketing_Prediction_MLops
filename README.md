@@ -392,6 +392,7 @@ Pictured: Plot for Performance Metrics Visualization of the Model
 
 # Logging and Monitoring
 
+# Model Analysis
 ## Model Sensitivity Analysis
 
 This project implements sensitivity analysis techniques to understand how different features and hyperparameters affect our machine learning model's performance. The analysis helps identify which inputs have the most significant impact on the model's predictions and how changes in hyperparameters influence overall model performance.
