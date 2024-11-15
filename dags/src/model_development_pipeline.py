@@ -5,6 +5,7 @@ import os
 import logging
 
 # Import the function from your script
+from src.Model_Pipeline.model_bias_detection import run_bias_analysis
 from src.Model_Pipeline.sensitivity_analysis import perform_sensitivity_analysis
 from src.Model_Pipeline.model_development_and_evaluation_with_mlflow import run_model_development
 from src.Model_Pipeline.compare_best_models import compare_and_select_best
@@ -79,7 +80,7 @@ compare_best_model_task = PythonOperator(
 
 #Sensitivity Analysis
 sensitivity_analysis_task = PythonOperator(
-    task_id="sensitivity_analysis_task",
+    task_id="sensitivity_analysis_task", 
     python_callable=perform_sensitivity_analysis,
     op_args=[
         "{{ ti.xcom_pull(task_ids='compare_best_models', key='best_model_path') }}",  # Best model path
@@ -87,6 +88,49 @@ sensitivity_analysis_task = PythonOperator(
         "{{ ti.xcom_pull(task_ids='compare_best_models', key='y_test_path') }}"  # y_test path
     ],
     dag=dag_2
+)
+
+def run_bias_analysis_task(**kwargs):
+    logging.info("Starting bias analysis task")
+    ti = kwargs['ti']
+    
+    model_path = ti.xcom_pull(task_ids='compare_best_models', key='best_model_path')
+    
+    if not model_path:
+        logging.error("Model path not found in XCom. Cannot proceed with bias analysis.")
+        return
+
+    TEST_PATH = "/opt/airflow/data/processed/test_data.csv"
+    sensitive_features = ['age', 'marital']
+    sample_size = 1000
+    
+    try:
+        bias_results = run_bias_analysis(model_path, TEST_PATH, sensitive_features, sample_size)
+    except Exception as e:
+        logging.error(f"Error during bias analysis: {str(e)}")
+        raise
+    
+    if not bias_results:
+        logging.warning("No bias results found. Bias analysis task completed with no output.")
+        return
+
+    # Log results
+    logging.info("Bias detection results:")
+    for feature in bias_results.keys():
+        logging.info(f"Feature: {feature}")
+        for result in bias_results[feature]:
+            logging.info(f"  Slice: {result['slice']}, Accuracy: {result['accuracy']:.4f}")
+    
+    # Push results to XCom
+    ti.xcom_push(key='bias_results', value=bias_results)
+    
+    logging.info("Bias analysis task completed successfully")
+
+bias_analysis_task = PythonOperator(
+    task_id='run_bias_analysis',
+    python_callable=run_bias_analysis_task,
+    provide_context=True,
+    dag=dag_2,
 )
 
 # Define the task for pushing the changes to gcp
@@ -97,4 +141,4 @@ push_to_gcp_task = PythonOperator(
 )
 
 # Set the task dependencies
-model_development_task >> compare_best_model_task >> sensitivity_analysis_task >> push_to_gcp_task
+model_development_task >> compare_best_model_task >> sensitivity_analysis_task >> bias_analysis_task >> push_to_gcp_task
