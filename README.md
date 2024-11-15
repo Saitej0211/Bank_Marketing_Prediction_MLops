@@ -452,6 +452,17 @@ Our bias detection process is thoroughly documented:
 - Detailed logging is implemented throughout the process, capturing information about each step.
 - The `run_bias_analysis` function provides a comprehensive analysis of bias across specified sensitive features.
 
+# CI/CD for Model Pipeline
+
+This project utilizes GitHub Actions to implement Continuous Integration and Continuous Deployment (CI/CD) for the model pipeline. This automation ensures that any changes made to the main branch trigger the model pipeline, facilitating seamless updates and deployments.
+
+## Overview
+
+The CI/CD workflow is designed to:
+
+- Automatically trigger the model training and evaluation process whenever changes are pushed to the main branch.
+- Ensure that the latest version of the model is always tested and deployed, maintaining high code quality and performance.
+
 # Cost Analysis
 
 # Contributing / Development Guide
