@@ -4,7 +4,7 @@ on:
   push:
     branches: [ Sheela-ci_cd ]
   schedule:
-    - cron: '0 0 * * *'  # Runs every day at 12
+    - cron: '0 0 * * *'  # Runs every day at midnight
   workflow_dispatch:
 
 env:
