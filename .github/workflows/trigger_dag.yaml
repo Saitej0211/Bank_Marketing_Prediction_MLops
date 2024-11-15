@@ -4,13 +4,13 @@ on:
   push:
     branches: [ Sheela-ci_cd ]
   schedule:
-    - cron: '0 0 * * *'  # Runs every day at midnight
+    - cron: '0 0 * * *'  # Runs every day at 12
   workflow_dispatch:
 
 env:
   REGION: us-east4
   REPOSITORY_NAME: bank_marketing_prediction_mlops  
-  GCP_PROJECT_ID:  113998576200
+  GCP_PROJECT_ID:  156481836159
   GCS_BUCKET_NAME: mlopsprojectdatabucketgrp6
 
 jobs:
