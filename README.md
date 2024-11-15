@@ -369,13 +369,13 @@ Pictured above : Dag completed notification sent to recipient mail.
 
 - **model_pipeline.py**: This DAG orchestrates the model development process, starting with training the model using run_model_development and logging metrics. If the performance metrics (e.g., accuracy, precision, recall, F1 score) fall below 0.7, the model retrains up to three times.
 
-- **Biascheck.py**:
+- **model_bias_detection.py**: This script performs bias analysis on a trained machine learning model by evaluating its performance across slices of sensitive features (e.g., age, marital status). It loads test data, detects bias by calculating metrics like accuracy and F1 score for each slice, and visualizes the results as bar plots. Outputs are saved in the bias_analysis_output directory for further review.
 
-- **Sensitivity_Check.py**:
+- **Sensitivity_analysis.py**: This script performs sensitivity analysis to assess how variations in input features impact the predictions of a trained machine learning model. It leverages permutation importance to rank feature contributions, highlighting the significance and variability of each feature in the model’s decision-making process. The results are logged and visualized as bar plots for clear interpretation.
 
-- **compare_best_models.py**:
+- **compare_best_models.py**: This script compares multiple Random Forest models based on their metrics (e.g., accuracy) and selects the best-performing model. The selected model is logged, registered, and transitioned to the “Staging” stage in MLflow, ensuring streamlined model management and deployment.
 
-- **push_to_gcp.py**:
+- **push_to_gcp.py**: This script automates downloading the latest version of a machine learning model from the MLflow Model Registry and uploading it to Google Cloud Storage (GCS). It ensures seamless integration with MLflow and GCS, while logging each step for transparency and debugging.
 
 # Hyper Parameter Tuning
 This model has several hyperparameters, including max_depth, max_features, min_samples_split, min_samples_leaf, and n_estimators. These hyper parameters are tuning the hyperopts parameter in Sckit Learn and to choose the best model. We used MLflow to track different training runs by logging these hyperparameters and performance metrics such as accuracy, F1 score, precision, and recall.
@@ -393,11 +393,6 @@ We implemented the ELK (Elasticsearch, Logstash, Kibana) stack for logging and m
 ![ELK](https://github.com/user-attachments/assets/57812795-94b1-4958-8e98-9433d11f1135)
 
 Pictured: Log Management with ELK - Analyzing and Visualizing Logs
-
-
-# Model Analysis
-
-# Deployment Pipeline
 
 # Cost Analysis
 
