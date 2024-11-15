@@ -1,6 +1,8 @@
 import os
+import io
 import logging
 import warnings
+from google.cloud import storage
 import json
 from datetime import datetime
 import pandas as pd
@@ -50,22 +52,43 @@ def log_metrics_to_file(metrics, model_name):
 def setup_mlflow():
     mlflow.set_tracking_uri("http://mlflow:5000")
     mlflow.set_experiment("random_forest_classification")
+    
+KEY_PATH = os.path.join(PROJECT_DIR, "config", "key.json")
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = KEY_PATH
+bucket_name = "mlopsprojectdatabucketgrp6"
 
-def load_data(train_path, test_path):
-    """Load train and test data from CSV files"""
+def load_data(train_blob_path, test_blob_path):
+    """Load train and test data from GCS bucket."""
     try:
-        train_data = pd.read_csv(train_path)
-        logger.info(f"Loaded train data from {train_path} with shape {train_data.shape}")
-        test_data = pd.read_csv(test_path)
-        logger.info(f"Loaded test data from {test_path} with shape {test_data.shape}")
+        # Initialize Google Cloud Storage client
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
         
+        # Load train data from GCS
+        train_blob = bucket.blob(train_blob_path)
+        if not train_blob.exists():
+            logger.error(f"Train file {train_blob_path} not found in bucket {bucket_name}")
+            return None
+        train_data = pd.read_csv(io.BytesIO(train_blob.download_as_string()))
+        logger.info(f"Loaded train data from {train_blob_path} with shape {train_data.shape}")
+
+        # Load test data from GCS
+        test_blob = bucket.blob(test_blob_path)
+        if not test_blob.exists():
+            logger.error(f"Test file {test_blob_path} not found in bucket {bucket_name}")
+            return None
+        test_data = pd.read_csv(io.BytesIO(test_blob.download_as_string()))
+        logger.info(f"Loaded test data from {test_blob_path} with shape {test_data.shape}")
+
+        # Separate features and target
         X_train = train_data.drop('y', axis=1)
         y_train = train_data['y']
         X_test = test_data.drop('y', axis=1)
         y_test = test_data['y']
+        
         return X_train, y_train, X_test, y_test
     except Exception as e:
-        logger.exception(f"Error loading data: {e}")
+        logger.exception(f"Error loading data from GCS: {e}")
         raise
 
 def objective(params, X, y):
