@@ -285,7 +285,10 @@ Pictured above: ML project Pipeline
 ![image](https://github.com/user-attachments/assets/f669d1e1-7d8e-422b-b6ea-d5d5ceb0af1a)
 Pictured above: Airflow DAG Execution Gantt Chart for Data Pipeline. It is a popular project management tool used to visualize and track the progress of tasks or activities over time. It provides a graphical representation of a pipeline's schedule, showing when each task is planned to start and finish.
 
-Our Model Pipeline till this part for creating Data Pipeline has 2 major components
+![image](https://github.com/user-attachments/assets/6f150050-db98-4011-9311-85cc989a9700)
+Pictured above: Airflow DAG Execution Gantt Chart for Model Pipeline. 
+
+Our Pipeline till this part for creating Data Pipeline has Data Collection ,Processing, Model Development, Logging, Versioning and Storing the Model to GCP
 #### 1.Data Download
 #### 2.Data Cleaning and Preprocessing
 
@@ -388,11 +391,6 @@ For monitoring our experimental machine learning pipeline, we employ MLflow, Doc
 Pictured: Plot for Performance Metrics Visualization of the Model
 
 # Logging and Monitoring
-We implemented the ELK (Elasticsearch, Logstash, Kibana) stack for logging and monitoring purposes. This solution provided centralized log management, real-time monitoring capabilities, and scalability, allowing for efficient analysis of system logs and performance metrics.
-
-![ELK](https://github.com/user-attachments/assets/57812795-94b1-4958-8e98-9433d11f1135)
-
-Pictured: Log Management with ELK - Analyzing and Visualizing Logs
 
 ## Model Bias Detection (Using Slicing Techniques)
 
