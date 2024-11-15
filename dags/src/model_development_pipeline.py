@@ -5,6 +5,7 @@ import os
 import logging
 
 # Import the function from your script
+from src.Model_Pipeline.sensitivity_analysis import perform_sensitivity_analysis
 from src.Model_Pipeline.model_development_and_evaluation_with_mlflow import run_model_development
 from src.Model_Pipeline.compare_best_models import compare_and_select_best
 from src.Model_Pipeline.push_to_gcp import push_to_gcp
@@ -52,11 +53,40 @@ model_development_task = PythonOperator(
     dag=dag_2,
 )
 
-# Define the task for comparing best models
+def find_best_model(**kwargs):
+    # Perform model comparison and selection logic
+    best_model_info = compare_and_select_best()  # Retrieve best model, X_test, and y_test paths
+
+    if best_model_info:
+        best_model_path, X_test_path, y_test_path = best_model_info
+        logging.info(f"Best model path: {best_model_path}")
+        logging.info(f"X_test path: {X_test_path}")
+        logging.info(f"y_test path: {y_test_path}")
+
+        # Push the best model paths to XCom for the downstream task
+        kwargs['ti'].xcom_push(key='best_model_path', value=best_model_path)
+        kwargs['ti'].xcom_push(key='X_test_path', value=X_test_path)
+        kwargs['ti'].xcom_push(key='y_test_path', value=y_test_path)
+    else:
+        logging.error("Failed to find the best model paths.")
+
 compare_best_model_task = PythonOperator(
     task_id='compare_best_models',
-    python_callable=compare_and_select_best,
+    python_callable=find_best_model,
+    provide_context=True,  # Enables XCom push
     dag=dag_2,
+)
+
+#Sensitivity Analysis
+sensitivity_analysis_task = PythonOperator(
+    task_id="sensitivity_analysis_task",
+    python_callable=perform_sensitivity_analysis,
+    op_args=[
+        "{{ ti.xcom_pull(task_ids='compare_best_models', key='best_model_path') }}",  # Best model path
+        "{{ ti.xcom_pull(task_ids='compare_best_models', key='X_test_path') }}",  # X_test path
+        "{{ ti.xcom_pull(task_ids='compare_best_models', key='y_test_path') }}"  # y_test path
+    ],
+    dag=dag_2
 )
 
 # Define the task for pushing the changes to gcp
@@ -67,4 +97,4 @@ push_to_gcp_task = PythonOperator(
 )
 
 # Set the task dependencies
-model_development_task >> compare_best_model_task >> push_to_gcp_task
+model_development_task >> compare_best_model_task >> sensitivity_analysis_task >> push_to_gcp_task

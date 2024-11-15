@@ -77,6 +77,22 @@ def log_best_model_in_mlflow(best_model_path, best_metrics):
         
         logger.info(f"Logged and registered the best model '{model_name}' in MLflow and transitioned to 'Staging' stage.")
 
+def get_test_file_paths(best_model_path):
+    """
+    Identify and return the paths for X_test and y_test files
+    based on the best model path.
+
+    Parameters:
+    best_model_path (str): Path to the best model file
+    """
+    test_file_name = os.path.basename(best_model_path).replace(".pkl", "")
+    X_test_path = os.path.join(DATA_DIR, f"{test_file_name}_X_test.csv")
+    y_test_path = os.path.join(DATA_DIR, f"{test_file_name}_y_test.csv")
+
+    logger.info(f"Identified X_test path: {X_test_path}")
+    logger.info(f"Identified y_test path: {y_test_path}")
+
+    return X_test_path, y_test_path
 
 def compare_and_select_best():
     """Compare models from different sessions and update the best model if necessary."""
@@ -108,7 +124,11 @@ def compare_and_select_best():
         previous_best_metrics = load_metrics(best_metrics_path)
         if previous_best_metrics and previous_best_metrics.get('accuracy', 0) >= best_metrics['accuracy']:
             logger.info("Previous best model still performs better. No update made.")
-            return
+            # Call get_test_file_paths to get X_test and y_test paths
+            X_test_path, y_test_path = get_test_file_paths(best_model_path)
+            logger.info(f'Compare and select best-- X_test_path: {X_test_path}')
+            logger.info(f'y_test_path: {y_test_path}')
+            return best_model_path, X_test_path, y_test_path    # Return the path to the previous best model
         else:
             logger.info("Previous best model is being replaced by a new model.")
 
@@ -131,6 +151,15 @@ def compare_and_select_best():
         # Log best model and metrics in MLflow
         log_best_model_in_mlflow(best_model_file, flattened_metrics)
         
+        # Call get_test_file_paths to get X_test and y_test paths
+        X_test_path, y_test_path = get_test_file_paths(best_model_path)
+
+        logger.info(f'Compare and select best-- X_test_path: {X_test_path}')
+        logger.info(f'y_test_path: {y_test_path}')
+
+         # Return the path to the new best model file
+        return best_model_file, X_test_path, y_test_path
+
     except Exception as e:
         logger.error(f"Failed to save the best model or metrics: {e}")
 
