@@ -27,8 +27,8 @@ dag_2 = DAG(
 )
 
 def run_model_development_task(**kwargs):
-    TRAIN_PATH = "/opt/airflow/data/processed/smote_resampled_train_data.csv"
-    TEST_PATH = "/opt/airflow/data/processed/test_data.csv"
+    TRAIN_PATH = "files/md5/75/Processed_Files/smote_resampled_train_data"
+    TEST_PATH = "files/md5/75/Processed_Files/test_data"
     
     # Run the model development process
     final_metrics = run_model_development(TRAIN_PATH, TEST_PATH, max_attempts=3)
