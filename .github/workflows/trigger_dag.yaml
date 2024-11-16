@@ -61,7 +61,7 @@ jobs:
         env:
           REGISTRY: "us-east4-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-models"
         run: |
-          docker build -f Dockerfilemodel -t $REGISTRY/$IMAGE_NAME:${{ github.sha }} .
+          docker build -f Dockerfile -t $REGISTRY/$IMAGE_NAME:${{ github.sha }} .
           docker push $REGISTRY/$IMAGE_NAME:${{ github.sha }}
           docker tag $REGISTRY/$IMAGE_NAME:${{ github.sha }} $REGISTRY/$IMAGE_NAME:latest
           docker push $REGISTRY/$IMAGE_NAME:latest
