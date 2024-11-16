@@ -14,7 +14,6 @@ env:
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
   IMAGE_NAME: "ml-model-image"
-  REGISTRY: "${{ env.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-models"
   GCS_BUCKET_NAME: "mlopsprojectdatabucketgrp6"
 
 jobs:
@@ -59,6 +58,8 @@ jobs:
 
       # Step 6: Build and Push Docker Image
       - name: Build and Push Docker Image
+        env:
+          REGISTRY: "us-east4-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ml-models"
         run: |
           docker build -f Dockerfilemodel -t $REGISTRY/$IMAGE_NAME:${{ github.sha }} .
           docker push $REGISTRY/$IMAGE_NAME:${{ github.sha }}
@@ -87,3 +88,4 @@ jobs:
       - name: Deployment Failure
         if: failure()
         run: echo "CI/CD pipeline failed. Check the logs for details."
+
