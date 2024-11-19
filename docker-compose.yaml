@@ -1,6 +1,4 @@
----
-x-airflow-common:
-  &airflow-common
+x-airflow-common: &airflow-common
   build: .
   environment:
     &airflow-common-env
@@ -15,14 +13,14 @@ x-airflow-common:
     AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
     AIRFLOW__SMTP__SMTP_STARTTLS: 'True'
     AIRFLOW__SMTP__SMTP_SSL: 'False'
-    AIRFLOW__SMTP__SMTP_USER: aishwariya.alagesanus@gmail.com           # Replace with your Gmail
-    AIRFLOW__SMTP__SMTP_PASSWORD: avlp hcjj nexa ytpw         # App password generated from Google
+    AIRFLOW__SMTP__SMTP_USER: hashwanthmoorthy@gmail.com
+    AIRFLOW__SMTP__SMTP_PASSWORD: tkbr irrm aojz uzcc
     AIRFLOW__SMTP__SMTP_PORT: 587
-    AIRFLOW__SMTP__SMTP_MAIL_FROM: aishwariya.alagesanus@gmail.com      # Same Gmail address
-    AIRFLOW__SMTP__SMTP_TIMEOUT: 30                         # SMTP timeout in seconds
-    AIRFLOW__SMTP__SMTP_RETRY_LIMIT: 5                      # Maximum retries
+    AIRFLOW__SMTP__SMTP_MAIL_FROM: hashwanthmoorthy@gmail.com
+    AIRFLOW__SMTP__SMTP_TIMEOUT: 30
+    AIRFLOW__SMTP__SMTP_RETRY_LIMIT: 5
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
-    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-matplotlib scikit-learn seaborn imblearn} 
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
@@ -36,8 +34,30 @@ x-airflow-common:
       condition: service_healthy
     postgres:
       condition: service_healthy
-
+ 
 services:
+  airflow:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+    depends_on:
+      - mlflow
+ 
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    ports:
+      - "5001:5000"
+    command: >
+      mlflow server --backend-store-uri sqlite:///mlflow.db --host 0.0.0.0 --port 5000
+    user: root
+    volumes:
+      - ./dags/src/final_model:/app/final_model
+      - ./config/Key.json:/opt/airflow/config/Key.json
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/config/Key.json
+ 
   postgres:
     image: postgres:13
     environment:
@@ -52,7 +72,7 @@ services:
       retries: 5
       start_period: 5s
     restart: always
-
+ 
   redis:
     image: redis:7.2-bookworm
     expose:
@@ -64,7 +84,7 @@ services:
       retries: 50
       start_period: 30s
     restart: always
-
+ 
   airflow-webserver:
     <<: *airflow-common
     command: webserver
@@ -81,7 +101,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+ 
   airflow-scheduler:
     <<: *airflow-common
     command: scheduler
@@ -96,7 +116,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+ 
   airflow-worker:
     <<: *airflow-common
     command: celery worker
@@ -116,7 +136,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+ 
   airflow-triggerer:
     <<: *airflow-common
     command: triggerer
@@ -131,7 +151,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+ 
   airflow-init:
     <<: *airflow-common
     entrypoint: /bin/bash
@@ -151,7 +171,7 @@ services:
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
-
+ 
   airflow-cli:
     <<: *airflow-common
     profiles:
@@ -163,7 +183,7 @@ services:
       - bash
       - -c
       - airflow
-
+ 
   flower:
     <<: *airflow-common
     command: celery flower
@@ -182,6 +202,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+ 
 volumes:
   postgres-db-volume:
+  mlflow-artifacts:

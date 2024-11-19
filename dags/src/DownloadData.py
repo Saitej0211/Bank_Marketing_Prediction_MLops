@@ -4,7 +4,6 @@ import logging
 from google.cloud import storage
 from google.auth.exceptions import RefreshError
 from airflow.utils.log.logging_mixin import LoggingMixin
-import tensorflow_data_validation as tfdv
 
 # Set up Airflow logger
 airflow_logger = LoggingMixin().log
@@ -45,8 +44,9 @@ def download_data_from_gcp(bucket_name):
         # Set environment variables for authentication
         KEY_PATH = os.path.join(PROJECT_DIR, "config", "key.json")
         os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = KEY_PATH
+        blob_path = "files/md5/75/raw_bank_full.csv"
         
-        # Google cloud set up
+        # Google Cloud setup
         try:
             storage_client = storage.Client()
         except RefreshError as e:
@@ -55,16 +55,16 @@ def download_data_from_gcp(bucket_name):
 
         bucket = storage_client.bucket(bucket_name)
 
-        # Get the latest blob from the bucket
-        blobs = list(bucket.list_blobs())
-        if not blobs:
-            custom_log(f"No files found in bucket {bucket_name}", level=logging.ERROR)
-            return None
-        latest_blob = max(blobs, key=lambda x: x.updated)
+        # Get the specific blob
+        blob = bucket.blob(blob_path)
         
-        # Download the latest file content
-        file_content = latest_blob.download_as_string()
-        custom_log(f"Latest file {latest_blob.name} downloaded from GCS.")
+        if not blob.exists():
+            custom_log(f"File {blob_path} not found in bucket {bucket_name}", level=logging.ERROR)
+            return None
+        
+        # Download the file content
+        file_content = blob.download_as_string()
+        custom_log(f"File {blob.name} downloaded from GCS.")
         
         # Pickle the file content
         pickled_file_path = os.path.join(DATA_DIR, "raw_data.pkl")

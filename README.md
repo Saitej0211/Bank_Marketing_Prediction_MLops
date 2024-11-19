@@ -1,5 +1,5 @@
 # Bank Marketing Campaign Prediction
-Sheela Hnasda, Saiteja Reddy Gajula, Hashwanth Moorthy, Aishwarya Alagesan, Vignesh Sankar, Tejesvani Muppara vijayaram
+Sheela Hansda, Saiteja Reddy Gajula, Hashwanth Moorthy, Aishwariya Alagesan, Vignesh Sankar, Tejesvani Muppara vijayaram
 
 # Introduction
 
@@ -17,9 +17,7 @@ Hence, the model has learned what triggers increase the likelihood of subscripti
 
 The primary goal of this project is to develop a predictive model that accurately determines whether a client will subscribe to a term deposit based on past marketing campaign data. By using a binary classification approach, the project aims to optimize the bank's marketing strategy, improve the efficiency of client outreach, and increase the conversion rate of campaigns. This solution should ultimately enable the bank to make data-driven decisions that reduce costs, enhance customer engagement, and maximize return on investment for its marketing efforts.
 
-# Dataset Information 
-The dataset reflects the bank's direct marketing campaigns, where clients were primarily contacted by phone to promote term deposits. Since term deposits can require persuasion, many clients received multiple calls to determine their interest. Each call provided insights on the client's likelihood of subscribing ("yes") or declining ("no"), along with details on the timing and frequency of these interactions. By tracking how often and in what context clients responded positively, the data offers a detailed view of campaign dynamics, laying the groundwork for a predictive model to identify clients most likely to subscribe and thus enhance future campaign efficiency.
-
+# Dataset Information
 ## Data Card
 
 Shape - (45211, 16)
@@ -53,9 +51,8 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 - **assets/**: Stores images, visualizations, and graphs.
 - **data/**: Contains raw and processed datasets.
 - **notebooks/**: Jupyter notebooks for exploratory data analysis (EDA) and model experimentation.
-- **src/**: Source code for data preprocessing, feature engineering, and model training.
+- **dags/**: Source code for data preprocessing, feature engineering, and Airflow DAG.
 - **config/**: Configuration files for setting paths, parameters, and schemas.
-- **pipeline/**: Scripts for running the end-to-end data pipeline.
 - **tests/**: Unit tests for validating code functionality.
 - **logs/**: Stores log files from pipeline runs.
 
@@ -63,37 +60,110 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 ## Git repository structure
 ```plaintext
 .
-├── LICENSE                 ## License information
-├── README.md               ## Overview of the project, how to use, and dataset details
-├── assets                  ## Store images, graphs, or other visualizations
-├── config                  ## Configuration files for the project
-│   ├── config.yaml         ## General configurations like file paths, hyperparameters
-│   ├── constants.py        ## Constant variables (e.g., target variable, feature names)
-│   └── schema.yaml         ## Dataset schema (columns and types)
-├── data                    ## Raw and processed data files
-│   ├── raw                 ## Raw dataset, e.g., bank-additional-full.csv
-│   ├── processed           ## Processed data, train/test splits
-├── logs                    ## Store log files during execution
-│   └── training.log        ## Log details for model training
-├── notebooks               ## Jupyter notebooks for exploratory data analysis (EDA)
-│   ├── 01_EDA.ipynb        ## Exploratory Data Analysis notebook
-├── pipeline                ## Pipeline scripts for orchestrating the workflow
-│   ├── main.py             ## All-in-one script to run the entire pipeline
-├── src                     ## Source code for the project
-│   ├── __init__.py
-│   ├── data_preprocessing  ## Data preprocessing scripts
-│   │   ├── __init__.py
-│   ├── feature_engineering ## Feature engineering scripts
-│   │   ├── __init__.py
-│   ├── models              ## Machine learning model scripts
-│   │   ├── __init__.py
-│   ├── utils               ## Utility functions used throughout the project
-│   │   ├── __init__.py
-├── tests                   ## Unit tests for various modules
-│   └── test_utils.py
-├── Dockerfile              ## Docker container setup
-├── docker-compose.yaml     ## Docker Compose for multi-container setups
-└── requirements.txt        ## List of dependencies (Python libraries)
+├── LICENSE                         ## License information
+├── README.md                       ## Overview of the project, how to use it, and dataset details
+├── assets                          ## Store images, graphs, or other visualizations
+│   ├── images                      ## Images used in the project
+│   └── plots                       ## Graphs or plots generated during analysis
+├── config                          ## Configuration files for the project
+│   ├── config.yaml                 ## General configurations like file paths, hyperparameters
+│   ├── constants.py                ## Constant variables (e.g., target variable, feature names)
+│   ├── Key.json                    ## Key file (possibly for authentication or API access)
+│   └── schema.yaml                 ## Dataset schema (columns and types)
+├── data                            ## Raw and processed data files
+│   ├── raw                         ## Raw dataset files
+│   │   ├── bank                    ## Raw bank marketing data
+│   │   └── bank-additional          ## Additional raw bank marketing data
+│   ├── processed                   ## Processed data, train/test splits
+│       ├── eda_plots               ## Exploratory Data Analysis plots
+│       ├── correlation_matrix.csv  ## Correlation matrix in CSV format
+│       ├── correlation_matrix.pkl  ## Correlation matrix in pickle format
+│       ├── dataframe_description.csv  ## Description of the dataframe
+│       ├── dataframe_info.csv      ## Information about the dataframe
+│       ├── datatype_format_processed.csv  ## Datatype format after processing (CSV)
+│       ├── datatype_format_processed.pkl  ## Datatype format after processing (Pickle)
+│       ├── datatype_info_after.csv  ## Datatype information after processing (CSV)
+│       ├── datatype_info_before.csv  ## Datatype information before processing (CSV)
+│       ├── encoded_data.csv        ## Encoded data in CSV format
+│       ├── encoded_data.pkl        ## Encoded data in pickle format
+│       ├── outlier_handled_data.csv  ## Data after handling outliers (CSV)
+│       ├── outlier_handled_data.pkl  ## Data after handling outliers (Pickle)
+│       ├── processed_data.pkl      ## Final processed data in pickle format
+│       ├── raw_data.csv            ## Raw dataset in CSV format
+│       └── raw_data.pkl            ## Raw dataset in pickle format  
+├── dags
+│   ├── logs                        # Directory to store log files generated by Airflow during DAG execution.
+│   │   ├── dag_id=DataPipeline         ## Logs related to DataPipeline DAG execution 
+│   │   │   ├── dag_processor_manager       ## Logs related to DAG processor manager 
+│   │   │   ├── download_data.log           ## Log for downloading data 
+│   │   │   ├── eda.log                     ## Log for Exploratory Data Analysis 
+│   │   │   └── outlier_handling.log        ## Log for outlier handling process 
+│   │
+│   ├── src                         # Main source directory containing all Python scripts for data preprocessing and │validation.
+│   │   ├── __pycache__             # Directory for Python cache files automatically generated after running scripts.
+│   │   │   └── # These files are generated by Python to speed up execution. No need to modify them manually.
+│   │   │
+│   │   ├── data_preprocessing      # Contains scripts for various data preprocessing tasks.
+│   │   │   ├── __pycache__         # Cache files related to the data preprocessing module.
+│   │   │   ├── __init__.py          # Initialization file for the `data_preprocessing` module.
+│   │   │   ├── correlation_analysis.py  # Script to perform correlation analysis on features in the dataset.
+│   │   │   │                           # Helps identify multicollinearity or redundant features.
+│   │   │   ├── datatype_format.py       # Script to ensure correct data types for all columns in the dataset.
+│   │   │   │                           # Handles type conversion and ensures consistency across datasets.
+│   │   │   ├── encoding.py              # Script responsible for encoding categorical variables into numerical values.
+│   │   │   │                           # Uses techniques like one-hot encoding or label encoding.
+│   │   │   ├── outlier_handling.py      # Script to detect and handle outliers using statistical methods like z-score │or IQR.
+│   │   │   ├── preprocessing_main.py    # Main script coordinating all preprocessing steps, such as handling missing │values,
+│   │   │                                # encoding, and normalization of features.
+│   │   │   ├── removing_duplicates.py   # Script to remove duplicate entries from the dataset to ensure data integrity.
+│   │   │   ├── smote.py                 # Implements SMOTE (Synthetic Minority Over-sampling Technique) to address │class imbalance.
+│   │
+│   │   ├── Data_validation          # Contains scripts for validating the quality of input data before further │processing.
+│   │       ├── __pycache__         # Cache files related to the data validation module.
+│   │       ├── anomaly_detection.py     # Script to detect anomalies in the dataset using predefined rules or │statistical methods.
+│   │       ├── data_schema_statistics_generation.py  # Script that generates statistics about dataset schema (e.g., │column types, missing values).
+│   │       │                                        # Ensures incoming datasets adhere to expected formats.
+│   │       ├── util_bank_marketing.py  # Utility functions specific to a bank marketing dataset, including custom │transformations or validations.
+│   │   ├── Model_Pipeline          # Contains scripts for Model Development, Evaluation and Pushing to GCP registry
+│   │       ├── __pycache__         # Cache files related to the data validation module.
+│   │       ├── model_development_and_evaluation_with_mlflow.py     # Script to develop the model, tune hyperparameters and version the model with mlflow.
+│   │       ├── compare_best_models.py  # Script that is used to compare the recently run model with the latest versioned model from mlflow and push the model to GCP registry.
+│   │       ├── Bias check.py         #
+|   |       ├── Sensitivity check.py   #                              
+│   │       ├── push_to_gcp.py  # Utility functions specific to a bank marketing dataset, including custom │transformations or validations.
+│   ├── data_pipeline.py                   # Main Airflow DAG definition file that orchestrates different tasks such as │downloading data,
+│   │                                # preprocessing it, validating it, and loading it into a target system. Defines │task dependencies,schedules, and triggers within Airflow.
+│   ├── model_development_pipeline.py      # Main Airflow DAG definition file that orchestrates different model development tasks such as │Model development, training, bias and sensitivity check, compare and push best model to GCP bucket. 
+│   ├── DownloadData.py              # Script responsible for downloading raw datasets from external sources like APIs │or cloud storage systems.Ensures datasets are available locally before starting any preprocessing tasks.
+│   ├── eda.py                       # Script dedicated to performing Exploratory Data Analysis (EDA) on raw datasets. │Generates summary statistics,
+│   │                                # visualizations, and other insights needed before applying transformations.
+│   ├── HandlingNullValues.py        # Script specifically designed to handle missing values in datasets. Applies │techniques like mean/mode imputation,
+│   │                                 # forward/backward filling, or other imputation methods based on business logic.
+│   ├── LoadData.py                  # After preprocessing and validation steps are complete, this script loads cleaned │datasets into a target system,such as a database or cloud storage service. The cleaned data can then be used for model │training or reporting.
+│   │
+│   ├── util_bank_marketing.py        # Utility script containing helper functions specific to handling bank marketing │datasets. These functions may include custom transformations, feature engineering, or domain-specific validations.
+│   └── __init__.py                  # Initialization file for the overall `dags` module. This file allows other modules │within `dags` to be imported easily.
+├── plugins                         ## Plugins used in the project (if any)
+├── src                             ## Source code for the project
+│   ├── models                      ## Machine learning models and related scripts 
+│   │   └── __init__.py             ## Initialization file for models module 
+│   └── utils                       ## Utility functions used throughout the project 
+│       └── __init__.py             ## Initialization file for utils module 
+├── tests                           ## Unit tests for various modules 
+│   ├── test_CorrelationAndEncoding.py  ## Test script for correlation and encoding 
+│   ├── test_data_format.py         ## Test script for data formatting 
+│   ├── test_DownloadAndLoadData.py  ## Test script for downloading and loading data 
+│   ├── test_eda.py                 ## Test script for exploratory data analysis 
+│   ├── test_HandleNullValues.py    ## Test script for handling null values 
+│   └── test_Smote.py               ## Test script for SMOTE oversampling technique 
+├── .dvcignore                      ## DVC ignore file to specify which files to exclude from DVC tracking 
+├── .env                            ## Environment variables file 
+├── .gitattributes                  ## Git attributes configuration file 
+├── .gitignore                      ## Git ignore file to exclude specific files from version control 
+├── airflow.cfg                     ## Airflow configuration file  
+├── docker-compose.yaml             ## Docker Compose setup for multi-container environments 
+├── Dockerfile                      ## Docker container setup  
+└── requirements.txt                ## List of dependencies (Python libraries)  
 ```
 
 ## Installation
@@ -198,26 +268,27 @@ Assign permissions: Assign the necessary permissions to your service account bas
 
 Generate a key: After creating the service account, click on it from the list of service accounts. Then, navigate to the "Keys" tab. Click on the "Add key" dropdown and select "Create new key". Choose the key type (JSON is recommended) and click "Create". This will download the key file to your local machine.
 
+[Link to our GCP bucket - It is Public](https://console.cloud.google.com/storage/browser/mlopsprojectdatabucketgrp6)
+
 You can avoid these steps of creating a GCP bucket, instead you could raise a request to access our GCP bucket
 
-# Overall ML Project PipeLine
-The following flowchart offers a brief overview of our ML Project Pipeline
+![image](![image](https://github.com/user-attachments/assets/c2b3deb7-dba4-49ff-83ea-40be938e10e1)
 
-
-
-
-## Pipeline Optimization
-
-
-Pictured above: Airflow DAG Execution Gantt Chart for Data Pipeline
-
-**Gantt Chart**: It is a popular project management tool used to visualize and track the progress of tasks or activities over time. It provides a graphical representation of a pipeline's schedule, showing when each task is planned to start and finish.
+Pictured above: GCP Bucket tracking the Data Version for the dataset
 
 # End-to-End Pipeline for Model Deployment
+![ML Project Pipeline](https://github.com/user-attachments/assets/84b79898-c4cb-41bd-a07c-60d07986216d)
 
-Pictured above: Machine Learning Pipeline - Data to Deployment Flowchart
+Pictured above: ML project Pipeline
 
-Our Model Pipeline till this part for creating Data Pipeline has 2 major components
+## Pipeline Optimization
+![image](https://github.com/user-attachments/assets/f669d1e1-7d8e-422b-b6ea-d5d5ceb0af1a)
+Pictured above: Airflow DAG Execution Gantt Chart for Data Pipeline. It is a popular project management tool used to visualize and track the progress of tasks or activities over time. It provides a graphical representation of a pipeline's schedule, showing when each task is planned to start and finish.
+
+![image](https://github.com/user-attachments/assets/6f150050-db98-4011-9311-85cc989a9700)
+Pictured above: Airflow DAG Execution Gantt Chart for Model Pipeline. 
+
+Our Pipeline till this part for creating Data Pipeline has Data Collection ,Processing, Model Development, Logging, Versioning and Storing the Model to GCP
 #### 1.Data Download
 #### 2.Data Cleaning and Preprocessing
 
@@ -230,48 +301,175 @@ We use Apache Airflow to orchestrate our data pipeline, treating each module as 
 In this phase, the dataset is fetched and extracted into the designated data folder using the following modules:
 
 - **DownloadData.py**: This python file downloads the latest available file from the GCP bucket and pickles it stores it in the folder.
-- **LoadData.py**: This python file unpickles the data and stores it as a CCSV file in the data/processed folder allowing the next task to pick this up as input for data validation.
+- **LoadData.py**: This python file unpickles the data and stores it as a CSV file in the data/processed folder allowing the next task to pick this up as input for data validation.
+
+# Statistics Generation
+- **data_schema_statistics_generation.py**: Loads data from CSV file into a DataFrame and splits the data into training(60%), evaluation(20%), and serving(20%) datasets. Creates descriptive statistics for the training and serving datasets. Infers a training schema and serving schema(excluding the target variable Y) from the training statistics and saves it in .pbtxt format. Saves the data in .pkl format to be used for anomaly detection.
+
+# Anomaly detection and alerts
+- **anomaly_detection.py**: The `anomaly_detection` script detects anomalies in a dataset based on predefined rules for data quality and structure, logging any issues found. It loads data from a specified path, validates it against expected columns, data types, and value ranges, and saves results in .pkl and .csv formats. If anomalies are detected, the script sends an alert email with details of the issues. This script can be used as part of an automated Airflow DAG to streamline data validation workflows.
+- **send_alerts_if_anomalies**: The system includes an email alert feature, which notifies the team immediately when an anomaly is detected. The alerts contain specific details about the detected issues, helping the team take quick corrective action.
+
+![image](https://github.com/user-attachments/assets/5cae44b9-f35f-4d42-9ad0-14a7a057bf0c)
+
+Pictured above : An alert message is sent to the recipient's email in case anomalies are detected.
+
+# Handling Null values and duplicates
+
+- **The process_data function performs the following operations**:
+  
+- **Data Loading**: Reads a CSV file into a pandas DataFrame.
+- **Metadata Saving**: Saves DataFrame info and description to separate CSV files.
+- **Duplicate Handling**:
+Checks for duplicate rows in the DataFrame.
+If duplicates are found, it removes them using drop_duplicates() method.
+Logs the number of duplicate rows removed or if no duplicates were found.
+
+- **Null and Unknown Value Handling**:
+Identifies columns with high percentages of null or unknown values.
+Drops columns with more than 80% null or unknown values.
+Fills unknown values in 'job' and 'education' columns with mode values.
+Data Saving: Saves the processed DataFrame as a pickle file.
 
 # Data Cleaning and Preprocessing
 Reliable and high-quality data is crucial for machine learning model performance. This preprocessing pipeline uses several scripts to ensure the data integrity and readiness for model training, making the pipeline more efficient and robust.
+
+- **datatype_format.py**: Ensures data types are consistent across the dataset, improving compatibility with various analysis and machine learning techniques. It loads the processed data, checks and converts data types, logs data type changes, and saves the results.
+
+- **outlier_handling.py**: Detects and handles outliers using the IQR method to reduce extreme values that could distort the model. It loads the processed data, calculates IQR for each numeric column, logs detected outliers, caps outliers within bounds, and saves the outlier-handled data as a .pkl file.
 
 - **Encoding.py**: Encodes categorical variables to numeric formats for compatibility with machine learning algorithms. It loads the input data, identifies categorical columns, applies encoding transformations, and saves the processed data as .pkl and .csv files.
 
 - **CorrelationAnalysis.py**: Analyzes and visualizes feature correlations to uncover relationships between variables. Loads the encoded data, computes the correlation matrix, saves it as .csv and .pkl files, and generates a heatmap visualization saved as an image.
 
 - **Smote.py**: Addresses class imbalance using SMOTE to enhance model performance. Loads the encoded data, splits it into training and testing sets, applies SMOTE to balance classes, and saves the adjusted data.
-  
-## Stats Gen
 
+# Email Alerts
+- **Email Notification Setup**
+The DAG is configured to send email notifications upon successful completion, allowing users to monitor task completion status directly from their inbox. This setup ensures users stay informed about the DAG's progress without manually checking the Airflow dashboard. To enable this feature, ensure that SMTP configurations in `docker-compose.yaml` file under the [smtp] section, specifying the SMTP server, email sender, and recipient settings.
+```yaml
+    AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
+    AIRFLOW__SMTP__SMTP_STARTTLS: 'True'
+    AIRFLOW__SMTP__SMTP_SSL: 'False'
+    AIRFLOW__SMTP__SMTP_USER: aishwariya.alagesanus@gmail.com           # Replace with your Gmail
+    AIRFLOW__SMTP__SMTP_PASSWORD: **** **** **** ****         # App password generated from Google
+    AIRFLOW__SMTP__SMTP_PORT: 587
+    AIRFLOW__SMTP__SMTP_MAIL_FROM: aishwariya.alagesanus@gmail.com      # Same Gmail address
+    AIRFLOW__SMTP__SMTP_TIMEOUT: 30                         # SMTP timeout in seconds
+    AIRFLOW__SMTP__SMTP_RETRY_LIMIT: 5                      # Maximum retries
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
+  ```
+- **Testing and Verification**
+Once the DAG is executed, check for a "DAG Completed" email notification in the specified email inbox. This email serves as a confirmation that the DAG has successfully completed all tasks as per the defined workflow. Users can modify the notification logic to send emails upon task failures or retries, enhancing monitoring capabilities for critical workflows.
 
-## Email Alerts
+![image](https://github.com/user-attachments/assets/4435684c-a1e0-4fe2-8f0c-21ec5b14994c)
 
-# Model Performance Evaluation:
+Pictured above : Dag completed notification sent to recipient mail.
 
-# Model Retraining
+# Model Building Evaluation and Retraining:
 
-## Hyper Parameter Tuning
+- **model_development_and_evaluation_with_mlflow.py**: This script performs hyperparameter tuning for a Random Forest model using Hyperopt. It tracks and logs the performance of different hyperparameter configurations (e.g., n_estimators, max_depth, min_samples_split) in MLflow. The results, including metrics like accuracy, precision, recall, and F1 score, are visualized in MLflow for comparison across multiple runs.
+
+- **model_pipeline.py**: This DAG orchestrates the model development process, starting with training the model using run_model_development and logging metrics. If the performance metrics (e.g., accuracy, precision, recall, F1 score) fall below 0.7, the model retrains up to three times.
+
+- **model_bias_detection.py**: This script performs bias analysis on a trained machine learning model by evaluating its performance across slices of sensitive features (e.g., age, marital status). It loads test data, detects bias by calculating metrics like accuracy and F1 score for each slice, and visualizes the results as bar plots. Outputs are saved in the bias_analysis_output directory for further review.
+
+- **Sensitivity_analysis.py**: This script performs sensitivity analysis to assess how variations in input features impact the predictions of a trained machine learning model. It leverages permutation importance to rank feature contributions, highlighting the significance and variability of each feature in the model’s decision-making process. The results are logged and visualized as bar plots for clear interpretation.
+
+- **compare_best_models.py**: This script compares multiple Random Forest models based on their metrics (e.g., accuracy) and selects the best-performing model. The selected model is logged, registered, and transitioned to the “Staging” stage in MLflow, ensuring streamlined model management and deployment.
+
+- **push_to_gcp.py**: This script automates downloading the latest version of a machine learning model from the MLflow Model Registry and uploading it to Google Cloud Storage (GCS). It ensures seamless integration with MLflow and GCS, while logging each step for transparency and debugging.
+
+# Hyper Parameter Tuning
+This model has several hyperparameters, including max_depth, max_features, min_samples_split, min_samples_leaf, and n_estimators. These hyper parameters are tuning the hyperopts parameter in Sckit Learn and to choose the best model. We used MLflow to track different training runs by logging these hyperparameters and performance metrics such as accuracy, F1 score, precision, and recall.
 
 # Staging, Production and Archived models (MLFLOW)
+For monitoring our experimental machine learning pipeline, we employ MLflow, Docker, and Python. We selected three key metrics to determine the optimal model parameters from the plot provided:
+
+![image](https://github.com/user-attachments/assets/06dc6ff6-6cc2-4f01-8c57-c58f7d2e9e5a)
+
+Pictured: Plot for Performance Metrics Visualization of the Model
 
 # Logging and Monitoring
 
 # Model Analysis
+## Model Sensitivity Analysis
 
-# Deployment Pipeline
+This project implements sensitivity analysis techniques to understand how different features and hyperparameters affect our machine learning model's performance. The analysis helps identify which inputs have the most significant impact on the model's predictions and how changes in hyperparameters influence overall model performance.
+
+## Features
+
+1. Feature Importance Analysis
+   - Uses permutation importance to evaluate the impact of each feature on model performance
+   - Visualizes feature importance using bar plots
+
+2. SHAP (SHapley Additive exPlanations) Analysis
+   - Provides detailed interpretation of feature impacts on model predictions
+   - Generates summary plots to visualize SHAP values
+
+3. Hyperparameter Sensitivity Analysis
+   - Analyzes how changes in hyperparameters affect model performance
+   - Visualizes the impact of each hyperparameter on model performance
+
+## Model Bias Detection (Using Slicing Techniques)
+
+Our project implements a comprehensive bias detection process to ensure fairness across different subgroups of the population. Here's an overview of our approach:
+
+### 1. Performing Slicing
+
+We break down the dataset into meaningful slices based on sensitive features, primarily focusing on age and marital status:
+
+- Age groups: 18-30, 31-45, 46-60, 61-75, 75+
+- Marital status: Single, Married, Divorced
+
+The `slice_data` function handles this slicing process, creating appropriate bins for numerical features and using unique values for categorical features.
+
+### 2. Tracking Metrics Across Slices
+
+For each slice, we evaluate and track the following metrics:
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+
+The `evaluate_slice` function calculates these metrics for each slice, allowing us to identify any significant disparities across different subgroups.
+
+### 3. Visualizing Bias
+
+We generate visualizations to illustrate performance across different slices:
+
+- Bar plots are created for each sensitive feature, showing the performance metrics across slices.
+- Visualizations are saved in the `bias_analysis_output` directory.
+
+![bias_age_accuracy](https://github.com/user-attachments/assets/08f310ff-c206-4c8b-a872-7514bbd5b6f1)
+![bias_marital_accuracy](https://github.com/user-attachments/assets/36f61390-15f8-4993-8373-14a829a87ee0)
+
+### 4. Documenting Bias Detection
+
+Our bias detection process is thoroughly documented:
+
+- Detailed logging is implemented throughout the process, capturing information about each step.
+- The `run_bias_analysis` function provides a comprehensive analysis of bias across specified sensitive features.
+
+# CI/CD for Model Pipeline
+
+This project utilizes GitHub Actions to implement Continuous Integration and Continuous Deployment (CI/CD) for the model pipeline. This automation ensures that any changes made to the main branch trigger the model pipeline, facilitating seamless updates and deployments.
+
+## Overview
+
+The CI/CD workflow is designed to:
+
+- Automatically trigger the model training and evaluation process whenever changes are pushed to the main branch.
+- Ensure that the latest version of the model is always tested and deployed, maintaining high code quality and performance.
 
 # Cost Analysis
 
 # Contributing / Development Guide
 
-## Testing
-
-## Step 1: Install Required Tools
-
-## Step 2: Check Code Quality and Vulnerabilities
-
-## Step 3: Run Test Suites
-
+# Testing
+Before you push your code to GitHub, it's crucial to ensure that it meets our quality standards, including formatting, security, and functionality. To facilitate this, we recommend the following steps using `pytest` and `pylint`. These tools help identify formatting issues, potential vulnerabilities, and ensure that your test suites pass.
+Every time a code push is made to the branch of our choice, the unittest written for data pipeline will get triggered with the help of GitHUb CI/CD Pipelines ensuring that there is no errors to the previous files when any new push is done to the branch of our choice.
 
 ## Airflow Dags
 
@@ -309,9 +507,21 @@ Setting up Data Versioning Control through dvc library installed as part of requ
 
 ## MLFlow
 
+1. Establish the tracking URL for MLFlow:
+```
+mlflow.set_tracking_uri("ADD URL")
+```
+2. Setting the minimum logging level to record only warnings and more severe issues (errors and critical alerts):
+```
+logging.basicConfig(level=logging.WARN)
+```
+3. Set up the logger:
+```
+logger = logging.getLogger(__name__)
+```
+
 4. Optionally, you may or may not choose to ignore warnings:
 ```
 warnings.filterwarnings("ignore")
 ```
-
 

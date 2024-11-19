@@ -1,0 +1,461 @@
+No model metrics files found.
+No model metrics files found.
+No model metrics files found.
+No model metrics files found.
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Failed to load /opt/airflow/dags/src/final_model/best_model.json: [Errno 2] No such file or directory: '/opt/airflow/dags/src/final_model/best_model.json'
+Saved new best metrics.
+Saved new best model.
+Failed to save or log best model: API request to http://localhost:5001/api/2.0/mlflow/runs/create failed with exception HTTPConnectionPool(host='localhost', port=5001): Max retries exceeded with url: /api/2.0/mlflow/runs/create (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f60417e02b0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 4306bdc1e2e64854a3d5a229860bed25
+Logged best model to MLflow.
+Model URI: runs:/4306bdc1e2e64854a3d5a229860bed25/best_model
+Created registered model best_random_forest_model
+Registered model version: 1
+Transitioned model best_random_forest_model version 1 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 7b17c5cf2fdd4e2983a83fcc8f3a6963
+Logged best model to MLflow.
+Model URI: runs:/7b17c5cf2fdd4e2983a83fcc8f3a6963/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 2
+Transitioned model best_random_forest_model version 2 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: db349d21a9af4799b440d9da031b9030
+Logged best model to MLflow.
+Model URI: runs:/db349d21a9af4799b440d9da031b9030/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 3
+Transitioned model best_random_forest_model version 3 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 76b3dfea9d52465c80dc21188bf00b5a
+Logged best model to MLflow.
+Model URI: runs:/76b3dfea9d52465c80dc21188bf00b5a/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 4
+Transitioned model best_random_forest_model version 4 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 869ed8dc408848bc953abfb8f6f00b56
+Logged best model to MLflow.
+Model URI: runs:/869ed8dc408848bc953abfb8f6f00b56/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 5
+Transitioned model best_random_forest_model version 5 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 84ff5f50137543c8867b0fa94d9fb67d
+Logged best model to MLflow.
+Model URI: runs:/84ff5f50137543c8867b0fa94d9fb67d/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 6
+Transitioned model best_random_forest_model version 6 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: e8b6bf6d5dd545b3ba811d972e54eb03
+Logged best model to MLflow.
+Model URI: runs:/e8b6bf6d5dd545b3ba811d972e54eb03/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 7
+Transitioned model best_random_forest_model version 7 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: e1e25d613053496bbbcb6ac11f48ce08
+Logged best model to MLflow.
+Model URI: runs:/e1e25d613053496bbbcb6ac11f48ce08/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 8
+Transitioned model best_random_forest_model version 8 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: f7e40b81cab3498fa873352d267b681c
+Logged best model to MLflow.
+Model URI: runs:/f7e40b81cab3498fa873352d267b681c/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 9
+Transitioned model best_random_forest_model version 9 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 89a4cf8719c24b0c92a81010cd2b2add
+Logged best model to MLflow.
+Model URI: runs:/89a4cf8719c24b0c92a81010cd2b2add/best_model
+Created registered model best_random_forest_model
+Registered model version: 1
+Transitioned model best_random_forest_model version 1 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-182349.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 6b1492e407a9427e85ad6f78156aa64d
+Logged best model to MLflow.
+Model URI: runs:/6b1492e407a9427e85ad6f78156aa64d/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 2
+Transitioned model best_random_forest_model version 2 to 'Staging'
+Starting model comparison and selection.
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-182349.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: a1a6549d835b41779e1fab4bcf790581
+Logged best model to MLflow.
+Model URI: runs:/a1a6549d835b41779e1fab4bcf790581/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 3
+Transitioned model best_random_forest_model version 3 to 'Staging'
+Process complete.
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-182349.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-191305.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: f9edbe4b3b144612adc7f7053445e48b
+Logged best model to MLflow.
+Model URI: runs:/f9edbe4b3b144612adc7f7053445e48b/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 4
+Transitioned model best_random_forest_model version 4 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-182349.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-191305.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-192713.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: dcd0d570fa674035928e272b4611618d
+Logged best model to MLflow.
+Model URI: runs:/dcd0d570fa674035928e272b4611618d/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 5
+Transitioned model best_random_forest_model version 5 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-182349.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-191305.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-192713.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-194556.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 90b3249c2c0741c79af1ce2f6019a785
+Logged best model to MLflow.
+Model URI: runs:/90b3249c2c0741c79af1ce2f6019a785/best_model
+Created registered model best_random_forest_model
+Registered model version: 1
+Transitioned model best_random_forest_model version 1 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-182349.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-191305.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-192713.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-194556.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-200258.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 6951b9074e224bc2a2e8c1431e5b9ab0
+Logged best model to MLflow.
+Model URI: runs:/6951b9074e224bc2a2e8c1431e5b9ab0/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 2
+Transitioned model best_random_forest_model version 2 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-182349.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-191305.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-192713.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-194556.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-200258.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-201917.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 3b3e3dfdf5b94d45806a93f7ff69fc4c
+Logged best model to MLflow.
+Model URI: runs:/3b3e3dfdf5b94d45806a93f7ff69fc4c/best_model
+Created registered model best_random_forest_model
+Registered model version: 1
+Transitioned model best_random_forest_model version 1 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-182349.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-191305.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-192713.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-194556.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-200258.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-201917.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 9bf2ee54879741789905a522108ce121
+Logged best model to MLflow.
+Model URI: runs:/9bf2ee54879741789905a522108ce121/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 2
+Transitioned model best_random_forest_model version 2 to 'Staging'
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-010941.json
+New best model found with accuracy 0.8445206236868296
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-015720.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-023057.json
+New best model found with accuracy 0.8446312064580338
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-030905.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-043408.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-053859.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-060330.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061006.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-061211.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063311.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-063457.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-064203.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-071131.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-182349.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-191305.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-192713.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-194556.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-200258.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-201917.json
+Loaded data from /opt/airflow/dags/src/final_model/results_20241113-204107.json
+Loaded data from /opt/airflow/dags/src/final_model/best_model.json
+Saved new best metrics.
+Saved new best model.
+Started MLflow run with ID: 56535b94f3844c8b95b1e1657875cce5
+Logged best model to MLflow.
+Model URI: runs:/56535b94f3844c8b95b1e1657875cce5/best_model
+Model best_random_forest_model already exists in registry.
+Registered model version: 3
+Transitioned model best_random_forest_model version 3 to 'Staging'
