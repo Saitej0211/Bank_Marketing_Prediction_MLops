@@ -7,4 +7,4 @@ cd /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdepl
 . env/bin/activate
 
 # Run the application in the background using nohup
-nohup python3 app.py &
+nohup python3 app.py & 
