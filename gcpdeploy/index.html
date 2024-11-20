@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bank Marketing Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bank Marketing Prediction</h1>
+    <form method="POST">
+        <div class="form-group">
+            <label>Age:</label>
+            <input type="number" name="age" min="25" max="60" required>
+        </div>
+
+        <div class="form-group">
+            <label>Job:</label>
+            <select name="job" required>
+                <option value="admin.">Administrative</option>
+                <option value="blue-collar">Blue Collar</option>
+                <option value="entrepreneur">Entrepreneur</option>
+                <option value="management">Management</option>
+                <option value="retired">Retired</option>
+                <option value="services">Services</option>
+                <option value="technician">Technician</option>
+                <option value="unknown">Unknown</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Marital Status:</label>
+            <select name="marital" required>
+                <option value="married">Married</option>
+                <option value="single">Single</option>
+                <option value="divorced">Divorced</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Education:</label>
+            <select name="education" required>
+                <option value="primary">Primary</option>
+                <option value="secondary">Secondary</option>
+                <option value="tertiary">Tertiary</option>
+                <option value="unknown">Unknown</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Default:</label>
+            <select name="default" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Balance:</label>
+            <input type="number" name="balance" min="-372" max="10635" required>
+        </div>
+
+        <div class="form-group">
+            <label>Housing Loan:</label>
+            <select name="housing" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Personal Loan:</label>
+            <select name="loan" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Contact:</label>
+            <select name="contact" required>
+                <option value="unknown">Unknown</option>
+                <option value="cellular">Cellular</option>
+                <option value="telephone">Telephone</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Day:</label>
+            <input type="number" name="day" min="1" max="31" required>
+        </div>
+
+        <div class="form-group">
+            <label>Month:</label>
+            <select name="month" required>
+                <option value="jan">Jan</option>
+                <option value="feb">Feb</option>
+                <option value="mar">Mar</option>
+                <option value="apr">Apr</option>
+                <option value="may">May</option>
+                <option value="jun">Jun</option>
+                <option value="jul">Jul</option>
+                <option value="aug">Aug</option>
+                <option value="sep">Sep</option>
+                <option value="oct">Oct</option>
+                <option value="nov">Nov</option>
+                <option value="dec">Dec</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Duration:</label>
+            <input type="number" name="duration" min="13" max="1778" required>
+        </div>
+
+        <div class="form-group">
+            <label>Campaign:</label>
+            <input type="number" name="campaign" min="1" max="5" value="1" required>
+        </div>
+
+        <div class="form-group">
+            <label>Pdays:</label>
+            <input type="number" name="pdays" value="-1" readonly required>
+        </div>
+
+        <div class="form-group">
+            <label>Previous:</label>
+            <input type="number" name="previous" value="0" readonly required>
+        </div>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction is not none %}
+    <div class="result">
+        <h2>Prediction Result</h2>
+        {% if prediction == 1 %}
+            <p>The customer is likely to subscribe to the term deposit.</p>
+        {% else %}
+            <p>The customer is not likely to subscribe to the term deposit.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</body>
+</html> 
