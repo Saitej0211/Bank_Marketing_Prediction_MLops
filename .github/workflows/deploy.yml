@@ -51,7 +51,7 @@ jobs:
     - name: Update managed instance group
       run: |
         gcloud compute instance-groups managed rolling-action start-update bank-marketing-mig \
-          --version=template=bank-marketing-prediction-template-${{ github.sha }} \
+          --version=template=bank-marketing-prediction-template-$(date +%s) \
           --max-surge=1 \
           --max-unavailable=0 \
-          --zone=us-central1-c
+          --zone=us-central1-a
