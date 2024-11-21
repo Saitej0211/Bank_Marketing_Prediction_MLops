@@ -1,0 +1,47 @@
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+      - vignesh_dev_check_1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+    - name: Build Docker image
+      run: |
+        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/imdb-sentiment:${{ github.sha }} .
+
+    - name: Push Docker image to GCR
+      run: |
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/imdb-sentiment:${{ github.sha }}
+
+    - name: Create new instance template
+      run: |
+        gcloud compute instance-templates create imdb-sentiment-analysis-template-${{ github.sha }} \
+          --machine-type=e2-micro \
+          --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/imdb-sentiment:${{ github.sha }} \
+          --network=imdb-sentiment-analysis-vpc \
+          --subnet=imdb-sentiment-analysis-vpc-subnet \
+          --metadata-from-file=startup-script=startup-script.sh
+
+    - name: Update managed instance group
+      run: |
+        gcloud compute instance-groups managed rolling-action start-update imdb-mig \
+          --version=template=imdb-sentiment-analysis-template-${{ github.sha }} \
+          --max-surge=1 \
+          --max-unavailable=0 \
+          --zone=us-central1-c  # Change to your zone if different
