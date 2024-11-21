@@ -1,0 +1,58 @@
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Authenticate Docker
+      run: |
+        gcloud auth configure-docker us-central1-docker.pkg.dev
+
+    - name: Build Docker image
+      run: |
+        docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction-artifact-repo/bank-marketing-prediction:${{ github.sha }} .
+
+    - name: Push Docker image to Artifact Registry
+      run: |
+        docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction-artifact-repo/bank-marketing-prediction:${{ github.sha }}
+
+    - name: Create new instance template
+      run: |
+        TEMPLATE_NAME="bank-marketing-template-$(date +%s)"
+        gcloud compute instance-templates create-with-container $TEMPLATE_NAME \
+          --machine-type=e2-micro \
+          --image-family=cos-stable \
+          --image-project=cos-cloud \
+          --container-image=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction-artifact-repo/bank-marketing-prediction:${{ github.sha }} \
+          --network=bank-marketing-prediction-mlops-vpc \
+          --subnet=bank-marketing-prediction-mlops-vpc-subnet \
+          --region=us-central1 \
+          --metadata-from-file=startup-script=gcpdeploy/startup-script.sh
+        echo "TEMPLATE_NAME=$TEMPLATE_NAME" >> $GITHUB_ENV
+            
+    - name: Update managed instance group
+      run: |
+        gcloud compute instance-groups managed rolling-action start-update bank-marketing-mig \
+          --version=template=${{ env.TEMPLATE_NAME }} \
+          --max-surge=1 \
+          --max-unavailable=0 \
+          --zone=us-central1-a
