@@ -89,10 +89,11 @@ gcloud compute instance-groups managed create imdb-mig \
     --size=1 \
     --zone=us-central1-c
 
-# Step 6: Set Up Load Balancer
+
+# Step 6: Set Up Load Balancer with Correct Health Check Path
 gcloud compute health-checks create http imdb-health-check \
     --port 8000 \
-    --request-path /health
+    --request-path=/health
 
 gcloud compute backend-services create imdb-backend-service \
     --protocol=HTTP \
@@ -113,5 +114,5 @@ gcloud compute forwarding-rules create imdb-http-forwarding-rule \
     --target-http-proxy=imdb-http-proxy \
     --ports=80
 
-# Step 7: Final Confirmation
+# Final Confirmation
 echo "VM, Snapshot, Custom Image, VPC, Firewall, MIG, and Load Balancer have been set up successfully!"
