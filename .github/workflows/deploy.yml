@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main  # Trigger on pushes to the main branch
-      - vignesh_dev_check_1
+      - vignesh_dev_check_1  # Additional branch for testing
 
 jobs:
   deploy:
@@ -23,25 +23,27 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/imdb-sentiment:${{ github.sha }} .
+        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction:${{ github.sha }} .
 
-    - name: Push Docker image to GCR
+    - name: Push Docker image to Artifact Registry
       run: |
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/imdb-sentiment:${{ github.sha }}
+          docker tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction:${{ github.sha }} \
+            us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/<REPOSITORY_NAME>/bank-marketing-prediction:${{ github.sha }}
+          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction-artifact-repo/bank-marketing-prediction:${{ github.sha }}
 
     - name: Create new instance template
       run: |
-        gcloud compute instance-templates create imdb-sentiment-analysis-template-${{ github.sha }} \
+        gcloud compute instance-templates create bank-marketing-prediction-template-${{ github.sha }} \
           --machine-type=e2-micro \
-          --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/imdb-sentiment:${{ github.sha }} \
-          --network=imdb-sentiment-analysis-vpc \
-          --subnet=imdb-sentiment-analysis-vpc-subnet \
+          --image=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction-artifact-repo/bank-marketing-prediction:${{ github.sha }} \
+          --network=bank-marketing-prediction-mlops-vpc \
+          --subnet=bank-marketing-prediction-mlops-vpc-subnet \
           --metadata-from-file=startup-script=startup-script.sh
 
     - name: Update managed instance group
       run: |
-        gcloud compute instance-groups managed rolling-action start-update imdb-mig \
-          --version=template=imdb-sentiment-analysis-template-${{ github.sha }} \
+        gcloud compute instance-groups managed rolling-action start-update bank-marketing-mig \
+          --version=template=bank-marketing-prediction-mlops-template-${{ github.sha }} \
           --max-surge=1 \
           --max-unavailable=0 \
-          --zone=us-central1-c  # Change to your zone if different
+          --zone=us-central1  # Change to your zone if different
