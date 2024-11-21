@@ -38,9 +38,11 @@ jobs:
 
     - name: Create new instance template
       run: |
-        gcloud compute instance-templates create bank-marketing-prediction-template \
+        gcloud compute instance-templates create-with-container bank-marketing-prediction-template-${{ github.sha }} \
           --machine-type=e2-micro \
-          --image=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction-artifact-repo/bank-marketing-prediction:${{ github.sha }} \
+          --image-family=cos-stable \
+          --image-project=cos-cloud \
+          --container-image=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction-artifact-repo/bank-marketing-prediction:${{ github.sha }} \
           --network=bank-marketing-prediction-mlops-vpc \
           --subnet=bank-marketing-prediction-mlops-vpc-subnet \
           --region=us-central1 \
