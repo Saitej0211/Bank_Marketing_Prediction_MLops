@@ -2,15 +2,11 @@ from flask import Flask, request, render_template
 from google.cloud import storage
 import pickle
 import numpy as np
-import yaml
 import os
-
-
 
 # Initialize Flask app with custom template folder
 template_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__, template_folder=template_dir)
-
 
 # Set up GCP credentials
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,18 +23,18 @@ def load_artifacts():
     
     # Load model
     model_blob = bucket.blob("models/best_random_forest_model/model.pkl")
-    model = pickle.loads(model_blob.download_as_string())
+    model = pickle.loads(model_blob.download_as_bytes())
     
     # Load preprocessing artifacts from registered_model_meta
     meta_blob = bucket.blob("models/best_random_forest_model/registered_model_meta")
-    preprocessor = pickle.loads(meta_blob.download_as_string())
+    preprocessor = pickle.loads(meta_blob.download_as_bytes())
     
     return model, preprocessor
 
 def preprocess_input(data, preprocessor):
     # Convert categorical variables
     categorical_features = ['job', 'marital', 'education', 'default', 'housing', 
-                          'loan', 'contact', 'month']
+                            'loan', 'contact', 'month']
     
     # Create feature array in correct order
     features = np.array([
@@ -58,21 +54,21 @@ def home():
     if request.method == 'POST':
         # Get form data
         input_data = {
-            'age': float(request.form['age']),
-            'job': request.form['job'],
-            'marital': request.form['marital'],
-            'education': request.form['education'],
-            'default': request.form['default'],
-            'balance': float(request.form['balance']),
-            'housing': request.form['housing'],
-            'loan': request.form['loan'],
-            'contact': request.form['contact'],
-            'day': int(request.form['day']),
-            'month': request.form['month'],
-            'duration': int(request.form['duration']),
-            'campaign': int(request.form['campaign']),
-            'pdays': int(request.form['pdays']),
-            'previous': int(request.form['previous'])
+            'age': float(request.form.get('age', 0)),
+            'job': request.form.get('job', ''),
+            'marital': request.form.get('marital', ''),
+            'education': request.form.get('education', ''),
+            'default': request.form.get('default', ''),
+            'balance': float(request.form.get('balance', 0)),
+            'housing': request.form.get('housing', ''),
+            'loan': request.form.get('loan', ''),
+            'contact': request.form.get('contact', ''),
+            'day': int(request.form.get('day', 0)),
+            'month': request.form.get('month', ''),
+            'duration': int(request.form.get('duration', 0)),
+            'campaign': int(request.form.get('campaign', 0)),
+            'pdays': int(request.form.get('pdays', 0)),
+            'previous': int(request.form.get('previous', 0))
         }
         
         try:
@@ -90,6 +86,10 @@ def home():
             prediction = None
 
     return render_template('index.html', prediction=prediction)
+
+@app.route('/health')
+def health_check():
+    return {"status": "ok"}, 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
