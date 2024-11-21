@@ -28,7 +28,7 @@ jobs:
     - name: Push Docker image to Artifact Registry
       run: |
           docker tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction:${{ github.sha }} \
-            us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/<REPOSITORY_NAME>/bank-marketing-prediction:${{ github.sha }}
+            us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction-artifact-repo/bank-marketing-prediction:${{ github.sha }}
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/bank-marketing-prediction-artifact-repo/bank-marketing-prediction:${{ github.sha }}
 
     - name: Create new instance template
