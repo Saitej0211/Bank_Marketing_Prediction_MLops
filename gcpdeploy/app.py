@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 app = Flask(__name__)
 
 # Set paths for data and Google Cloud credentials
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
 KEY_PATH = os.path.join(PROJECT_DIR, "config", "key.json")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = KEY_PATH
@@ -29,14 +29,14 @@ def load_preprocessing_objects(data_dir):
         "loan", "contact", "month"
     ]
     for col in categorical_columns:
-        with open(f"{data_dir}/{col}_label_encoder.pkl", "rb") as f:
+        with open(f"{data_dir}\{col}_label_encoder.pkl", "rb") as f:
             preprocessors[f"{col}_encoder"] = pickle.load(f)
 
     # Load scaler and normalizer
-    with open(f"{data_dir}/scaler.pkl", "rb") as f:
+    with open(f"{data_dir}\scaler.pkl", "rb") as f:
         preprocessors["scaler"] = pickle.load(f)
 
-    with open(f"{data_dir}/normalizer.pkl", "rb") as f:
+    with open(f"{data_dir}\\normalizer.pkl", "rb") as f:
         preprocessors["normalizer"] = pickle.load(f)
 
     return preprocessors
@@ -112,5 +112,5 @@ if __name__ == "__main__":
 
         # Run Flask app
         app.run(host="0.0.0.0", port=8000, debug=True)
-    except Exception as e:  
+    except Exception as e:
         print(f"Error initializing the application: {e}")
