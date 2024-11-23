@@ -11,7 +11,10 @@ import logging
 import io
 from datetime import datetime
 import time
+import pickle
 
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
 # Set up Airflow logger
 airflow_logger = LoggingMixin().log
 
@@ -96,6 +99,18 @@ def smote_analysis(input_file_path):
         normalizer = Normalizer()
         X_train_normalized = normalizer.fit_transform(X_train_scaled)
         X_test_normalized = normalizer.transform(X_test_scaled)
+
+        # Save the scaler
+        scaler_path = os.path.join(DATA_DIR, "scaler.pkl")
+        with open(scaler_path, 'wb') as f:
+            pickle.dump(scaler, f)
+        custom_log(f"Saved scaler to {scaler_path}")
+
+        # Save the normalizer
+        normalizer_path = os.path.join(DATA_DIR, "normalizer.pkl")
+        with open(normalizer_path, 'wb') as f:
+            pickle.dump(normalizer, f)
+        custom_log(f"Saved normalizer to {normalizer_path}")
 
         custom_log("Applied normalization")
 
