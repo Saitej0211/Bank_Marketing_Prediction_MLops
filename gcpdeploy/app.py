@@ -14,7 +14,7 @@ app = Flask(__name__)
 # Set paths for data and Google Cloud credentials
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
-KEY_PATH = os.path.join(PROJECT_DIR, "config", "key.json")
+KEY_PATH = os.path.join(PROJECT_DIR, "config", "Key.json")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = KEY_PATH
 
 # Global variables for model and preprocessors
