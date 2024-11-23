@@ -29,14 +29,14 @@ def load_preprocessing_objects(data_dir):
         "loan", "contact", "month"
     ]
     for col in categorical_columns:
-        with open(f"{data_dir}\{col}_label_encoder.pkl", "rb") as f:
+        with open(f"{data_dir}/{col}_label_encoder.pkl", "rb") as f:
             preprocessors[f"{col}_encoder"] = pickle.load(f)
 
     # Load scaler and normalizer
-    with open(f"{data_dir}\scaler.pkl", "rb") as f:
+    with open(f"{data_dir}/scaler.pkl", "rb") as f:
         preprocessors["scaler"] = pickle.load(f)
 
-    with open(f"{data_dir}\\normalizer.pkl", "rb") as f:
+    with open(f"{data_dir}/normalizer.pkl", "rb") as f:
         preprocessors["normalizer"] = pickle.load(f)
 
     return preprocessors
