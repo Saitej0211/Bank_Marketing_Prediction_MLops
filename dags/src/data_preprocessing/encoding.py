@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import logging
 from sklearn.preprocessing import LabelEncoder
+import pickle
 
 from airflow.utils.log.logging_mixin import LoggingMixin
 
@@ -55,16 +56,9 @@ def encode_categorical_variables(input_file_path):
             if input_file_path.endswith('.csv'):
                 df = pd.read_csv(input_file_path)
             elif input_file_path.endswith('.pkl'):
-                # Attempt to read as pickle and catch potential errors
                 try:
                     df = pd.read_pickle(input_file_path)
                     custom_log(f"Loaded data from {input_file_path} with shape {df.shape}")
-                    #column_names = df.columns[0].split(',')
-                    #custom_log(column_names)
-            
-                    # Split the data into rows and columns
-                    #df = df.iloc[:, 0].str.split(',', expand=True)
- 
                 except Exception as e:
                     logging.error(f"Failed to read pickle file: {e}")
                     raise
@@ -76,9 +70,6 @@ def encode_categorical_variables(input_file_path):
         else:
             logging.error(f"File {input_file_path} not found.")
             raise FileNotFoundError(f"{input_file_path} not found.")
-
-        # Assign dynamic column names
-        #df.columns = column_names
 
         # Log column datatypes
         custom_log("Column datatypes:")
@@ -92,10 +83,17 @@ def encode_categorical_variables(input_file_path):
         # Initialize LabelEncoder
         le = LabelEncoder()
 
-        # Encode categorical variables
+        # Encode categorical variables and save LabelEncoder objects
         for col in categorical_columns:
-            df[col] = le.fit_transform(df[col].astype(str))
+            le.fit(df[col].astype(str))
+            df[col] = le.transform(df[col].astype(str))
             custom_log(f"Encoded column: {col}")
+            
+            # Save LabelEncoder object
+            le_file_path = os.path.join(DATA_DIR, f"{col}_label_encoder.pkl")
+            with open(le_file_path, 'wb') as f:
+                pickle.dump(le, f)
+            custom_log(f"Saved LabelEncoder for {col} to {le_file_path}")
 
         # Save the encoded data as CSV
         df.to_csv(OUTPUT_CSV_PATH, index=False)
@@ -109,7 +107,7 @@ def encode_categorical_variables(input_file_path):
         return OUTPUT_PICKLE_PATH
 
     except Exception as e:
-        custom_log,(f"An error occurred during categorical encoding: {e}")
+        custom_log(f"An error occurred during categorical encoding: {e}", level=logging.ERROR)
         raise
 
 if __name__ == "__main__":
