@@ -2,7 +2,7 @@ name: Bank Marketing MLOps CI/CD
  
 on:
   push:
-    branches: main
+    branches: test
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight
   workflow_dispatch:
