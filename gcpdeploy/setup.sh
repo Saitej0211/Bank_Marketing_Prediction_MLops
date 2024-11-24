@@ -23,9 +23,9 @@ cd Bank_Marketing_Prediction_MLops/gcpdeploy
 python3 -m venv env
 
 # Activate virtual environment
-source env/bin/activate
+. env/bin/activate
 
-# Install requirements
+# Install requirements (removed --user flag)
 pip install -r requirements.txt
 
 echo "Setup completed successfully"
