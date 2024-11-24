@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prediction App</title>
+    <title>Bank Marketing Prediction</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,7 +20,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 350px;
         }
         h1 {
             text-align: center;
@@ -30,7 +30,7 @@
             display: flex;
             flex-direction: column;
         }
-        input, button {
+        input, button, select {
             margin-bottom: 10px;
             padding: 10px;
             font-size: 16px;
@@ -53,23 +53,78 @@
 <body>
 
 <div class="container">
-    <h1>Predictor</h1>
+    <h1>Bank Marketing Predictor</h1>
     <form id="predictionForm">
         <input type="number" name="age" placeholder="Age" required />
-        <input type="text" name="job" placeholder="Job" required />
-        <input type="text" name="marital" placeholder="Marital Status" required />
-        <input type="text" name="education" placeholder="Education" required />
-        <input type="text" name="default" placeholder="Default" required />
+        
+        <select name="job" required>
+          <option value="">Select Job</option>
+          <option value="admin.">Admin</option>
+          <option value="entrepreneur">Entrepreneur</option>
+          <option value="technician">Technician</option>
+          <!-- Add other job options here -->
+        </select>
+
+        <select name="marital" required>
+          <option value="">Select Marital Status</option>
+          <option value="single">Single</option>
+          <option value="married">Married</option>
+          <option value="divorced">Divorced</option>
+        </select>
+
+        <select name="education" required>
+          <option value="">Select Education Level</option>
+          <option value="primary">Primary</option>
+          <option value="secondary">Secondary</option>
+          <option value="tertiary">Tertiary</option>
+          <!-- Add other education options if needed -->
+        </select>
+
+        <select name="default" required>
+          <option value="">Default?</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
         <input type="number" name="balance" placeholder="Balance" required />
-        <input type="text" name="housing" placeholder="Housing Loan?" required />
-        <input type="text" name="loan" placeholder="Personal Loan?" required />
-        <input type="text" name="contact" placeholder="Contact Type" required />
+
+        <select name="housing" required>
+          <option value="">Housing Loan?</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+        <select name="loan" required>
+          <option value="">Personal Loan?</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+
+        <select name="contact" required>
+          <option value="">Contact Type</option>
+          <option value="unknown">Unknown</option>
+          <!-- Add other contact options here -->
+        </select>
+
         <input type="number" name="day" placeholder="Day of Month" required />
-        <input type="text" name="month" placeholder="Month" required />
+        
+        <select name="month" required>
+          <option value="">Select Month</option>
+          <!-- Add all months -->
+          <option value="jan">January</option>
+          <!-- Continue with other months -->
+          <!-- Example for May -->
+          <option value="may">May</option> 
+        </select>
+
         <input type="number" name="duration" placeholder="Duration (seconds)" required />
+        
         <input type="number" name="campaign" placeholder="# Campaign Contacts Count" required />
+
         <input type="number" name="pdays" placeholder="# Days Since Last Contact (-1 if never)" required />
+
         <input type="number" name="previous" placeholder="# Previous Contacts Before Campaign" required />
+        
         <button type="submit">Get Prediction</button>
     </form>
 
@@ -77,6 +132,7 @@
 </div>
 
 <script>
+// JavaScript to handle form submission and fetch prediction
 document.getElementById('predictionForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     
