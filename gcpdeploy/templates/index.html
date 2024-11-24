@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, button {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p#result {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Predictor</h1>
+    <form id="predictionForm">
+        <input type="number" name="age" placeholder="Age" required />
+        <input type="text" name="job" placeholder="Job" required />
+        <input type="text" name="marital" placeholder="Marital Status" required />
+        <input type="text" name="education" placeholder="Education" required />
+        <input type="text" name="default" placeholder="Default" required />
+        <input type="number" name="balance" placeholder="Balance" required />
+        <input type="text" name="housing" placeholder="Housing Loan?" required />
+        <input type="text" name="loan" placeholder="Personal Loan?" required />
+        <input type="text" name="contact" placeholder="Contact Type" required />
+        <input type="number" name="day" placeholder="Day of Month" required />
+        <input type="text" name="month" placeholder="Month" required />
+        <input type="number" name="duration" placeholder="Duration (seconds)" required />
+        <input type="number" name="campaign" placeholder="# Campaign Contacts Count" required />
+        <input type="number" name="pdays" placeholder="# Days Since Last Contact (-1 if never)" required />
+        <input type="number" name="previous" placeholder="# Previous Contacts Before Campaign" required />
+        <button type="submit">Get Prediction</button>
+    </form>
+
+    <p id="result"></p>
+</div>
+
+<script>
+document.getElementById('predictionForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch('http://<VM-IP-ADDRESS>:8000/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        document.getElementById('result').textContent = `Prediction: ${result.prediction}`;
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('result').textContent = 'Error fetching prediction.';
+    }
+});
+</script>
+
+</body>
+</html>

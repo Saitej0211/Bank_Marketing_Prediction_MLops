@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
 from google.cloud import storage
@@ -62,6 +62,11 @@ def load_model_from_gcp():
     blob = bucket.blob("models/best_random_forest_model/model.pkl")
     model_bytes = blob.download_as_bytes()
     return pickle.loads(model_bytes)
+
+@app.route("/", methods=["GET"])
+def index():
+    """Serve the HTML page."""
+    return render_template("index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():
