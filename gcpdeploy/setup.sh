@@ -14,7 +14,7 @@ sudo chmod -R 777 /home/bank-marketing-prediction-mlops
 cd /home/bank-marketing-prediction-mlops
 
 # Clone the repository
-git clone --single-branch --branch vignesh_deployment_ci_cd https://github.com/Saitej0211/Bank_Marketing_Prediction_MLops.git
+git clone https://github.com/Saitej0211/Bank_Marketing_Prediction_MLops.git
 
 # Navigate to the gcpdeploy directory
 cd Bank_Marketing_Prediction_MLops/gcpdeploy
