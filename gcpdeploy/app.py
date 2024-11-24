@@ -2,10 +2,8 @@ from flask import Flask, request, jsonify
 import pickle
 import pandas as pd
 from google.cloud import storage
-from google.oauth2 import service_account
 import os
 import warnings
-import json
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -57,26 +55,9 @@ def preprocess_input(input_data, preprocessors):
     final_df = pd.DataFrame(normalized_data, columns=columns)
     return final_df
 
-def get_gcp_credentials():
-    """Get GCP credentials from environment variables"""
-    credentials = service_account.Credentials.from_service_account_info({
-        "type": "service_account",
-        "project_id": os.environ.get("GCP_PROJECT_ID"),
-        "private_key_id": os.environ.get("GCP_PRIVATE_KEY_ID"),
-        "private_key": os.environ.get("GCP_PRIVATE_KEY").replace("\\n", "\n"),
-        "client_email": os.environ.get("GCP_CLIENT_EMAIL"),
-        "client_id": os.environ.get("GCP_CLIENT_ID"),
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": os.environ.get("GCP_CLIENT_X509_CERT_URL")
-    })
-    return credentials
-
 def load_model_from_gcp():
-    """Load model from GCP bucket"""
-    credentials = get_gcp_credentials()
-    storage_client = storage.Client(credentials=credentials)
+    """Load model from GCP bucket using Application Default Credentials"""
+    storage_client = storage.Client()
     bucket = storage_client.bucket("mlopsprojectdatabucketgrp6")
     blob = bucket.blob("models/best_random_forest_model/model.pkl")
     model_bytes = blob.download_as_bytes()
