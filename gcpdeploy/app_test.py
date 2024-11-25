@@ -4,17 +4,19 @@ import pandas as pd
 from google.cloud import storage
 import os
 import warnings
-import traceback
+from flask_cors import CORS
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)
 
-# Set paths for data
+# Set paths for data and credentials
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
+CREDENTIALS_PATH = os.path.join(PROJECT_DIR, "config", "Key.json")
 
 # Global variables for model and preprocessors
 model = None
@@ -57,8 +59,8 @@ def preprocess_input(input_data, preprocessors):
     return final_df
 
 def load_model_from_gcp():
-    """Load model from GCP bucket using Application Default Credentials"""
-    storage_client = storage.Client()
+    """Load model from GCP bucket using service account key"""
+    storage_client = storage.Client.from_service_account_json(CREDENTIALS_PATH)
     bucket = storage_client.bucket("mlopsprojectdatabucketgrp6")
     blob = bucket.blob("models/best_random_forest_model/model.pkl")
     model_bytes = blob.download_as_bytes()
@@ -78,9 +80,7 @@ def predict():
         prediction = model.predict(processed_data)
         return jsonify({"prediction": int(prediction[0])})
     except Exception as e:
-        error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
-        print(error_message)  # Log the error on the server side
-        return jsonify({"error": error_message}), 500
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/health", methods=["GET"])
 def health_check():
@@ -96,6 +96,6 @@ if __name__ == "__main__":
     try:
         preprocessors = load_preprocessing_objects(DATA_DIR)
         model = load_model_from_gcp()
-        app.run(host="0.0.0.0", port=8000, debug=True)
+        app.run(host="127.0.0.1", port=8000, debug=True)
     except Exception as e:
         print(f"Error initializing the application: {e}")
