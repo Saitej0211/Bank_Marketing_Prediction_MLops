@@ -3,159 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank Marketing Prediction</title>
+    <title>Bank Term Deposit Subscription Prediction Tool</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-image: url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
         .container {
-            background-color: #fff;
-            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 350px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
         }
         h1 {
+            color: #2c3e50;
             text-align: center;
-            color: #333;
+            margin-bottom: 30px;
         }
         form {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            gap: 15px;
         }
-        input, button, select {
-            margin-bottom: 10px;
+        input, select {
+            width: 100%;
             padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
             font-size: 16px;
         }
         button {
-            background-color: #007BFF;
+            background-color: #3498db;
             color: white;
             border: none;
+            padding: 12px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #2980b9;
         }
-        p#result {
-            text-align: center;
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
             font-weight: bold;
+            text-align: center;
+        }
+        .positive {
+            background-color: #2ecc71;
+            color: white;
+        }
+        .negative {
+            background-color: #e74c3c;
+            color: white;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Bank Term Deposit Subscription Prediction Tool</h1>
+        <form id="predictionForm">
+            <input type="number" name="age" placeholder="Age" required>
+            <select name="job" required>
+                <option value="">Select Job</option>
+                <option value="admin.">Admin</option>
+                <option value="blue-collar">Blue-collar</option>
+                <option value="entrepreneur">Entrepreneur</option>
+                <option value="housemaid">Housemaid</option>
+                <option value="management">Management</option>
+                <option value="retired">Retired</option>
+                <option value="self-employed">Self-employed</option>
+                <option value="services">Services</option>
+                <option value="student">Student</option>
+                <option value="technician">Technician</option>
+                <option value="unemployed">Unemployed</option>
+                <option value="unknown">Unknown</option>
+            </select>
+            <select name="marital" required>
+                <option value="">Select Marital Status</option>
+                <option value="divorced">Divorced</option>
+                <option value="married">Married</option>
+                <option value="single">Single</option>
+            </select>
+            <select name="education" required>
+                <option value="">Select Education</option>
+                <option value="primary">Primary</option>
+                <option value="secondary">Secondary</option>
+                <option value="tertiary">Tertiary</option>
+                <option value="unknown">Unknown</option>
+            </select>
+            <select name="default" required>
+                <option value="">Has credit in default?</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+            <input type="number" name="balance" placeholder="Balance" required>
+            <select name="housing" required>
+                <option value="">Has housing loan?</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+            <select name="loan" required>
+                <option value="">Has personal loan?</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+            <select name="contact" required>
+                <option value="">Contact communication type</option>
+                <option value="cellular">Cellular</option>
+                <option value="telephone">Telephone</option>
+                <option value="unknown">Unknown</option>
+            </select>
+            <input type="number" name="day" placeholder="Day of month" required min="1" max="31">
+            <select name="month" required>
+                <option value="">Select Month</option>
+                <option value="jan">January</option>
+                <option value="feb">February</option>
+                <option value="mar">March</option>
+                <option value="apr">April</option>
+                <option value="may">May</option>
+                <option value="jun">June</option>
+                <option value="jul">July</option>
+                <option value="aug">August</option>
+                <option value="sep">September</option>
+                <option value="oct">October</option>
+                <option value="nov">November</option>
+                <option value="dec">December</option>
+            </select>
+            <input type="number" name="duration" placeholder="Last contact duration (seconds)" required>
+            <input type="number" name="campaign" placeholder="Number of contacts performed" required>
+            <input type="number" name="pdays" placeholder="Days since last contact (-1 if never contacted)" required>
+            <input type="number" name="previous" placeholder="Number of contacts before this campaign" required>
+            <button type="submit">Predict</button>
+        </form>
+        <div id="result"></div>
+    </div>
 
-<div class="container">
-    <h1>Bank Marketing Predictor</h1>
-    <form id="predictionForm">
-        <input type="number" name="age" placeholder="Age" required />
-        
-        <select name="job" required>
-          <option value="">Select Job</option>
-          <option value="admin.">Admin</option>
-          <option value="entrepreneur">Entrepreneur</option>
-          <option value="technician">Technician</option>
-          <!-- Add other job options here -->
-        </select>
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
 
-        <select name="marital" required>
-          <option value="">Select Marital Status</option>
-          <option value="single">Single</option>
-          <option value="married">Married</option>
-          <option value="divorced">Divorced</option>
-        </select>
-
-        <select name="education" required>
-          <option value="">Select Education Level</option>
-          <option value="primary">Primary</option>
-          <option value="secondary">Secondary</option>
-          <option value="tertiary">Tertiary</option>
-          <!-- Add other education options if needed -->
-        </select>
-
-        <select name="default" required>
-          <option value="">Default?</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-
-        <input type="number" name="balance" placeholder="Balance" required />
-
-        <select name="housing" required>
-          <option value="">Housing Loan?</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-
-        <select name="loan" required>
-          <option value="">Personal Loan?</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-
-        <select name="contact" required>
-          <option value="">Contact Type</option>
-          <option value="unknown">Unknown</option>
-          <!-- Add other contact options here -->
-        </select>
-
-        <input type="number" name="day" placeholder="Day of Month" required />
-        
-        <select name="month" required>
-          <option value="">Select Month</option>
-          <!-- Add all months -->
-          <option value="jan">January</option>
-          <!-- Continue with other months -->
-          <!-- Example for May -->
-          <option value="may">May</option> 
-        </select>
-
-        <input type="number" name="duration" placeholder="Duration (seconds)" required />
-        
-        <input type="number" name="campaign" placeholder="# Campaign Contacts Count" required />
-
-        <input type="number" name="pdays" placeholder="# Days Since Last Contact (-1 if never)" required />
-
-        <input type="number" name="previous" placeholder="# Previous Contacts Before Campaign" required />
-        
-        <button type="submit">Get Prediction</button>
-    </form>
-
-    <p id="result"></p>
-</div>
-
-<script>
-// JavaScript to handle form submission and fetch prediction
-document.getElementById('predictionForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
-
-    try {
-        const response = await fetch('http://<VM-IP-ADDRESS>:8000/predict', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                if (data.error) {
+                    resultDiv.textContent = `Error: ${data.error}`;
+                    resultDiv.className = '';
+                } else {
+                    if (data.prediction === 1) {
+                        resultDiv.textContent = "The user is likely to subscribe to the term deposit program";
+                        resultDiv.className = 'positive';
+                    } else {
+                        resultDiv.textContent = "The user is not likely to subscribe to the term deposit program";
+                        resultDiv.className = 'negative';
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                document.getElementById('result').textContent = 'Error fetching prediction.';
+                document.getElementById('result').className = '';
+            });
         });
-
-        const result = await response.json();
-        document.getElementById('result').textContent = `Prediction: ${result.prediction}`;
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('result').textContent = 'Error fetching prediction.';
-    }
-});
-</script>
-
+    </script>
 </body>
 </html>
