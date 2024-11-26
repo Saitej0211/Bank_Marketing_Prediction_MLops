@@ -1,15 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
 from google.cloud import storage
 import os
 import warnings
+import traceback
+from flask_cors import CORS
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)
 
 # Set paths for data
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -63,6 +66,11 @@ def load_model_from_gcp():
     model_bytes = blob.download_as_bytes()
     return pickle.loads(model_bytes)
 
+@app.route("/", methods=["GET"])
+def index():
+    """Serve the HTML page."""
+    return render_template("index.html")
+
 @app.route("/predict", methods=["POST"])
 def predict():
     """Handle HTTP POST requests for predictions"""
@@ -72,7 +80,9 @@ def predict():
         prediction = model.predict(processed_data)
         return jsonify({"prediction": int(prediction[0])})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
+        print(error_message)  # Log the error on the server side
+        return jsonify({"error": error_message}), 500
 
 @app.route("/health", methods=["GET"])
 def health_check():
