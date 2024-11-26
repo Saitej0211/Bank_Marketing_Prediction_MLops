@@ -73,6 +73,7 @@ def index():
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    """Handle HTTP POST requests for predictions"""
     try:
         input_data = request.json
         processed_data = preprocess_input(input_data, preprocessors)
