@@ -10,9 +10,9 @@ from flask_cors import CORS
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
-# Initialize Flask app
+
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Set paths for data
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -73,7 +73,6 @@ def index():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    """Handle HTTP POST requests for predictions"""
     try:
         input_data = request.json
         processed_data = preprocess_input(input_data, preprocessors)
