@@ -98,6 +98,8 @@ if __name__ == "__main__":
     try:
         preprocessors = load_preprocessing_objects(DATA_DIR)
         model = load_model_from_gcp()
-        app.run(host="0.0.0.0", port=8000, debug=True)
+        import sys
+        port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
+        app.run(host="0.0.0.0", port=port, debug=True)
     except Exception as e:
         print(f"Error initializing the application: {e}")
