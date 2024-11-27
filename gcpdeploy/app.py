@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
-from google.cloud import storage
+from google.cloud import storage, bigquery
+from datetime import datetime, timezone
 import os
 import warnings
 import traceback
@@ -9,7 +10,6 @@ from flask_cors import CORS
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
-
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -22,8 +22,11 @@ DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
 model = None
 preprocessors = {}
 
+# BigQuery table ID for logging
+BIGQUERY_TABLE_ID = "dvc-lab-439300.model_metrics_dataset.metrics_log"
+
 def load_preprocessing_objects(data_dir):
-    """Load all preprocessing objects from local directory"""
+    """Load all preprocessing objects from local directory."""
     preprocessors = {}
     categorical_columns = [
         "job", "marital", "education", "default", "housing",
@@ -42,7 +45,7 @@ def load_preprocessing_objects(data_dir):
     return preprocessors
 
 def preprocess_input(input_data, preprocessors):
-    """Preprocess a single row of input data"""
+    """Preprocess a single row of input data."""
     df = pd.DataFrame([input_data])
 
     for col in ["job", "marital", "education", "default", "housing", "loan", "contact", "month"]:
@@ -59,12 +62,31 @@ def preprocess_input(input_data, preprocessors):
     return final_df
 
 def load_model_from_gcp():
-    """Load model from GCP bucket using Application Default Credentials"""
+    """Load model from GCP bucket using Application Default Credentials."""
     storage_client = storage.Client()
     bucket = storage_client.bucket("mlopsprojectdatabucketgrp6")
     blob = bucket.blob("models/best_random_forest_model/model.pkl")
     model_bytes = blob.download_as_bytes()
     return pickle.loads(model_bytes)
+
+def log_to_bigquery(endpoint, input_data, prediction, response_time, status):
+    """Log metrics to BigQuery."""
+    client = bigquery.Client()
+    table_id = "dvc-lab-439300.model_metrics_dataset.metrics_log"
+
+    rows_to_insert = [
+        {
+            "timestamp": datetime.now(timezone.utc).isoformat(),  # ISO 8601 format
+            "endpoint": endpoint,
+            "input_data": str(input_data),
+            "prediction": str(prediction),
+            "response_time": response_time,
+            "status": status,
+        }
+    ]
+    errors = client.insert_rows_json(table_id, rows_to_insert)  # API request
+    if errors:
+        print(f"Failed to log to BigQuery: {errors}")
 
 @app.route("/", methods=["GET"])
 def index():
@@ -73,13 +95,17 @@ def index():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    """Handle HTTP POST requests for predictions"""
+    """Handle HTTP POST requests for predictions."""
     try:
+        start_time = datetime.now()
         input_data = request.json
         processed_data = preprocess_input(input_data, preprocessors)
         prediction = model.predict(processed_data)
+        response_time = (datetime.now() - start_time).total_seconds()
+        log_to_bigquery("/predict", input_data, prediction[0], response_time, "success")
         return jsonify({"prediction": int(prediction[0])})
     except Exception as e:
+        log_to_bigquery("/predict", input_data, None, 0, f"error: {str(e)}")
         error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
         print(error_message)  # Log the error on the server side
         return jsonify({"error": error_message}), 500
