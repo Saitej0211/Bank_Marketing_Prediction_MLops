@@ -452,6 +452,191 @@ Our bias detection process is thoroughly documented:
 - Detailed logging is implemented throughout the process, capturing information about each step.
 - The `run_bias_analysis` function provides a comprehensive analysis of bias across specified sensitive features.
 
+# Model Deployment
+
+### **Step 1: Create a VM Instance and Set Up Environment**
+
+1. **Create a VM instance:**
+    - Go to the Google Cloud Console: [https://console.cloud.google.com/](https://console.cloud.google.com/).
+    - Navigate to Compute Engine > VM instances.
+    - Click "Create Instance".
+    - Configure the instance:
+        - **Name:** `bank-marketing-prediction-mlops-vm-instance`
+        - **Region:** `us-central1`
+        - **Zone:** `us-central1-a` (or any other compatible zone in the `us-central1` region)
+        - **Machine type:** `e2-micro` (1 vCPU, 1 GB memory)
+        - **Boot disk:** Debian GNU/Linux 10 (buster)
+        - **Boot disk size:** 10 GB
+    - Click "Create".
+
+2. **Set up the environment:**
+    - SSH into the VM instance.
+    - Execute the environment setup script `gcpdeploy/setup.sh` to install necessary packages and set up the virtual environment:
+    
+    ```sh
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt-get install -y python3 python3-pip python3.11-venv git
+    sudo mkdir -p /home/bank-marketing-prediction-mlops
+    sudo chmod -R 777 /home/bank-marketing-prediction-mlops
+    cd /home/bank-marketing-prediction-mlops
+    git clone https://github.com/Saitej0211/Bank_Marketing_Prediction_MLops.git
+    cd Bank_Marketing_Prediction_MLops/gcpdeploy
+    python3 -m venv env
+    . env/bin/activate
+    pip install -r requirements.txt
+    echo "Setup completed successfully"
+    ```
+### **Step 2: Create and Use a VM Snapshot**
+
+1. **Create a snapshot of the VM instance:**
+    - Stop the VM instance.
+    - Go to Compute Engine > Snapshots.
+    - Click "Create Snapshot".
+    - Configure the snapshot:
+        - **Name:** `bank-marketing-prediction-mlops-vm-snapshot`
+        - **Source disk:** `bank-marketing-prediction-mlops-vm-instance` boot disk
+    - Click "Create".
+
+### **Step 3: Create a Custom VM Image**
+
+1. **Create a custom image from the VM instance:**
+    - Deactivate the virtual environment:
+    
+    ```sh
+    deactivate
+    ```
+    - Stop the VM instance.
+    - Go to Compute Engine > Images.
+    - Click "Create Image".
+    - Configure the image:
+        - **Name:** `bank-marketing-prediction-image`
+        - **Source:** `Disk` > `bank-marketing-prediction-mlops-vm-instance` boot disk
+    - Click "Create"
+
+### **Step 4: Configure Networking and Security**
+
+1. **Set up VPC and subnets:**
+    - Navigate to VPC Network > VPC Networks.
+    - Click "Create VPC Network".
+    - Configure the VPC:
+        - **Name:** `bank-marketing-prediction-vpc`
+        - **Subnets:** Custom
+        - Click "Add subnet" to add a new subnet:
+            - **Name:** `bank-marketing-prediction-vpc-subnet`
+            - **Region:** `us-central1`
+            - **IP address range:** `10.0.0.0/24`
+            - **Purpose:** Private
+        - Click "Done".
+    - Click "Create".
+
+2. **Set up firewall rules:**
+    - Navigate to VPC Network > Firewall Rules.
+    - Click "Create Firewall Rule".
+    - Configure the rule:
+        - **Name:** `bank-marketing-prediction-vpc-allow-custom`
+        - **Network:** `bank-marketing-prediction-vpc`
+        - **Direction of traffic:** Ingress
+        - **Action on match:** Allow
+        - **Targets:** All instances in the network
+        - **Source IP ranges:** `0.0.0.0/0`
+        - **Protocols and ports:**
+            - Specified protocols and ports:
+                - `tcp:22` (SSH)
+                - `tcp:80` (HTTP)
+                - `tcp:8000` (for FastAPI)
+    - Click "Create".
+
+### **Step 5: Create an Instance Template and Managed Instance Group (MIG)**
+
+1. **Create a startup script:**
+   Create a shell script that activates the virtual environment and runs the FastAPI server. Save this script as `startup-script.sh`:
+
+    ```sh
+    #!/bin/bash
+    # Navigate to the project directory and gcpdeploy folder
+    cd /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdeploy
+    # Activate the virtual environment
+    . env/bin/activate
+    # Run the application in the background using nohup
+    nohup python3 app.py & 
+    ```
+2. **Create an instance template:**
+    - Navigate to Compute Engine > Instance Templates.
+    - Click "Create Instance Template".
+    - Configure the template:
+        - **Name:** `bank-marketing-prediction-template`
+        - **Machine type:** `e2-micro` (1 vCPU, 1 GB memory)
+        - **Boot disk:** Custom image `bank-marketing-prediction-image`
+        - **Management, security, disks, networking, sole tenancy:**
+            - Click "Networking"
+            - In the "Networking" tab, select the VPC network `bank-marketing-prediction-vpc` and subnet `bank-marketing-prediction-vpc-subnet` you created earlier
+            - Ensure to remove the pre-existing default vpc 
+
+    - In the "Management, security, disks, networking, sole tenancy" section, find the "Automation" tab.
+    - In the "Startup script" section, paste the contents of `startup-script.sh`.
+    - Click "Create".
+
+3. **Create a managed instance group (MIG):**
+    - Go to Compute Engine > Instance Groups.
+    - Click "Create Instance Group".
+    - Configure the group:
+        - **Name:** `bank-marketing-mig`
+        - **Location:** Single zone
+        - **Zone:** `us-central1-c` (or the same zone used for the custom VM image)
+        - **Instance template:** `bank-marketing-prediction-template`
+        - **Autoscaling policy:**
+            - Target CPU utilization: 60%
+            - Minimum number of instances: 1
+            - Maximum number of instances: 3
+    - Click "Create".
+
+### **Step 6: Configure Load Balancer**
+1. **Set up a load balancer:**
+    - Navigate to **Network Services** > **Load balancing**.
+    - Click "Create Load Balancer".
+    - Select `HTTP(S) Load Balancing`.
+    - Click `Start configuration`.
+    - Choose `Global`.
+
+2. **Configure the backend service:**
+    - Select `Backend services & backend buckets`.
+    - Click `Create a backend service`.
+    - Configure the backend service:
+        - **Name:** `bank-marketing-backend-service`
+        - **Backend type:** `Instance group`
+        - **Instance group:** `bank-marketing-mig`
+        - **Port numbers:** `8000`
+    - Configure the health check:
+        - **Protocol:** `HTTP`
+        - **Port:** `8000`
+        - **Request path:** `/health` (should respond with status: ok)
+    - Click `Create`.
+
+3. **Configure the frontend:**
+    - Click `Frontends`.
+    - Click `Create a frontend IP and port`.
+    - Configure the frontend:
+        - **Name:** `bank-marketing-frontend`
+        - **Protocol:** `HTTP`
+        - **IP version:** `IPv4`
+        - **Port:** `80`
+    - Click `Done`.
+  
+4. **Finalize and create the load balancer:**
+    - Review the configuration.
+    - Click `Create`.
+
+### **Step 7: Auto-scaling and Load Testing**
+
+1. **Verify the setup:**
+
+2. **Test the load balancer:**
+
+3. **Load Testing with Locust:**
+
+4. **Monitor Auto-scaling:**
+
 # CI/CD for Model Pipeline
 
 This project utilizes GitHub Actions to implement Continuous Integration and Continuous Deployment (CI/CD) for the model pipeline. This automation ensures that any changes made to the main branch trigger the model pipeline, facilitating seamless updates and deployments.
