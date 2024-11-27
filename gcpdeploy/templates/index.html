@@ -7,8 +7,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-image: url('https://defisolutions.com/wp-content/uploads/selected-1-1.png');
             background-size: cover;
+            background-position: center;
             background-attachment: fixed;
             margin: 0;
             padding: 0;
@@ -16,6 +17,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            background-repeat: no-repeat;
         }
         .container {
             background-color: rgba(255, 255, 255, 0.9);
@@ -30,9 +32,17 @@
             text-align: center;
             margin-bottom: 30px;
         }
+        h3 {
+            color: #34495e;
+            margin-bottom: 10px;
+        }
         form {
             display: grid;
-            gap: 15px;
+            gap: 20px;
+        }
+        label {
+            font-size: 14px;
+            color: #34495e;
         }
         input, select {
             width: 100%;
@@ -40,6 +50,26 @@
             border: 1px solid #bdc3c7;
             border-radius: 5px;
             font-size: 16px;
+            box-sizing: border-box;
+        }
+        select {
+            color: #7f8c8d;
+        }
+        select:focus {
+            outline-color: #3498db;
+            color: black;
+        }
+        select:valid {
+            color: black;
+        }
+        select option:disabled {
+            color: #7f8c8d;
+        }
+        select option {
+            color: #7f8c8d;
+        }
+        input:focus, select:focus {
+            outline-color: #3498db;
         }
         button {
             background-color: #3498db;
@@ -69,122 +99,184 @@
             background-color: #e74c3c;
             color: white;
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            h3 {
+                font-size: 16px;
+            }
+            input, select, button {
+                font-size: 14px;
+            }
+            button {
+                padding: 10px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+            h3 {
+                font-size: 14px;
+            }
+            input, select, button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Bank Term Deposit Subscription Prediction Tool</h1>
         <form id="predictionForm">
-            <input type="number" name="age" placeholder="Age" required>
-            <select name="job" required>
-                <option value="">Select Job</option>
-                <option value="admin.">Admin</option>
-                <option value="blue-collar">Blue-collar</option>
-                <option value="entrepreneur">Entrepreneur</option>
-                <option value="housemaid">Housemaid</option>
-                <option value="management">Management</option>
-                <option value="retired">Retired</option>
-                <option value="self-employed">Self-employed</option>
-                <option value="services">Services</option>
-                <option value="student">Student</option>
-                <option value="technician">Technician</option>
-                <option value="unemployed">Unemployed</option>
-                <option value="unknown">Unknown</option>
-            </select>
-            <select name="marital" required>
-                <option value="">Select Marital Status</option>
-                <option value="divorced">Divorced</option>
-                <option value="married">Married</option>
-                <option value="single">Single</option>
-            </select>
-            <select name="education" required>
-                <option value="">Select Education</option>
-                <option value="primary">Primary</option>
-                <option value="secondary">Secondary</option>
-                <option value="tertiary">Tertiary</option>
-                <option value="unknown">Unknown</option>
-            </select>
-            <select name="default" required>
-                <option value="">Has credit in default?</option>
-                <option value="no">No</option>
-                <option value="yes">Yes</option>
-            </select>
-            <input type="number" name="balance" placeholder="Balance" required>
-            <select name="housing" required>
-                <option value="">Has housing loan?</option>
-                <option value="no">No</option>
-                <option value="yes">Yes</option>
-            </select>
-            <select name="loan" required>
-                <option value="">Has personal loan?</option>
-                <option value="no">No</option>
-                <option value="yes">Yes</option>
-            </select>
-            <select name="contact" required>
-                <option value="">Contact communication type</option>
-                <option value="cellular">Cellular</option>
-                <option value="telephone">Telephone</option>
-                <option value="unknown">Unknown</option>
-            </select>
-            <input type="number" name="day" placeholder="Day of month" required min="1" max="31">
-            <select name="month" required>
-                <option value="">Select Month</option>
-                <option value="jan">January</option>
-                <option value="feb">February</option>
-                <option value="mar">March</option>
-                <option value="apr">April</option>
-                <option value="may">May</option>
-                <option value="jun">June</option>
-                <option value="jul">July</option>
-                <option value="aug">August</option>
-                <option value="sep">September</option>
-                <option value="oct">October</option>
-                <option value="nov">November</option>
-                <option value="dec">December</option>
-            </select>
-            <input type="number" name="duration" placeholder="Last contact duration (seconds)" required>
-            <input type="number" name="campaign" placeholder="Number of contacts performed" required>
-            <input type="number" name="pdays" placeholder="Days since last contact (-1 if never contacted)" required>
-            <input type="number" name="previous" placeholder="Number of contacts before this campaign" required>
-            <button type="submit">Predict</button>
+            <div>
+                <h3>Customer's Age</h3>
+                <input type="number" name="age" placeholder="Enter the customer's age (e.g., 45)" required min="18" max="100">
+            </div>
+
+            <div>
+                <h3>Customer's Job</h3>
+                <select name="job" required>
+                    <option value="" disabled selected>Select Job</option>
+                    <option value="admin.">Admin</option>
+                    <option value="blue-collar">Blue-collar</option>
+                    <option value="entrepreneur">Entrepreneur</option>
+                    <option value="housemaid">Housemaid</option>
+                    <option value="management">Management</option>
+                    <option value="retired">Retired</option>
+                    <option value="self-employed">Self-employed</option>
+                    <option value="services">Services</option>
+                    <option value="student">Student</option>
+                    <option value="technician">Technician</option>
+                    <option value="unemployed">Unemployed</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+
+            <div>
+                <h3>Marital Status</h3>
+                <select name="marital" required>
+                    <option value="" disabled selected>Select Marital Status</option>
+                    <option value="divorced">Divorced</option>
+                    <option value="married">Married</option>
+                    <option value="single">Single</option>
+                </select>
+            </div>
+
+            <div>
+                <h3>Education Level</h3>
+                <select name="education" required>
+                    <option value="" disabled selected>Select Education</option>
+                    <option value="primary">Primary School</option>
+                    <option value="secondary">Secondary School</option>
+                    <option value="tertiary">Tertiary/College</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+
+            <div>
+                <h3>Does the Customer Have Credit in Default?</h3>
+                <select name="default" required>
+                    <option value="" disabled selected>Has credit in default?</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <div>
+                <h3>Customer's Bank Balance</h3>
+                <input type="number" name="balance" placeholder="Enter the customer's balance (e.g., 1500)" required min="0">
+            </div>
+
+            <div>
+                <h3>Does the Customer Have a Housing Loan?</h3>
+                <select name="housing" required>
+                    <option value="" disabled selected>Has housing loan?</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <div>
+                <h3>Does the Customer Have a Personal Loan?</h3>
+                <select name="loan" required>
+                    <option value="" disabled selected>Has personal loan?</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </div>
+
+            <div>
+                <h3>Preferred Contact Communication Type</h3>
+                <select name="contact" required>
+                    <option value="" disabled selected>Preferred Contact Method</option>
+                    <option value="cellular">Cellular</option>
+                    <option value="telephone">Telephone</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+
+            <div>
+                <h3>Last Contact Day of the Month</h3>
+                <input type="number" name="day" placeholder="Enter the last contact day (e.g., 15)" required min="1" max="31">
+            </div>
+
+            <div>
+                <h3>Month of Last Contact</h3>
+                <select name="month" required>
+                    <option value="" disabled selected>Select Month</option>
+                    <option value="jan">January</option>
+                    <option value="feb">February</option>
+                    <option value="mar">March</option>
+                    <option value="apr">April</option>
+                    <option value="may">May</option>
+                    <option value="jun">June</option>
+                    <option value="jul">July</option>
+                    <option value="aug">August</option>
+                    <option value="sep">September</option>
+                    <option value="oct">October</option>
+                    <option value="nov">November</option>
+                    <option value="dec">December</option>
+                </select>
+            </div>
+
+            <div>
+                <button type="submit">Predict Subscription</button>
+            </div>
         </form>
-        <div id="result"></div>
+
+        <div id="result" class="hidden"></div>
     </div>
 
     <script>
-        document.getElementById('predictionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-
-            fetch('/predict', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then(response => response.json())
-            .then(data => {
-                const resultDiv = document.getElementById('result');
-                if (data.error) {
-                    resultDiv.textContent = `Error: ${data.error}`;
-                    resultDiv.className = '';
-                } else {
-                    if (data.prediction === 1) {
-                        resultDiv.textContent = "The user is likely to subscribe to the term deposit program";
-                        resultDiv.className = 'positive';
-                    } else {
-                        resultDiv.textContent = "The user is not likely to subscribe to the term deposit program";
-                        resultDiv.className = 'negative';
-                    }
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                document.getElementById('result').textContent = 'Error fetching prediction.';
-                document.getElementById('result').className = '';
-            });
+        document.getElementById("predictionForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Example prediction result based on form input (You would replace this with actual model prediction logic)
+            let result = "The customer is likely to subscribe to the bank term deposit.";
+            
+            let resultElement = document.getElementById("result");
+            resultElement.textContent = result;
+            resultElement.classList.remove("hidden");
+            resultElement.classList.add("positive");
         });
     </script>
 </body>
