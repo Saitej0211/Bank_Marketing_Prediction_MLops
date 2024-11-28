@@ -259,6 +259,26 @@
             </div>
 
             <div>
+                <h3>Last Contact Duration (in seconds)</h3>
+                <input type="number" name="duration" placeholder="Enter last contact duration (e.g., 120)" required min="0">
+            </div>
+
+            <div>
+                <h3>Number of Contacts Performed</h3>
+                <input type="number" name="campaign" placeholder="Enter number of contacts (e.g., 3)" required min="1">
+            </div>
+
+            <div>
+                <h3>Days Since Last Contact</h3>
+                <input type="number" name="pdays" placeholder="Enter days since last contact (-1 if never contacted)" required>
+            </div>
+
+            <div>
+                <h3>Previous Contacts Before Campaign</h3>
+                <input type="number" name="previous" placeholder="Enter number of previous contacts (e.g., 2)" required min="0">
+            </div>
+
+            <div>
                 <button type="submit">Predict Subscription</button>
             </div>
         </form>
