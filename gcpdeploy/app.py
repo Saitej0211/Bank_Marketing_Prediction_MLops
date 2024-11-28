@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
 from google.cloud import storage, bigquery
+from google.oauth2 import service_account
 import os
 import warnings
 import traceback
@@ -23,19 +24,27 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # Define global constants
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
-BIGQUERY_TABLE_ID = "dvc-lab-439300.model_metrics_dataset.metrics_log"  # Replace with your project info
-BUCKET_NAME = "mlopsprojectdatabucketgrp6"  # Update with your GCP bucket name
-MODEL_PATH = "models/best_random_forest_model/model.pkl"  # Update with your model path
+BIGQUERY_TABLE_ID = "dvc-lab-439300.model_metrics_dataset.metrics_log"
+BUCKET_NAME = "mlopsprojectdatabucketgrp6"
+MODEL_PATH = "models/best_random_forest_model/model.pkl"
+SERVICE_ACCOUNT_PATH = "/path/to/your/service_account.json"  # Update this path
 
 # Global variables for the model and preprocessors
 model = None
 preprocessors = {}
 
+def get_bigquery_client():
+    """Create and return a BigQuery client with proper authentication."""
+    credentials = service_account.Credentials.from_service_account_file(
+        SERVICE_ACCOUNT_PATH,
+        scopes=['https://www.googleapis.com/auth/bigquery']
+    )
+    return bigquery.Client(credentials=credentials, project='dvc-lab-439300')
 
 def log_to_bigquery(endpoint, input_data, prediction, response_time, status):
     """Log metrics to BigQuery."""
     try:
-        client = bigquery.Client()
+        client = get_bigquery_client()
         rows_to_insert = [
             {
                 "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -53,7 +62,7 @@ def log_to_bigquery(endpoint, input_data, prediction, response_time, status):
             logger.info(f"Logged metrics to BigQuery: {rows_to_insert}")
     except Exception as e:
         logger.error(f"Error logging to BigQuery: {str(e)}")
-
+        logger.error(traceback.format_exc())
 
 def load_preprocessing_objects(data_dir):
     """Load all preprocessing objects from the local directory."""
@@ -80,7 +89,6 @@ def load_preprocessing_objects(data_dir):
         raise
     return preprocessors
 
-
 def preprocess_input(input_data, preprocessors):
     """Preprocess a single row of input data."""
     try:
@@ -104,7 +112,6 @@ def preprocess_input(input_data, preprocessors):
         logger.error(f"Error during preprocessing: {str(e)}")
         raise
 
-
 def load_model_from_gcp():
     """Load the model from a GCP bucket using Application Default Credentials."""
     try:
@@ -118,12 +125,10 @@ def load_model_from_gcp():
         logger.error(f"Error loading model from GCP: {str(e)}")
         raise
 
-
 @app.route("/", methods=["GET"])
 def index():
     """Serve the HTML page."""
     return render_template("index.html")
-
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -156,7 +161,6 @@ def predict():
 
         return jsonify({"error": error_message}), 500
 
-
 @app.route("/health", methods=["GET"])
 def health_check():
     """Health check endpoint to verify the service is running."""
@@ -167,7 +171,6 @@ def health_check():
     except Exception as e:
         logger.error(f"Health check failed: {str(e)}")
         return jsonify({"status": "unhealthy", "details": str(e)}), 500
-
 
 if __name__ == "__main__":
     try:
