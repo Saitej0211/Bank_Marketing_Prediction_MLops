@@ -290,14 +290,42 @@
         document.getElementById("predictionForm").addEventListener("submit", function(event) {
             event.preventDefault();
             
-            // Example prediction result based on form input (You would replace this with actual model prediction logic)
-            let result = "The customer is likely to subscribe to the bank term deposit.";
-            
-            let resultElement = document.getElementById("result");
-            resultElement.textContent = result;
-            resultElement.classList.remove("hidden");
-            resultElement.classList.add("positive");
+            // Collect form data
+            const formData = new FormData(event.target);
+            const jsonData = {};
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+        
+            // Send AJAX request to the server
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                let resultElement = document.getElementById("result");
+                resultElement.classList.remove("hidden", "positive", "negative");
+                
+                if (data.prediction === 1) {
+                    resultElement.textContent = "The customer is likely to subscribe to the bank term deposit.";
+                    resultElement.classList.add("positive");
+                } else {
+                    resultElement.textContent = "The customer is likely not to subscribe to the bank term deposit.";
+                    resultElement.classList.add("negative");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                let resultElement = document.getElementById("result");
+                resultElement.textContent = "An error occurred while processing your request.";
+                resultElement.classList.remove("hidden", "positive", "negative");
+                resultElement.classList.add("negative");
+            });
         });
-    </script>
+        </script>
 </body>
 </html>
