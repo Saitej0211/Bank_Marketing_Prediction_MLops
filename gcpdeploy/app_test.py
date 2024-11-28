@@ -93,8 +93,15 @@ def index():
 def predict():
     """Handle HTTP POST requests for predictions."""
     try:
-        input_data = request.json
-        print(f"Received input data: {input_data}")
+        if request.is_json:
+            input_data = request.json
+        else:
+            input_data = request.form.to_dict()
+        
+        # Convert numeric strings to actual numbers
+        for key, value in input_data.items():
+            if isinstance(value, str) and value.replace('.', '').isdigit():
+                input_data[key] = float(value)
 
         # Start measuring time
         start_time = datetime.now(timezone.utc)
@@ -106,11 +113,12 @@ def predict():
         # Measure response time
         response_time = (datetime.now(timezone.utc) - start_time).total_seconds()
 
-        print(f"Prediction: {prediction[0]}, Response time: {response_time} seconds")
+        # Log metrics to BigQuery
         return jsonify({"prediction": int(prediction[0])})
     except Exception as e:
         error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
-        print(error_message)
+
+
         return jsonify({"error": error_message}), 500
 
 @app.route("/health", methods=["GET"])
