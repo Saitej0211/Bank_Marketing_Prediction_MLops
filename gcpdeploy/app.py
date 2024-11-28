@@ -2,13 +2,12 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
 from google.cloud import storage, bigquery
-from google.oauth2 import service_account
+from datetime import datetime, timezone
 import os
 import warnings
-import traceback
 import logging
 from flask_cors import CORS
-from datetime import datetime, timezone
+import traceback
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -27,19 +26,14 @@ DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
 BIGQUERY_TABLE_ID = "dvc-lab-439300.model_metrics_dataset.metrics_log"
 BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 MODEL_PATH = "models/best_random_forest_model/model.pkl"
-SERVICE_ACCOUNT_PATH = "/path/to/your/service_account.json"  # Update this path
 
 # Global variables for the model and preprocessors
 model = None
 preprocessors = {}
 
 def get_bigquery_client():
-    """Create and return a BigQuery client with proper authentication."""
-    credentials = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_PATH,
-        scopes=['https://www.googleapis.com/auth/bigquery']
-    )
-    return bigquery.Client(credentials=credentials, project='dvc-lab-439300')
+    """Create and return a BigQuery client with proper authentication using ADC."""
+    return bigquery.Client()
 
 def log_to_bigquery(endpoint, input_data, prediction, response_time, status):
     """Log metrics to BigQuery."""
