@@ -40,10 +40,6 @@
             display: grid;
             gap: 20px;
         }
-        label {
-            font-size: 14px;
-            color: #34495e;
-        }
         input, select {
             width: 100%;
             padding: 10px;
@@ -61,12 +57,6 @@
         }
         select:valid {
             color: black;
-        }
-        select option:disabled {
-            color: #7f8c8d;
-        }
-        select option {
-            color: #7f8c8d;
         }
         input:focus, select:focus {
             outline-color: #3498db;
@@ -99,48 +89,6 @@
             background-color: #e74c3c;
             color: white;
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 24px;
-                margin-bottom: 20px;
-            }
-            h3 {
-                font-size: 16px;
-            }
-            input, select, button {
-                font-size: 14px;
-            }
-            button {
-                padding: 10px;
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 15px;
-            }
-            h1 {
-                font-size: 20px;
-                margin-bottom: 15px;
-            }
-            h3 {
-                font-size: 14px;
-            }
-            input, select, button {
-                font-size: 12px;
-                padding: 8px;
-            }
-            button {
-                font-size: 14px;
-                padding: 10px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -149,9 +97,8 @@
         <form id="predictionForm">
             <div>
                 <h3>Customer's Age</h3>
-                <input type="number" name="balance" placeholder="Enter the customer's balance (e.g., 1500)" required>
+                <input type="number" name="age" placeholder="Enter the customer's age" required>
             </div>
-
             <div>
                 <h3>Customer's Job</h3>
                 <select name="job" required>
@@ -170,7 +117,6 @@
                     <option value="unknown">Unknown</option>
                 </select>
             </div>
-
             <div>
                 <h3>Marital Status</h3>
                 <select name="marital" required>
@@ -180,7 +126,6 @@
                     <option value="single">Single</option>
                 </select>
             </div>
-
             <div>
                 <h3>Education Level</h3>
                 <select name="education" required>
@@ -191,7 +136,6 @@
                     <option value="unknown">Unknown</option>
                 </select>
             </div>
-
             <div>
                 <h3>Does the Customer Have Credit in Default?</h3>
                 <select name="default" required>
@@ -200,12 +144,10 @@
                     <option value="yes">Yes</option>
                 </select>
             </div>
-
             <div>
                 <h3>Customer's Bank Balance</h3>
                 <input type="number" name="balance" placeholder="Enter the customer's balance (e.g., 1500)" required min="0">
             </div>
-
             <div>
                 <h3>Does the Customer Have a Housing Loan?</h3>
                 <select name="housing" required>
@@ -214,7 +156,6 @@
                     <option value="yes">Yes</option>
                 </select>
             </div>
-
             <div>
                 <h3>Does the Customer Have a Personal Loan?</h3>
                 <select name="loan" required>
@@ -223,7 +164,6 @@
                     <option value="yes">Yes</option>
                 </select>
             </div>
-
             <div>
                 <h3>Preferred Contact Communication Type</h3>
                 <select name="contact" required>
@@ -233,12 +173,10 @@
                     <option value="unknown">Unknown</option>
                 </select>
             </div>
-
             <div>
                 <h3>Last Contact Day of the Month</h3>
-                <input type="number" name="day" placeholder="Enter the last contact day (e.g., 15)" required min="0" max="31">
+                <input type="number" name="day" placeholder="Enter the last contact day (e.g., 15)" required min="1" max="31">
             </div>
-
             <div>
                 <h3>Month of Last Contact</h3>
                 <select name="month" required>
@@ -257,47 +195,38 @@
                     <option value="dec">December</option>
                 </select>
             </div>
-
             <div>
                 <h3>Last Contact Duration (in seconds)</h3>
                 <input type="number" name="duration" placeholder="Enter last contact duration (e.g., 120)" required min="0">
             </div>
-
             <div>
                 <h3>Number of Contacts Performed</h3>
                 <input type="number" name="campaign" placeholder="Enter number of contacts (e.g., 3)" required min="1">
             </div>
-
             <div>
                 <h3>Days Since Last Contact</h3>
                 <input type="number" name="pdays" placeholder="Enter days since last contact (-1 if never contacted)" required>
             </div>
-
             <div>
                 <h3>Previous Contacts Before Campaign</h3>
                 <input type="number" name="previous" placeholder="Enter number of previous contacts (e.g., 2)" required min="0">
             </div>
-
             <div>
                 <button type="submit">Predict Subscription</button>
             </div>
         </form>
-
         <div id="result" class="hidden"></div>
     </div>
 
     <script>
         document.getElementById("predictionForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            
-            // Collect form data
             const formData = new FormData(event.target);
             const jsonData = {};
             formData.forEach((value, key) => {
-                jsonData[key] = value;
+                jsonData[key] = isNaN(value) ? value : Number(value);
             });
-        
-            // Send AJAX request to the server
+
             fetch('/predict', {
                 method: 'POST',
                 headers: {
@@ -326,6 +255,6 @@
                 resultElement.classList.add("negative");
             });
         });
-        </script>
+    </script>
 </body>
 </html>
