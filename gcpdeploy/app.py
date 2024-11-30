@@ -8,7 +8,6 @@ import warnings
 import logging
 from flask_cors import CORS
 import traceback
-from google.protobuf.timestamp_pb2 import Timestamp
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -74,11 +73,11 @@ def log_to_cloud_monitoring(metric_type, value):
         # Create a point and set the timestamp and value
         point = monitoring_v3.Point()
         now = datetime.now(timezone.utc)
-        timestamp = Timestamp()
-        timestamp.FromDatetime(now)
         
-        # Set the interval and value for the point
-        point.interval.end_time.CopyFrom(timestamp)
+        # Set the interval and value for the point using seconds and nanos directly
+        point.interval = monitoring_v3.TimeInterval(
+            end_time={"seconds": int(now.timestamp())}
+        )
         point.value.double_value = value
 
         # Assign the point to the time series
