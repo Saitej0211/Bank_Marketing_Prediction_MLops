@@ -200,7 +200,16 @@ def predict():
     """Handle HTTP POST requests for predictions."""
     input_data = None  # Initialize the variable to avoid referencing before assignment in error block
     try:
-        input_data = request.json
+        if request.is_json:
+            input_data = request.json
+        else:
+            input_data = request.form.to_dict()
+        
+        # Convert numeric strings to actual numbers
+        for key, value in input_data.items():
+            if isinstance(value, str) and value.replace('.', '').isdigit():
+                input_data[key] = float(value)
+
         logger.info(f"Received input data: {input_data}")
 
         # Preprocess the input data
@@ -225,8 +234,13 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    # Load preprocessing objects and model at startup
-    preprocessors = load_preprocessing_objects("preprocessors")
-    model = load_model_from_gcp()
-    create_metric_descriptors()  # Ensure metrics descriptors are created before starting server
-    app.run(debug=True, host="0.0.0.0", port=8080)
+    try:
+        # Lazy load preprocessors and model
+        preprocessors = load_preprocessing_objects("preprocessors")
+        model = load_model_from_gcp()
+        create_metric_descriptors()  # Ensure metrics descriptors are created before starting server
+        logger.info("Model and preprocessors loaded successfully.")
+        app.run(host="0.0.0.0", port=8000, debug=True)
+    except Exception as e:
+        logger.error(f"Error initializing the application: {e}")
+
