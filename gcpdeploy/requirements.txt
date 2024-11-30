@@ -5,6 +5,7 @@ psutil==5.9.8
 scipy==1.10.1
 google-cloud-storage
 google-cloud-bigquery
+google-cloud-monitoring
 google-auth
 annotated-types==0.7.0
 anyio==4.4.0
