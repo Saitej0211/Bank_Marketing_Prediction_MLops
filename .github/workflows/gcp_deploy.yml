@@ -1,4 +1,4 @@
-name: Bank Marketing MLOps CI/CD
+name: GCP Deployment Workflow
 
 on:
   push:
