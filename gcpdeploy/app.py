@@ -73,14 +73,15 @@ def log_to_cloud_monitoring(metric_type, value):
 
         # Create a point and set the timestamp and value
         point = monitoring_v3.Point()
+        now = datetime.now(timezone.utc)
         timestamp = Timestamp()
-        timestamp.GetCurrentTime()
-
+        timestamp.FromDatetime(now)
+        
         # Set the interval and value for the point
-        point.interval.start_time.CopyFrom(timestamp)
+        point.interval.end_time.CopyFrom(timestamp)
         point.value.double_value = value
 
-        # Append the point to the time series' points list
+        # Assign the point to the time series
         time_series.points = [point]
 
         # Send the time series to Cloud Monitoring
