@@ -27,7 +27,7 @@ DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
 BIGQUERY_TABLE_ID = "dvc-lab-439300.model_metrics_dataset.metrics_log"
 BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 MODEL_PATH = "models/best_random_forest_model/model.pkl"
-PROJECT_ID = "dvc-lab-439300" 
+PROJECT_ID = "dvc-lab-439300"
 
 # Global variables for the model and preprocessors
 model = None
@@ -65,19 +65,6 @@ def log_to_cloud_monitoring(metric_type, value):
     try:
         client = monitoring_v3.MetricServiceClient()
         project_name = f"projects/{PROJECT_ID}"
-
-        # Create a metric descriptor (only needs to be done once, so check first)
-        metric_descriptor = monitoring_v3.MetricDescriptor()
-        metric_descriptor.type = metric_type
-        metric_descriptor.labels.append(monitoring_v3.LabelDescriptor(key="endpoint"))
-
-        # Check if the metric already exists (to avoid re-creating it each time)
-        try:
-            client.get_metric_descriptor(name=f"{project_name}/metricDescriptors/{metric_type}")
-        except Exception as e:
-            # If the metric doesn't exist, create it
-            client.create_metric_descriptor(name=project_name, metric_descriptor=metric_descriptor)
-            logger.info(f"Created custom metric: {metric_type}")
 
         # Create the time series data
         time_series = monitoring_v3.TimeSeries()
