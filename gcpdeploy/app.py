@@ -74,14 +74,14 @@ def log_to_cloud_monitoring(metric_type, value):
         # Create a point and set the timestamp and value
         point = monitoring_v3.Point()
         timestamp = Timestamp()
-        timestamp.GetCurrentTime()  # Correct way to set the current time
+        timestamp.GetCurrentTime()
 
         # Set the interval and value for the point
-        point.interval.start_time.CopyFrom(timestamp)  # Set the timestamp using CopyFrom
-        point.value.double_value = value  # For response_time, it might be a float
+        point.interval.start_time.CopyFrom(timestamp)
+        point.value.double_value = value
 
         # Append the point to the time series' points list
-        time_series.points = [point]  # Correct way to assign a list to points
+        time_series.points = [point]
 
         # Send the time series to Cloud Monitoring
         client.create_time_series(name=project_name, time_series=[time_series])
@@ -112,6 +112,7 @@ def load_preprocessing_objects(data_dir):
     except Exception as e:
         logger.error(f"Error loading preprocessing objects: {str(e)}")
         raise
+
     return preprocessors
 
 def preprocess_input(input_data, preprocessors):
@@ -131,8 +132,11 @@ def preprocess_input(input_data, preprocessors):
             "housing", "loan", "contact", "day", "month", "duration",
             "campaign", "pdays", "previous"
         ]
+        
         final_df = pd.DataFrame(normalized_data, columns=columns)
+        
         return final_df
+
     except Exception as e:
         logger.error(f"Error during preprocessing: {str(e)}")
         raise
@@ -143,9 +147,13 @@ def load_model_from_gcp():
         storage_client = storage.Client()
         bucket = storage_client.bucket(BUCKET_NAME)
         blob = bucket.blob(MODEL_PATH)
+        
         model_bytes = blob.download_as_bytes()
+        
         logger.info("Model successfully loaded from GCP.")
+        
         return pickle.loads(model_bytes)
+
     except Exception as e:
         logger.error(f"Error loading model from GCP: {str(e)}")
         raise
@@ -161,37 +169,39 @@ def predict():
     try:
         input_data = request.json
         logger.info(f"Received input data: {input_data}")
-
+        
         # Start measuring time
         start_time = datetime.now(timezone.utc)
-
+        
         # Preprocess input and make prediction
         processed_data = preprocess_input(input_data, preprocessors)
         prediction = model.predict(processed_data)
-
+        
         # Measure response time
         response_time = (datetime.now(timezone.utc) - start_time).total_seconds()
-
+        
         # Log metrics to BigQuery
         log_to_bigquery("/predict", input_data, prediction[0], response_time, "success")
-
+        
         # Send custom metrics to Cloud Monitoring
         log_to_cloud_monitoring("custom.googleapis.com/response_time", response_time)
         log_to_cloud_monitoring("custom.googleapis.com/prediction_status", 1 if prediction[0] == 1 else 0)
-
+        
         logger.info(f"Prediction: {prediction[0]}, Response time: {response_time} seconds")
+        
         return jsonify({"prediction": int(prediction[0])})
+
     except Exception as e:
         error_message = f"An error occurred: {str(e)}\n{traceback.format_exc()}"
         logger.error(error_message)
-
+        
         # Log error metrics to BigQuery
         log_to_bigquery("/predict", input_data, None, 0, f"error: {str(e)}")
-
+        
         # Send custom metrics to Cloud Monitoring
-        log_to_cloud_monitoring("custom.googleapis.com/response_time", 0)  # Log a 0 for failed requests
+        log_to_cloud_monitoring("custom.googleapis.com/response_time", 0)
         log_to_cloud_monitoring("custom.googleapis.com/prediction_status", 0)
-
+        
         return jsonify({"error": error_message}), 500
 
 @app.route("/health", methods=["GET"])
