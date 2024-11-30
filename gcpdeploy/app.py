@@ -1,13 +1,14 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
-from google.cloud import storage, bigquery
+from google.cloud import storage, bigquery, monitoring_v3
 from datetime import datetime, timezone
 import os
 import warnings
 import logging
 from flask_cors import CORS
 import traceback
+from google.protobuf.timestamp_pb2 import Timestamp
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -23,8 +24,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # Define global constants
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
-PROJECT_ID = "dvc-lab-439300"  # Your Google Cloud Project ID
-BIGQUERY_TABLE_ID = f"{PROJECT_ID}.model_metrics_dataset.metrics_log"
+BIGQUERY_TABLE_ID = "dvc-lab-439300.model_metrics_dataset.metrics_log"
 BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 MODEL_PATH = "models/best_random_forest_model/model.pkl"
 
@@ -58,6 +58,45 @@ def log_to_bigquery(endpoint, input_data, prediction, response_time, status):
     except Exception as e:
         logger.error(f"Error logging to BigQuery: {str(e)}")
         logger.error(traceback.format_exc())
+
+def log_to_cloud_monitoring(metric_type, value):
+    """Send custom metrics to Cloud Monitoring."""
+    try:
+        client = monitoring_v3.MetricServiceClient()
+        project_name = f"projects/{PROJECT_ID}"
+
+        # Create a metric descriptor (only needs to be done once, so check first)
+        metric_descriptor = monitoring_v3.MetricDescriptor()
+        metric_descriptor.type = metric_type
+        metric_descriptor.labels.append(monitoring_v3.LabelDescriptor(key="endpoint"))
+
+        # Check if the metric already exists (to avoid re-creating it each time)
+        try:
+            client.get_metric_descriptor(name=f"{project_name}/metricDescriptors/{metric_type}")
+        except Exception as e:
+            # If the metric doesn't exist, create it
+            client.create_metric_descriptor(name=project_name, metric_descriptor=metric_descriptor)
+            logger.info(f"Created custom metric: {metric_type}")
+
+        # Create the time series data
+        time_series = monitoring_v3.TimeSeries()
+        time_series.metric.type = metric_type
+        time_series.resource.type = "global"
+
+        # Add timestamp and value to the time series
+        point = time_series.points.add()
+        timestamp = Timestamp()
+        timestamp.GetCurrentTime()  # Current timestamp
+
+        # Set the value of the metric point
+        point.interval.start_time = timestamp
+        point.value.double_value = value  # For response_time, it might be a float
+
+        # Send the time series to Cloud Monitoring
+        client.create_time_series(name=project_name, time_series=[time_series])
+        logger.info(f"Metric {metric_type} sent successfully.")
+    except Exception as e:
+        logger.error(f"Error sending {metric_type} to Cloud Monitoring: {e}")
 
 def load_preprocessing_objects(data_dir):
     """Load all preprocessing objects from the local directory."""
@@ -145,6 +184,10 @@ def predict():
         # Log metrics to BigQuery
         log_to_bigquery("/predict", input_data, prediction[0], response_time, "success")
 
+        # Send custom metrics to Cloud Monitoring
+        log_to_cloud_monitoring("custom.googleapis.com/response_time", response_time)
+        log_to_cloud_monitoring("custom.googleapis.com/prediction_status", 1 if prediction[0] == 1 else 0)
+
         logger.info(f"Prediction: {prediction[0]}, Response time: {response_time} seconds")
         return jsonify({"prediction": int(prediction[0])})
     except Exception as e:
@@ -153,6 +196,10 @@ def predict():
 
         # Log error metrics to BigQuery
         log_to_bigquery("/predict", input_data, None, 0, f"error: {str(e)}")
+
+        # Send custom metrics to Cloud Monitoring
+        log_to_cloud_monitoring("custom.googleapis.com/response_time", 0)  # Log a 0 for failed requests
+        log_to_cloud_monitoring("custom.googleapis.com/prediction_status", 0)
 
         return jsonify({"error": error_message}), 500
 
