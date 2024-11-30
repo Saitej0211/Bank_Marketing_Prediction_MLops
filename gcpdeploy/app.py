@@ -71,14 +71,17 @@ def log_to_cloud_monitoring(metric_type, value):
         time_series.metric.type = metric_type
         time_series.resource.type = "global"
 
-        # Add timestamp and value to the time series
-        point = time_series.points.add()
+        # Create a point and set the timestamp and value
+        point = monitoring_v3.Point()
         timestamp = Timestamp()
         timestamp.GetCurrentTime()  # Current timestamp
 
-        # Set the value of the metric point
-        point.interval.start_time = timestamp
+        # Set the interval and value for the point
+        point.interval.start_time.CopyFrom(timestamp)
         point.value.double_value = value  # For response_time, it might be a float
+
+        # Append the point to the time series' points list
+        time_series.points = [point]  # Correct way to assign a list to points
 
         # Send the time series to Cloud Monitoring
         client.create_time_series(name=project_name, time_series=[time_series])
