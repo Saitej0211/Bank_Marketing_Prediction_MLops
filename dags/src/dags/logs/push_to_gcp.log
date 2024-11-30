@@ -199,3 +199,23 @@ Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/mod
 Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
 Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
 Model download and upload process completed successfully.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 3
+Downloading model best_random_forest_model version 3 from MLflow to /tmp/model
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Model download and upload process completed successfully.
+Starting the model download and upload process.
+Latest version of model 'best_random_forest_model' in stage 'Staging' is 3
+Downloading model best_random_forest_model version 3 from MLflow to /tmp/model
+Uploaded /tmp/model/requirements.txt to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/requirements.txt
+Uploaded /tmp/model/model.pkl to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
+Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/registered_model_meta
+Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
+Uploaded /tmp/model/python_env.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/python_env.yaml
+Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+Model download and upload process completed successfully.
