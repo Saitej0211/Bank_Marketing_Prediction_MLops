@@ -8,7 +8,7 @@ import warnings
 import logging
 from flask_cors import CORS
 import traceback
-import time
+from google.protobuf.timestamp_pb2 import Timestamp
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -27,22 +27,11 @@ DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
 BIGQUERY_TABLE_ID = "dvc-lab-439300.model_metrics_dataset.metrics_log"
 BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 MODEL_PATH = "models/best_random_forest_model/model.pkl"
+PROJECT_ID = "your-gcp-project-id"  # Replace with your GCP project ID
 
 # Global variables for the model and preprocessors
 model = None
 preprocessors = {}
-
-# Initialize Google Cloud Monitoring Client
-monitoring_client = monitoring_v3.MetricServiceClient()
-project_id = "your-project-id"  # Replace with your actual project ID
-project_name = f"projects/{project_id}"
-
-# Metric type constants
-METRIC_TYPES = {
-    "response_time": "custom.googleapis.com/response_time",
-    "prediction_status": "custom.googleapis.com/prediction_status",
-    "error_rate": "custom.googleapis.com/error_rate"
-}
 
 def get_bigquery_client():
     """Create and return a BigQuery client with proper authentication using ADC."""
@@ -71,26 +60,36 @@ def log_to_bigquery(endpoint, input_data, prediction, response_time, status):
         logger.error(f"Error logging to BigQuery: {str(e)}")
         logger.error(traceback.format_exc())
 
-def log_to_cloud_monitoring(metric_type, value, labels=None):
-    """Log custom metrics to Google Cloud Monitoring."""
+def log_to_cloud_monitoring(metric_type, value):
+    """Send custom metrics to Cloud Monitoring."""
     try:
-        series = monitoring_v3.TimeSeries()
-        series.metric.type = metric_type
-        series.resource.type = "global"
+        client = monitoring_v3.MetricServiceClient()
+        project_name = f"projects/{PROJECT_ID}"
 
-        if labels:
-            for key, value in labels.items():
-                series.metric.labels[key] = value
+        # Define the custom metric type
+        metric_descriptor = monitoring_v3.MetricDescriptor()
+        metric_descriptor.type = metric_type
+        metric_descriptor.labels.append(monitoring_v3.LabelDescriptor(key="endpoint"))
 
-        point = series.points.add()
-        point.interval.end_time.seconds = int(time.time())
-        point.value.double_value = value
+        # Create the time series data
+        time_series = monitoring_v3.TimeSeries()
+        time_series.metric.type = metric_type
+        time_series.resource.type = "global"
 
-        # Send time series data to Google Cloud Monitoring
-        monitoring_client.create_time_series(name=project_name, time_series=[series])
-        logger.info(f"Sent {metric_type} data point: {value}")
+        # Add timestamp and value to the time series
+        point = time_series.points.add()
+        timestamp = Timestamp()
+        timestamp.GetCurrentTime()  # Current timestamp
+
+        # Set the value of the metric point
+        point.interval.start_time = timestamp
+        point.value.double_value = value  # For response_time, it might be a float
+
+        # Send the time series to Cloud Monitoring
+        client.create_time_series(name=project_name, time_series=[time_series])
+        logger.info(f"Metric {metric_type} sent successfully.")
     except Exception as e:
-        logger.error(f"Error sending {metric_type} to Cloud Monitoring: {str(e)}")
+        logger.error(f"Error sending {metric_type} to Cloud Monitoring: {e}")
 
 def load_preprocessing_objects(data_dir):
     """Load all preprocessing objects from the local directory."""
@@ -178,10 +177,10 @@ def predict():
         # Log metrics to BigQuery
         log_to_bigquery("/predict", input_data, prediction[0], response_time, "success")
 
-        # Log metrics to Cloud Monitoring
-        log_to_cloud_monitoring(METRIC_TYPES["response_time"], response_time)
-        log_to_cloud_monitoring(METRIC_TYPES["prediction_status"], 1 if prediction[0] else 0)
-        
+        # Send metrics to Cloud Monitoring
+        log_to_cloud_monitoring("custom.googleapis.com/response_time", response_time)
+        log_to_cloud_monitoring("custom.googleapis.com/prediction_status", 1 if prediction[0] == 1 else 0)
+
         logger.info(f"Prediction: {prediction[0]}, Response time: {response_time} seconds")
         return jsonify({"prediction": int(prediction[0])})
     except Exception as e:
@@ -191,8 +190,9 @@ def predict():
         # Log error metrics to BigQuery
         log_to_bigquery("/predict", input_data, None, 0, f"error: {str(e)}")
 
-        # Log error metrics to Cloud Monitoring
-        log_to_cloud_monitoring(METRIC_TYPES["error_rate"], 100)  # Log 100% error rate in case of failure
+        # Send error metrics to Cloud Monitoring
+        log_to_cloud_monitoring("custom.googleapis.com/response_time", 0)
+        log_to_cloud_monitoring("custom.googleapis.com/prediction_status", 0)
 
         return jsonify({"error": error_message}), 500
 
