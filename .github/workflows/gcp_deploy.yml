@@ -10,7 +10,7 @@ env:
   VM_INSTANCE: bank-marketing-prediction-mlops-instance
   ZONE: us-central1-a
   GCS_MODEL_PATH: gs://bank-marketing-models/model.pickle 
-  LOCAL_MODEL_PATH: /home/bank-marketing-prediction-mlops/model.pickle  
+  LOCAL_MODEL_PATH: /home/bank-marketing-prediction-mlops/model.pickle  #model name
 
 jobs:
   deploy:
