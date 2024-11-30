@@ -129,7 +129,16 @@ def index():
 def predict():
     """Handle HTTP POST requests for predictions."""
     try:
-        input_data = request.json
+        if request.is_json:
+            input_data = request.json
+        else:
+            input_data = request.form.to_dict()
+        
+        # Convert numeric strings to actual numbers
+        for key, value in input_data.items():
+            if isinstance(value, str) and value.replace('.', '').isdigit():
+                input_data[key] = float(value)
+
         logger.info(f"Received input data: {input_data}")
 
         # Start measuring time
@@ -170,9 +179,11 @@ def health_check():
 if __name__ == "__main__":
     try:
         # Lazy load preprocessors and model
-        preprocessors = load_preprocessing_objects(DATA_DIR)
+        preprocessors = load_preprocessing_objects("preprocessors")
         model = load_model_from_gcp()
+        create_metric_descriptors()  # Ensure metrics descriptors are created before starting server
         logger.info("Model and preprocessors loaded successfully.")
         app.run(host="0.0.0.0", port=8000, debug=True)
     except Exception as e:
         logger.error(f"Error initializing the application: {e}")
+

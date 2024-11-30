@@ -402,14 +402,13 @@ This project implements sensitivity analysis techniques to understand how differ
 1. Feature Importance Analysis
    - Uses permutation importance to evaluate the impact of each feature on model performance
    - Visualizes feature importance using bar plots
+     ![image](https://github.com/user-attachments/assets/e794b551-081c-4e9f-985f-08a3c11d285c)
 
-2. SHAP (SHapley Additive exPlanations) Analysis
-   - Provides detailed interpretation of feature impacts on model predictions
-   - Generates summary plots to visualize SHAP values
-
-3. Hyperparameter Sensitivity Analysis
-   - Analyzes how changes in hyperparameters affect model performance
+2. Hyperparameter Sensitivity Analysis
+   - Evaluates the effect of varying key hyperparameters (e.g., max_depth, min_samples_leaf) on the model's performance.
    - Visualizes the impact of each hyperparameter on model performance
+     ![image](https://github.com/user-attachments/assets/d79852d7-5a37-4f2a-84a7-a4711090ac14)
+
 
 ## Model Bias Detection (Using Slicing Techniques)
 
