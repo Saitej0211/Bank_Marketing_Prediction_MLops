@@ -8,6 +8,7 @@ import warnings
 import logging
 from flask_cors import CORS
 import traceback
+from google.protobuf.timestamp_pb2 import Timestamp
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -73,14 +74,15 @@ def log_to_cloud_monitoring(metric_type, value):
         # Create a point and set the timestamp and value
         point = monitoring_v3.Point()
         now = datetime.now(timezone.utc)
+        timestamp = Timestamp()
+        timestamp.FromDatetime(now)
         
-        # Set the interval and value for the point using seconds and nanos directly
-        point.interval.end_time.seconds = int(now.timestamp())
-        point.interval.end_time.nanos = int(now.microsecond * 1000)
+        # Set the interval and value for the point
+        point.interval.end_time.CopyFrom(timestamp)
         point.value.double_value = value
 
         # Assign the point to the time series
-        time_series.points.append(point)
+        time_series.points = [point]
 
         # Send the time series to Cloud Monitoring
         client.create_time_series(name=project_name, time_series=[time_series])
@@ -198,7 +200,7 @@ def predict():
         log_to_bigquery("/predict", input_data, None, 0, f"error: {str(e)}")
         
         # Send custom metrics to Cloud Monitoring
-        log_to_cloud_monitoring("custom.googleapis.com/response_time", 0)  # Log a 0 for failed requests
+        log_to_cloud_monitoring("custom.googleapis.com/response_time", 0)
         log_to_cloud_monitoring("custom.googleapis.com/prediction_status", 0)
         
         return jsonify({"error": error_message}), 500
