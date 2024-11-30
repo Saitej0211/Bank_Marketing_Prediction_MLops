@@ -23,7 +23,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # Define global constants
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
-PROJECT_ID = "dvc-lab-439300"
+PROJECT_ID = "dvc-lab-439300"  # Your Google Cloud Project ID
 BIGQUERY_TABLE_ID = f"{PROJECT_ID}.model_metrics_dataset.metrics_log"
 BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 MODEL_PATH = "models/best_random_forest_model/model.pkl"
@@ -129,16 +129,7 @@ def index():
 def predict():
     """Handle HTTP POST requests for predictions."""
     try:
-        if request.is_json:
-            input_data = request.json
-        else:
-            input_data = request.form.to_dict()
-        
-        # Convert numeric strings to actual numbers
-        for key, value in input_data.items():
-            if isinstance(value, str) and value.replace('.', '').isdigit():
-                input_data[key] = float(value)
-
+        input_data = request.json
         logger.info(f"Received input data: {input_data}")
 
         # Start measuring time
@@ -179,11 +170,9 @@ def health_check():
 if __name__ == "__main__":
     try:
         # Lazy load preprocessors and model
-        preprocessors = load_preprocessing_objects("preprocessors")
+        preprocessors = load_preprocessing_objects(DATA_DIR)
         model = load_model_from_gcp()
-        create_metric_descriptors()  # Ensure metrics descriptors are created before starting server
         logger.info("Model and preprocessors loaded successfully.")
         app.run(host="0.0.0.0", port=8000, debug=True)
     except Exception as e:
         logger.error(f"Error initializing the application: {e}")
-
