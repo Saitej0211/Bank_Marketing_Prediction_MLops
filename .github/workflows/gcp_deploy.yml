@@ -2,7 +2,8 @@ name: GCP Deployment Workflow
 
 on:
   push:
-    branches: Sheela-deployment  
+    branches:
+      - Sheela-deployment  
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
@@ -16,34 +17,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2  
+      - uses: actions/checkout@v2  
 
-  - name: Set up Cloud SDK
-    uses: google-github-actions/setup-gcloud@v0
-    with:
-      project_id: ${{ env.PROJECT_ID }}
-      service_account_key: ${{ secrets.GCP_SA_KEY }}
-      export_default_credentials: true
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
 
+      - name: Check VM status and start if stopped
+        run: |
+          VM_STATUS=$(gcloud compute instances describe ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --format="value(status)")
+          if [ "$VM_STATUS" = "TERMINATED" ]; then
+            echo "Starting VM instance..."
+            gcloud compute instances start ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }}
+            echo "Waiting for VM to be ready..."
+            sleep 60  # Wait for 60 seconds to ensure the VM is fully started
+          else
+            echo "VM instance is already running."
+          fi
 
-    - name: Check VM status and start if stopped
-      run: |
-        VM_STATUS=$(gcloud compute instances describe ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --format="value(status)")
-        if [ "$VM_STATUS" = "TERMINATED" ]; then
-          echo "Starting VM instance..."
-          gcloud compute instances start ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }}
-          echo "Waiting for VM to be ready..."
-          sleep 60  # Wait for 60 seconds to ensure the VM is fully started
-        else
-          echo "VM instance is already running."
-        fi
-
-    - name: Deploy Model from GCS
-      run: |
-        echo "Connecting to Compute Engine and deploying the model..."
-        gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command="
-        echo 'Pulling model from GCS...';
-        gsutil cp ${GCS_MODEL_PATH} ${LOCAL_MODEL_PATH};
-        echo 'Restarting application service...';
-        sudo systemctl restart bank-marketing-prediction.service;
-        "
+      - name: Deploy Model from GCS
+        run: |
+          echo "Connecting to Compute Engine and deploying the model..."
+          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command="
+          echo 'Pulling model from GCS...';
+          gsutil cp ${GCS_MODEL_PATH} ${LOCAL_MODEL_PATH};
+          echo 'Restarting application service...';
+          sudo systemctl restart bank-marketing-prediction.service;
+          "
