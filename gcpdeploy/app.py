@@ -1,13 +1,14 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
-from google.cloud import storage, bigquery
+from google.cloud import storage, bigquery, monitoring_v3
 from datetime import datetime, timezone
 import os
 import warnings
 import logging
 from flask_cors import CORS
 import traceback
+import time
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -30,6 +31,18 @@ MODEL_PATH = "models/best_random_forest_model/model.pkl"
 # Global variables for the model and preprocessors
 model = None
 preprocessors = {}
+
+# Initialize Google Cloud Monitoring Client
+monitoring_client = monitoring_v3.MetricServiceClient()
+project_id = "your-project-id"  # Replace with your actual project ID
+project_name = f"projects/{project_id}"
+
+# Metric type constants
+METRIC_TYPES = {
+    "response_time": "custom.googleapis.com/response_time",
+    "prediction_status": "custom.googleapis.com/prediction_status",
+    "error_rate": "custom.googleapis.com/error_rate"
+}
 
 def get_bigquery_client():
     """Create and return a BigQuery client with proper authentication using ADC."""
@@ -57,6 +70,27 @@ def log_to_bigquery(endpoint, input_data, prediction, response_time, status):
     except Exception as e:
         logger.error(f"Error logging to BigQuery: {str(e)}")
         logger.error(traceback.format_exc())
+
+def log_to_cloud_monitoring(metric_type, value, labels=None):
+    """Log custom metrics to Google Cloud Monitoring."""
+    try:
+        series = monitoring_v3.TimeSeries()
+        series.metric.type = metric_type
+        series.resource.type = "global"
+
+        if labels:
+            for key, value in labels.items():
+                series.metric.labels[key] = value
+
+        point = series.points.add()
+        point.interval.end_time.seconds = int(time.time())
+        point.value.double_value = value
+
+        # Send time series data to Google Cloud Monitoring
+        monitoring_client.create_time_series(name=project_name, time_series=[series])
+        logger.info(f"Sent {metric_type} data point: {value}")
+    except Exception as e:
+        logger.error(f"Error sending {metric_type} to Cloud Monitoring: {str(e)}")
 
 def load_preprocessing_objects(data_dir):
     """Load all preprocessing objects from the local directory."""
@@ -153,6 +187,10 @@ def predict():
         # Log metrics to BigQuery
         log_to_bigquery("/predict", input_data, prediction[0], response_time, "success")
 
+        # Log metrics to Cloud Monitoring
+        log_to_cloud_monitoring(METRIC_TYPES["response_time"], response_time)
+        log_to_cloud_monitoring(METRIC_TYPES["prediction_status"], 1 if prediction[0] else 0)
+        
         logger.info(f"Prediction: {prediction[0]}, Response time: {response_time} seconds")
         return jsonify({"prediction": int(prediction[0])})
     except Exception as e:
@@ -161,6 +199,9 @@ def predict():
 
         # Log error metrics to BigQuery
         log_to_bigquery("/predict", input_data, None, 0, f"error: {str(e)}")
+
+        # Log error metrics to Cloud Monitoring
+        log_to_cloud_monitoring(METRIC_TYPES["error_rate"], 100)  # Log 100% error rate in case of failure
 
         return jsonify({"error": error_message}), 500
 
