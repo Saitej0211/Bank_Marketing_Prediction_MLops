@@ -39,8 +39,8 @@ jobs:
         run: |
           echo "Preparing target directory on VM..."
           gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="
-            sudo mkdir -p /home/$USER/ &&
-            sudo chmod -R 755 /home/$USER/
+            sudo mkdir -p /home/$USER &&
+            sudo chmod -R 777 /home/$USER
           "
 
       - name: Copy Startup and Setup Scripts to Instance
