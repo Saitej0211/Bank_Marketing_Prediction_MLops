@@ -3,7 +3,7 @@ name: Create VM Image
 on:
   push:
     branches:
-      - Sheela-deployment  # Trigger the workflow on push to the specified branch
+      - Sheela-deployment  # Test 1
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
