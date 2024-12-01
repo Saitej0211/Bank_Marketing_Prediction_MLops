@@ -9,7 +9,7 @@ env:
   PROJECT_ID: iconic-vine-438222-u6
   VM_INSTANCE: bank-marketing-prediction-mlops-instance
   ZONE: us-central1-a
-  GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
+  GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
   LOCAL_MODEL_PATH: /home/bank-marketing-prediction-mlops/MLmodel
 
 jobs:
