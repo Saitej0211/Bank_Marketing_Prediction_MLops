@@ -23,10 +23,10 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # Define global constants
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
-BIGQUERY_TABLE_ID = "dvc-lab-439300.model_metrics_dataset.metrics_log"
+BIGQUERY_TABLE_ID = "iconic-vine-438222-u6.model_metrics_dataset.metrics_log"
 BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 MODEL_PATH = "models/best_random_forest_model/model.pkl"
-PROJECT_ID = "dvc-lab-439300"
+PROJECT_ID = "iconic-vine-438222-u6"
 
 # Global variables for the model and preprocessors
 model = None
@@ -75,12 +75,13 @@ def log_to_cloud_monitoring(metric_type, value):
         now = datetime.now(timezone.utc)
         
         # Set the interval and value for the point using seconds and nanos directly
-        point.interval.end_time.seconds = int(now.timestamp())
-        point.interval.end_time.nanos = int(now.microsecond * 1000)
+        point.interval = monitoring_v3.TimeInterval(
+            end_time={"seconds": int(now.timestamp())}
+        )
         point.value.double_value = value
 
         # Assign the point to the time series
-        time_series.points.append(point)
+        time_series.points = [point]
 
         # Send the time series to Cloud Monitoring
         client.create_time_series(name=project_name, time_series=[time_series])
@@ -198,7 +199,7 @@ def predict():
         log_to_bigquery("/predict", input_data, None, 0, f"error: {str(e)}")
         
         # Send custom metrics to Cloud Monitoring
-        log_to_cloud_monitoring("custom.googleapis.com/response_time", 0)  # Log a 0 for failed requests
+        log_to_cloud_monitoring("custom.googleapis.com/response_time", 0)
         log_to_cloud_monitoring("custom.googleapis.com/prediction_status", 0)
         
         return jsonify({"error": error_message}), 500
