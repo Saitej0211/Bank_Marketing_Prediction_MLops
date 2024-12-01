@@ -1,9 +1,9 @@
-name: Create VM Image
+name: Create VM Image 
 
 on:
   push:
     branches:
-      - Sheela-deployment  # Trigger the workflow on push to the specified branch
+      - Sheela-deployment  # Trigger the workflow on push to the main branch
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
@@ -13,8 +13,8 @@ env:
   INSTANCE_TEMPLATE_NAME: bank-marketing-template
   ZONE: us-central1-a
   SOURCE_INSTANCE: bank-marketing-prediction-mlops-instance
-  STARTUP_SCRIPT_PATH: gcpdeploy/startup-script.sh
-  SETUP_SCRIPT_PATH: gcpdeploy/setup.sh
+  STARTUP_SCRIPT_PATH: startup-script.sh
+  SETUP_SCRIPT_PATH: setup.sh
 
 jobs:
   create-vm-image:
@@ -23,12 +23,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Validate File Paths
-        run: |
-          echo "Validating script paths..."
-          ls -lh ./${{ env.STARTUP_SCRIPT_PATH }}
-          ls -lh ./${{ env.SETUP_SCRIPT_PATH }}
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
@@ -41,29 +35,43 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           install_components: gcloud
 
-      - name: Prepare Target Directory on VM
-        run: |
-          echo "Preparing target directory on VM..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="
-            sudo mkdir -p /home/$USER/ &&
-            sudo chmod -R 755 /home/$USER/
-          "
-
       - name: Copy Startup and Setup Scripts to Instance
         run: |
-          echo "Extracting file names..."
-          SETUP_SCRIPT_FILE=$(basename "${{ env.SETUP_SCRIPT_PATH }}")
-          STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
+          echo "Copying startup and setup scripts to the VM..."
+          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
+          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
 
-          echo "Copying setup.sh..."
-          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$SETUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy setup.sh. Exiting."; exit 1; }
-
-          echo "Copying startup-script.sh..."
-          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$STARTUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy startup-script.sh. Exiting."; exit 1; }
-
-      - name: Validate Script Paths on VM
+      - name: Set Script Permissions on Instance
         run: |
-          SETUP_SCRIPT_FILE=$(basename "${{ env.SETUP_SCRIPT_PATH }}")
-          STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
+          echo "Setting permissions for scripts on the VM..."
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="chmod +x /home/${{ env.SETUP_SCRIPT_PATH }} /home/${{ env.STARTUP_SCRIPT_PATH }}"
 
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="ls -lh /home/$USER/$SETUP_SCRIPT_FILE && ls -lh /home/$USER/$STARTUP_SCRIPT_FILE"
+      - name: Run Setup Script on Instance
+        run: |
+          echo "Running setup script on the source instance..."
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="bash /home/${{ env.SETUP_SCRIPT_PATH }}"
+
+      - name: Stop VM for Image Creation
+        run: |
+          echo "Stopping the source VM to create an image..."
+          gcloud compute instances stop ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }}
+
+      - name: Create VM Image
+        run: |
+          echo "Creating a new VM image..."
+          gcloud compute images create ${{ env.IMAGE_NAME }} \
+            --source-disk=${{ env.SOURCE_INSTANCE }} \
+            --source-disk-zone=${{ env.ZONE }} \
+            --family=${{ env.IMAGE_FAMILY }} \
+            --description="${{ env.IMAGE_DESCRIPTION }}" \
+            --force
+
+      - name: Validate VM Image Creation
+        run: |
+          echo "Validating VM image creation..."
+          gcloud compute images describe ${{ env.IMAGE_NAME }} || { echo "Image creation failed! Exiting..."; exit 1; }
+
+      - name: Start VM after Image Creation
+        run: |
+          echo "Starting the source VM after image creation..."
+          gcloud compute instances start ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }}
