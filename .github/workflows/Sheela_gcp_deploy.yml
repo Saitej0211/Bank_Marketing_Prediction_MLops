@@ -3,7 +3,7 @@ name: Bank Marketing MLOps CI/CD
 on:
   push:
     branches:
-      - Sheela-deployment  #test4
+      - Sheela-deployment  #test5
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
