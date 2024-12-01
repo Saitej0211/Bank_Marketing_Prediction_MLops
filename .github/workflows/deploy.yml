@@ -8,7 +8,7 @@ on:
 env:
   PROJECT_ID: iconic-vine-438222-u6
   VM_INSTANCE: bank-marketing-prediction-mlops-instance #updated
-  ZONE: us-central1-a
+  ZONE: us-central1-a #updated
   GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
   LOCAL_MODEL_PATH: /home/bank-marketing-prediction-mlops/model.pickle  
 
