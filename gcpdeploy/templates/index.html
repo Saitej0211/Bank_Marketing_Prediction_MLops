@@ -97,7 +97,13 @@
         <form id="predictionForm">
             <div>
                 <h3>Customer's Age</h3>
-                <input type="number" name="age" placeholder="Enter the customer's age" required>
+                <input type="number" 
+                       name="age" 
+                       placeholder="Enter the customer's age" 
+                       required 
+                       min="0" 
+                       oninput="validity.valid||(value='')"
+                       max="120">
             </div>
             <div>
                 <h3>Customer's Job</h3>
