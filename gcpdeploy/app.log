@@ -1,0 +1,89 @@
+2024-11-23 18:54:52,204 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 18:54:52,214 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 18:54:52,216 DEBUG urllib3.util.retry MainThread : Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2024-11-23 18:54:52,238 DEBUG google.auth.transport.requests MainThread : Making request: POST https://oauth2.googleapis.com/token
+2024-11-23 18:54:52,241 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-11-23 18:54:52,388 DEBUG urllib3.connectionpool MainThread : https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2024-11-23 18:54:52,390 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): storage.googleapis.com:443
+2024-11-23 18:54:52,593 DEBUG urllib3.connectionpool MainThread : https://storage.googleapis.com:443 "GET /download/storage/v1/b/mlopsprojectdatabucketgrp6/o/models%2Fbest_random_forest_model%2Fmodel.pkl?alt=media HTTP/11" 200 34411427
+2024-11-23 18:54:53,606 WARNING werkzeug MainThread :  * Debugger is active!
+2024-11-23 18:54:53,609 INFO werkzeug MainThread :  * Debugger PIN: 897-481-433
+2024-11-23 18:56:57,676 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 18:56:57,683 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 18:56:57,684 DEBUG urllib3.util.retry MainThread : Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2024-11-23 18:56:57,706 DEBUG google.auth.transport.requests MainThread : Making request: POST https://oauth2.googleapis.com/token
+2024-11-23 18:56:57,708 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-11-23 18:56:57,858 DEBUG urllib3.connectionpool MainThread : https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2024-11-23 18:56:57,860 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): storage.googleapis.com:443
+2024-11-23 18:56:58,059 DEBUG urllib3.connectionpool MainThread : https://storage.googleapis.com:443 "GET /download/storage/v1/b/mlopsprojectdatabucketgrp6/o/models%2Fbest_random_forest_model%2Fmodel.pkl?alt=media HTTP/11" 200 34411427
+2024-11-23 18:57:00,000 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.0.0.158:8000
+2024-11-23 18:57:00,000 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2024-11-23 18:57:00,001 INFO werkzeug MainThread :  * Restarting with stat
+2024-11-23 18:57:01,605 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 18:57:01,612 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 18:57:01,613 DEBUG urllib3.util.retry MainThread : Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2024-11-23 18:57:01,633 DEBUG google.auth.transport.requests MainThread : Making request: POST https://oauth2.googleapis.com/token
+2024-11-23 18:57:01,634 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-11-23 18:57:01,755 DEBUG urllib3.connectionpool MainThread : https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2024-11-23 18:57:01,757 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): storage.googleapis.com:443
+2024-11-23 18:57:01,942 DEBUG urllib3.connectionpool MainThread : https://storage.googleapis.com:443 "GET /download/storage/v1/b/mlopsprojectdatabucketgrp6/o/models%2Fbest_random_forest_model%2Fmodel.pkl?alt=media HTTP/11" 200 34411427
+2024-11-23 18:57:02,917 WARNING werkzeug MainThread :  * Debugger is active!
+2024-11-23 18:57:02,919 INFO werkzeug MainThread :  * Debugger PIN: 897-481-433
+2024-11-23 18:58:41,678 INFO werkzeug Thread-2 (process_request_thread) : 10.0.0.158 - - [23/Nov/2024 18:58:41] "GET /health HTTP/1.1" 200 -
+2024-11-23 18:59:17,663 INFO app Thread-3 (process_request_thread) : Received prediction request: {'age': 57, 'job': 'entrepreneur', 'marital': 'married', 'education': 'secondary', 'default': 'no', 'balance': 2, 'housing': 'no', 'loan': 'no', 'contact': 'unknown', 'day': 0, 'month': 'may', 'duration': 76, 'campaign': 1000, 'pdays': -1, 'previous': 0}
+2024-11-23 18:59:17,674 ERROR app Thread-3 (process_request_thread) : Error during prediction: 'DecisionTreeClassifier' object has no attribute 'monotonic_cst'
+2024-11-23 18:59:17,675 INFO werkzeug Thread-3 (process_request_thread) : 10.0.0.158 - - [23/Nov/2024 18:59:17] "[35m[1mPOST /predict HTTP/1.1[0m" 500 -
+2024-11-23 19:03:50,657 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 19:03:50,664 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 19:03:50,665 DEBUG urllib3.util.retry MainThread : Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2024-11-23 19:03:50,685 DEBUG google.auth.transport.requests MainThread : Making request: POST https://oauth2.googleapis.com/token
+2024-11-23 19:03:50,687 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-11-23 19:03:50,819 DEBUG urllib3.connectionpool MainThread : https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2024-11-23 19:03:50,822 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): storage.googleapis.com:443
+2024-11-23 19:03:51,049 DEBUG urllib3.connectionpool MainThread : https://storage.googleapis.com:443 "GET /download/storage/v1/b/mlopsprojectdatabucketgrp6/o/models%2Fbest_random_forest_model%2Fmodel.pkl?alt=media HTTP/11" 200 34411427
+2024-11-23 19:03:52,731 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.0.0.158:8000
+2024-11-23 19:03:52,732 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2024-11-23 19:03:52,734 INFO werkzeug MainThread :  * Restarting with stat
+2024-11-23 19:03:54,108 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 19:03:54,114 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 19:03:54,115 DEBUG urllib3.util.retry MainThread : Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2024-11-23 19:03:54,137 DEBUG google.auth.transport.requests MainThread : Making request: POST https://oauth2.googleapis.com/token
+2024-11-23 19:03:54,139 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-11-23 19:03:54,262 DEBUG urllib3.connectionpool MainThread : https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2024-11-23 19:03:54,264 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): storage.googleapis.com:443
+2024-11-23 19:03:54,542 DEBUG urllib3.connectionpool MainThread : https://storage.googleapis.com:443 "GET /download/storage/v1/b/mlopsprojectdatabucketgrp6/o/models%2Fbest_random_forest_model%2Fmodel.pkl?alt=media HTTP/11" 200 34411427
+2024-11-23 19:03:55,444 WARNING werkzeug MainThread :  * Debugger is active!
+2024-11-23 19:03:55,445 INFO werkzeug MainThread :  * Debugger PIN: 897-481-433
+2024-11-23 19:07:00,311 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 19:07:00,318 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 19:07:00,319 DEBUG urllib3.util.retry MainThread : Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2024-11-23 19:07:00,339 DEBUG google.auth.transport.requests MainThread : Making request: POST https://oauth2.googleapis.com/token
+2024-11-23 19:07:00,341 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-11-23 19:07:00,469 DEBUG urllib3.connectionpool MainThread : https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2024-11-23 19:07:00,473 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): storage.googleapis.com:443
+2024-11-23 19:07:00,668 DEBUG urllib3.connectionpool MainThread : https://storage.googleapis.com:443 "GET /download/storage/v1/b/mlopsprojectdatabucketgrp6/o/models%2Fbest_random_forest_model%2Fmodel.pkl?alt=media HTTP/11" 200 34411427
+2024-11-23 19:07:02,487 INFO werkzeug MainThread : [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://10.0.0.158:8000
+2024-11-23 19:07:02,487 INFO werkzeug MainThread : [33mPress CTRL+C to quit[0m
+2024-11-23 19:07:02,488 INFO werkzeug MainThread :  * Restarting with stat
+2024-11-23 19:07:04,008 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 19:07:04,017 DEBUG google.auth._default MainThread : Checking C:\Users\hashw\OneDrive\Documents\Master's\MLOPS\Project_Work\Bank_Marketing_Prediction_MLops\config\key.json for explicit credentials as part of auth process...
+2024-11-23 19:07:04,019 DEBUG urllib3.util.retry MainThread : Converted retries value: 3 -> Retry(total=3, connect=None, read=None, redirect=None, status=None)
+2024-11-23 19:07:04,038 DEBUG google.auth.transport.requests MainThread : Making request: POST https://oauth2.googleapis.com/token
+2024-11-23 19:07:04,040 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-11-23 19:07:04,149 DEBUG urllib3.connectionpool MainThread : https://oauth2.googleapis.com:443 "POST /token HTTP/11" 200 None
+2024-11-23 19:07:04,152 DEBUG urllib3.connectionpool MainThread : Starting new HTTPS connection (1): storage.googleapis.com:443
+2024-11-23 19:07:04,331 DEBUG urllib3.connectionpool MainThread : https://storage.googleapis.com:443 "GET /download/storage/v1/b/mlopsprojectdatabucketgrp6/o/models%2Fbest_random_forest_model%2Fmodel.pkl?alt=media HTTP/11" 200 34411427
+2024-11-23 19:07:05,341 WARNING werkzeug MainThread :  * Debugger is active!
+2024-11-23 19:07:05,342 INFO werkzeug MainThread :  * Debugger PIN: 897-481-433
+2024-11-23 19:13:30,952 INFO werkzeug MainThread :  * Detected change in "C:\\Users\\hashw\\OneDrive\\Documents\\Master's\\MLOPS\\Project_Work\\Bank_Marketing_Prediction_MLops\\gcpdeploy\\app.py", reloading
+2024-11-23 19:13:31,154 INFO werkzeug MainThread :  * Restarting with stat
+2024-11-23 19:13:31,395 INFO werkzeug MainThread :  * Detected change in "C:\\Users\\hashw\\OneDrive\\Documents\\Master's\\MLOPS\\Project_Work\\Bank_Marketing_Prediction_MLops\\gcpdeploy\\app.py", reloading
