@@ -64,12 +64,22 @@ jobs:
             exit 1
           fi
 
+      - name: Wait for SSH Key to Propagate
+        run: |
+          echo "Waiting for SSH key to propagate..."
+          for i in {1..10}; do
+            gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="echo SSH key propagation test" && break
+            echo "Retrying in 10 seconds..."
+            sleep 10
+          done || { echo "Failed to connect after multiple attempts. Exiting."; exit 1; }
+
       - name: Copy Startup and Setup Scripts to Instance
         run: |
           echo "Preparing target directory and copying scripts..."
           gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="sudo mkdir -p /home/$USER && sudo chmod -R 777 /home/$USER"
           gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
           gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
+
 
       - name: Set Script Permissions on Instance
         run: |
