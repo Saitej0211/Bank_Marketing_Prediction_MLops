@@ -23,10 +23,10 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # Define global constants
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, "data", "processed")
-BIGQUERY_TABLE_ID = "dvc-lab-439300.model_metrics_dataset.metrics_log"
+BIGQUERY_TABLE_ID = "iconic-vine-438222-u6.model_metrics_dataset.metrics_log"
 BUCKET_NAME = "mlopsprojectdatabucketgrp6"
 MODEL_PATH = "models/best_random_forest_model/model.pkl"
-PROJECT_ID = "dvc-lab-439300"
+PROJECT_ID = "iconic-vine-438222-u6"
 
 # Global variables for the model and preprocessors
 model = None
