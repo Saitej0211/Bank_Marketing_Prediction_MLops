@@ -45,6 +45,9 @@ jobs:
           else
             echo "SSH key already exists."
           fi
+          # Set correct permissions
+          chmod 600 ~/.ssh/google_compute_engine
+          chmod 644 ~/.ssh/google_compute_engine.pub
           ls -lh ~/.ssh
 
       - name: Add SSH Key to VM Metadata
