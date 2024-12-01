@@ -37,38 +37,31 @@ jobs:
             echo "Starting VM instance..."
             gcloud compute instances start ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }}
             echo "Waiting for VM to be ready..."
-            sleep 60  # Wait for 60 seconds to ensure the VM is fully started
+            sleep 60
           else
             echo "VM instance is already running."
           fi
 
-      - name: Deploy Model from GCS and Restart Service
+      - name: Deploy Model and Restart Service
         run: |
-          echo "Ensuring the target directory exists..."
-          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command=" \
-          sudo mkdir -p /home/bank-marketing-prediction-mlops && \
-          sudo chmod 755 /home/bank-marketing-prediction-mlops && \
-          echo 'Directory prepared successfully.'; \
+          echo "Connecting to VM to deploy model and restart service..."
+          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command="
+            set -e  # Exit immediately if any command fails
+            echo 'Ensuring the target directory exists...'
+            sudo mkdir -p /home/bank-marketing-prediction-mlops
+            sudo chmod 755 /home/bank-marketing-prediction-mlops
+
+            echo 'Checking if the GCS model exists...'
+            gsutil ls ${GCS_MODEL_PATH} || { echo 'Model not found in GCS. Exiting.'; exit 1; }
+
+            echo 'Pulling model from GCS...'
+            gsutil cp ${GCS_MODEL_PATH} ${LOCAL_MODEL_PATH} || { echo 'Failed to copy model. Exiting.'; exit 1; }
+
+            echo 'Verifying model copy...'
+            ls -lh ${LOCAL_MODEL_PATH} || { echo 'Model not found in destination. Exiting.'; exit 1; }
+
+            echo 'Restarting application service...'
+            sudo systemctl restart bank-marketing-prediction.service || { echo 'Failed to restart service. Exiting.'; exit 1; }
+
+            echo 'Deployment completed successfully.'
           "
-
-          echo "Checking if the GCS model exists..."
-          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command=" \
-          gsutil ls ${GCS_MODEL_PATH} || { echo 'Model not found in GCS. Exiting.'; exit 1; }; \
-          "
-
-          echo "Pulling model from GCS..."
-          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command=" \
-          gsutil cp ${GCS_MODEL_PATH} ${LOCAL_MODEL_PATH} || { echo 'Failed to copy model. Exiting.'; exit 1; }; \
-          "
-
-          echo "Verifying model copy..."
-          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command=" \
-          ls -lh ${LOCAL_MODEL_PATH} || { echo 'Model not found in destination. Exiting.'; exit 1; }; \
-          "
-
-          echo "Restarting application service..."
-          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command=" \
-          sudo systemctl restart bank-marketing-prediction.service || { echo 'Failed to restart service. Exiting.'; exit 1; }; \
-          "
-
-
