@@ -43,12 +43,19 @@ jobs:
 
       - name: Copy Startup and Setup Scripts to Instance
         run: |
-          echo "Copying setup.sh..."
-          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }} || { echo "Failed to copy setup.sh. Exiting."; exit 1; }
+          echo "Extracting file names..."
+          SETUP_SCRIPT_FILE=$(basename "${{ env.SETUP_SCRIPT_PATH }}")
+          STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
 
-          echo "Copying startup.sh..."
-          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }} || { echo "Failed to copy startup.sh. Exiting."; exit 1; }
+          echo "Copying setup.sh..."
+          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$SETUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy setup.sh. Exiting."; exit 1; }
+
+          echo "Copying startup-script.sh..."
+          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$STARTUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy startup-script.sh. Exiting."; exit 1; }
 
       - name: Validate Script Paths on VM
         run: |
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="ls -lh /home/${{ env.SETUP_SCRIPT_PATH##*/ }} && ls -lh /home/${{ env.STARTUP_SCRIPT_PATH##*/ }}"
+          SETUP_SCRIPT_FILE=$(basename "${{ env.SETUP_SCRIPT_PATH }}")
+          STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
+
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="ls -lh /home/$SETUP_SCRIPT_FILE && ls -lh /home/$STARTUP_SCRIPT_FILE"
