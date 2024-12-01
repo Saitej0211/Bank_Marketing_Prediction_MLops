@@ -1,53 +1,68 @@
-name: Bank Marketing MLOps CI/CD
+name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - Sheela-deployment  
+    branches: test
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
-  VM_INSTANCE: bank-marketing-prediction-mlops-instance #updated
-  ZONE: us-central1-a #updated
-  GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
-  LOCAL_MODEL_PATH: /home/bank-marketing-prediction-mlops/model.pickle  
+  VM_INSTANCE: bank-marketing-prediction-mlops-instance
+  INSTANCE_TEMPLATE: bank-marketing-prediction-mlops-template
+  MIG_NAME: bank-marketing-mig
+  ZONE: us-central1-a
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0
+      with:
+        project_id: ${{ env.PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
 
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ env.PROJECT_ID }}
-          install_components: gcloud
+    - name: Check VM status and start if stopped
+      run: |
+        VM_STATUS=$(gcloud compute instances describe ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --format="value(status)")
+        if [ "$VM_STATUS" = "TERMINATED" ]; then
+          echo "Starting VM instance..."
+          gcloud compute instances start ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }}
+          echo "Waiting for VM to be ready..."
+          sleep 60  # Wait for 60 seconds to ensure VM is fully started
+        fi
 
-      - name: Check VM status and start if stopped
-        run: |
-          VM_STATUS=$(gcloud compute instances describe ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --format="value(status)")
-          if [ "$VM_STATUS" = "TERMINATED" ]; then
-            echo "Starting VM instance..."
-            gcloud compute instances start ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }}
-            echo "Waiting for VM to be ready..."
-            sleep 60  # Wait for 60 seconds to ensure the VM is fully started
-          else
-            echo "VM instance is already running."
-          fi
+    - name: Update VM Instance
+      run: |
+        gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command="
+        cd /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdeploy && 
+        git pull origin main && 
+        . env/bin/activate && 
+        pip install -r requirements.txt && 
+        sudo systemctl restart bank-marketing-prediction.service
+        "
 
-      - name: Deploy Model from GCS
-        run: |
-          echo "Connecting to Compute Engine and deploying the model..."
-          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command=" \
-          echo 'Pulling model from GCS...'; \
-          gsutil cp ${GCS_MODEL_PATH} ${LOCAL_MODEL_PATH}; \
-          echo 'Restarting application service...'; \
-          sudo systemctl restart bank-marketing-prediction.service; \
-          "
+    - name: Create new custom image
+      run: |
+        gcloud compute images create bank-marketing-prediction-image-v${{ github.sha }} \
+          --source-disk=${{ env.VM_INSTANCE }} \
+          --source-disk-zone=${{ env.ZONE }}
+
+    - name: Create new instance template
+      run: |
+        gcloud compute instance-templates create ${{ env.INSTANCE_TEMPLATE }}-v${{ github.sha }} \
+          --machine-type=e2-micro \
+          --image=bank-marketing-prediction-image-v${{ github.sha }} \
+          --network=bank-marketing-prediction-vpc \
+          --subnet=bank-marketing-prediction-vpc-subnet \
+          --metadata-from-file=startup-script=gcpdeploy/startup-script.sh
+
+    - name: Update Managed Instance Group
+      run: |
+        gcloud compute instance-groups managed rolling-action start-update ${{ env.MIG_NAME }} \
+          --version template=${{ env.INSTANCE_TEMPLATE }}-v${{ github.sha }} \
+          --max-surge 3 \
+          --max-unavailable 0
