@@ -3,7 +3,7 @@ name: Create VM Image
 on:
   push:
     branches:
-      - Sheela-deployment  # Step 2
+      - Sheela-deployment  # Try 3
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
