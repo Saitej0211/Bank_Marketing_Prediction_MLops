@@ -12,7 +12,7 @@ env:
   IMAGE_DESCRIPTION: "Image for Bank Marketing MLOps App"
   INSTANCE_TEMPLATE_NAME: bank-marketing-template
   ZONE: us-central1-a
-  SOURCE_INSTANCE: bank-marketing-prediction-mlops-instance
+  SOURCE_INSTANCE: bank-marketing-prediction-mlops-vm-instance
   STARTUP_SCRIPT_PATH: gcpdeploy/startup-script.sh
   SETUP_SCRIPT_PATH: gcpdeploy/setup.sh
 
