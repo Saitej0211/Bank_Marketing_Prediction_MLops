@@ -52,9 +52,15 @@ jobs:
 
       - name: Copy Startup and Setup Scripts to Instance
         run: |
-          echo "Copying setup and startup scripts..."
-          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
-          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
+          echo "Extracting file names..."
+          SETUP_SCRIPT_FILE=$(basename "${{ env.SETUP_SCRIPT_PATH }}")
+          STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
+
+          echo "Copying setup.sh..."
+          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$SETUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy setup.sh. Exiting."; exit 1; }
+
+          echo "Copying startup-script.sh..."
+          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$STARTUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy startup-script.sh. Exiting."; exit 1; }
 
       - name: Copy App File to Instance
         run: |
