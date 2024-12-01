@@ -3,7 +3,7 @@ name: Create VM Image
 on:
   push:
     branches:
-      - Sheela-deployment  # Test 1
+      - Sheela-deployment  # Trigger the workflow on push to the specified branch
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
@@ -24,6 +24,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Validate File Paths
+        run: |
+          echo "Validating script paths..."
+          ls -lh ./${{ env.STARTUP_SCRIPT_PATH }}
+          ls -lh ./${{ env.SETUP_SCRIPT_PATH }}
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
@@ -35,83 +41,29 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           install_components: gcloud
 
-      - name: Generate SSH Key
+      - name: Prepare Target Directory on VM
         run: |
-          echo "Generating SSH key if it doesn't exist..."
-          mkdir -p ~/.ssh
-          if [ ! -f ~/.ssh/google_compute_engine.pub ]; then
-            ssh-keygen -t rsa -b 2048 -f ~/.ssh/google_compute_engine -N "" -q
-            echo "SSH key generated successfully."
-          else
-            echo "SSH key already exists."
-          fi
-          # Set correct permissions
-          chmod 600 ~/.ssh/google_compute_engine
-          chmod 644 ~/.ssh/google_compute_engine.pub
-          ls -lh ~/.ssh
-
-      - name: Add SSH Key to VM Metadata
-        run: |
-          echo "Adding SSH key to VM metadata..."
-          if [ -f ~/.ssh/google_compute_engine.pub ]; then
-            SSH_KEY=$(cat ~/.ssh/google_compute_engine.pub)
-            gcloud compute instances add-metadata ${{ env.SOURCE_INSTANCE }} \
-              --zone=${{ env.ZONE }} \
-              --metadata ssh-keys="runner:${SSH_KEY}"
-            echo "SSH key added to VM metadata."
-          else
-            echo "Error: SSH public key not found!" >&2
-            exit 1
-          fi
-
-      - name: Wait for SSH Key to Propagate
-        run: |
-          echo "Waiting for SSH key to propagate..."
-          for i in {1..10}; do
-            gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="echo SSH key propagation test" && break
-            echo "Retrying in 10 seconds..."
-            sleep 10
-          done || { echo "Failed to connect after multiple attempts. Exiting."; exit 1; }
+          echo "Preparing target directory on VM..."
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="
+            sudo mkdir -p /home/$USER/ &&
+            sudo chmod -R 755 /home/$USER/
+          "
 
       - name: Copy Startup and Setup Scripts to Instance
         run: |
-          echo "Preparing target directory and copying scripts..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="sudo mkdir -p /home/$USER && sudo chmod -R 777 /home/$USER"
-          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
-          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
+          echo "Extracting file names..."
+          SETUP_SCRIPT_FILE=$(basename "${{ env.SETUP_SCRIPT_PATH }}")
+          STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
 
+          echo "Copying setup.sh..."
+          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$SETUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy setup.sh. Exiting."; exit 1; }
 
-      - name: Set Script Permissions on Instance
+          echo "Copying startup-script.sh..."
+          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$STARTUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy startup-script.sh. Exiting."; exit 1; }
+
+      - name: Validate Script Paths on VM
         run: |
-          echo "Setting permissions for scripts on the VM..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="chmod +x /home/$(basename ${{ env.SETUP_SCRIPT_PATH }}) && chmod +x /home/$(basename ${{ env.STARTUP_SCRIPT_PATH }})"
+          SETUP_SCRIPT_FILE=$(basename "${{ env.SETUP_SCRIPT_PATH }}")
+          STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
 
-      - name: Run Setup Script on Instance
-        run: |
-          echo "Running setup script on the source instance..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="bash /home/$(basename ${{ env.SETUP_SCRIPT_PATH }})"
-
-      - name: Stop VM for Image Creation
-        run: |
-          echo "Stopping the source VM to create an image..."
-          gcloud compute instances stop ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }}
-
-      - name: Create VM Image
-        run: |
-          echo "Creating a new VM image..."
-          gcloud compute images create ${{ env.IMAGE_NAME }} \
-            --source-disk=${{ env.SOURCE_INSTANCE }} \
-            --source-disk-zone=${{ env.ZONE }} \
-            --family=${{ env.IMAGE_FAMILY }} \
-            --description="${{ env.IMAGE_DESCRIPTION }}" \
-            --force
-
-      - name: Validate VM Image Creation
-        run: |
-          echo "Validating VM image creation..."
-          gcloud compute images describe ${{ env.IMAGE_NAME }} || { echo "Image creation failed! Exiting..."; exit 1; }
-
-      - name: Start VM after Image Creation
-        run: |
-          echo "Starting the source VM after image creation..."
-          gcloud compute instances start ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }}
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="ls -lh /home/$USER/$SETUP_SCRIPT_FILE && ls -lh /home/$USER/$STARTUP_SCRIPT_FILE"
