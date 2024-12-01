@@ -67,3 +67,24 @@ jobs:
           STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
 
           gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="ls -lh /home/$USER/$SETUP_SCRIPT_FILE && ls -lh /home/$USER/$STARTUP_SCRIPT_FILE"
+
+      - name: Stop VM for Image Creation
+        run: |
+          echo "Stopping the source VM to prepare for image creation..."
+          gcloud compute instances stop ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }}
+
+      - name: Create VM Image
+        run: |
+          echo "Creating a new VM image..."
+          gcloud compute images create ${{ env.IMAGE_NAME }} \
+            --source-disk=${{ env.SOURCE_INSTANCE }} \
+            --source-disk-zone=${{ env.ZONE }} \
+            --family=${{ env.IMAGE_FAMILY }} \
+            --description="${{ env.IMAGE_DESCRIPTION }}" \
+            --force
+
+      - name: Start VM after Image Creation
+        run: |
+          echo "Starting the source VM after image creation..."
+          gcloud compute instances start ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }}
+
