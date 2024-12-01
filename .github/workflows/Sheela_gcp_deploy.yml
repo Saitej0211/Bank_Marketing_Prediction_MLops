@@ -35,31 +35,30 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           install_components: gcloud
 
-      - name: Ensure SSH Key Exists and Propagate
+      - name: Configure SSH Key
         run: |
-          echo "Generating SSH key if not exists..."
+          echo "Setting up SSH keys for secure VM access..."
           mkdir -p ~/.ssh
-          ssh-keygen -t rsa -b 2048 -f ~/.ssh/google_compute_engine -N "" || true
-          echo "Propagating SSH key..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="echo Connected"
+          echo "${{ secrets.GCP_SSH_KEY }}" > ~/.ssh/google_compute_engine
+          echo "${{ secrets.GCP_SSH_PUBLIC_KEY }}" > ~/.ssh/google_compute_engine.pub
+          chmod 600 ~/.ssh/google_compute_engine ~/.ssh/google_compute_engine.pub
+
+          echo "Updating VM instance metadata with SSH key..."
+          gcloud compute instances add-metadata ${{ env.SOURCE_INSTANCE }} \
+            --zone=${{ env.ZONE }} \
+            --metadata-from-file ssh-keys=~/.ssh/google_compute_engine.pub
 
       - name: Copy Startup and Setup Scripts to Instance
         run: |
           echo "Preparing target directory and copying scripts..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="
-            sudo mkdir -p /home/$USER &&
-            sudo chmod -R 777 /home/$USER
-          "
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="sudo mkdir -p /home/$USER && sudo chmod -R 777 /home/$USER"
           gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
           gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
 
       - name: Set Script Permissions on Instance
         run: |
           echo "Setting permissions for scripts on the VM..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="
-            chmod +x /home/$(basename ${{ env.SETUP_SCRIPT_PATH }}) &&
-            chmod +x /home/$(basename ${{ env.STARTUP_SCRIPT_PATH }})
-          "
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="chmod +x /home/$(basename ${{ env.SETUP_SCRIPT_PATH }}) && chmod +x /home/$(basename ${{ env.STARTUP_SCRIPT_PATH }})"
 
       - name: Run Setup Script on Instance
         run: |
