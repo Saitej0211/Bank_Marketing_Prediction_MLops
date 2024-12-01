@@ -3,7 +3,7 @@ name: Create VM Image
 on:
   push:
     branches:
-      - Sheela-deployment  # Trigger the workflow on push to the specified branch
+      - Sheela-deployment  # Trigger on specific branch
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
@@ -35,30 +35,34 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           install_components: gcloud
 
-      - name: Configure SSH Key
+      - name: Generate SSH Key
         run: |
-          echo "Setting up SSH keys for secure VM access..."
+          echo "Generating SSH key..."
           mkdir -p ~/.ssh
-          echo "${{ secrets.GCP_SSH_KEY }}" > ~/.ssh/google_compute_engine
-          echo "${{ secrets.GCP_SSH_PUBLIC_KEY }}" > ~/.ssh/google_compute_engine.pub
-          chmod 600 ~/.ssh/google_compute_engine ~/.ssh/google_compute_engine.pub
+          ssh-keygen -t rsa -b 2048 -f ~/.ssh/google_compute_engine -N ""
+          echo "SSH key generated."
 
-          echo "Updating VM instance metadata with SSH key..."
+      - name: Add SSH Key to VM Metadata
+        run: |
+          echo "Adding SSH key to VM metadata..."
           gcloud compute instances add-metadata ${{ env.SOURCE_INSTANCE }} \
             --zone=${{ env.ZONE }} \
             --metadata-from-file ssh-keys=~/.ssh/google_compute_engine.pub
+          echo "SSH key added to VM metadata."
 
       - name: Copy Startup and Setup Scripts to Instance
         run: |
-          echo "Preparing target directory and copying scripts..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="sudo mkdir -p /home/$USER && sudo chmod -R 777 /home/$USER"
+          echo "Copying setup and startup scripts..."
           gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
           gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
 
       - name: Set Script Permissions on Instance
         run: |
           echo "Setting permissions for scripts on the VM..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="chmod +x /home/$(basename ${{ env.SETUP_SCRIPT_PATH }}) && chmod +x /home/$(basename ${{ env.STARTUP_SCRIPT_PATH }})"
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="
+            chmod +x /home/$(basename ${{ env.SETUP_SCRIPT_PATH }}) &&
+            chmod +x /home/$(basename ${{ env.STARTUP_SCRIPT_PATH }})
+          "
 
       - name: Run Setup Script on Instance
         run: |
