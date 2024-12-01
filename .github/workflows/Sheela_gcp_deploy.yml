@@ -3,7 +3,7 @@ name: Create VM Image
 on:
   push:
     branches:
-      - Sheela-deployment  # Trigger on specific branch
+      - Sheela-deployment  # Trigger the workflow on push to the specified branch
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
@@ -37,22 +37,33 @@ jobs:
 
       - name: Generate SSH Key
         run: |
-          echo "Generating SSH key..."
+          echo "Generating SSH key if it doesn't exist..."
           mkdir -p ~/.ssh
-          ssh-keygen -t rsa -b 2048 -f ~/.ssh/google_compute_engine -N ""
-          echo "SSH key generated."
+          if [ ! -f ~/.ssh/google_compute_engine.pub ]; then
+            ssh-keygen -t rsa -b 2048 -f ~/.ssh/google_compute_engine -N "" -q
+            echo "SSH key generated successfully."
+          else
+            echo "SSH key already exists."
+          fi
+          ls -lh ~/.ssh
 
       - name: Add SSH Key to VM Metadata
         run: |
           echo "Adding SSH key to VM metadata..."
-          gcloud compute instances add-metadata ${{ env.SOURCE_INSTANCE }} \
-            --zone=${{ env.ZONE }} \
-            --metadata-from-file ssh-keys=~/.ssh/google_compute_engine.pub
-          echo "SSH key added to VM metadata."
+          if [ -f ~/.ssh/google_compute_engine.pub ]; then
+            gcloud compute instances add-metadata ${{ env.SOURCE_INSTANCE }} \
+              --zone=${{ env.ZONE }} \
+              --metadata-from-file ssh-keys=~/.ssh/google_compute_engine.pub
+            echo "SSH key added to VM metadata."
+          else
+            echo "Error: SSH public key not found!" >&2
+            exit 1
+          fi
 
       - name: Copy Startup and Setup Scripts to Instance
         run: |
-          echo "Copying setup and startup scripts..."
+          echo "Preparing target directory and copying scripts..."
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="sudo mkdir -p /home/$USER && sudo chmod -R 777 /home/$USER"
           gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
           gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
 
