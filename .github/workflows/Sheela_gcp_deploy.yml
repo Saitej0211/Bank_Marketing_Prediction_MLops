@@ -13,16 +13,22 @@ env:
   INSTANCE_TEMPLATE_NAME: bank-marketing-template
   ZONE: us-central1-a
   SOURCE_INSTANCE: bank-marketing-prediction-mlops-instance
-  SETUP_SCRIPT_PATH: setup.sh
-  STARTUP_SCRIPT_PATH: startup.sh
+  STARTUP_SCRIPT_PATH: gcpdeploy/startup-script.sh
+  SETUP_SCRIPT_PATH: gcpdeploy/setup.sh
 
 jobs:
-  test-script-copy:
+  create-vm-image:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Validate File Paths
+        run: |
+          echo "Validating script paths..."
+          ls -lh ./${{ env.STARTUP_SCRIPT_PATH }}
+          ls -lh ./${{ env.SETUP_SCRIPT_PATH }}
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
@@ -45,5 +51,4 @@ jobs:
 
       - name: Validate Script Paths on VM
         run: |
-          echo "Validating script paths on the VM..."
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="ls -lh /home/${{ env.SETUP_SCRIPT_PATH }} && ls -lh /home/${{ env.STARTUP_SCRIPT_PATH }}"
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="ls -lh /home/${{ env.SETUP_SCRIPT_PATH##*/ }} && ls -lh /home/${{ env.STARTUP_SCRIPT_PATH##*/ }}"
