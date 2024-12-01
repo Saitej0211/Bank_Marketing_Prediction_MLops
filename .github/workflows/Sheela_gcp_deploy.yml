@@ -1,82 +1,67 @@
-name: Bank Marketing MLOps CI/CD
+name: Create VM Image
 
 on:
   push:
     branches:
-      - Sheela-deployment  # Test 1
+      - Sheela-deployment  # Trigger the workflow on push to the main branch
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
-  VM_INSTANCE: bank-marketing-prediction-mlops-instance
+  IMAGE_NAME: bank-marketing-mlops-image
+  IMAGE_FAMILY: bank-marketing-mlops-family
+  IMAGE_DESCRIPTION: "Image for Bank Marketing MLOps App"
+  INSTANCE_TEMPLATE_NAME: bank-marketing-template
   ZONE: us-central1-a
-  GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl
-  LOCAL_MODEL_PATH: /home/bank-marketing-prediction-mlops/MLmodel.pkl
+  SOURCE_INSTANCE: bank-marketing-prediction-mlops-instance
+  STARTUP_SCRIPT_PATH: startup-script.sh
+  SETUP_SCRIPT_PATH: setup.sh
 
 jobs:
-  deploy:
+  create-vm-image:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Set up Cloud SDK
+      - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ env.PROJECT_ID }}
           install_components: gcloud
 
-      - name: Check VM status and start if stopped
+      - name: Copy Startup and Setup Scripts to Instance
         run: |
-          VM_STATUS=$(gcloud compute instances describe ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --format="value(status)")
-          if [ "$VM_STATUS" = "TERMINATED" ]; then
-            echo "Starting VM instance..."
-            gcloud compute instances start ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }}
-            echo "Waiting for VM to be ready..."
-            sleep 60
-          else
-            echo "VM instance is already running."
-          fi
+          echo "Copying startup and setup scripts to the VM..."
+          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
+          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
 
-      - name: Deploy Model and Restart Service
+      - name: Run Setup Script on Instance
         run: |
-          echo "Connecting to VM to deploy model and restart service..."
-          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command="
-            set -e  # Exit immediately if any command fails
+          echo "Running setup script on the source instance..."
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="bash /home/${{ env.SETUP_SCRIPT_PATH }}"
 
-            echo 'Ensuring the target directory exists...'
-            sudo mkdir -p /home/bank-marketing-prediction-mlops
-            sudo chown -R $USER:$USER /home/bank-marketing-prediction-mlops
-            sudo chmod -R 755 /home/bank-marketing-prediction-mlops
-
-            echo 'Checking if the GCS model exists...'
-            export GCS_MODEL_PATH='${{ env.GCS_MODEL_PATH }}'
-            export LOCAL_MODEL_PATH='${{ env.LOCAL_MODEL_PATH }}'
-
-            gsutil ls \$GCS_MODEL_PATH || { echo 'Model not found in GCS. Exiting.'; exit 1; }
-
-            echo 'Pulling model from GCS...'
-            gsutil cp \$GCS_MODEL_PATH \$LOCAL_MODEL_PATH || { echo 'Failed to copy model. Exiting.'; exit 1; }
-
-            echo 'Verifying model copy...'
-            ls -lh \$LOCAL_MODEL_PATH || { echo 'Model not found in destination. Exiting.'; exit 1; }
-
-            echo 'Restarting application service...'
-            sudo systemctl restart bank-marketing-prediction.service || { echo 'Failed to restart service. Exiting.'; exit 1; }
-
-            echo 'Deployment completed successfully.'
-          "
-
-      - name: Debugging Step (Optional)
+      - name: Stop VM for Image Creation
         run: |
-          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command="
-            echo 'Checking permissions of target directory...'
-            ls -ld /home/bank-marketing-prediction-mlops
+          echo "Stopping the source VM to create an image..."
+          gcloud compute instances stop ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }}
 
-            echo 'Listing files in the target directory...'
-            ls -lh /home/bank-marketing-prediction-mlops
-          "
+      - name: Create VM Image
+        run: |
+          echo "Creating a new VM image..."
+          gcloud compute images create ${{ env.IMAGE_NAME }} \
+            --source-disk=${{ env.SOURCE_INSTANCE }} \
+            --source-disk-zone=${{ env.ZONE }} \
+            --family=${{ env.IMAGE_FAMILY }} \
+            --description="${{ env.IMAGE_DESCRIPTION }}" \
+            --force
+
+      - name: Start VM after Image Creation
+        run: |
+          echo "Starting the source VM after image creation..."
+          gcloud compute instances start ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }}
