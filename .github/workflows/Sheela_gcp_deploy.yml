@@ -3,7 +3,7 @@ name: Bank Marketing MLOps CI/CD
 on:
   push:
     branches:
-      - Sheela-deployment  #test5
+      - Sheela-deployment  # Trigger on specific branch push
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
@@ -47,21 +47,36 @@ jobs:
           echo "Connecting to VM to deploy model and restart service..."
           gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command="
             set -e  # Exit immediately if any command fails
+
             echo 'Ensuring the target directory exists...'
             sudo mkdir -p /home/bank-marketing-prediction-mlops
-            sudo chmod 755 /home/bank-marketing-prediction-mlops
+            sudo chown -R $USER:$USER /home/bank-marketing-prediction-mlops
+            sudo chmod -R 755 /home/bank-marketing-prediction-mlops
 
             echo 'Checking if the GCS model exists...'
-            gsutil ls ${GCS_MODEL_PATH} || { echo 'Model not found in GCS. Exiting.'; exit 1; }
+            export GCS_MODEL_PATH='${{ env.GCS_MODEL_PATH }}'
+            export LOCAL_MODEL_PATH='${{ env.LOCAL_MODEL_PATH }}'
+
+            gsutil ls \$GCS_MODEL_PATH || { echo 'Model not found in GCS. Exiting.'; exit 1; }
 
             echo 'Pulling model from GCS...'
-            gsutil cp ${GCS_MODEL_PATH} ${LOCAL_MODEL_PATH} || { echo 'Failed to copy model. Exiting.'; exit 1; }
+            gsutil cp \$GCS_MODEL_PATH \$LOCAL_MODEL_PATH || { echo 'Failed to copy model. Exiting.'; exit 1; }
 
             echo 'Verifying model copy...'
-            ls -lh ${LOCAL_MODEL_PATH} || { echo 'Model not found in destination. Exiting.'; exit 1; }
+            ls -lh \$LOCAL_MODEL_PATH || { echo 'Model not found in destination. Exiting.'; exit 1; }
 
             echo 'Restarting application service...'
             sudo systemctl restart bank-marketing-prediction.service || { echo 'Failed to restart service. Exiting.'; exit 1; }
 
             echo 'Deployment completed successfully.'
+          "
+
+      - name: Debugging Step (Optional)
+        run: |
+          gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command="
+            echo 'Checking permissions of target directory...'
+            ls -ld /home/bank-marketing-prediction-mlops
+
+            echo 'Listing files in the target directory...'
+            ls -lh /home/bank-marketing-prediction-mlops
           "
