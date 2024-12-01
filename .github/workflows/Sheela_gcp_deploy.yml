@@ -15,9 +15,8 @@ env:
   SOURCE_INSTANCE: bank-marketing-prediction-mlops-vm-instance
   STARTUP_SCRIPT_PATH: gcpdeploy/startup-script.sh
   SETUP_SCRIPT_PATH: gcpdeploy/setup.sh
-  APP_FILE_PATH: gcpdeploy/app.py  # Update with the path of app.py in your repo
-  MODEL_BUCKET_NAME: bank-marketing-mlops-models  # Update with your bucket name
-  MODEL_FILE_NAME: model.pkl  # Update with your model file name
+  APP_FILE_PATH: gcpdeploy/app.py  
+  GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl  # Updated model path
 
 jobs:
   create-vm-image:
@@ -50,11 +49,12 @@ jobs:
           echo "Preparing target directory on VM..."
           gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="sudo mkdir -p /home/$USER && sudo chmod -R 755 /home/$USER"
 
-      - name: Copy Startup and Setup Scripts to Instance
+      - name: Copy Scripts and App to Instance
         run: |
           echo "Extracting file names..."
           SETUP_SCRIPT_FILE=$(basename "${{ env.SETUP_SCRIPT_PATH }}")
           STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
+          APP_FILE=$(basename "${{ env.APP_FILE_PATH }}")
 
           echo "Copying setup.sh..."
           gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$SETUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy setup.sh. Exiting."; exit 1; }
@@ -62,16 +62,14 @@ jobs:
           echo "Copying startup-script.sh..."
           gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$STARTUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy startup-script.sh. Exiting."; exit 1; }
 
-      - name: Copy App File to Instance
-        run: |
-          echo "Copying app.py to the VM..."
-          gcloud compute scp ./${{ env.APP_FILE_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/ --zone=${{ env.ZONE }}
+          echo "Copying app.py..."
+          gcloud compute scp ./${{ env.APP_FILE_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$APP_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy app.py. Exiting."; exit 1; }
 
-      - name: Download Model from GCP Bucket
+      - name: Download Model from GCS
         run: |
-          echo "Downloading model file from GCP bucket..."
+          echo "Downloading model file from GCS..."
           gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="
-            gsutil cp gs://${{ env.MODEL_BUCKET_NAME }}/${{ env.MODEL_FILE_NAME }} /home/$USER/${{ env.MODEL_FILE_NAME }} &&
+            gsutil cp ${{ env.GCS_MODEL_PATH }} /home/$USER/$(basename ${{ env.GCS_MODEL_PATH }}) &&
             echo 'Model downloaded successfully!'
           "
 
@@ -82,7 +80,7 @@ jobs:
             ls -lh /home/$USER/$(basename ${{ env.SETUP_SCRIPT_PATH }}) &&
             ls -lh /home/$USER/$(basename ${{ env.STARTUP_SCRIPT_PATH }}) &&
             ls -lh /home/$USER/$(basename ${{ env.APP_FILE_PATH }}) &&
-            ls -lh /home/$USER/${{ env.MODEL_FILE_NAME }}
+            ls -lh /home/$USER/$(basename ${{ env.GCS_MODEL_PATH }})
           "
 
       - name: Stop VM for Image Creation
