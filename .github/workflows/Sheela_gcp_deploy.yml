@@ -41,6 +41,14 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           install_components: gcloud
 
+      - name: Prepare Target Directory on VM
+        run: |
+          echo "Preparing target directory on VM..."
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="
+            sudo mkdir -p /home/$USER/ &&
+            sudo chmod -R 755 /home/$USER/
+          "
+
       - name: Copy Startup and Setup Scripts to Instance
         run: |
           echo "Extracting file names..."
@@ -48,14 +56,14 @@ jobs:
           STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
 
           echo "Copying setup.sh..."
-          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$SETUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy setup.sh. Exiting."; exit 1; }
+          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$SETUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy setup.sh. Exiting."; exit 1; }
 
           echo "Copying startup-script.sh..."
-          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$STARTUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy startup-script.sh. Exiting."; exit 1; }
+          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} ${{ env.SOURCE_INSTANCE }}:/home/$USER/$STARTUP_SCRIPT_FILE --zone=${{ env.ZONE }} || { echo "Failed to copy startup-script.sh. Exiting."; exit 1; }
 
       - name: Validate Script Paths on VM
         run: |
           SETUP_SCRIPT_FILE=$(basename "${{ env.SETUP_SCRIPT_PATH }}")
           STARTUP_SCRIPT_FILE=$(basename "${{ env.STARTUP_SCRIPT_PATH }}")
 
-          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="ls -lh /home/$SETUP_SCRIPT_FILE && ls -lh /home/$STARTUP_SCRIPT_FILE"
+          gcloud compute ssh ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }} --command="ls -lh /home/$USER/$SETUP_SCRIPT_FILE && ls -lh /home/$USER/$STARTUP_SCRIPT_FILE"
