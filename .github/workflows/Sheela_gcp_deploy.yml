@@ -7,10 +7,10 @@ on:
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
-  VM_INSTANCE: bank-marketing-prediction-mlops-instance #updated
-  ZONE: us-central1-a #updated
+  VM_INSTANCE: bank-marketing-prediction-mlops-instance # updated
+  ZONE: us-central1-a # updated
   GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
-  LOCAL_MODEL_PATH: /home/bank-marketing-prediction-mlops/model.pickle  
+  LOCAL_MODEL_PATH: /home/bank-marketing-prediction-mlops/MLmodel # Local path on the VM
 
 jobs:
   deploy:
@@ -41,10 +41,14 @@ jobs:
           else
             echo "VM instance is already running."
           fi
-      - name: Deploy Model from GCS
+
+      - name: Deploy Model from GCS and Restart Service
         run: |
           echo "Connecting to Compute Engine and deploying the model..."
           gcloud compute ssh ${{ env.VM_INSTANCE }} --zone=${{ env.ZONE }} --command=" \
+          echo 'Ensuring directory exists...'; \
+          sudo mkdir -p /home/bank-marketing-prediction-mlops; \
+          sudo chmod 755 /home/bank-marketing-prediction-mlops; \
           echo 'Pulling model from GCS...'; \
           gsutil cp ${GCS_MODEL_PATH} ${LOCAL_MODEL_PATH}; \
           echo 'Restarting application service...'; \
