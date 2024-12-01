@@ -3,11 +3,11 @@ name: Bank Marketing MLOps CI/CD
 on:
   push:
     branches:
-      - Sheela-deployment  # Trigger on pushes to the Sheela-deployment branch
+      - Sheela-deployment  
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
-  VM_INSTANCE: bank-marketing-prediction-mlops-instance  # This is the VM instance name
+  VM_INSTANCE: bank-marketing-prediction-mlops-instance
   ZONE: us-east1
   GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
   LOCAL_MODEL_PATH: /home/bank-marketing-prediction-mlops/model.pickle  
@@ -17,14 +17,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2  
+      - uses: actions/checkout@v2
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1  # Updated to v1
+        uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ env.PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
+          install_components: gcloud
 
       - name: Check VM status and start if stopped
         run: |
