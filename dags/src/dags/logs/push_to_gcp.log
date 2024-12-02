@@ -199,3 +199,6 @@ Uploaded /tmp/model/registered_model_meta to gs://mlopsprojectdatabucketgrp6/mod
 Uploaded /tmp/model/conda.yaml to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/conda.yaml
 Uploaded /tmp/model/MLmodel to gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/MLmodel
 Model download and upload process completed successfully.
+Starting the model download and upload process.
+Failed to download model best_random_forest_model from MLflow: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found
+Failed to download model: RESOURCE_DOES_NOT_EXIST: Registered Model with name=best_random_forest_model not found

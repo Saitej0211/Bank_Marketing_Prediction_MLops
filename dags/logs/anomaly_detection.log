@@ -2360,3 +2360,173 @@ Name: y, dtype: float64
     },
     "issues": {}
 }
+2024-12-02 06:00:39,255 - INFO - Starting data loading process
+2024-12-02 06:00:39,347 - INFO - Loaded pickle data with shape (45211, 17)
+2024-12-02 06:00:39,478 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.pkl
+2024-12-02 06:00:39,852 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.csv
+2024-12-02 06:00:39,862 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.json
+2024-12-02 06:00:39,863 - INFO - Anomaly detection completed.
+2024-12-02 06:00:39,865 - INFO - {
+    "stats": {
+        "num_rows": 45211,
+        "num_columns": 17,
+        "numeric_summary": {
+            "age": {
+                "count": 45211.0,
+                "mean": 40.93621021432837,
+                "std": 10.61876204097542,
+                "min": 18.0,
+                "25%": 33.0,
+                "50%": 39.0,
+                "75%": 48.0,
+                "max": 95.0
+            },
+            "balance": {
+                "count": 45211.0,
+                "mean": 1362.2720576850766,
+                "std": 3044.765829168518,
+                "min": -8019.0,
+                "25%": 72.0,
+                "50%": 448.0,
+                "75%": 1428.0,
+                "max": 102127.0
+            },
+            "day": {
+                "count": 45211.0,
+                "mean": 15.80641879188693,
+                "std": 8.322476153044592,
+                "min": 1.0,
+                "25%": 8.0,
+                "50%": 16.0,
+                "75%": 21.0,
+                "max": 31.0
+            },
+            "duration": {
+                "count": 45211.0,
+                "mean": 258.1630797814691,
+                "std": 257.5278122651719,
+                "min": 0.0,
+                "25%": 103.0,
+                "50%": 180.0,
+                "75%": 319.0,
+                "max": 4918.0
+            },
+            "campaign": {
+                "count": 45211.0,
+                "mean": 2.763840658246887,
+                "std": 3.0980208832791694,
+                "min": 1.0,
+                "25%": 1.0,
+                "50%": 2.0,
+                "75%": 3.0,
+                "max": 63.0
+            },
+            "pdays": {
+                "count": 45211.0,
+                "mean": 40.19782796222158,
+                "std": 100.12874599059835,
+                "min": -1.0,
+                "25%": -1.0,
+                "50%": -1.0,
+                "75%": -1.0,
+                "max": 871.0
+            },
+            "previous": {
+                "count": 45211.0,
+                "mean": 0.5803233726305546,
+                "std": 2.3034410449312213,
+                "min": 0.0,
+                "25%": 0.0,
+                "50%": 0.0,
+                "75%": 0.0,
+                "max": 275.0
+            }
+        }
+    },
+    "issues": {}
+}
+2024-12-02 06:20:06,592 - INFO - Starting data loading process
+2024-12-02 06:20:06,670 - INFO - Loaded pickle data with shape (45211, 17)
+2024-12-02 06:20:06,810 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.pkl
+2024-12-02 06:20:07,173 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.csv
+2024-12-02 06:20:07,181 - INFO - Data successfully saved to /opt/airflow/data/processed/validate_process.json
+2024-12-02 06:20:07,183 - INFO - Anomaly detection completed.
+2024-12-02 06:20:07,184 - INFO - {
+    "stats": {
+        "num_rows": 45211,
+        "num_columns": 17,
+        "numeric_summary": {
+            "age": {
+                "count": 45211.0,
+                "mean": 40.93621021432837,
+                "std": 10.61876204097542,
+                "min": 18.0,
+                "25%": 33.0,
+                "50%": 39.0,
+                "75%": 48.0,
+                "max": 95.0
+            },
+            "balance": {
+                "count": 45211.0,
+                "mean": 1362.2720576850766,
+                "std": 3044.765829168518,
+                "min": -8019.0,
+                "25%": 72.0,
+                "50%": 448.0,
+                "75%": 1428.0,
+                "max": 102127.0
+            },
+            "day": {
+                "count": 45211.0,
+                "mean": 15.80641879188693,
+                "std": 8.322476153044592,
+                "min": 1.0,
+                "25%": 8.0,
+                "50%": 16.0,
+                "75%": 21.0,
+                "max": 31.0
+            },
+            "duration": {
+                "count": 45211.0,
+                "mean": 258.1630797814691,
+                "std": 257.5278122651719,
+                "min": 0.0,
+                "25%": 103.0,
+                "50%": 180.0,
+                "75%": 319.0,
+                "max": 4918.0
+            },
+            "campaign": {
+                "count": 45211.0,
+                "mean": 2.763840658246887,
+                "std": 3.0980208832791694,
+                "min": 1.0,
+                "25%": 1.0,
+                "50%": 2.0,
+                "75%": 3.0,
+                "max": 63.0
+            },
+            "pdays": {
+                "count": 45211.0,
+                "mean": 40.19782796222158,
+                "std": 100.12874599059835,
+                "min": -1.0,
+                "25%": -1.0,
+                "50%": -1.0,
+                "75%": -1.0,
+                "max": 871.0
+            },
+            "previous": {
+                "count": 45211.0,
+                "mean": 0.5803233726305546,
+                "std": 2.3034410449312213,
+                "min": 0.0,
+                "25%": 0.0,
+                "50%": 0.0,
+                "75%": 0.0,
+                "max": 275.0
+            }
+        }
+    },
+    "issues": {}
+}

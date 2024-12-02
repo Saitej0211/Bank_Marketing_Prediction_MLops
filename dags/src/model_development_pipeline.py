@@ -104,23 +104,21 @@ def run_bias_analysis_task(**kwargs):
     ti = kwargs['ti']
     model_path = ti.xcom_pull(task_ids='compare_best_models', key='best_model_path')
     if not model_path:
-        logging.error("Model path not found in XCom. Cannot proceed with bias analysis.")
-        return
+        raise ValueError("Model path not found in XCom. Cannot proceed with bias analysis.")
+    
     TEST_PATH = "/opt/airflow/data/processed/test_data.csv"
     sensitive_features = ['age', 'marital']
     sample_size = 1000
-    try:
-        bias_results = run_bias_analysis(model_path, TEST_PATH, sensitive_features, sample_size)
-        if bias_results:
-            for feature, results in bias_results.items():
-                for result in results:
-                    logging.info(f"Feature: {feature}, Slice: {result['slice']}, Accuracy: {result['accuracy']:.4f}")
-            ti.xcom_push(key='bias_results', value=bias_results)
-        else:
-            logging.warning("No bias results found.")
-    except Exception as e:
-        logging.error(f"Error during bias analysis: {str(e)}")
-        raise
+    
+    initial_bias_results, mitigated_bias_results = run_bias_analysis(model_path, TEST_PATH, sensitive_features, sample_size)
+    
+    for results in [initial_bias_results, mitigated_bias_results]:
+        for feature, feature_results in results.items():
+            for result in feature_results:
+                logging.info(f"Feature: {feature}, Slice: {result['slice']}, Accuracy: {result['accuracy']:.4f}")
+    
+    ti.xcom_push(key='initial_bias_results', value=initial_bias_results)
+    ti.xcom_push(key='mitigated_bias_results', value=mitigated_bias_results)
 
 bias_analysis_task = PythonOperator(
     task_id='run_bias_analysis',

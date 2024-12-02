@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+from sklearn.preprocessing import StandardScaler
+from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
@@ -22,7 +24,6 @@ OUTPUT_DIR = os.path.join(PROJECT_DIR, "bias_analysis_output")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def load_data(path, sample_size=None):
-    """Load data from CSV file with optional sampling"""
     logger.info(f"Loading data from {path}")
     data = pd.read_csv(path)
     if sample_size and len(data) > sample_size:
@@ -33,41 +34,27 @@ def load_data(path, sample_size=None):
     return X, y
 
 def slice_data(X, feature, n_bins=5):
-    """Slice data based on a specific feature"""
     logger.info(f"Slicing data for feature: {feature}")
     if feature == 'age':
-        bins = [-np.inf, 0.2, 0.4, 0.6, 0.8, np.inf]
+        bins = [0, 0.2, 0.4, 0.6, 0.8, 1]
         labels = ['18-30', '31-45', '46-60', '61-75', '75+']
         return pd.cut(X[feature], bins=bins, labels=labels)
     elif feature == 'marital':
-        bins = [-np.inf, 0.33, 0.66, np.inf]
+        bins = [0, 0.33, 0.66, 1]
         labels = ['single', 'married', 'divorced']
         return pd.cut(X[feature], bins=bins, labels=labels)
     elif X[feature].dtype == 'object':
-        return X[feature].unique()
+        return X[feature]
     else:
         return pd.qcut(X[feature], q=n_bins, duplicates='drop')
 
 def evaluate_slice(model, X, y, feature, slice_value):
-    """Evaluate model performance on a specific slice"""
     if feature == 'age':
-        if slice_value == '18-30':
-            mask = X[feature] <= 0.2
-        elif slice_value == '31-45':
-            mask = (X[feature] > 0.2) & (X[feature] <= 0.4)
-        elif slice_value == '46-60':
-            mask = (X[feature] > 0.4) & (X[feature] <= 0.6)
-        elif slice_value == '61-75':
-            mask = (X[feature] > 0.6) & (X[feature] <= 0.8)
-        else:  # 75+
-            mask = X[feature] > 0.8
+        bins = [0, 0.2, 0.4, 0.6, 0.8, 1]
+        mask = pd.cut(X[feature], bins=bins, labels=['18-30', '31-45', '46-60', '61-75', '75+']) == slice_value
     elif feature == 'marital':
-        if slice_value == 'single':
-            mask = X[feature] <= 0.33
-        elif slice_value == 'married':
-            mask = (X[feature] > 0.33) & (X[feature] <= 0.66)
-        else:  # divorced
-            mask = X[feature] > 0.66
+        bins = [0, 0.33, 0.66, 1]
+        mask = pd.cut(X[feature], bins=bins, labels=['single', 'married', 'divorced']) == slice_value
     elif isinstance(slice_value, pd.Interval):
         mask = X[feature].between(slice_value.left, slice_value.right, inclusive='both')
     else:
@@ -75,14 +62,7 @@ def evaluate_slice(model, X, y, feature, slice_value):
     
     if mask.sum() == 0:
         logger.warning(f"No samples found for slice {slice_value} of feature {feature}")
-        return {
-            'slice': str(slice_value),
-            'size': 0,
-            'accuracy': None,
-            'precision': None,
-            'recall': None,
-            'f1': None
-        }
+        return {'slice': str(slice_value), 'size': 0, 'accuracy': None, 'precision': None, 'recall': None, 'f1': None}
     
     X_slice = X[mask]
     y_slice = y[mask]
@@ -90,7 +70,7 @@ def evaluate_slice(model, X, y, feature, slice_value):
     accuracy = accuracy_score(y_slice, y_pred)
     precision, recall, f1, _ = precision_recall_fscore_support(y_slice, y_pred, average='weighted')
     
-    result = {
+    return {
         'slice': str(slice_value),
         'size': mask.sum(),
         'accuracy': accuracy,
@@ -98,21 +78,19 @@ def evaluate_slice(model, X, y, feature, slice_value):
         'recall': recall,
         'f1': f1
     }
-    return result
 
 def detect_bias(model, X, y, sensitive_features):
-    """Detect bias across sensitive features"""
     logger.info(f"Detecting bias for features: {sensitive_features}")
     bias_results = {}
     for feature in sensitive_features:
         logger.info(f"Analyzing feature: {feature}")
         slices = slice_data(X, feature)
         feature_results = []
-        for slice_value in slices.categories if hasattr(slices, 'categories') else slices:
+        for slice_value in slices.categories if hasattr(slices, 'categories') else slices.unique():
             result = evaluate_slice(model, X, y, feature, slice_value)
-            if result['size'] > 0:  # Only add results for non-empty slices
+            if result['size'] > 0:
                 feature_results.append(result)
-        if feature_results:  # Only add feature if it has any non-empty slices
+        if feature_results:
             bias_results[feature] = feature_results
             logger.info(f"Bias detection complete for {feature}. Number of valid slices: {len(feature_results)}")
         else:
@@ -120,7 +98,6 @@ def detect_bias(model, X, y, sensitive_features):
     return bias_results
 
 def visualize_bias(bias_results, metric='accuracy', output_dir=OUTPUT_DIR):
-    """Visualize bias across features and slices"""
     logger.info("Visualizing bias results")
     for feature, results in bias_results.items():
         plt.figure(figsize=(10, 6))
@@ -135,8 +112,21 @@ def visualize_bias(bias_results, metric='accuracy', output_dir=OUTPUT_DIR):
         plt.close()
         logger.info(f"Visualization saved to {output_path}")
 
+def mitigate_bias(X, y, sensitive_features):
+    logger.info("Applying bias mitigation techniques")
+    
+    # Standardize features
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    
+    # Apply SMOTE for oversampling
+    smote = SMOTE(random_state=42)
+    X_resampled, y_resampled = smote.fit_resample(X_scaled, y)
+    
+    logger.info(f"Data shape after mitigation: {X_resampled.shape}")
+    return X_resampled, y_resampled
+
 def run_bias_analysis(model_path, test_path, sensitive_features, sample_size=1000):
-    """Run the entire bias analysis process"""
     logger.info("Starting bias analysis")
     
     # Load the trained model
@@ -155,26 +145,60 @@ def run_bias_analysis(model_path, test_path, sensitive_features, sample_size=100
     # Load data
     X, y = load_data(test_path, sample_size)
 
-    # Detect bias
-    bias_results = detect_bias(model, X, y, sensitive_features)
+    # Detect initial bias
+    initial_bias_results = detect_bias(model, X, y, sensitive_features)
 
-    if not bias_results:
+    if not initial_bias_results:
         logger.warning("No valid bias results found. Skipping visualization.")
         return {}
 
-    # Visualize bias
-    visualize_bias(bias_results)
+    # Visualize initial bias
+    visualize_bias(initial_bias_results)
 
-    logger.info("Bias analysis completed")
-    return bias_results
+    # Mitigate bias
+    X_mitigated, y_mitigated = mitigate_bias(X, y, sensitive_features)
+
+    # Train a new model on mitigated data
+    mitigated_model = RandomForestClassifier(n_estimators=100, random_state=42)
+    mitigated_model.fit(X_mitigated, y_mitigated)
+
+    # Detect bias after mitigation
+    mitigated_bias_results = detect_bias(mitigated_model, X, y, sensitive_features)
+
+    # Visualize mitigated bias
+    visualize_bias(mitigated_bias_results, output_dir=os.path.join(OUTPUT_DIR, "mitigated"))
+
+    logger.info("Bias analysis and mitigation completed")
+    return initial_bias_results, mitigated_bias_results
 
 if __name__ == "__main__":
     logger.info("Starting bias analysis script")
     model_path = os.path.join(MODEL_DIR, "random_forest_latest.pkl")
     test_path = os.path.join(DATA_DIR, "processed", "test_data.csv")
     sensitive_features = ['age', 'marital']
-    sample_size = 1000  # Adjust this value based on your needs
+    sample_size = 1000
 
-    bias_results = run_bias_analysis(model_path, test_path, sensitive_features, sample_size)
+    initial_results, mitigated_results = run_bias_analysis(model_path, test_path, sensitive_features, sample_size)
+    
     logger.info("Bias analysis completed.")
     logger.info(f"Results saved in {OUTPUT_DIR}")
+
+    # Document bias mitigation steps and trade-offs
+    with open(os.path.join(OUTPUT_DIR, "bias_mitigation_report.txt"), "w") as f:
+        f.write("Bias Mitigation Report\n")
+        f.write("======================\n\n")
+        f.write("Steps taken to detect and address bias:\n")
+        f.write("1. Performed data slicing on sensitive features: age and marital status\n")
+        f.write("2. Evaluated model performance across slices using accuracy, precision, recall, and F1-score\n")
+        f.write("3. Visualized bias results for initial model\n")
+        f.write("4. Applied bias mitigation techniques:\n")
+        f.write("   a. Standardized features using StandardScaler\n")
+        f.write("   b. Applied SMOTE for oversampling to balance classes\n")
+        f.write("5. Trained a new model on the mitigated data\n")
+        f.write("6. Re-evaluated and visualized bias results for the mitigated model\n\n")
+        f.write("Trade-offs:\n")
+        f.write("- Oversampling with SMOTE may introduce synthetic data points, potentially affecting model generalization\n")
+        f.write("- Standardization may impact feature interpretability but improves model performance\n")
+        f.write("- The mitigated model may have slightly lower overall performance but should exhibit reduced bias across sensitive features\n")
+
+    logger.info("Bias mitigation report generated")
