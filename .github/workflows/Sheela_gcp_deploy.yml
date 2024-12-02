@@ -135,11 +135,20 @@ jobs:
             --zone=${{ env.ZONE }} \
             --description="Managed Instance Group for Bank Marketing MLOps"
 
+      - name: Enable Auto-Scaling for MIG
+        run: |
+          echo "Configuring auto-scaling for the Managed Instance Group..."
+          gcloud compute instance-groups managed set-autoscaling ${{ env.MIG_NAME }} \
+            --project=${{ env.PROJECT_ID }} \
+            --zone=${{ env.ZONE }} \
+            --max-num-replicas=5 \
+            --min-num-replicas=1 \
+            --target-cpu-utilization=0.60 \
+            --cool-down-period=90
+
       - name: Create New Load Balancer
         run: |
           echo "Creating a new load balancer and attaching the new MIG..."
-          
-          # Create a health check
           gcloud compute health-checks create http ${{ env.NEW_HEALTH_CHECK }} \
             --project=${{ env.PROJECT_ID }} \
             --port=80 \
@@ -147,35 +156,31 @@ jobs:
             --check-interval=10s \
             --timeout=5s \
             --unhealthy-threshold=2 \
-            --healthy-threshold=2 || { echo "Failed to create health check"; exit 1; }
+            --healthy-threshold=2
 
-          # Create a backend service
           gcloud compute backend-services create ${{ env.NEW_BACKEND_SERVICE }} \
             --project=${{ env.PROJECT_ID }} \
             --protocol=HTTP \
             --port-name=http \
             --health-checks=${{ env.NEW_HEALTH_CHECK }} \
-            --global || { echo "Failed to create backend service"; exit 1; }
+            --global
 
           gcloud compute backend-services add-backend ${{ env.NEW_BACKEND_SERVICE }} \
             --project=${{ env.PROJECT_ID }} \
             --instance-group=${{ env.MIG_NAME }} \
             --instance-group-zone=${{ env.ZONE }} \
-            --global || { echo "Failed to attach backend"; exit 1; }
+            --global
 
-          # Create a URL map
           gcloud compute url-maps create ${{ env.NEW_URL_MAP }} \
             --project=${{ env.PROJECT_ID }} \
-            --default-service=${{ env.NEW_BACKEND_SERVICE }} || { echo "Failed to create URL map"; exit 1; }
+            --default-service=${{ env.NEW_BACKEND_SERVICE }}
 
-          # Create an HTTP proxy
           gcloud compute target-http-proxies create ${{ env.NEW_HTTP_PROXY }} \
             --project=${{ env.PROJECT_ID }} \
-            --url-map=${{ env.NEW_URL_MAP }} || { echo "Failed to create HTTP proxy"; exit 1; }
+            --url-map=${{ env.NEW_URL_MAP }}
 
-          # Create a forwarding rule
           gcloud compute forwarding-rules create ${{ env.NEW_FORWARDING_RULE }} \
             --project=${{ env.PROJECT_ID }} \
             --global \
             --target-http-proxy=${{ env.NEW_HTTP_PROXY }} \
-            --ports=80 || { echo "Failed to create forwarding rule"; exit 1; }
+            --ports=80
