@@ -8,7 +8,7 @@ ERROR_LOG="/var/log/bank_marketing_app_error.log"
 mkdir -p /var/log
 
 # Run the setup script
-chmod +x /home/bank-marketing-prediction-mlops/setup.sh
+chmod +x /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdeploy/setup.sh
 /home/bank-marketing-prediction-mlops/setup.sh > $APP_LOG 2>> $ERROR_LOG || {
     echo "Setup script failed. Check error logs: $ERROR_LOG" | tee -a $ERROR_LOG
     exit 1
