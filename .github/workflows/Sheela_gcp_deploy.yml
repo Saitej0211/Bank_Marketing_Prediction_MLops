@@ -143,7 +143,7 @@ jobs:
         run: |
           echo "Setting named ports for the Managed Instance Group..."
           gcloud compute instance-groups managed set-named-ports ${{ env.MIG_NAME }} \
-            --named-ports=http:80 \
+            --named-ports=http:8000 \
             --zone=${{ env.ZONE }} \
             --project=${{ env.PROJECT_ID }} || { echo "Failed to set named ports"; exit 1; }
 
@@ -196,4 +196,4 @@ jobs:
             --project=${{ env.PROJECT_ID }} \
             --global \
             --target-http-proxy=${{ env.NEW_HTTP_PROXY }} \
-            --ports=80
+            --ports=80,22,8000
