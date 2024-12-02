@@ -115,7 +115,6 @@ jobs:
           gcloud compute instance-templates create bank-marketing-template \
             --project=${{ env.PROJECT_ID }} \
             --machine-type=n1-standard-1 \
-            --zone=${{ env.ZONE }} \
             --boot-disk-size=20GB \
             --boot-disk-type=pd-standard \
             --image-family=${{ env.IMAGE_FAMILY }} \
