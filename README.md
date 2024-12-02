@@ -143,6 +143,23 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 │   │
 │   ├── util_bank_marketing.py        # Utility script containing helper functions specific to handling bank marketing │datasets. These functions may include custom transformations, feature engineering, or domain-specific validations.
 │   └── __init__.py                  # Initialization file for the overall `dags` module. This file allows other modules │within `dags` to be imported easily.
+gcpdeploy/
+|   ├── _pycache_/                      ## Python cache files
+|   ├── myenv/                          ## Virtual environment directory
+|   ├── templates/                      ## Template files for the application
+|   ├── app_test.py                     ## Application test script
+|   ├── app.log                         ## Application log file
+|   ├── app.py                          ## Main application file
+|   ├── check.py                        ## Validation and health check script
+|   ├── credentials.txt                 ## GCP authentication credentials
+|   ├── Dockerfile                      ## Container configuration for VM updates
+|   ├── load_test.py                    ## Performance testing script
+|   ├── requirements.txt                ## Python package dependencies
+|   ├── sampleCheck.py                  ## Sample validation script
+|   ├── samplecheck1.ipynb              ## Jupyter notebook for testing
+|   ├── setup.sh                        ## VM environment setup script
+|   ├── startup-script.sh               ## VM instance startup configuration
+|   └── test.sh                         ## Test execution script
 ├── plugins                         ## Plugins used in the project (if any)
 ├── src                             ## Source code for the project
 │   ├── models                      ## Machine learning models and related scripts 
