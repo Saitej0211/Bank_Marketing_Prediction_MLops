@@ -3,11 +3,11 @@ name: Create VM Image
 on:
   push:
     branches:
-      - Sheela-deployment  # Try 4
+      - Sheela-deployment  # Try 5
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
-  IMAGE_NAME: bank-marketing-mlops-image-test1
+  IMAGE_NAME: bank-marketing-mlops-image
   IMAGE_FAMILY: bank-marketing-mlops-family
   IMAGE_DESCRIPTION: "Image for Bank Marketing MLOps App"
   INSTANCE_TEMPLATE_NAME: bank-marketing-template
@@ -114,7 +114,7 @@ jobs:
             --boot-disk-device-name=bank-marketing-boot-disk \
             --image-family=${{ env.IMAGE_FAMILY }} \
             --image-project=${{ env.PROJECT_ID }} \
-            --metadata=startup-script-url=gs://<bucket-name>/<startup-script-path> \
+            --metadata=startup-script-url=gs://mlopsprojectdatabucketgrp6/gcpdeploy/startup-script.sh \
             --tags=http-server,https-server \
             --description="Template for Bank Marketing MLOps"
 
