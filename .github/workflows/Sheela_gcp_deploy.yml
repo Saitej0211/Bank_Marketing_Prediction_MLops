@@ -3,7 +3,7 @@ name: Attach load-balancer
 on:
   push:
     branches:
-      - Sheela-deployment  #change your branch here
+      - Sheela-deployment  #change the branch here
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
