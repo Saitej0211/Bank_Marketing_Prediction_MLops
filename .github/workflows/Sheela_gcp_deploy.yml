@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
-  IMAGE_NAME: bank-marketing-mlops-image
+  IMAGE_NAME: bank-marketing-mlops-image-test1
   IMAGE_FAMILY: bank-marketing-mlops-family
   IMAGE_DESCRIPTION: "Image for Bank Marketing MLOps App"
   INSTANCE_TEMPLATE_NAME: bank-marketing-template
