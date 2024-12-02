@@ -122,7 +122,6 @@ jobs:
             --image-family=${{ env.IMAGE_FAMILY }} \
             --image-project=${{ env.PROJECT_ID }} \
             --subnet=${{ env.SUBNET_NAME }} \
-            --region=us-central1 \  # Specify the correct region
             --metadata=startup-script=/home/$USER/$(basename ${{ env.STARTUP_SCRIPT_PATH }}) \
             --tags=http-server,https-server \
             --description="Template for Bank Marketing MLOps"
