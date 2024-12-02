@@ -121,7 +121,6 @@ jobs:
           --boot-disk-type=pd-standard \
           --image-family=${{ env.IMAGE_FAMILY }} \
           --image-project=${{ env.PROJECT_ID }} \
-          --subnet=${{ env.SUBNET_NAME }} \
           --metadata=startup-script=/home/$USER/$(basename ${{ env.STARTUP_SCRIPT_PATH }}) \
           --tags=http-server,https-server \
           --description="Template for Bank Marketing MLOps"
