@@ -1,30 +1,32 @@
 from locust import HttpUser, TaskSet, task, between
+import random
 
 class UserBehavior(TaskSet):
-    @task
+    @task(3)
     def predict(self):
-        # Sending a POST request to the /predict/ endpoint with a JSON payload
-        self.client.post(
-            "/predict",
-            json={
-                "age": 57,
-                "job": "entrepreneur",
-                "marital": "married",
-                "education": "secondary",
-                "default": "no",
-                "balance": 2,
-                "housing": "no",
-                "loan": "no",
-                "contact": "unknown",
-                "day": 0,
-                "month": "may",
-                "duration": 76,
-                "campaign": 1000,
-                "pdays": -1,
-                "previous": 0,
-            },
-        )
+        payload = {
+            "age": 24,
+            "job": "technician",
+            "marital": "single",
+            "education": "secondary",
+            "default": "no",
+            "balance": 103,
+            "housing": "yes",
+            "loan": "yes",
+            "contact": "unknown",
+            "day": 15,
+            "month": "may",
+            "duration": 145,
+            "campaign": 1,
+            "pdays": -1,
+            "previous": 0
+        }
+        self.client.post("/predict", json=payload)
+
+    # @task(1)
+    # def health_check(self):
+    #     self.client.get("/health")
 
 class WebsiteUser(HttpUser):
-    tasks = [UserBehavior]  # Assign UserBehavior as the task set for the user
-    wait_time = between(1, 2)  # Users will wait between 1 to 2 seconds between tasks
+    tasks = [UserBehavior]
+    wait_time = between(2, 3)
