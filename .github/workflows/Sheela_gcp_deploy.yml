@@ -1,9 +1,9 @@
-name: Create VM Image
+name: Create MIG
 
 on:
   push:
     branches:
-      - Sheela-deployment  # Removed image
+      - Sheela-deployment  
 
 env:
   PROJECT_ID: iconic-vine-438222-u6
@@ -16,7 +16,8 @@ env:
   STARTUP_SCRIPT_PATH: gcpdeploy/startup-script.sh
   SETUP_SCRIPT_PATH: gcpdeploy/setup.sh
   APP_FILE_PATH: gcpdeploy/app.py  
-  GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl  # Updated model path
+  GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl  
+  MIG_NAME: bank-marketing-mig
 
 jobs:
   create-vm-image:
@@ -116,5 +117,16 @@ jobs:
             --metadata=startup-script=/home/$USER/$(basename ${{ env.STARTUP_SCRIPT_PATH }}) \
             --tags=http-server,https-server \
             --description="Template for Bank Marketing MLOps"
+      
 
+      - name: Create Managed Instance Group
+        run: |
+          echo "Creating managed instance group..."
+          gcloud compute instance-groups managed create ${{ env.MIG_NAME }} \
+            --project=${{ env.PROJECT_ID }} \
+            --base-instance-name=bank-marketing-instance \
+            --size=3 \
+            --template=${{ env.INSTANCE_TEMPLATE_NAME }} \
+            --zone=${{ env.ZONE }} \
+            --description="Managed Instance Group for Bank Marketing MLOps"
 
