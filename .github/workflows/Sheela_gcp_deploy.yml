@@ -129,7 +129,9 @@ jobs:
             --template=${{ env.INSTANCE_TEMPLATE_NAME }} \
             --zone=${{ env.ZONE }} \
             --description="Managed Instance Group for Bank Marketing MLOps"
-            - name: Attach MIG to Existing Backend Service
+
+            
+      - name: Attach MIG to Existing Backend Service
         run: |
           echo "Attaching new MIG to the existing backend service..."
           gcloud compute backend-services add-backend bank-marketing-backend-service \
