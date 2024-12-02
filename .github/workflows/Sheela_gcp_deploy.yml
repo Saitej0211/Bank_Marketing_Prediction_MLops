@@ -18,6 +18,11 @@ env:
   APP_FILE_PATH: gcpdeploy/app.py  
   GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl  
   MIG_NAME: bank-marketing-mig
+  NEW_HEALTH_CHECK: my-new-health-check
+  NEW_BACKEND_SERVICE: my-new-backend-service
+  NEW_URL_MAP: my-new-url-map
+  NEW_HTTP_PROXY: my-new-http-proxy
+  NEW_FORWARDING_RULE: my-new-forwarding-rule
 
 jobs:
   create-vm-image:
@@ -130,17 +135,47 @@ jobs:
             --zone=${{ env.ZONE }} \
             --description="Managed Instance Group for Bank Marketing MLOps"
 
-            
-      - name: Attach MIG to Existing Backend Service
+      - name: Create New Load Balancer
         run: |
-          echo "Attaching new MIG to the existing backend service..."
-          gcloud compute backend-services add-backend bank-marketing-backend-service \
+          echo "Creating a new load balancer and attaching the new MIG..."
+          
+          # Create a health check
+          gcloud compute health-checks create http ${{ env.NEW_HEALTH_CHECK }} \
+            --project=${{ env.PROJECT_ID }} \
+            --port=80 \
+            --request-path=/ \
+            --check-interval=10s \
+            --timeout=5s \
+            --unhealthy-threshold=2 \
+            --healthy-threshold=2 || { echo "Failed to create health check"; exit 1; }
+
+          # Create a backend service
+          gcloud compute backend-services create ${{ env.NEW_BACKEND_SERVICE }} \
+            --project=${{ env.PROJECT_ID }} \
+            --protocol=HTTP \
+            --port-name=http \
+            --health-checks=${{ env.NEW_HEALTH_CHECK }} \
+            --global || { echo "Failed to create backend service"; exit 1; }
+
+          gcloud compute backend-services add-backend ${{ env.NEW_BACKEND_SERVICE }} \
             --project=${{ env.PROJECT_ID }} \
             --instance-group=${{ env.MIG_NAME }} \
             --instance-group-zone=${{ env.ZONE }} \
-            --global
+            --global || { echo "Failed to attach backend"; exit 1; }
 
-      - name: Validate Backend Service Configuration
-        run: |
-          echo "Validating backend service configuration..."
-          gcloud compute backend-services describe bank-marketing-backend-service --project=${{ env.PROJECT_ID }} --global
+          # Create a URL map
+          gcloud compute url-maps create ${{ env.NEW_URL_MAP }} \
+            --project=${{ env.PROJECT_ID }} \
+            --default-service=${{ env.NEW_BACKEND_SERVICE }} || { echo "Failed to create URL map"; exit 1; }
+
+          # Create an HTTP proxy
+          gcloud compute target-http-proxies create ${{ env.NEW_HTTP_PROXY }} \
+            --project=${{ env.PROJECT_ID }} \
+            --url-map=${{ env.NEW_URL_MAP }} || { echo "Failed to create HTTP proxy"; exit 1; }
+
+          # Create a forwarding rule
+          gcloud compute forwarding-rules create ${{ env.NEW_FORWARDING_RULE }} \
+            --project=${{ env.PROJECT_ID }} \
+            --global \
+            --target-http-proxy=${{ env.NEW_HTTP_PROXY }} \
+            --ports=80 || { echo "Failed to create forwarding rule"; exit 1; }
