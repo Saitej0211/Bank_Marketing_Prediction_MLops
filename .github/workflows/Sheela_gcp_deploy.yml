@@ -102,3 +102,19 @@ jobs:
         run: |
           echo "Starting the source VM after image creation..."
           gcloud compute instances start ${{ env.SOURCE_INSTANCE }} --zone=${{ env.ZONE }}
+
+      - name: Create Instance Template
+        run: |
+          echo "Creating instance template..."
+          gcloud compute instance-templates create bank-marketing-template \
+            --project=${{ env.PROJECT_ID }} \
+            --machine-type=n1-standard-1 \
+            --boot-disk-size=20GB \
+            --boot-disk-type=pd-standard \
+            --boot-disk-device-name=bank-marketing-boot-disk \
+            --image-family=${{ env.IMAGE_FAMILY }} \
+            --image-project=${{ env.PROJECT_ID }} \
+            --metadata=startup-script-url=gs://<bucket-name>/<startup-script-path> \
+            --tags=http-server,https-server \
+            --description="Template for Bank Marketing MLOps"
+
