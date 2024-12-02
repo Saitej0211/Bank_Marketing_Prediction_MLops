@@ -1,4 +1,4 @@
-name: Create MIG
+name: Attach load-balancer
 
 on:
   push:
@@ -129,4 +129,16 @@ jobs:
             --template=${{ env.INSTANCE_TEMPLATE_NAME }} \
             --zone=${{ env.ZONE }} \
             --description="Managed Instance Group for Bank Marketing MLOps"
+            - name: Attach MIG to Existing Backend Service
+        run: |
+          echo "Attaching new MIG to the existing backend service..."
+          gcloud compute backend-services add-backend bank-marketing-backend-service \
+            --project=${{ env.PROJECT_ID }} \
+            --instance-group=${{ env.MIG_NAME }} \
+            --instance-group-zone=${{ env.ZONE }} \
+            --global
 
+      - name: Validate Backend Service Configuration
+        run: |
+          echo "Validating backend service configuration..."
+          gcloud compute backend-services describe bank-marketing-backend-service --project=${{ env.PROJECT_ID }} --global
