@@ -17,7 +17,7 @@ env:
   SETUP_SCRIPT_PATH: gcpdeploy/setup.sh
   APP_FILE_PATH: gcpdeploy/app.py  
   GCS_MODEL_PATH: gs://mlopsprojectdatabucketgrp6/models/best_random_forest_model/model.pkl  
-  MIG_NAME: bank-marketing-mig
+  MIG_NAME: new-bank-marketing-mig
   NEW_HEALTH_CHECK: my-new-health-check
   NEW_BACKEND_SERVICE: my-new-backend-service
   NEW_URL_MAP: my-new-url-map
@@ -115,6 +115,7 @@ jobs:
           gcloud compute instance-templates create bank-marketing-template \
             --project=${{ env.PROJECT_ID }} \
             --machine-type=n1-standard-1 \
+            --zone=${{ env.ZONE }} \
             --boot-disk-size=20GB \
             --boot-disk-type=pd-standard \
             --image-family=${{ env.IMAGE_FAMILY }} \
