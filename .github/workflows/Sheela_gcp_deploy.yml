@@ -23,6 +23,8 @@ env:
   NEW_URL_MAP: my-new-url-map
   NEW_HTTP_PROXY: my-new-http-proxy
   NEW_FORWARDING_RULE: my-new-forwarding-rule
+  VPC_NETWORK: bank-marketing-prediction-mlops-vpc
+  SUBNET_NAME: bank-marketing-prediction-mlops-vpc-subnet
 
 jobs:
   create-vm-image:
@@ -119,6 +121,8 @@ jobs:
             --boot-disk-type=pd-standard \
             --image-family=${{ env.IMAGE_FAMILY }} \
             --image-project=${{ env.PROJECT_ID }} \
+            --network=${{ env.VPC_NETWORK }} \
+            --subnet=${{ env.SUBNET_NAME }} \
             --metadata=startup-script=/home/$USER/$(basename ${{ env.STARTUP_SCRIPT_PATH }}) \
             --tags=http-server,https-server \
             --description="Template for Bank Marketing MLOps"
@@ -130,10 +134,19 @@ jobs:
           gcloud compute instance-groups managed create ${{ env.MIG_NAME }} \
             --project=${{ env.PROJECT_ID }} \
             --base-instance-name=bank-marketing-instance \
-            --size=3 \
+            --size=1 \
             --template=${{ env.INSTANCE_TEMPLATE_NAME }} \
             --zone=${{ env.ZONE }} \
             --description="Managed Instance Group for Bank Marketing MLOps"
+
+      - name: Set Named Ports for MIG
+        run: |
+          echo "Setting named ports for the Managed Instance Group..."
+          gcloud compute instance-groups managed set-named-ports ${{ env.MIG_NAME }} \
+            --named-ports=http:80 \
+            --zone=${{ env.ZONE }} \
+            --project=${{ env.PROJECT_ID }} || { echo "Failed to set named ports"; exit 1; }
+
 
       - name: Enable Auto-Scaling for MIG
         run: |
