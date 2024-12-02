@@ -196,4 +196,4 @@ jobs:
             --project=${{ env.PROJECT_ID }} \
             --global \
             --target-http-proxy=${{ env.NEW_HTTP_PROXY }} \
-            --ports=80,22,8000
+            --ports=80
