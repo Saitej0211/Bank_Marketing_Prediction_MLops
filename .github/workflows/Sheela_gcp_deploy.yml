@@ -115,17 +115,16 @@ jobs:
         run: |
           echo "Creating instance template..."
           gcloud compute instance-templates create bank-marketing-template \
-            --project=${{ env.PROJECT_ID }} \
-            --machine-type=n1-standard-1 \
-            --boot-disk-size=200GB \  # Adjusted to avoid disk size warning
-            --boot-disk-type=pd-standard \
-            --image-family=${{ env.IMAGE_FAMILY }} \
-            --image-project=${{ env.PROJECT_ID }} \
-            --subnet=${{ env.SUBNET_NAME }} \
-            --metadata=startup-script=/home/$USER/$(basename ${{ env.STARTUP_SCRIPT_PATH }}) \
-            --tags=http-server,https-server \
-            --description="Template for Bank Marketing MLOps"
-      
+          --project=${{ env.PROJECT_ID }} \
+          --machine-type=n1-standard-1 \
+          --boot-disk-size=200GB \
+          --boot-disk-type=pd-standard \
+          --image-family=${{ env.IMAGE_FAMILY }} \
+          --image-project=${{ env.PROJECT_ID }} \
+          --subnet=${{ env.SUBNET_NAME }} \
+          --metadata=startup-script=/home/$USER/$(basename ${{ env.STARTUP_SCRIPT_PATH }}) \
+          --tags=http-server,https-server \
+          --description="Template for Bank Marketing MLOps"
 
       - name: Create Managed Instance Group
         run: |
