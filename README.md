@@ -143,6 +143,23 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 │   │
 │   ├── util_bank_marketing.py        # Utility script containing helper functions specific to handling bank marketing │datasets. These functions may include custom transformations, feature engineering, or domain-specific validations.
 │   └── __init__.py                  # Initialization file for the overall `dags` module. This file allows other modules │within `dags` to be imported easily.
+├──gcpdeploy
+|   ├── _pycache_/                      ## Python cache files
+|   ├── myenv/                          ## Virtual environment directory
+|   ├── templates/                      ## Template files for the application
+|   ├── app_test.py                     ## Application test script
+|   ├── app.log                         ## Application log file
+|   ├── app.py                          ## Main application file
+|   ├── check.py                        ## Validation and health check script
+|   ├── credentials.txt                 ## GCP authentication credentials
+|   ├── Dockerfile                      ## Container configuration for VM updates
+|   ├── load_test.py                    ## Performance testing script
+|   ├── requirements.txt                ## Python package dependencies
+|   ├── sampleCheck.py                  ## Sample validation script
+|   ├── samplecheck1.ipynb              ## Jupyter notebook for testing
+|   ├── setup.sh                        ## VM environment setup script
+|   ├── startup-script.sh               ## VM instance startup configuration
+|   └── test.sh                         ## Test execution script
 ├── plugins                         ## Plugins used in the project (if any)
 ├── src                             ## Source code for the project
 │   ├── models                      ## Machine learning models and related scripts 
@@ -627,14 +644,29 @@ Our bias detection process is thoroughly documented:
     - Click `Create`.
 
 ### **Step 7: Auto-scaling and Load Testing**
+Auto-scaling automatically adjusts the number of VM instances in a group based on load or other metrics, ensuring that your application can handle varying amounts of traffic. Load testing simulates user traffic to ensure the system can handle real-world usage.
 
 1. **Verify the setup:**
+    - The startup script in the MIG will automatically activate the virtual environment and start the FastAPI server.
+    - You can SSH into a VM instance from the MIG to check the logs and verify that the server is running.
+    - Check the log file `/tmp/startup.log` for any errors.
 
 2. **Test the load balancer:**
+    - Send HTTP requests to the load balancer's IP to the `/predict/` endpoint with sample reviews.
 
 3. **Load Testing with Locust:**
+    - Install locust load testing package:
+        - `pip install locust`
+    - Run the load_test.py code in the same gcpdeploy folder with the command `locust -f load_tets.py`
+    - Open the Locust web interface running at `0.0.0.0:8089` and start the test with the load balancer's IP address.
 
 4. **Monitor Auto-scaling:**
+    
+    - With the simulated load of 200 users and a spawn rate of 200 requests per second, observe scaling to 3 instances.
+    - Monitor the instances and performance through the GCP Console to see if new instances are created and traffic is balanced.
+    - After the load test, observe the scale-down behavior when the traffic decreases.
+
+This step ensures that our application can handle varying loads by automatically scaling the number of instances and distributing the load effectively.
 
 # CI/CD for Model Pipeline
 
