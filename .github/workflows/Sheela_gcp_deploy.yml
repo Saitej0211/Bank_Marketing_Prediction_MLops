@@ -74,6 +74,11 @@ jobs:
           echo "Copying setup script to VM..."
           gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} term-deposit-prediction-instance:/home/${USER}/setup-CI_CD.sh --zone=${{ env.ZONE }}
       
+      - name: Copy Startup Script to VM
+        run: |
+          echo "Copying startup script to VM..."
+          gcloud compute scp ./gcpdeploy/startup-script-CI_CD.sh.sh term-deposit-prediction-instance:/home/${USER}/startup-script.sh --zone=${{ env.ZONE }}
+
       - name: Run Setup Script on VM
         run: |
           echo "Running setup script on VM..."
@@ -99,3 +104,12 @@ jobs:
         run: |
           echo "Starting the source VM after image creation..."
           gcloud compute instances start term-deposit-prediction-instance --zone=${{ env.ZONE }}
+
+      - name: Create Instance Template
+        run: |
+          gcloud compute instance-templates create term-deposit-prediction-template \
+            --machine-type=e2-micro \
+            --subnet=term-deposit-prediction-subnet \
+            --metadata=startup-script=/home/${USER}/startup-script-CI_CD.sh \
+            --image=term-deposit-prediction-instance-image
+
