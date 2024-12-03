@@ -9,6 +9,7 @@ env:
   PROJECT_ID: iconic-vine-438222-u6
   ZONE: us-central1-a
   SETUP_SCRIPT_PATH: gcpdeploy/setup-CI_CD.sh
+  STARTUP_SCRIPT_PATH: gcpdeploy/startup-script-CI_CD.sh
   
 jobs:
   create-vm-instance:
@@ -77,7 +78,7 @@ jobs:
       - name: Copy Startup Script to VM
         run: |
           echo "Copying startup script to VM..."
-          gcloud compute scp ./gcpdeploy/startup-script-CI_CD.sh.sh term-deposit-prediction-instance:/home/${USER}/startup-script.sh --zone=${{ env.ZONE }}
+          gcloud compute scp ./${{env.STARTUP_SCRIPT_PATH}} term-deposit-prediction-instance:/home/${USER}/startup-script-CI_CD.sh --zone=${{ env.ZONE }}
 
       - name: Run Setup Script on VM
         run: |
