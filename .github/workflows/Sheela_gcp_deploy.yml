@@ -156,6 +156,7 @@ jobs:
           gcloud compute backend-services create term-deposit-prediction-backend-service \
             --protocol=HTTP \
             --health-checks=term-deposit-prediction-health-check \
+            --enable-cdn \
             --global
 
           gcloud compute backend-services add-backend term-deposit-prediction-backend-service \
