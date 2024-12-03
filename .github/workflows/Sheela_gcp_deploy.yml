@@ -45,44 +45,50 @@ jobs:
 
       - name: Create Firewall Rules
         run: |
-          # Allow SSH
           gcloud compute firewall-rules create allow-ssh \
             --project=${{ env.PROJECT_ID }} \
             --network=term-deposit-prediction-vpc \
             --allow=tcp:22
-
-          # Allow HTTP
           gcloud compute firewall-rules create allow-http \
             --project=${{ env.PROJECT_ID }} \
             --network=term-deposit-prediction-vpc \
             --allow=tcp:80
-
-          # Allow TCP connections on port 20
           gcloud compute firewall-rules create allow-tcp-20 \
             --project=${{ env.PROJECT_ID }} \
             --network=term-deposit-prediction-vpc \
             --allow=tcp:20
-
-          # Allow TCP connections on port 8000
           gcloud compute firewall-rules create allow-tcp-8000 \
             --project=${{ env.PROJECT_ID }} \
             --network=term-deposit-prediction-vpc \
             --allow=tcp:8000
-
 
       - name: Create VM
         run: |
           gcloud compute instances create term-deposit-prediction-instance \
             --zone=${{ env.ZONE }} \
             --machine-type=e2-micro \
-            --subnet=term-deposit-prediction-subnet
+            --subnet=term-deposit-prediction-subnet \
 
       - name: Copy Setup Script to VM
         run: |
-          echo "Copying setup script to VM..."
-          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} term-deposit-prediction-instance:/home/${USER}/setup-CI_CD.sh --zone=${{ env.ZONE }}
+          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} term-deposit-prediction-instance:/home/root/setup-CI_CD.sh --zone=${{ env.ZONE }}
 
       - name: Run Setup Script on VM
         run: |
-          echo "Running setup script on VM..."
-          gcloud compute ssh term-deposit-prediction-instance --zone=${{ env.ZONE }} --command="chmod +x /home/${USER}/setup-CI_CD.sh && sudo sh /home/${USER}/setup-CI_CD.sh"
+          gcloud compute ssh term-deposit-prediction-instance --zone=${{ env.ZONE }} --command="chmod +x /home/root/setup-CI_CD.sh && sudo sh /home/root/setup-CI_CD.sh"
+
+      - name: Stop VM for Snapshot and Image Creation
+        run: |
+          gcloud compute instances stop term-deposit-prediction-instance --zone=${{ env.ZONE }}
+
+      - name: Create Snapshot
+        run: |
+          gcloud compute disks snapshot term-deposit-prediction-instance \
+            --snapshot-names=term-deposit-prediction-instance-snapshot \
+            --zone=${{ env.ZONE }}
+
+      - name: Create Image
+        run: |
+          gcloud compute images create term-deposit-prediction-instance-image \
+            --source-disk=term-deposit-prediction-instance \
+            --source-disk-zone=${{ env.ZONE }}
