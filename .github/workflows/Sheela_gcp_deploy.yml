@@ -117,60 +117,60 @@ jobs:
             --tags=http-server,https-server \
             --description="Template for Bank Marketing MLOps"
       - name: Create MIG
-      run: |
-        gcloud compute instance-groups managed create term-deposit-prediction-mig \
-          --base-instance-name=term-deposit-prediction-instance \
-          --size=1 \
-          --template=term-deposit-prediction-template \
-          --zone=us-central1-c
-        gcloud compute instance-groups managed set-autoscaling term-deposit-prediction-mig \
-          --zone=us-central1-c \
-          --max-num-replicas=5 \
-          --min-num-replicas=1 \
-          --target-cpu-utilization=0.60
+        run: |
+          gcloud compute instance-groups managed create term-deposit-prediction-mig \
+            --base-instance-name=term-deposit-prediction-instance \
+            --size=1 \
+            --template=term-deposit-prediction-template \
+            --zone=us-central1-c
+          gcloud compute instance-groups managed set-autoscaling term-deposit-prediction-mig \
+            --zone=us-central1-c \
+            --max-num-replicas=5 \
+            --min-num-replicas=1 \
+            --target-cpu-utilization=0.60
 
-    - name: Create Health Check
-      run: |
-        gcloud compute health-checks create http term-deposit-prediction-health-check \
-          --port=8000 \
-          --request-path="/" \
-          --check-interval=10s \
-          --timeout=5s \
-          --unhealthy-threshold=2 \
-          --healthy-threshold=2
+      - name: Create Health Check
+        run: |
+          gcloud compute health-checks create http term-deposit-prediction-health-check \
+            --port=8000 \
+            --request-path="/" \
+            --check-interval=10s \
+            --timeout=5s \
+            --unhealthy-threshold=2 \
+            --healthy-threshold=2
 
-    - name: Create Backend Service
-      run: |
-        gcloud compute backend-services create term-deposit-prediction-backend-service \
-          --protocol=HTTP \
-          --health-checks=term-deposit-prediction-health-check \
-          --global
-        gcloud compute backend-services add-backend term-deposit-prediction-backend-service \
-          --instance-group=term-deposit-prediction-mig \
-          --instance-group-zone=us-central1-c \
-          --global
+      - name: Create Backend Service
+        run: |
+          gcloud compute backend-services create term-deposit-prediction-backend-service \
+            --protocol=HTTP \
+            --health-checks=term-deposit-prediction-health-check \
+            --global
+          gcloud compute backend-services add-backend term-deposit-prediction-backend-service \
+            --instance-group=term-deposit-prediction-mig \
+            --instance-group-zone=us-central1-c \
+            --global
 
-    - name: Create URL Map
-      run: |
-        gcloud compute url-maps create term-deposit-prediction-url-map \
-          --default-service=term-deposit-prediction-backend-service
+      - name: Create URL Map
+        run: |
+          gcloud compute url-maps create term-deposit-prediction-url-map \
+            --default-service=term-deposit-prediction-backend-service
 
-    - name: Create HTTP Proxy
-      run: |
-        gcloud compute target-http-proxies create term-deposit-prediction-http-proxy \
-          --url-map=term-deposit-prediction-url-map
+      - name: Create HTTP Proxy
+        run: |
+          gcloud compute target-http-proxies create term-deposit-prediction-http-proxy \
+            --url-map=term-deposit-prediction-url-map
 
-    - name: Create Forwarding Rule
-      run: |
-        gcloud compute forwarding-rules create term-deposit-prediction-forwarding-rule \
-          --global \
-          --target-http-proxy=term-deposit-prediction-http-proxy \
-          --ports=80
+      - name: Create Forwarding Rule
+        run: |
+          gcloud compute forwarding-rules create term-deposit-prediction-forwarding-rule \
+            --global \
+            --target-http-proxy=term-deposit-prediction-http-proxy \
+            --ports=80
 
-    - name: Enable Auto healing
-      run: |
-        gcloud compute instance-groups managed set-autohealing term-deposit-prediction-mig \
-          --zone=us-central1-a \
-          --health-check=term-deposit-prediction-health-check \
-          --initial-delay=300
+      - name: Enable Auto healing
+        run: |
+          gcloud compute instance-groups managed set-autohealing term-deposit-prediction-mig \
+            --zone=us-central1-a \
+            --health-check=term-deposit-prediction-health-check \
+            --initial-delay=300
 
