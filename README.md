@@ -743,13 +743,11 @@ The monitoring dashboard provides a visual representation of system performance:
 <img width="1402" alt="image" src="https://github.com/user-attachments/assets/d6278639-bc2c-4214-bd14-16f3667f34b2">
 <img width="1405" alt="image" src="https://github.com/user-attachments/assets/ee18dd04-e925-40a3-96a4-e97a470e387b">
 
-**Response Time Trends:** Tracks the average response time for predictions.
+**Response Time Trends:** Tracks the average response time for predictions. Alerts have been configured to notify the team if the response time exceeds 3 milliseconds, ensuring prompt action for performance bottlenecks.
 
-**Prediction Accuracy:** Displays logs of predictions and their statuses.
+**Model Decay - Prediction Status:** Logs the predictions along with their statuses and displays the distribution of the output classes. An alert is triggered if the class distribution falls below 0.3, indicating potential issues like model drift or imbalanced predictions.
 
-**Error Analysis:** Highlights any failed API requests or anomalies in the system.
-
-**Input and Prediction Logs:** Shows user input features, predicted outputs, and timestamps.
+**CPU Utilization:** Monitors the CPU usage of the VM instance hosting the model. 
 
 With this setup, you can ensure the system's reliability and quickly debug issues when needed.
 
