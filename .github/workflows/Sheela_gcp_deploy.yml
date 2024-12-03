@@ -45,4 +45,5 @@ jobs:
       - name: Run Setup Script
         run: |
           echo "Running setup script..."
-          gcloud compute ssh term-deposit-prediction-instance --zone=${{ env.ZONE }} --command="sudo sh /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdeploy/setup-CI_CD.sh"
+          chmod +777 /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdeploy/setup_CI_CD.sh
+          gcloud compute ssh term-deposit-prediction-instance --zone=${{ env.ZONE }} --command="gcloud compute ssh term-deposit-prediction-instance --zone=us-central1-a --command="sudo sh /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdeploy/setup_CI_CD.sh"
