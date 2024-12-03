@@ -113,7 +113,9 @@ jobs:
             --subnet=term-deposit-prediction-subnet \
             --region=us-central1 \
             --metadata=startup-script=/home/${USER}/startup-script-CI_CD.sh \
+            --tags=http-server,https-server \
             --image=term-deposit-prediction-instance-image
+
 
       - name: Create MIG
         run: |
