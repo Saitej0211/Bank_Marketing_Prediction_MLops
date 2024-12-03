@@ -13,27 +13,19 @@ sudo chmod -R 777 /home/bank-marketing-prediction-mlops
 # Change to the project directory
 cd /home/bank-marketing-prediction-mlops
 
-# Clone the GitHub repository
-if [ ! -d "Bank_Marketing_Prediction_MLops" ]; then
-  git clone https://github.com/Saitej0211/Bank_Marketing_Prediction_MLops.git
-else
-  echo "Repository already exists. Pulling latest changes..."
-  cd Bank_Marketing_Prediction_MLops
-  git pull origin main
-fi
+# Clone the repository
+git clone https://github.com/Saitej0211/Bank_Marketing_Prediction_MLops.git
 
 # Navigate to the gcpdeploy directory
-cd /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdeploy
+cd Bank_Marketing_Prediction_MLops/gcpdeploy
 
 # Create virtual environment
-if [ ! -d "env" ]; then
-  python3 -m venv env
-fi
+python3 -m venv env
 
 # Activate virtual environment
 . env/bin/activate
 
-# Install requirements
+# Install requirements (removed --user flag)
 pip install -r requirements.txt
 
 echo "Setup completed successfully"
