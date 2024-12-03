@@ -114,7 +114,9 @@ jobs:
             --region=us-central1 \
             --metadata=startup-script=/home/${USER}/startup-script-CI_CD.sh \
             --tags=http-server,https-server \
-            --image=term-deposit-prediction-instance-image
+            --image=term-deposit-prediction-instance-image \
+            --boot-disk-size=50GB \
+            --boot-disk-type=pd-balanced
 
 
       - name: Create MIG
@@ -146,9 +148,13 @@ jobs:
             --protocol=HTTP \
             --health-checks=term-deposit-prediction-health-check \
             --global
+
           gcloud compute backend-services add-backend term-deposit-prediction-backend-service \
             --instance-group=term-deposit-prediction-mig \
-            --instance-group-zone=us-central1-c \
+            --instance-group-zone=us-central1-a \
+            --balancing-mode=UTILIZATION \
+            --max-utilization=0.8 \
+            --capacity-scaler=1 \
             --global
 
       - name: Create URL Map
