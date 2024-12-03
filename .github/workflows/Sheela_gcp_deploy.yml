@@ -35,7 +35,6 @@ jobs:
           gcloud compute instances create term-deposit-prediction-instance \
             --zone=${{ env.ZONE }} \
             --machine-type=e2-micro \
-            --image-family=debian-11 \
             --subnet=${{ env.SUBNET_NAME }} \
             --metadata-from-file startup-script=${{ env.SETUP_SCRIPT_PATH }}
 
