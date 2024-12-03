@@ -215,6 +215,10 @@ def health_check():
         logger.error(f"Health check failed: {str(e)}")
         return jsonify({"status": "unhealthy", "details": str(e)}), 500
 
+@app.route("/predict_form", methods=["GET"])
+def predict_form():
+    return render_template("form.html")
+
 if __name__ == "__main__":
     try:
         # Lazy load preprocessors and model
