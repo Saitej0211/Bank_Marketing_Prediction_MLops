@@ -142,13 +142,14 @@ jobs:
 
       - name: Create Health Check
         run: |
-          gcloud compute health-checks create http term-deposit-prediction-health-check \
+          gcloud compute health-checks update http term-deposit-prediction-health-check \
+            --request-path=/health \
             --port=8000 \
-            --request-path="/" \
             --check-interval=10s \
             --timeout=5s \
             --unhealthy-threshold=2 \
             --healthy-threshold=2
+
 
       - name: Create Backend Service
         run: |
@@ -182,10 +183,13 @@ jobs:
             --target-http-proxy=term-deposit-prediction-http-proxy \
             --ports=80
 
-      - name: Enable Auto healing
+      - name: Enable Auto-healing
         run: |
+          echo "Installing gcloud beta component..."
+          gcloud components install beta --quiet
+          echo "Setting auto-healing for MIG..."
           gcloud beta compute instance-groups managed set-autohealing term-deposit-prediction-mig \
-            --zone=us-central1-a \
+            --zone=${{ env.ZONE }} \
             --health-check=term-deposit-prediction-health-check \
-            --initial-delay=300
+            --initial-delay=300 --quiet
 
