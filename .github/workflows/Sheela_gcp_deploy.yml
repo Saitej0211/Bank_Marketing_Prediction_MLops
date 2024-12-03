@@ -142,7 +142,7 @@ jobs:
 
       - name: Create Health Check
         run: |
-          gcloud compute health-checks update http term-deposit-prediction-health-check \
+          gcloud compute health-checks create http term-deposit-prediction-health-check \
             --request-path=/health \
             --port=8000 \
             --check-interval=10s \
