@@ -9,8 +9,7 @@ env:
   PROJECT_ID: iconic-vine-438222-u6
   ZONE: us-central1-a
   SETUP_SCRIPT_PATH: gcpdeploy/setup-CI_CD.sh
-  SUBNET_NAME: bank-marketing-prediction-mlops-vpc-subnet
-
+  
 jobs:
   create-vm-instance:
     runs-on: ubuntu-latest
@@ -30,12 +29,53 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}
           install_components: gcloud
 
+      - name: Create VPC
+        run: |
+          gcloud compute networks create term-deposit-prediction-vpc \
+            --project=${{ env.PROJECT_ID }} \
+            --subnet-mode=custom
+
+      - name: Create Subnet
+        run: |
+          gcloud compute networks subnets create term-deposit-prediction-subnet \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --region=us-central1 \
+            --range=10.0.0.0/24
+
+      - name: Create Firewall Rules
+        run: |
+          # Allow SSH
+          gcloud compute firewall-rules create allow-ssh \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --allow=tcp:22
+
+          # Allow HTTP
+          gcloud compute firewall-rules create allow-http \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --allow=tcp:80
+
+          # Allow TCP connections on port 20
+          gcloud compute firewall-rules create allow-tcp-20 \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --allow=tcp:20
+
+          # Allow TCP connections on port 8000
+          gcloud compute firewall-rules create allow-tcp-8000 \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --allow=tcp:8000
+
+
       - name: Create VM
         run: |
           gcloud compute instances create term-deposit-prediction-instance \
             --zone=${{ env.ZONE }} \
             --machine-type=e2-micro \
-            --subnet=${{ env.SUBNET_NAME }}
+            --subnet=term-deposit-prediction-subnet
 
       - name: Copy Setup Script to VM
         run: |
