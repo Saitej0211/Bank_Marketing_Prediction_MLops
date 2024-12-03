@@ -740,6 +740,8 @@ Google Cloud Monitoring is a powerful observability tool that provides visibilit
 ## Dashboard Details
 
 The monitoring dashboard provides a visual representation of system performance:
+<img width="1402" alt="image" src="https://github.com/user-attachments/assets/d6278639-bc2c-4214-bd14-16f3667f34b2">
+<img width="1405" alt="image" src="https://github.com/user-attachments/assets/ee18dd04-e925-40a3-96a4-e97a470e387b">
 
 **Response Time Trends:** Tracks the average response time for predictions.
 
