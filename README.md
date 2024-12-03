@@ -1,5 +1,5 @@
 # Bank Marketing Campaign Prediction
-Sheela Hansda, Saiteja Reddy Gajula, Hashwanth Moorthy, Aishwariya Alagesan, Vignesh Sankar, Tejesvani Muppara vijayaram
+Sheela Hansda, Saiteja Reddy Gajula, Hashwanth Moorthy, Aishwariya Alagesan, Vignesh Sankar, Tejesvani Muppara Vijayaram
 
 # Introduction
 
@@ -681,21 +681,24 @@ BigQuery is Google's serverless, highly scalable, and cost-effective multi-cloud
 ### BigQuery Setup
 
 **1. Create a Dataset**
-    - Open the Google Cloud Console.
-    - Navigate to BigQuery.
-    - Click the three dots next to your project name and select Create Dataset.
-    - Enter the following details under Dataset Info:
-        -  Name: `model_metrics_dataset`
-        -  Data Location: `US`
-    - Click `Create Dataset`.
+
+  - Open the Google Cloud Console.
+  - Navigate to BigQuery.
+  - Click the three dots next to your project name and select Create Dataset.
+  - Enter the following details under Dataset Info:
+    -  Name: `model_metrics_dataset`
+    -  Data Location: `US`
+  - Click `Create Dataset`.
     
 **2. Create a Table**
-    - Under the dataset (model_metrics_dataset), click the three dots and select Create Table.
-    - Enter the following details under Table Info:
-        -  Name: `metrics_log`
-        -  Data Location: `US`
-    - Click `Create Table`.
-    - Go to the Schema section, click Edit Schema, enable Edit as Text, and paste the following JSON:
+
+  - Under the dataset (model_metrics_dataset), click the three dots and select Create Table.
+  - Enter the following details under Table Info:
+    - Name: `metrics_log`
+    - Data Location: `US`
+  - Click `Create Table`.
+  - Go to the Schema section, click Edit Schema, enable Edit as Text, and paste the following JSON:
+    ```sh
         [
           {"name": "timestamp", "type": "timestamp", "mode": "NULLABLE"},
           {"name": "endpoint", "type": "STRING", "mode": "NULLABLE"},
@@ -704,6 +707,7 @@ BigQuery is Google's serverless, highly scalable, and cost-effective multi-cloud
           {"name": "response_time", "type": "FLOAT", "mode": "NULLABLE"},
           {"name": "status", "type": "STRING", "mode": "NULLABLE"}
         ]
+    ```
 
 **3. Add Permissions**
 
@@ -722,6 +726,7 @@ Once the setup is complete, prediction logs are automatically written to BigQuer
 ## Google Cloud Monitoring
 
 Google Cloud Monitoring is a powerful observability tool that provides visibility into system health and performance. It enables us to monitor resource usage, application metrics, and logs. In this project, Cloud Monitoring is used to:
+
   - Log prediction data for performance and debugging.
   - Track key metrics such as response times, API health, model decay and system status.
 
@@ -737,9 +742,13 @@ Google Cloud Monitoring is a powerful observability tool that provides visibilit
 The monitoring dashboard provides a visual representation of system performance:
 
 **Response Time Trends:** Tracks the average response time for predictions.
+
 **Prediction Accuracy:** Displays logs of predictions and their statuses.
+
 **Error Analysis:** Highlights any failed API requests or anomalies in the system.
+
 **Input and Prediction Logs:** Shows user input features, predicted outputs, and timestamps.
+
 With this setup, you can ensure the system's reliability and quickly debug issues when needed.
 
 # CI/CD for Model Pipeline
