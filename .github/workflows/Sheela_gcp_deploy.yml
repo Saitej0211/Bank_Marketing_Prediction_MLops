@@ -6,6 +6,7 @@ on:
       - Sheela-deployment  # Test 8
 
 env:
+  CLOUDSDK_CORE_LOG_LEVEL: debug
   PROJECT_ID: iconic-vine-438222-u6
   ZONE: us-central1-a
   SETUP_SCRIPT_PATH: gcpdeploy/setup-CI_CD.sh
