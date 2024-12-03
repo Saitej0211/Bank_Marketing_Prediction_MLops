@@ -114,8 +114,8 @@ jobs:
             --region=us-central1 \
             --metadata=startup-script=/home/${USER}/startup-script-CI_CD.sh \
             --image=term-deposit-prediction-instance-image
-            --tags=http-server,https-server \
             --description="Template for Bank Marketing MLOps"
+            
       - name: Create MIG
         run: |
           gcloud compute instance-groups managed create term-deposit-prediction-mig \
