@@ -94,7 +94,7 @@
 <body>
     <div class="container">
         <h1>Bank Term Deposit Subscription Prediction Tool</h1>
-        <form id="predictionForm">
+        <form id="predictionForm" action="/predict" method="POST">
             <div>
                 <h3>Customer's Age</h3>
                 <input type="number" 
@@ -232,7 +232,6 @@
             formData.forEach((value, key) => {
                 jsonData[key] = isNaN(value) ? value : Number(value);
             });
-
             fetch('/predict', {
                 method: 'POST',
                 headers: {
@@ -244,7 +243,6 @@
             .then(data => {
                 let resultElement = document.getElementById("result");
                 resultElement.classList.remove("hidden", "positive", "negative");
-                
                 if (data.prediction === 1) {
                     resultElement.textContent = "The customer is likely to subscribe to the bank term deposit.";
                     resultElement.classList.add("positive");
