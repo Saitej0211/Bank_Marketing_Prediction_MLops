@@ -71,11 +71,13 @@ jobs:
 
       - name: Copy Setup Script to VM
         run: |
-          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} term-deposit-prediction-instance:/home/root/setup-CI_CD.sh --zone=${{ env.ZONE }}
-
+          echo "Copying setup script to VM..."
+          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} term-deposit-prediction-instance:/home/${USER}/setup-CI_CD.sh --zone=${{ env.ZONE }}
+      
       - name: Run Setup Script on VM
         run: |
-          gcloud compute ssh term-deposit-prediction-instance --zone=${{ env.ZONE }} --command="chmod +x /home/root/setup-CI_CD.sh && sudo sh /home/root/setup-CI_CD.sh"
+          echo "Running setup script on VM..."
+          gcloud compute ssh term-deposit-prediction-instance --zone=${{ env.ZONE }} --command="chmod +x /home/${USER}/setup-CI_CD.sh && sudo sh /home/${USER}/setup-CI_CD.sh"
 
       - name: Stop VM for Snapshot and Image Creation
         run: |
@@ -92,3 +94,8 @@ jobs:
           gcloud compute images create term-deposit-prediction-instance-image \
             --source-disk=term-deposit-prediction-instance \
             --source-disk-zone=${{ env.ZONE }}
+
+      - name: Start VM after Image Creation
+        run: |
+          echo "Starting the source VM after image creation..."
+          gcloud compute instances start term-deposit-prediction-instance --zone=${{ env.ZONE }}
