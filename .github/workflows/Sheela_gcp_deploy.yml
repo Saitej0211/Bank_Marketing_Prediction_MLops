@@ -38,6 +38,11 @@ jobs:
             --subnet=${{ env.SUBNET_NAME }} \
             --metadata-from-file startup-script=${{ env.SETUP_SCRIPT_PATH }}
 
+      - name: Validate File Paths
+        run: |
+          echo "Validating script paths..."
+          ls -lh ./${{ env.STARTUP_SCRIPT_PATH }}
+
       - name: Run Setup Script
         run: |
           gcloud compute ssh term-deposit-prediction-instance --zone=${{ env.ZONE }} --command="sudo sh /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdeploy/setup-CI_CD.sh"
