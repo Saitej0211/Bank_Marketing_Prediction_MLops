@@ -114,17 +114,16 @@ jobs:
             --region=us-central1 \
             --metadata=startup-script=/home/${USER}/startup-script-CI_CD.sh \
             --image=term-deposit-prediction-instance-image
-            --description="Template for Bank Marketing MLOps"
-            
+
       - name: Create MIG
         run: |
           gcloud compute instance-groups managed create term-deposit-prediction-mig \
             --base-instance-name=term-deposit-prediction-instance \
             --size=1 \
             --template=term-deposit-prediction-template \
-            --zone=us-central1-c
+            --zone=us-central1-a
           gcloud compute instance-groups managed set-autoscaling term-deposit-prediction-mig \
-            --zone=us-central1-c \
+            --zone=us-central1-a \
             --max-num-replicas=5 \
             --min-num-replicas=1 \
             --target-cpu-utilization=0.60
