@@ -132,6 +132,14 @@ jobs:
             --min-num-replicas=1 \
             --target-cpu-utilization=0.60
 
+      - name: Set Named Ports for MIG
+        run: |
+          echo "Setting named ports for the Managed Instance Group..."
+          gcloud compute instance-groups managed set-named-ports term-deposit-prediction-mig \
+            --named-ports=http:8000 \
+            --zone=${{ env.ZONE }} \
+            --project=${{ env.PROJECT_ID }} || { echo "Failed to set named ports"; exit 1; }
+
       - name: Create Health Check
         run: |
           gcloud compute health-checks create http term-deposit-prediction-health-check \
@@ -176,7 +184,7 @@ jobs:
 
       - name: Enable Auto healing
         run: |
-          gcloud compute instance-groups managed set-autohealing term-deposit-prediction-mig \
+          gcloud beta compute instance-groups managed set-autohealing term-deposit-prediction-mig \
             --zone=us-central1-a \
             --health-check=term-deposit-prediction-health-check \
             --initial-delay=300
