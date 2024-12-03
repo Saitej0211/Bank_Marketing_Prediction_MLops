@@ -668,6 +668,80 @@ Auto-scaling automatically adjusts the number of VM instances in a group based o
 
 This step ensures that our application can handle varying loads by automatically scaling the number of instances and distributing the load effectively.
 
+# Logging and Monitoring
+
+## Overview
+
+We have implemented logging and monitoring using BigQuery and Google Cloud Monitoring to capture and analyze data from model predictions. When the user enters input features, the model predicts whether the customer is likely to subscribe to a term deposit. The input values, predicted output, and related metadata are logged to BigQuery and Cloud Monitoring for auditing, performance tracking, and error analysis.
+
+## BigQuery
+
+BigQuery is Google's serverless, highly scalable, and cost-effective multi-cloud data warehouse. It allows us to store, query, and analyze large datasets efficiently. In this project, BigQuery is used to log prediction data, including input features, predictions, response times, and system statuses.
+
+### BigQuery Setup
+
+**1. Create a Dataset**
+    - Open the Google Cloud Console.
+    - Navigate to BigQuery.
+    - Click the three dots next to your project name and select Create Dataset.
+    - Enter the following details under Dataset Info:
+        -  Name: `model_metrics_dataset`
+        -  Data Location: `US`
+    - Click `Create Dataset`.
+    
+**2. Create a Table**
+    - Under the dataset (model_metrics_dataset), click the three dots and select Create Table.
+    - Enter the following details under Table Info:
+        -  Name: `metrics_log`
+        -  Data Location: `US`
+    - Click `Create Table`.
+    - Go to the Schema section, click Edit Schema, enable Edit as Text, and paste the following JSON:
+        [
+          {"name": "timestamp", "type": "timestamp", "mode": "NULLABLE"},
+          {"name": "endpoint", "type": "STRING", "mode": "NULLABLE"},
+          {"name": "input_data", "type": "STRING", "mode": "NULLABLE"},
+          {"name": "prediction", "type": "STRING", "mode": "NULLABLE"},
+          {"name": "response_time", "type": "FLOAT", "mode": "NULLABLE"},
+          {"name": "status", "type": "STRING", "mode": "NULLABLE"}
+        ]
+
+**3. Add Permissions**
+
+  - Navigate to IAM & Admin in the Google Cloud Console.
+  - Locate the service account being used and click Edit.
+  - Add the following roles:
+      - BigQuery Data Editor
+      - BigQuery Data Viewer
+      - BigQuery User
+      - Storage Object Viewer
+      - Editor
+  - Click Save.
+    
+Once the setup is complete, prediction logs are automatically written to BigQuery when the UI runs on the VM instance.
+
+## Google Cloud Monitoring
+
+Google Cloud Monitoring is a powerful observability tool that provides visibility into system health and performance. It enables us to monitor resource usage, application metrics, and logs. In this project, Cloud Monitoring is used to:
+  - Log prediction data for performance and debugging.
+  - Track key metrics such as response times, API health, model decay and system status.
+
+### Setting Up Google Cloud Monitoring
+
+  - Open the Google Cloud Monitoring Console.
+  - Create a new workspace and associate it with your project.
+  - Navigate to Metrics Explorer to create charts for monitoring metrics like response time and system status.
+  - Set up alerting policies to notify you of anomalies, such as high response times or failed predictions.
+
+## Dashboard Details
+
+The monitoring dashboard provides a visual representation of system performance:
+
+**Response Time Trends:** Tracks the average response time for predictions.
+**Prediction Accuracy:** Displays logs of predictions and their statuses.
+**Error Analysis:** Highlights any failed API requests or anomalies in the system.
+**Input and Prediction Logs:** Shows user input features, predicted outputs, and timestamps.
+With this setup, you can ensure the system's reliability and quickly debug issues when needed.
+
 # CI/CD for Model Pipeline
 
 This project utilizes GitHub Actions to implement Continuous Integration and Continuous Deployment (CI/CD) for the model pipeline. This automation ensures that any changes made to the main branch trigger the model pipeline, facilitating seamless updates and deployments.
