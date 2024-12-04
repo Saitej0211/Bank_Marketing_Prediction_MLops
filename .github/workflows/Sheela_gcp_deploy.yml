@@ -71,6 +71,11 @@ jobs:
             --machine-type=e2-micro \
             --subnet=term-deposit-prediction-subnet \
 
+      - name: Copy Startup Script to VM
+        run: |
+          echo "Copying setup script to VM..."
+          gcloud compute scp ./${{ env.STARTUP_SCRIPT_PATH }} term-deposit-prediction-instance:/home/${USER}/startup-script-CI_CD.sh --zone=${{ env.ZONE }}
+
       - name: Copy Setup Script to VM
         run: |
           echo "Copying setup script to VM..."
