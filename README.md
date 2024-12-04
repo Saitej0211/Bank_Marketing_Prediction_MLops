@@ -651,18 +651,22 @@ Auto-scaling automatically adjusts the number of VM instances in a group based o
 
 2. **Test the load balancer:**
     - Send HTTP requests to the load balancer's IP to the `/predict/` endpoint with sample reviews.
+    - ![image](https://github.com/user-attachments/assets/5698aa75-eeed-415d-8d8b-95d88126df0b)
+
 
 3. **Load Testing with Locust:**
     - Install locust load testing package:
         - `pip install locust`
     - Run the load_test.py code in the same gcpdeploy folder with the command `locust -f load_tets.py`
     - Open the Locust web interface running at `0.0.0.0:8089` and start the test with the load balancer's IP address.
+    - <img width="897" alt="Screenshot 2024-12-04 at 2 05 35 AM" src="https://github.com/user-attachments/assets/c88180c3-b787-4b8d-908f-2a5166c39643">
 
 4. **Monitor Auto-scaling:**
     
     - With the simulated load of 200 users and a spawn rate of 200 requests per second, observe scaling to 3 instances.
     - Monitor the instances and performance through the GCP Console to see if new instances are created and traffic is balanced.
     - After the load test, observe the scale-down behavior when the traffic decreases.
+    - <img width="1465" alt="Screenshot 2024-12-04 at 2 08 11 AM" src="https://github.com/user-attachments/assets/2e1d1c97-3e1c-414a-86a6-22fa61ea66b5">
 
 This step ensures that our application can handle varying loads by automatically scaling the number of instances and distributing the load effectively.
 
