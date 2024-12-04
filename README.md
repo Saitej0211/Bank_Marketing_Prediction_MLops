@@ -670,6 +670,15 @@ Auto-scaling automatically adjusts the number of VM instances in a group based o
 
 This step ensures that our application can handle varying loads by automatically scaling the number of instances and distributing the load effectively.
 
+# Flask API - UI Page
+The UI for our application has been developed using flask API served on port 8000. The UI after being hosted on the load balancer looks like this:
+![image](https://github.com/user-attachments/assets/ee581f5e-89e6-4f5b-8bcc-91d049a0d014)
+
+One the bank IT employee hits on Launch prediction tool, it will take them to the prediction page which will look like the one below:
+![image](https://github.com/user-attachments/assets/f9aeccf0-40c9-4408-82c4-bfb3754ddd89)
+
+The end user can enter real time values and get an inference instantaneously
+
 # Logging and Monitoring
 
 ## Overview
