@@ -37,7 +37,7 @@ fi
 pip install -r requirements.txt
 
 # Copy the startup script to the VM's home directory
-cp startup-script-CI_CD.sh /home/${USER}/startup-script-CI_CD.sh
+cp /home/bank-marketing-prediction-mlops/Bank_Marketing_Prediction_MLops/gcpdeploy/startup-script-CI_CD.sh /home/${USER}/startup-script-CI_CD.sh
 chmod +x /home/${USER}/startup-script-CI_CD.sh
 
 echo "Setup completed successfully"
