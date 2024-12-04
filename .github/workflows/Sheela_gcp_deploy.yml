@@ -76,11 +76,6 @@ jobs:
           echo "Copying setup script to VM..."
           gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} term-deposit-prediction-instance:/home/${USER}/setup-CI_CD.sh --zone=${{ env.ZONE }}
       
-      - name: Copy Startup Script to VM
-        run: |
-          echo "Copying startup script to VM..."
-          gcloud compute scp ./${{env.STARTUP_SCRIPT_PATH}} term-deposit-prediction-instance:/home/${USER}/startup-script-CI_CD.sh --zone=${{ env.ZONE }}
-
       - name: Set Executable Permission for Startup Script
         run: |
           echo "Setting executable permission for the startup script..."
