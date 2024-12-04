@@ -81,6 +81,12 @@ jobs:
           echo "Copying startup script to VM..."
           gcloud compute scp ./${{env.STARTUP_SCRIPT_PATH}} term-deposit-prediction-instance:/home/${USER}/startup-script-CI_CD.sh --zone=${{ env.ZONE }}
 
+      - name: Set Executable Permission for Startup Script
+        run: |
+          echo "Setting executable permission for the startup script..."
+          gcloud compute ssh term-deposit-prediction-instance --zone=${{ env.ZONE }} \
+            --command="chmod +x /home/${USER}/startup-script-CI_CD.sh"
+
       - name: Run Setup Script on VM
         run: |
           echo "Running setup script on VM..."
