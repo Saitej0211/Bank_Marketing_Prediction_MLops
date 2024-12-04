@@ -8,7 +8,7 @@ on:
 env:
   CLOUDSDK_CORE_LOG_LEVEL: debug
   PROJECT_ID: iconic-vine-438222-u6
-  ZONE: us-central1-a
+  ZONE: us-east1-a
   SETUP_SCRIPT_PATH: gcpdeploy/setup-CI_CD.sh
   STARTUP_SCRIPT_PATH: gcpdeploy/startup-script-CI_CD.sh
   
@@ -42,7 +42,7 @@ jobs:
           gcloud compute networks subnets create term-deposit-prediction-subnet \
             --project=${{ env.PROJECT_ID }} \
             --network=term-deposit-prediction-vpc \
-            --region=us-central1 \
+            --region=us-east1 \
             --range=10.0.0.0/24
 
       - name: Create Firewall Rules
@@ -112,7 +112,7 @@ jobs:
           gcloud compute instance-templates create term-deposit-prediction-template \
             --machine-type=e2-micro \
             --subnet=term-deposit-prediction-subnet \
-            --region=us-central1 \
+            --region=us-east1 \
             --metadata=startup-script=/home/${USER}/startup-script-CI_CD.sh \
             --tags=http-server,https-server \
             --image=term-deposit-prediction-instance-image \
@@ -126,9 +126,9 @@ jobs:
             --base-instance-name=term-deposit-prediction-instance \
             --size=1 \
             --template=term-deposit-prediction-template \
-            --zone=us-central1-a
+            --zone=us-east1-a
           gcloud compute instance-groups managed set-autoscaling term-deposit-prediction-mig \
-            --zone=us-central1-a \
+            --zone=us-east1-a \
             --max-num-replicas=5 \
             --min-num-replicas=1 \
             --target-cpu-utilization=0.60
@@ -162,7 +162,7 @@ jobs:
 
           gcloud compute backend-services add-backend term-deposit-prediction-backend-service \
             --instance-group=term-deposit-prediction-mig \
-            --instance-group-zone=us-central1-a \
+            --instance-group-zone=us-east1-a \
             --balancing-mode=UTILIZATION \
             --max-utilization=0.8 \
             --capacity-scaler=1 \
