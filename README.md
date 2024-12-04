@@ -407,8 +407,6 @@ For monitoring our experimental machine learning pipeline, we employ MLflow, Doc
 
 Pictured: Plot for Performance Metrics Visualization of the Model
 
-# Logging and Monitoring
-
 # Model Analysis
 ## Model Sensitivity Analysis
 
@@ -720,7 +718,9 @@ BigQuery is Google's serverless, highly scalable, and cost-effective multi-cloud
       - Storage Object Viewer
       - Editor
   - Click Save.
-    
+
+![image](https://github.com/user-attachments/assets/c1e9cdf0-5439-4171-9099-c031d70f6752)
+   
 Once the setup is complete, prediction logs are automatically written to BigQuery when the UI runs on the VM instance.
 
 ## Google Cloud Monitoring
