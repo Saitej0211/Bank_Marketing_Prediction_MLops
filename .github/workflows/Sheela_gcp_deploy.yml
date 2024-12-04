@@ -1,0 +1,192 @@
+name: GCP Deploy CI/CD
+
+on:
+  push:
+    branches:
+      - Sheela-deployment  # Test 8
+
+env:
+  CLOUDSDK_CORE_LOG_LEVEL: debug
+  PROJECT_ID: iconic-vine-438222-u6
+  ZONE: us-central1-a
+  SETUP_SCRIPT_PATH: gcpdeploy/setup-CI_CD.sh
+  STARTUP_SCRIPT_PATH: gcpdeploy/startup-script-CI_CD.sh
+  
+jobs:
+  create-vm-instance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+          install_components: gcloud
+
+      - name: Create VPC
+        run: |
+          gcloud compute networks create term-deposit-prediction-vpc \
+            --project=${{ env.PROJECT_ID }} \
+            --subnet-mode=custom
+
+      - name: Create Subnet
+        run: |
+          gcloud compute networks subnets create term-deposit-prediction-subnet \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --region=us-central1 \
+            --range=10.0.0.0/24
+
+      - name: Create Firewall Rules
+        run: |
+          gcloud compute firewall-rules create allow-ssh \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --allow=tcp:22
+          gcloud compute firewall-rules create allow-http \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --allow=tcp:80
+          gcloud compute firewall-rules create allow-tcp-20 \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --allow=tcp:20
+          gcloud compute firewall-rules create allow-tcp-8000 \
+            --project=${{ env.PROJECT_ID }} \
+            --network=term-deposit-prediction-vpc \
+            --allow=tcp:8000
+
+      - name: Create VM
+        run: |
+          gcloud compute instances create term-deposit-prediction-instance \
+            --zone=${{ env.ZONE }} \
+            --machine-type=e2-micro \
+            --subnet=term-deposit-prediction-subnet \
+
+      - name: Copy Setup Script to VM
+        run: |
+          echo "Copying setup script to VM..."
+          gcloud compute scp ./${{ env.SETUP_SCRIPT_PATH }} term-deposit-prediction-instance:/home/${USER}/setup-CI_CD.sh --zone=${{ env.ZONE }}
+      
+      - name: Run Setup Script on VM
+        run: |
+          echo "Running setup script on VM..."
+          gcloud compute ssh term-deposit-prediction-instance --zone=${{ env.ZONE }} --command="chmod +x /home/${USER}/setup-CI_CD.sh && sudo sh /home/${USER}/setup-CI_CD.sh"
+
+      - name: Stop VM for Snapshot and Image Creation
+        run: |
+          gcloud compute instances stop term-deposit-prediction-instance --zone=${{ env.ZONE }}
+
+      - name: Create Snapshot
+        run: |
+          gcloud compute disks snapshot term-deposit-prediction-instance \
+            --snapshot-names=term-deposit-prediction-instance-snapshot \
+            --zone=${{ env.ZONE }}
+
+      - name: Create Image
+        run: |
+          gcloud compute images create term-deposit-prediction-instance-image \
+            --source-disk=term-deposit-prediction-instance \
+            --source-disk-zone=${{ env.ZONE }}
+
+      - name: Start VM after Image Creation
+        run: |
+          echo "Starting the source VM after image creation..."
+          gcloud compute instances start term-deposit-prediction-instance --zone=${{ env.ZONE }}
+
+      - name: Create Instance Template
+        run: |
+          gcloud compute instance-templates create term-deposit-prediction-template \
+            --machine-type=e2-micro \
+            --subnet=term-deposit-prediction-subnet \
+            --region=us-central1 \
+            --metadata=startup-script=/home/${USER}/startup-script-CI_CD.sh \
+            --tags=http-server,https-server \
+            --image=term-deposit-prediction-instance-image \
+            --boot-disk-size=50GB \
+            --boot-disk-type=pd-balanced
+
+
+      - name: Create MIG
+        run: |
+          gcloud compute instance-groups managed create term-deposit-prediction-mig \
+            --base-instance-name=term-deposit-prediction-instance \
+            --size=1 \
+            --template=term-deposit-prediction-template \
+            --zone=us-central1-a
+          gcloud compute instance-groups managed set-autoscaling term-deposit-prediction-mig \
+            --zone=us-central1-a \
+            --max-num-replicas=5 \
+            --min-num-replicas=1 \
+            --target-cpu-utilization=0.60
+
+      - name: Set Named Ports for MIG
+        run: |
+          echo "Setting named ports for the Managed Instance Group..."
+          gcloud compute instance-groups managed set-named-ports term-deposit-prediction-mig \
+            --named-ports=http:8000 \
+            --zone=${{ env.ZONE }} \
+            --project=${{ env.PROJECT_ID }} || { echo "Failed to set named ports"; exit 1; }
+
+      - name: Create Health Check
+        run: |
+          gcloud compute health-checks create http term-deposit-prediction-health-check \
+            --request-path=/health \
+            --port=8000 \
+            --check-interval=10s \
+            --timeout=5s \
+            --unhealthy-threshold=2 \
+            --healthy-threshold=2
+
+
+      - name: Create Backend Service
+        run: |
+          gcloud compute backend-services create term-deposit-prediction-backend-service \
+            --protocol=HTTP \
+            --health-checks=term-deposit-prediction-health-check \
+            --enable-cdn \
+            --global
+
+          gcloud compute backend-services add-backend term-deposit-prediction-backend-service \
+            --instance-group=term-deposit-prediction-mig \
+            --instance-group-zone=us-central1-a \
+            --balancing-mode=UTILIZATION \
+            --max-utilization=0.8 \
+            --capacity-scaler=1 \
+            --global
+
+      - name: Create URL Map
+        run: |
+          gcloud compute url-maps create term-deposit-prediction-url-map \
+            --default-service=term-deposit-prediction-backend-service
+
+      - name: Create HTTP Proxy
+        run: |
+          gcloud compute target-http-proxies create term-deposit-prediction-http-proxy \
+            --url-map=term-deposit-prediction-url-map
+
+      - name: Create Forwarding Rule
+        run: |
+          gcloud compute forwarding-rules create term-deposit-prediction-forwarding-rule \
+            --global \
+            --target-http-proxy=term-deposit-prediction-http-proxy \
+            --ports=80
+
+      - name: Enable Auto-healing
+        run: |
+          echo "Installing gcloud beta component..."
+          gcloud components install beta --quiet
+          echo "Setting auto-healing for MIG..."
+          gcloud beta compute instance-groups managed set-autohealing term-deposit-prediction-mig \
+            --zone=${{ env.ZONE }} \
+            --health-check=term-deposit-prediction-health-check \
+            --initial-delay=300 --quiet
+
