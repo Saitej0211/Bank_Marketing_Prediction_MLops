@@ -62,8 +62,9 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 .
 ├── LICENSE                         ## License information
 ├── README.md                       ## Overview of the project, how to use it, and dataset details
-├── .github\workflows               ## Contains file for workflows
-│   ├── CI_CD_gcp_deploy.yml        ## Workflow to automate GCP deployment using Github actions
+├── .github                         ## Contains files for github actions
+│   ├── workflows                   ## Contains workflows(.yml files)
+│   │   ├── CI_CD_gcp_deploy.yml    ## workflow to automate GCP deployment using githb actions
 ├── assets                          ## Store images, graphs, or other visualizations
 │   ├── images                      ## Images used in the project
 │   └── plots                       ## Graphs or plots generated during analysis
