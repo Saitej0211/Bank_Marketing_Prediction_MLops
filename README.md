@@ -772,6 +772,9 @@ With this setup, you can ensure the system's reliability and quickly debug issue
 # CI/CD for Model Pipeline
 
 This project utilizes GitHub Actions to implement Continuous Integration and Continuous Deployment (CI/CD) for the model pipeline. This automation ensures that any changes made to the main branch trigger the model pipeline, facilitating seamless updates and deployments.
+Code : .github/workflows/CI_CD_gcp_deploy.yml
+Setup script for CI-CD : setup-CI_CD.sh 
+Startup script for CI-CD : startup-script-CI_CD.sh
 
 ## Overview
 
@@ -779,6 +782,55 @@ The CI/CD workflow is designed to:
 
 - Automatically trigger the model training and evaluation process whenever changes are pushed to the main branch.
 - Ensure that the latest version of the model is always tested and deployed, maintaining high code quality and performance.
+
+###**Step 1: Set Up a Service Account**
+Go to the GCP Console:
+Navigate to the IAM & Admin → Service Accounts.
+Create a New Service Account:
+Click + Create Service Account.
+Fill in the Service Account Name and Description.
+Click Create and Continue.
+
+
+###**Step 2: Assign Roles to the Service Account**
+Go to the Service Account Details:
+Find your newly created service account under Service Accounts.
+Click the Email of the service account.
+Add IAM Policies:
+Click Permissions → Grant Access → Add Another Role.
+Assign roles based on the CI/CD pipeline needs:
+Cloud Build Editor (roles/cloudbuild.builds.editor) — for running builds.
+Artifact Registry Writer (roles/artifactregistry.writer) — for pushing/pulling images.
+Service Account User (roles/iam.serviceAccountUser) — for impersonation.
+Storage Admin (roles/storage.admin) — for accessing GCS (if needed).
+For deployment-specific roles (i.e. Cloud Run), add additional roles.
+Save Permissions:
+After assigning roles, click Save to confirm.
+
+###**Step 3: Generate a Key for the Service Account**
+Create a Key:
+In the Service Account details, go to Keys → Add Key → Create New Key.
+Select JSON as the key type.
+Click Create to download the key file.
+Store the Key Securely:
+The downloaded file is sensitive. Do not commit it to your GitHub repository or share it.
+
+###**Step 4: Add the Key to GitHub Secrets**
+Go to Your GitHub Repository:
+Navigate to your repository → Settings → Secrets and variables → Actions → New repository secret.
+Add a New Secret:
+Name the secret (e.g., GCP_SERVICE_ACCOUNT_KEY).
+Copy and paste the contents of the JSON key file into the secret.
+
+###**Step 5: Update Your GitHub Actions Workflow**
+Use the Secret in Your Workflow:
+Add a step in your GitHub Actions workflow to authenticate with GCP using the service account key.
+As shown below in the code snippet, the project ID and GCP_SA_Key are attached in the .yml file.
+
+
+All steps from "Model Deployment on Google Cloud Platform" are automated in GitHub Actions using gcloud CLI commands. Global variables are defined as environment variables, and the startup and setup scripts are stored in the runner directory for execution on the VM.  
+
+## CICD Implementation
 
 # Cost Analysis
 
