@@ -3,7 +3,7 @@ name: GCP Deploy CI/CD
 on:
   push:
     branches:
-      - Sheela-deployment 
+      - gcp-deployment 
 
 env:
   CLOUDSDK_CORE_LOG_LEVEL: debug
