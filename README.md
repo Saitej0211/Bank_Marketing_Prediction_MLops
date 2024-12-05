@@ -777,7 +777,11 @@ The CI/CD workflow is designed to:
 
 # Cost Analysis
 
-# Contributing / Development Guide
+Cloud Computing Resources:
+1. Google Cloud Platform (GCP) VM Instance: $7.99/month x 12 months = $95.88/year
+2. Say at a given time 8 instances are running: 8 * $95.88 = $767.04/year
+3. Storage for datasets and intermediate results: $0.02/GB x 100GB/month = $6/month x 3 months = $18.
+4. Compute Instance for API (e.g., Flask): = 50$ Approximately
 
 # Testing
 Before you push your code to GitHub, it's crucial to ensure that it meets our quality standards, including formatting, security, and functionality. To facilitate this, we recommend the following steps using `pytest` and `pylint`. These tools help identify formatting issues, potential vulnerabilities, and ensure that your test suites pass.
