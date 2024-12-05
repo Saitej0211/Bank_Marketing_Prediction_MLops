@@ -157,7 +157,9 @@ Source:  https://archive.ics.uci.edu/dataset/222/bank+marketing
 |   ├── requirements.txt                ## Python package dependencies
 |   ├── sampleCheck.py                  ## Sample validation script
 |   ├── samplecheck1.ipynb              ## Jupyter notebook for testing
+|   ├── setup-CI_CD.sh                  ## VM environment setup script for CI CD
 |   ├── setup.sh                        ## VM environment setup script
+|   ├── startup-script-CI_CD.sh         ## VM instance startup configuration for CI CD
 |   ├── startup-script.sh               ## VM instance startup configuration
 |   └── test.sh                         ## Test execution script
 ├── plugins                         ## Plugins used in the project (if any)
