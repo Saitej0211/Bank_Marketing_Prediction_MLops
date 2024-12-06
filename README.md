@@ -784,7 +784,7 @@ The CI/CD workflow is designed to:
 - Automatically trigger the model training and evaluation process whenever changes are pushed to the main branch.
 - Ensure that the latest version of the model is always tested and deployed, maintaining high code quality and performance.
 
-###**Step 1: Set Up a Service Account**
+###**Step 1: Set Up a Service Account**###
 Go to the GCP Console:
 Navigate to the IAM & Admin → Service Accounts.
 Create a New Service Account:
@@ -792,7 +792,7 @@ Click + Create Service Account.
 Fill in the Service Account Name and Description.
 Click Create and Continue.
 
-###**Step 2: Assign Roles to the Service Account**
+###**Step 2: Assign Roles to the Service Account**###
 Go to the Service Account Details:
 Find your newly created service account under Service Accounts.
 Click the Email of the service account.
@@ -809,18 +809,18 @@ After assigning roles, click Save to confirm.
 
 ![image](https://github.com/user-attachments/assets/bbbe6956-9ac9-484f-8de1-07e18964afa1)
 
-###**Step 3: Service Account key**
+###**Step 3: Service Account key**###
 We did not generate any key specific to the service account. The service account works at the user-level authentication in the context of CI/CD workflows here. It is tied with the user account.The service account inherits these permissions for all resources in the project(My-first-project).
 ![CI_CD_SA_permissions](https://github.com/user-attachments/assets/3ec0afba-6d09-410c-adbf-a20e140893a6)
 
-###**Step 4: Add the Key to GitHub Secrets**
+###**Step 4: Add the Key to GitHub Secrets**###
 Go to Your GitHub Repository:
 Navigate to your repository → Settings → Secrets and variables → Actions → New repository secret.
 Add a New Secret:
 Name the secret (e.g., GCP_SERVICE_ACCOUNT_KEY).
 Copy and paste the contents of the JSON key file into the secret.
 
-###**Step 5: Update Your GitHub Actions Workflow**
+###**Step 5: Update Your GitHub Actions Workflow**###
 Use the Secret in Your Workflow:
 Add a step in your GitHub Actions workflow to authenticate with GCP using the service account key.
 As shown below in the code snippet, the project ID and GCP_SA_Key are attached in the .yml file.
@@ -856,9 +856,10 @@ CICD Code
 Cloud Console
 ![CI_CD_yml_load_balance_MIG_IP](https://github.com/user-attachments/assets/80833e0e-05f6-415d-822e-b61dbaac7147)
 
-![CI_CD_yml_load_balance_IP_URL](https://github.com/user-attachments/assets/a73258de-d993-4cbf-ac01-ad5d9cf34ffd)
+![CI_CD_yml_load_balance_IP](https://github.com/user-attachments/assets/8ff887e2-216a-4f33-a76b-69f7a75280e1)
 
 UI
+The IP created in the URL map for front end should map to application.
 ![CI_CD_yml_load_balance_IP_URL](https://github.com/user-attachments/assets/2fe1cec1-8959-49b1-ba6e-a34465da3cad)
 
 # Cost Analysis
