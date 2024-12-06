@@ -784,7 +784,7 @@ The CI/CD workflow is designed to:
 - Automatically trigger the model training and evaluation process whenever changes are pushed to the main branch.
 - Ensure that the latest version of the model is always tested and deployed, maintaining high code quality and performance.
 
-###**Step 1: Set Up a Service Account**###
+### **Step 1: Set Up a Service Account**
 Go to the GCP Console:
 Navigate to the IAM & Admin → Service Accounts.
 Create a New Service Account:
@@ -792,7 +792,7 @@ Click + Create Service Account.
 Fill in the Service Account Name and Description.
 Click Create and Continue.
 
-###**Step 2: Assign Roles to the Service Account**###
+### **Step 2: Assign Roles to the Service Account**
 Go to the Service Account Details:
 Find your newly created service account under Service Accounts.
 Click the Email of the service account.
@@ -809,18 +809,18 @@ After assigning roles, click Save to confirm.
 
 ![image](https://github.com/user-attachments/assets/bbbe6956-9ac9-484f-8de1-07e18964afa1)
 
-###**Step 3: Service Account key**###
+### **Step 3: Service Account key**
 We did not generate any key specific to the service account. The service account works at the user-level authentication in the context of CI/CD workflows here. It is tied with the user account.The service account inherits these permissions for all resources in the project(My-first-project).
 ![CI_CD_SA_permissions](https://github.com/user-attachments/assets/3ec0afba-6d09-410c-adbf-a20e140893a6)
 
-###**Step 4: Add the Key to GitHub Secrets**###
+### **Step 4: Add the Key to GitHub Secrets**
 Go to Your GitHub Repository:
 Navigate to your repository → Settings → Secrets and variables → Actions → New repository secret.
 Add a New Secret:
 Name the secret (e.g., GCP_SERVICE_ACCOUNT_KEY).
 Copy and paste the contents of the JSON key file into the secret.
 
-###**Step 5: Update Your GitHub Actions Workflow**###
+### **Step 5: Update Your GitHub Actions Workflow**
 Use the Secret in Your Workflow:
 Add a step in your GitHub Actions workflow to authenticate with GCP using the service account key.
 As shown below in the code snippet, the project ID and GCP_SA_Key are attached in the .yml file.
@@ -831,7 +831,7 @@ All steps from "Model Deployment on Google Cloud Platform" are automated in GitH
 
 ## CICD Implementation
 
-###**CICD - Run**###
+### **CICD - Run**
 The workflow need to be completed successfully.
 ![CI_CD_yml_successful_run_part1](https://github.com/user-attachments/assets/5acfafb6-b735-4cb3-91e4-b4d60f887b83)
 
@@ -840,7 +840,7 @@ The workflow need to be completed successfully.
 Total runtime for deployment from creating VM instance to load balancer is 21 minutes.
 ![CI_CD_yml_time](https://github.com/user-attachments/assets/5b96b480-86d0-4e0a-93ae-b184cc3c6079)
 
-###**CICD - Validation**###
+### **CICD - Validation**
 
 Instance template and Managed Instance need to created successfully.
 
