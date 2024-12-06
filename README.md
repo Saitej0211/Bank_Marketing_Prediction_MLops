@@ -799,13 +799,13 @@ Click the Email of the service account.
 Add IAM Policies:
 Click Permissions → Grant Access → Add Another Role.
 Assign roles based on the CI/CD pipeline needs:
-Compute Admin (roles/Compute Admin) — to manage and administer Google Compute Engine resources, including creating, modifying, and deleting VMs, disks, and related compute resources.
-Compute Instance Admin (roles/Compute Instance Admin) —  to manage and administer individual VM instances, including starting, stopping, updating configurations, and attaching or detaching disks and networks
-Service Account User (roles/iam.serviceAccountUser) — to allow users to impersonate or act as a service account, enabling them to use the service account's identity and permissions for API calls or running applications.
-Storage Object Viewer (roles/Storage Object Viewer) — to grant read-only access to objects in a Google Cloud Storage bucket, allowing users to view and download storage objects without modifying them.
+Compute Admin (roles/Compute Admin) — to manage and administer Google Compute Engine resources, including creating, modifying, and deleting VMs, disks, and related compute resources.  
+Compute Instance Admin (roles/Compute Instance Admin) —  to manage and administer individual VM instances, including starting, stopping, updating configurations, and attaching or detaching disks and networks  
+Service Account User (roles/iam.serviceAccountUser) — to allow users to impersonate or act as a service account, enabling them to use the service account's identity and permissions for API calls or running applications.  
+Storage Object Viewer (roles/Storage Object Viewer) — to grant read-only access to objects in a Google Cloud Storage bucket, allowing users to view and download storage objects without modifying them.  
 Editor (roles/Editor) — to modify most resources within a Google Cloud project, including creating, updating, and deleting resources, but does not allow changes to IAM policies or billing settings
-Save Permissions:
-After assigning roles, click Save to confirm.
+Save Permissions:  
+After assigning roles, click Save to confirm.  
 
 ![image](https://github.com/user-attachments/assets/bbbe6956-9ac9-484f-8de1-07e18964afa1)
 
