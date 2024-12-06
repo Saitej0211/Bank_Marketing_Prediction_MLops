@@ -772,14 +772,15 @@ With this setup, you can ensure the system's reliability and quickly debug issue
 # CI/CD for Model Pipeline
 
 This project utilizes GitHub Actions to implement Continuous Integration and Continuous Deployment (CI/CD) for the model pipeline. This automation ensures that any changes made to the main branch trigger the model pipeline, facilitating seamless updates and deployments.
-Code : .github/workflows/CI_CD_gcp_deploy.yml
+
+**Code**
+yml file : .github/workflows/CI_CD_gcp_deploy.yml
 Setup script for CI-CD : setup-CI_CD.sh 
 Startup script for CI-CD : startup-script-CI_CD.sh
 
 ## Overview
 
 The CI/CD workflow is designed to:
-
 - Automatically trigger the model training and evaluation process whenever changes are pushed to the main branch.
 - Ensure that the latest version of the model is always tested and deployed, maintaining high code quality and performance.
 
@@ -791,7 +792,6 @@ Click + Create Service Account.
 Fill in the Service Account Name and Description.
 Click Create and Continue.
 
-
 ###**Step 2: Assign Roles to the Service Account**
 Go to the Service Account Details:
 Find your newly created service account under Service Accounts.
@@ -799,21 +799,19 @@ Click the Email of the service account.
 Add IAM Policies:
 Click Permissions → Grant Access → Add Another Role.
 Assign roles based on the CI/CD pipeline needs:
-Cloud Build Editor (roles/cloudbuild.builds.editor) — for running builds.
-Artifact Registry Writer (roles/artifactregistry.writer) — for pushing/pulling images.
-Service Account User (roles/iam.serviceAccountUser) — for impersonation.
-Storage Admin (roles/storage.admin) — for accessing GCS (if needed).
-For deployment-specific roles (i.e. Cloud Run), add additional roles.
+Compute Admin (roles/Compute Admin) — to manage and administer Google Compute Engine resources, including creating, modifying, and deleting VMs, disks, and related compute resources.
+Compute Instance Admin (roles/Compute Instance Admin) —  to manage and administer individual VM instances, including starting, stopping, updating configurations, and attaching or detaching disks and networks
+Service Account User (roles/iam.serviceAccountUser) — to allow users to impersonate or act as a service account, enabling them to use the service account's identity and permissions for API calls or running applications.
+Storage Object Viewer (roles/Storage Object Viewer) — to grant read-only access to objects in a Google Cloud Storage bucket, allowing users to view and download storage objects without modifying them.
+Editor (roles/Editor) — to modify most resources within a Google Cloud project, including creating, updating, and deleting resources, but does not allow changes to IAM policies or billing settings
 Save Permissions:
 After assigning roles, click Save to confirm.
 
-###**Step 3: Generate a Key for the Service Account**
-Create a Key:
-In the Service Account details, go to Keys → Add Key → Create New Key.
-Select JSON as the key type.
-Click Create to download the key file.
-Store the Key Securely:
-The downloaded file is sensitive. Do not commit it to your GitHub repository or share it.
+![image](https://github.com/user-attachments/assets/bbbe6956-9ac9-484f-8de1-07e18964afa1)
+
+###**Step 3: Service Account key**
+We did not generate any key specific to the service account. The service account works at the user-level authentication in the context of CI/CD workflows here. It is tied with the user account.The service account inherits these permissions for all resources in the project(My-first-project).
+![CI_CD_SA_permissions](https://github.com/user-attachments/assets/3ec0afba-6d09-410c-adbf-a20e140893a6)
 
 ###**Step 4: Add the Key to GitHub Secrets**
 Go to Your GitHub Repository:
@@ -827,10 +825,41 @@ Use the Secret in Your Workflow:
 Add a step in your GitHub Actions workflow to authenticate with GCP using the service account key.
 As shown below in the code snippet, the project ID and GCP_SA_Key are attached in the .yml file.
 
+![CI_CD_yml_sa_key](https://github.com/user-attachments/assets/42ba3273-ea2b-4e5b-8dfd-6633310f56b1)
 
 All steps from "Model Deployment on Google Cloud Platform" are automated in GitHub Actions using gcloud CLI commands. Global variables are defined as environment variables, and the startup and setup scripts are stored in the runner directory for execution on the VM.  
 
 ## CICD Implementation
+
+###**CICD - Run**###
+The workflow need to be completed successfully.
+![CI_CD_yml_successful_run_part1](https://github.com/user-attachments/assets/5acfafb6-b735-4cb3-91e4-b4d60f887b83)
+
+![CI_CD_yml_successful_run_part2](https://github.com/user-attachments/assets/cb1948c5-eae3-4add-bdf9-b7d0250b3325)
+
+Total runtime for deployment from creating VM instance to load balancer is 21 minutes.
+![CI_CD_yml_time](https://github.com/user-attachments/assets/5b96b480-86d0-4e0a-93ae-b184cc3c6079)
+
+###**CICD - Validation**###
+
+Instance template and Managed Instance need to created successfully.
+
+![CI_CD_yml_template_instance_image_code](https://github.com/user-attachments/assets/810a0b17-4451-4220-9ded-dcdb143888ef)
+
+![CI_CD_yml_template_image](https://github.com/user-attachments/assets/217e77b5-907c-45c6-ad37-4387db56ccba)
+
+Load Balancer should assign the IPs for front end and back end service. Once it is done, app should be visible from the front end IP.
+
+CICD Code
+![CI_CD_yml_lb_code](https://github.com/user-attachments/assets/d166eec2-8b85-48c1-b003-3ef5bb8919ca)
+
+Cloud Console
+![CI_CD_yml_load_balance_MIG_IP](https://github.com/user-attachments/assets/80833e0e-05f6-415d-822e-b61dbaac7147)
+
+![CI_CD_yml_load_balance_IP_URL](https://github.com/user-attachments/assets/a73258de-d993-4cbf-ac01-ad5d9cf34ffd)
+
+UI
+![CI_CD_yml_load_balance_IP_URL](https://github.com/user-attachments/assets/2fe1cec1-8959-49b1-ba6e-a34465da3cad)
 
 # Cost Analysis
 
